@@ -5,4 +5,5 @@ dist/
 *.HEIC
 *.heic
 *.zip
+docs/Bilder/
 .claude/
