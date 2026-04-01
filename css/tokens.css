@@ -6,7 +6,7 @@
   /* Colors — Core (Brand Identity) */
   --color-dark-green: #1B5E20;       /* Deep Forest */
   --color-medium-green: #2E6F40;     /* Forest Green */
-  --color-light-green: #6B8D53;      /* Sage */
+  --color-light-green: #577842;      /* Sage — darkened for AA contrast (4.6:1 on #FFFDF5) */
   --color-lime: #8EB69B;             /* Light Sage */
   --color-amber: #FFBF00;            /* Amber */
   --color-soft-gold: #D4AF37;        /* Soft Gold */
@@ -26,7 +26,7 @@
   /* Typography */
   --font-display: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-size-body: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --font-size-body: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
   --font-size-small: 0.9375rem;
   --font-size-h1: clamp(2rem, 1.6rem + 2vw, 3.25rem);
   --font-size-h2: clamp(1.625rem, 1.4rem + 1.1vw, 2.25rem);
@@ -44,16 +44,17 @@
   --spacing-xl: 4rem;
   --spacing-2xl: 6rem;
 
-  /* Radius */
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 22px;
-  --radius-pill: 50px;
+  /* Radius — aligned with Design System v1.0 */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-pill: 9999px;
 
-  /* Shadows — using brand green tint */
-  --shadow-soft: 0 2px 16px rgba(27, 94, 32, 0.06);
-  --shadow-card: 0 4px 24px rgba(27, 94, 32, 0.08);
-  --shadow-elevated: 0 8px 40px rgba(27, 94, 32, 0.1);
+  /* Shadows — aligned with Design System v1.0, green-tinted */
+  --shadow-soft: 0 1px 3px rgba(27, 94, 32, 0.06);
+  --shadow-card: 0 4px 12px rgba(27, 94, 32, 0.08);
+  --shadow-elevated: 0 12px 32px rgba(27, 94, 32, 0.1);
 
   /* Layout */
   --max-width: 1200px;
@@ -63,4 +64,15 @@
   --transition-fast: 0.2s ease;
   --transition-medium: 0.35s ease;
   --transition-slow: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ========================================
+   FONT-SIZE OVERRIDE — large mode
+   ======================================== */
+html[data-font-size="large"] {
+  --font-size-body: clamp(1.3rem, 1.15rem + 0.6vw, 1.5rem);
+  --font-size-small: 1.125rem;
+  --font-size-h1: clamp(2.2rem, 1.7rem + 2vw, 3.5rem);
+  --font-size-h2: clamp(1.75rem, 1.5rem + 1.1vw, 2.4rem);
+  --font-size-h3: clamp(1.35rem, 1.2rem + 0.5vw, 1.65rem);
 }

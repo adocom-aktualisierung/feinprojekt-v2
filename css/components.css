@@ -252,6 +252,14 @@
   flex-shrink: 0;
 }
 
+.workshop-card-cta {
+  margin-top: auto;
+  align-self: flex-start;
+  font-size: var(--font-size-small) !important;
+  padding: 10px 22px !important;
+  min-height: 44px !important;
+}
+
 .workshops-cta {
   text-align: center;
   margin-top: var(--spacing-xl);
@@ -645,4 +653,266 @@ textarea.form-input {
 
 .location-item p:last-child {
   font-size: var(--font-size-small);
+}
+
+/* ========================================
+   TOAST NOTIFICATIONS
+   ======================================== */
+.toast {
+  position: fixed;
+  top: calc(var(--header-height) + var(--spacing-sm));
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  z-index: 2000;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--font-size-small);
+  box-shadow: var(--shadow-elevated);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-medium), transform var(--transition-medium);
+  max-width: 480px;
+  width: calc(100% - 2 * var(--spacing-md));
+  text-align: center;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.toast--success {
+  background: var(--color-medium-green);
+  color: var(--color-white);
+}
+
+.toast--error {
+  background: #C43333;
+  color: #fff;
+}
+
+/* ========================================
+   FORM SUCCESS STATE
+   ======================================== */
+.form-success {
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.form-success-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--spacing-md);
+  background: rgba(46, 111, 64, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-success-icon svg {
+  width: 32px;
+  height: 32px;
+  fill: var(--color-medium-green);
+}
+
+.form-success h3 {
+  margin-bottom: var(--spacing-xs);
+}
+
+.form-success p {
+  color: var(--color-warm-gray);
+}
+
+/* ========================================
+   FORM INLINE VALIDATION
+   ======================================== */
+.form-input.is-invalid {
+  border-color: #C43333;
+}
+
+.form-input.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(196, 51, 51, 0.12);
+  border-color: #C43333;
+}
+
+.form-error-message {
+  color: #991B1B;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: none;
+}
+
+.form-input.is-invalid + .form-error-message {
+  display: block;
+}
+
+/* ========================================
+   REGISTRATION DIALOG
+   ======================================== */
+dialog {
+  border: none;
+  border-radius: var(--radius-xl);
+  padding: 0;
+  max-width: 540px;
+  width: calc(100vw - 2 * var(--spacing-md));
+  box-shadow: var(--shadow-elevated);
+  background: var(--color-white);
+}
+
+dialog::backdrop {
+  background: rgba(26, 26, 20, 0.55);
+  backdrop-filter: blur(3px);
+}
+
+.dialog-inner {
+  padding: var(--spacing-lg);
+  position: relative;
+}
+
+.dialog-close {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: var(--color-cream);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.dialog-close:hover {
+  background: rgba(27, 94, 32, 0.1);
+}
+
+.dialog-close svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--color-warm-gray);
+}
+
+.dialog-inner h2 {
+  font-size: var(--font-size-h3);
+  margin-bottom: var(--spacing-xs);
+  padding-right: 48px;
+}
+
+.dialog-workshop-info {
+  font-size: var(--font-size-small);
+  color: var(--color-warm-gray);
+  background: var(--color-cream);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.5;
+}
+
+.dialog-note {
+  font-size: 0.82rem;
+  color: var(--color-warm-gray);
+  margin-top: var(--spacing-sm);
+  line-height: 1.5;
+}
+
+/* ========================================
+   DOWNLOAD SECTION
+   ======================================== */
+.download-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.download-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  text-decoration: none;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition-fast);
+}
+
+.download-card:hover {
+  box-shadow: var(--shadow-card);
+  border-color: var(--color-border-mid);
+  transform: translateX(3px);
+}
+
+.download-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(46, 111, 64, 0.1);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.download-icon svg {
+  width: 26px;
+  height: 26px;
+  fill: var(--color-medium-green);
+}
+
+.download-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.download-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-dark-green);
+  font-size: 1rem;
+}
+
+.download-meta {
+  font-size: 0.82rem;
+  color: var(--color-warm-gray);
+}
+
+.download-arrow {
+  flex-shrink: 0;
+}
+
+.download-arrow svg {
+  width: 22px;
+  height: 22px;
+  fill: var(--color-medium-green);
+}
+
+/* ========================================
+   OPENSTREETMAP EMBEDS
+   ======================================== */
+.map-container {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  height: 220px;
+  margin-top: var(--spacing-sm);
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
 }
