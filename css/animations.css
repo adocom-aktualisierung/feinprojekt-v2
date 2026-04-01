@@ -1,0 +1,47 @@
+/* ========================================
+   KEYFRAMES
+   ======================================== */
+@keyframes morphBlob {
+  0%, 100% { border-radius: 47% 53% 61% 39% / 45% 51% 49% 55%; }
+  25% { border-radius: 55% 45% 40% 60% / 52% 48% 52% 48%; }
+  50% { border-radius: 40% 60% 55% 45% / 58% 42% 58% 42%; }
+  75% { border-radius: 52% 48% 48% 52% / 42% 58% 42% 58%; }
+}
+
+/* ========================================
+   SCROLL ANIMATIONS
+   ======================================== */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-1 { transition-delay: 0.08s; }
+.stagger-2 { transition-delay: 0.16s; }
+.stagger-3 { transition-delay: 0.24s; }
+.stagger-4 { transition-delay: 0.32s; }
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html { scroll-behavior: auto; }
+
+  .fade-up {
+    opacity: 1;
+    transform: none;
+  }
+}

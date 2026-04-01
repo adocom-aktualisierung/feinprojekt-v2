@@ -1,0 +1,66 @@
+/* ========================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   Aligned with Brand Identity — Mavka.Berlin
+   ======================================== */
+:root {
+  /* Colors — Core (Brand Identity) */
+  --color-dark-green: #1B5E20;       /* Deep Forest */
+  --color-medium-green: #2E6F40;     /* Forest Green */
+  --color-light-green: #6B8D53;      /* Sage */
+  --color-lime: #8EB69B;             /* Light Sage */
+  --color-amber: #FFBF00;            /* Amber */
+  --color-soft-gold: #D4AF37;        /* Soft Gold */
+
+  /* Colors — Neutral */
+  --color-cream: #FDFBD4;
+  --color-sand: #F4E9D8;
+  --color-mint: #D4E9E2;
+  --color-warm-gray: #4A4A4A;        /* Warm Charcoal */
+  --color-white: #FFFDF5;            /* Brand White */
+  --color-off-white: #FAFAF5;
+  --color-dark: #2A2A2A;
+  --color-border: rgba(27, 94, 32, 0.1);
+  --color-border-mid: rgba(27, 94, 32, 0.2);
+  --color-hero-overlay: rgba(26, 26, 20, 0.42);
+
+  /* Typography */
+  --font-display: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-body: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --font-size-small: 0.9375rem;
+  --font-size-h1: clamp(2rem, 1.6rem + 2vw, 3.25rem);
+  --font-size-h2: clamp(1.625rem, 1.4rem + 1.1vw, 2.25rem);
+  --font-size-h3: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --font-size-nav: 1.0625rem;
+
+  --line-height-body: 1.65;
+  --line-height-heading: 1.25;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2.5rem;
+  --spacing-xl: 4rem;
+  --spacing-2xl: 6rem;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 50px;
+
+  /* Shadows — using brand green tint */
+  --shadow-soft: 0 2px 16px rgba(27, 94, 32, 0.06);
+  --shadow-card: 0 4px 24px rgba(27, 94, 32, 0.08);
+  --shadow-elevated: 0 8px 40px rgba(27, 94, 32, 0.1);
+
+  /* Layout */
+  --max-width: 1200px;
+  --header-height: 80px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.35s ease;
+  --transition-slow: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}

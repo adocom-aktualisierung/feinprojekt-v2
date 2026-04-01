@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Identity — Gemeinsam Kochen – Gemeinsam Wachsen</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES — Brand Tokens
+   ============================================================ */
+:root {
+  /* Tier 1 — Core */
+  --deep-forest: #1B5E20;
+  --forest-green: #2E6F40;
+  --amber: #FFBF00;
+  --warm-charcoal: #4A4A4A;
+
+  /* Tier 2 — Extended */
+  --sage: #6B8D53;
+  --mint: #D4E9E2;
+  --soft-gold: #D4AF37;
+  --dark-amber: #D79334;
+  --cream: #FDFBD4;
+  --sand: #F4E9D8;
+  --light-sage: #8EB69B;
+
+  /* Neutrals */
+  --white: #FFFDF5;
+  --off-white: #FAFAF5;
+  --border-light: rgba(27, 94, 32, 0.1);
+  --border-mid: rgba(27, 94, 32, 0.2);
+
+  /* Typography */
+  --font-display: 'Nunito', sans-serif;
+  --font-body: 'Atkinson Hyperlegible', sans-serif;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 8rem;
+
+  /* Radius */
+  --radius: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(27, 94, 32, 0.06);
+  --shadow-md: 0 4px 12px rgba(27, 94, 32, 0.08);
+  --shadow-lg: 0 12px 32px rgba(27, 94, 32, 0.1);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 112.5%; /* 18px base */
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--warm-charcoal);
+  background: var(--off-white);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  color: var(--deep-forest);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+a { color: var(--forest-green); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+a:hover { color: var(--deep-forest); }
+
+img { max-width: 100%; display: block; }
+
+::selection {
+  background: var(--mint);
+  color: var(--deep-forest);
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.narrow {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   NAVIGATION — Table of Contents sidebar
+   ============================================================ */
+.toc-nav {
+  position: fixed;
+  top: 50%;
+  right: var(--space-md);
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.toc-nav:hover { opacity: 1; }
+.toc-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sage);
+  border: 2px solid transparent;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.toc-dot:hover, .toc-dot.active {
+  background: var(--deep-forest);
+  transform: scale(1.4);
+}
+@media (max-width: 900px) { .toc-nav { display: none; } }
+
+/* ============================================================
+   COVER
+   ============================================================ */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(27, 94, 32, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(255, 191, 0, 0.06) 0%, transparent 50%),
+    var(--cream);
+  padding: var(--space-xl) var(--space-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -150px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(107, 141, 83, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.cover-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--deep-forest);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.25rem;
+  border-radius: 50px;
+  margin-bottom: var(--space-lg);
+}
+
+.cover h1 {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: var(--space-sm);
+  max-width: 16ch;
+}
+
+.cover h1 span {
+  color: var(--amber);
+  display: inline;
+}
+
+.cover-subtitle {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--sage);
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+}
+
+.cover-meta {
+  font-size: 0.85rem;
+  color: var(--sage);
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cover-divider {
+  width: 60px;
+  height: 3px;
+  background: var(--amber);
+  border-radius: 2px;
+  margin: var(--space-lg) auto;
+}
+
+/* Leaf Decorations — SVG */
+.leaf-deco {
+  position: absolute;
+  opacity: 0.06;
+  pointer-events: none;
+}
+.leaf-deco.top-left {
+  top: 40px; left: 40px;
+  width: 180px;
+  transform: rotate(-15deg);
+}
+.leaf-deco.bottom-right {
+  bottom: 40px; right: 40px;
+  width: 220px;
+  transform: rotate(160deg);
+}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+section {
+  padding: var(--space-3xl) 0;
+}
+
+section:nth-child(even) {
+  background:
+    radial-gradient(ellipse at 10% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+    var(--white);
+}
+
+.section-number {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: var(--space-sm);
+}
+.section-number::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  background: var(--amber);
+  border-radius: 1px;
+}
+
+.section-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin-bottom: var(--space-xs);
+}
+
+.section-lead {
+  font-size: 1.15rem;
+  color: var(--sage);
+  max-width: 60ch;
+  margin-bottom: var(--space-xl);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: transform 0.25s cubic-bezier(0.33, 1, 0.68, 1), box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--mint);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-sm);
+  color: var(--deep-forest);
+}
+
+.card h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.card--accent {
+  border-left: 4px solid var(--amber);
+}
+
+.card--dark {
+  background: var(--deep-forest);
+  color: var(--cream);
+  border-color: transparent;
+}
+.card--dark h4 { color: var(--amber); }
+.card--dark p { color: rgba(253, 251, 212, 0.85); }
+
+/* ============================================================
+   COLOR SWATCHES
+   ============================================================ */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+.swatch {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+.swatch:hover { transform: translateY(-2px); }
+
+.swatch-color {
+  height: 100px;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-sm);
+}
+
+.swatch-color span {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.swatch-info {
+  padding: var(--space-sm) var(--space-md);
+}
+
+.swatch-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--deep-forest);
+}
+
+.swatch-values {
+  font-size: 0.78rem;
+  color: var(--sage);
+  margin-top: 4px;
+  line-height: 1.6;
+}
+
+.contrast-badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+.contrast-badge.aaa {
+  background: var(--deep-forest);
+  color: var(--cream);
+}
+.contrast-badge.aa {
+  background: var(--sage);
+  color: #fff;
+}
+
+/* ============================================================
+   TYPOGRAPHY SPECIMEN
+   ============================================================ */
+.type-specimen {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin: var(--space-lg) 0;
+}
+
+.type-row {
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--border-light);
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: var(--space-md);
+  align-items: baseline;
+}
+.type-row:last-child { border-bottom: none; }
+
+.type-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sage);
+  padding-top: 0.25rem;
+}
+
+.type-sample {
+  color: var(--deep-forest);
+}
+
+.type-meta {
+  font-size: 0.75rem;
+  color: var(--sage);
+  margin-top: 4px;
+}
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+.brand-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  margin: var(--space-lg) 0;
+  font-size: 0.88rem;
+}
+
+.brand-table thead {
+  background: var(--deep-forest);
+  color: var(--cream);
+}
+
+.brand-table th {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+}
+
+.brand-table td {
+  padding: 0.85rem var(--space-md);
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+}
+
+.brand-table tbody tr:last-child td { border-bottom: none; }
+.brand-table tbody tr:nth-child(even) { background: rgba(212, 233, 226, 0.15); }
+
+.brand-table code {
+  font-size: 0.82rem;
+  background: var(--mint);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--deep-forest);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   VOICE MATRIX
+   ============================================================ */
+.voice-matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+}
+@media (max-width: 700px) { .voice-matrix { grid-template-columns: 1fr; } }
+
+.voice-axis {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+.voice-axis h4 {
+  font-size: 0.95rem;
+  margin-bottom: var(--space-sm);
+}
+
+.voice-slider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.voice-slider-bar {
+  flex: 1;
+  height: 8px;
+  background: linear-gradient(to right, var(--mint), var(--deep-forest));
+  border-radius: 4px;
+  position: relative;
+}
+
+.voice-slider-dot {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  background: var(--amber);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+}
+
+.voice-slider-label {
+  font-size: 0.72rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--sage);
+  min-width: 70px;
+}
+.voice-slider-label:last-child { text-align: right; }
+
+/* ============================================================
+   LOGO DIRECTIONS
+   ============================================================ */
+.logo-direction {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  margin: var(--space-lg) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-direction::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: var(--amber);
+  border-radius: 5px 0 0 5px;
+}
+
+.logo-direction-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.logo-direction-tag {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--mint);
+  color: var(--deep-forest);
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+.logo-direction h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.logo-specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border-light);
+}
+
+.logo-spec-item {
+  font-size: 0.85rem;
+}
+.logo-spec-item strong {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--deep-forest);
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+/* ============================================================
+   ILLUSTRATION GUIDES
+   ============================================================ */
+.illus-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+.illus-item {
+  text-align: center;
+  padding: var(--space-md);
+  background: var(--cream);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+}
+
+.illus-item svg {
+  margin: 0 auto var(--space-sm);
+  display: block;
+}
+
+.illus-item p {
+  font-size: 0.78rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--deep-forest);
+}
+
+/* ============================================================
+   DO / DON'T
+   ============================================================ */
+.do-dont {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+}
+@media (max-width: 700px) { .do-dont { grid-template-columns: 1fr; } }
+
+.do-box, .dont-box {
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  font-size: 0.9rem;
+}
+
+.do-box {
+  background: rgba(212, 233, 226, 0.3);
+  border: 2px solid var(--forest-green);
+}
+.do-box h4 { color: var(--deep-forest); }
+.do-box h4::before { content: '✓ '; color: var(--forest-green); }
+
+.dont-box {
+  background: rgba(215, 147, 52, 0.08);
+  border: 2px solid var(--dark-amber);
+}
+.dont-box h4 { color: var(--dark-amber); }
+.dont-box h4::before { content: '✗ '; }
+
+.do-box ul, .dont-box ul {
+  margin-top: 0.5rem;
+  padding-left: 1.25rem;
+  line-height: 1.8;
+}
+
+/* ============================================================
+   BRAND BOOK STRUCTURE
+   ============================================================ */
+.brand-book-toc {
+  counter-reset: page;
+  margin: var(--space-lg) 0;
+}
+
+.toc-item {
+  counter-increment: page;
+  display: grid;
+  grid-template-columns: 50px 1fr auto;
+  gap: var(--space-sm);
+  align-items: baseline;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.92rem;
+}
+
+.toc-page {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: var(--sage);
+}
+
+.toc-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--deep-forest);
+}
+
+.toc-desc {
+  font-size: 0.78rem;
+  color: var(--sage);
+}
+
+/* ============================================================
+   APPLICATION MOCKUPS
+   ============================================================ */
+.mockup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+.mockup {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  background: #fff;
+  box-shadow: var(--shadow-md);
+}
+
+.mockup-header {
+  padding: var(--space-md) var(--space-md);
+  background: var(--deep-forest);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mockup-body {
+  padding: var(--space-lg);
+}
+
+/* ============================================================
+   DIVIDERS — Hand-drawn style
+   ============================================================ */
+.divider {
+  text-align: center;
+  margin: var(--space-xl) 0;
+  position: relative;
+}
+.divider svg {
+  opacity: 0.12;
+}
+
+/* ============================================================
+   HIGHLIGHT BOX
+   ============================================================ */
+.highlight {
+  background: var(--cream);
+  border-left: 4px solid var(--amber);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: var(--space-md) var(--space-lg);
+  margin: var(--space-lg) 0;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+.highlight strong {
+  color: var(--deep-forest);
+}
+
+/* ============================================================
+   CSS CODE BLOCK
+   ============================================================ */
+.code-block {
+  background: #1a2e1a;
+  color: #a8d5a8;
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin: var(--space-lg) 0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  line-height: 1.8;
+  overflow-x: auto;
+  border: 1px solid rgba(27, 94, 32, 0.3);
+}
+.code-block .comment { color: #6b8d53; }
+.code-block .prop { color: #d4af37; }
+.code-block .val { color: #d4e9e2; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.brand-footer {
+  background: var(--deep-forest);
+  color: var(--cream);
+  padding: var(--space-2xl) var(--space-md);
+  text-align: center;
+}
+.brand-footer p {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  line-height: 1.7;
+}
+.brand-footer .footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--amber);
+  margin-bottom: var(--space-sm);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 700px) {
+  section { padding: var(--space-2xl) 0; }
+  .type-row { grid-template-columns: 1fr; }
+  .swatch-grid { grid-template-columns: 1fr 1fr; }
+  .card-grid { grid-template-columns: 1fr; }
+  .do-dont { grid-template-columns: 1fr; }
+  .cover h1 { font-size: 2rem; }
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+  body { font-size: 11pt; }
+  .toc-nav { display: none; }
+  section { break-inside: avoid; padding: 2cm 0; }
+  .card:hover { transform: none; box-shadow: none; }
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.cover > * {
+  animation: fadeUp 0.8s ease-out both;
+}
+.cover > *:nth-child(2) { animation-delay: 0.1s; }
+.cover > *:nth-child(3) { animation-delay: 0.2s; }
+.cover > *:nth-child(4) { animation-delay: 0.3s; }
+.cover > *:nth-child(5) { animation-delay: 0.4s; }
+.cover > *:nth-child(6) { animation-delay: 0.5s; }
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     NAV DOTS
+     ============================================================ -->
+<nav class="toc-nav" aria-label="Kapitelnavigation">
+  <a href="#cover" class="toc-dot active" title="Titelseite"></a>
+  <a href="#strategy" class="toc-dot" title="01 Brand Strategy"></a>
+  <a href="#logo" class="toc-dot" title="02 Logo System"></a>
+  <a href="#color" class="toc-dot" title="03 Farbsystem"></a>
+  <a href="#typography" class="toc-dot" title="04 Typografie"></a>
+  <a href="#imagery" class="toc-dot" title="05 Imagery"></a>
+  <a href="#applications" class="toc-dot" title="06 Anwendungen"></a>
+  <a href="#brandbook" class="toc-dot" title="07 Brand Book"></a>
+</nav>
+
+<!-- ============================================================
+     COVER
+     ============================================================ -->
+<header class="cover" id="cover">
+
+  <!-- Decorative Leaf SVGs -->
+  <svg class="leaf-deco top-left" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 20 C60 40 20 80 30 140 C40 160 70 170 100 160 C130 150 160 120 170 80 C175 50 140 10 100 20Z" fill="#1B5E20"/>
+    <path d="M100 20 C100 60 95 100 100 160" stroke="#1B5E20" stroke-width="2" fill="none"/>
+    <path d="M60 80 C80 75 95 85 100 95" stroke="#1B5E20" stroke-width="1.5" fill="none"/>
+    <path d="M140 60 C120 65 105 75 100 85" stroke="#1B5E20" stroke-width="1.5" fill="none"/>
+  </svg>
+
+  <svg class="leaf-deco bottom-right" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 20 C60 40 20 80 30 140 C40 160 70 170 100 160 C130 150 160 120 170 80 C175 50 140 10 100 20Z" fill="#1B5E20"/>
+    <path d="M100 20 C100 60 95 100 100 160" stroke="#1B5E20" stroke-width="2" fill="none"/>
+  </svg>
+
+  <div class="cover-badge">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+    </svg>
+    Brand Identity System — 2026
+  </div>
+
+  <h1>Gemeinsam Kochen – Gemeinsam <span>Wachsen</span></h1>
+
+  <p class="cover-subtitle">Vollständige Markenidentität für das FEIN-Pilotprojekt<br>von Mavka.Berlin.Volunteers</p>
+
+  <div class="cover-divider"></div>
+
+  <div class="cover-meta">
+    <span>Berlin-Lichtenberg</span>
+    <span>·</span>
+    <span>Januar – Dezember 2026</span>
+    <span>·</span>
+    <span>Creative Direction</span>
+  </div>
+</header>
+
+
+<!-- ============================================================
+     01 — BRAND STRATEGY
+     ============================================================ -->
+<section id="strategy">
+  <div class="container">
+    <div class="narrow">
+      <div class="section-number">01 — Brand Strategy</div>
+      <h2 class="section-title">Die Seele der Marke</h2>
+      <p class="section-lead">Eine Markenidentität, die sich anfühlt wie eine Einladung an den Küchentisch der Nachbarschaft — warm, ehrlich, ohne Hürden.</p>
+    </div>
+
+    <!-- STORY -->
+    <div class="narrow">
+      <h3 style="font-size:1.3rem; margin-bottom: var(--space-md); margin-top: var(--space-xl);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round" style="vertical-align:-3px; margin-right:6px;">
+          <path d="M12 6.5a6 6 0 0 1 6 6c0 3-2 5-6 8.5C8 17.5 6 15.5 6 12.5a6 6 0 0 1 6-6z"/>
+        </svg>
+        Origin Story
+      </h3>
+      <p>In Hohenschönhausen, Alt-Lichtenberg und Rummelsburg leben Menschen, die oft aneinander vorbeigehen — Senior*innen, die allein kochen; Familien, die neue Nachbarn suchen; Zugewanderte, die Anschluss brauchen. <strong>Mavka.Berlin.Volunteers</strong> entstand aus der Überzeugung, dass eine gemeinsame Mahlzeit mehr verbinden kann als jedes Förderprogramm. „Gemeinsam Kochen – Gemeinsam Wachsen" ist der erste Beweis dafür.</p>
+
+      <h3 style="font-size:1.3rem; margin: var(--space-xl) 0 var(--space-md);">Mission</h3>
+      <p>Wir schaffen offene Begegnungsräume durch gemeinsames Kochen und Backen — niedrigschwellig, generationenübergreifend und kulturverbindend. Wir fördern nachhaltige Ernährung, Wertschätzung von Lebensmitteln und aktive Teilhabe am Kiezleben.</p>
+
+      <h3 style="font-size:1.3rem; margin: var(--space-xl) 0 var(--space-md);">Vision</h3>
+      <p>Ein Berlin, in dem jeder Kiez einen Ort hat, an dem Kochen Nachbarschaft stiftet — und Mavka.Berlin.Volunteers das Netzwerk, das diese Orte ermöglicht.</p>
+
+      <div class="highlight">
+        <strong>Brand Promise:</strong> Wer bei uns durch die Tür kommt, geht als Teil der Nachbarschaft wieder hinaus.
+      </div>
+    </div>
+
+    <!-- VALUES -->
+    <div class="card-grid" style="margin-top: var(--space-xl);">
+      <div class="card card--accent">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+        </div>
+        <h4>Gemeinschaft</h4>
+        <p>Jedes Rezept hat so viele Köch*innen wie es Geschichten am Tisch gibt. Wir kochen nie allein.</p>
+      </div>
+      <div class="card card--accent">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M2 12h20"/></svg>
+        </div>
+        <h4>Nachhaltigkeit</h4>
+        <p>Wir kochen mit dem, was da ist — saisonal, regional, wertschätzend. Reste sind Rohstoffe.</p>
+      </div>
+      <div class="card card--accent">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h4>Teilhabe</h4>
+        <p>Keine Vorkenntnisse, keine Kosten, keine Hürden. Wer kommen möchte, ist willkommen.</p>
+      </div>
+      <div class="card card--accent">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h4>Transparenz</h4>
+        <p>Öffentliches Geld, öffentliche Ergebnisse. Wir dokumentieren offen, was wir tun und erreichen.</p>
+      </div>
+    </div>
+
+    <!-- ARCHETYPE -->
+    <div class="narrow" style="margin-top: var(--space-2xl);">
+      <h3 style="font-size:1.3rem; margin-bottom: var(--space-md);">Archetyp: Der Gastgeber <span style="color: var(--sage); font-weight:400; font-size:0.9rem;">(The Caregiver × The Everyperson)</span></h3>
+      <p>Nicht der Held, der rettet. Nicht der Weise, der belehrt. Sondern die warmherzige Nachbarin, die den Topf auf den Herd stellt und sagt: <em>„Komm, setz dich dazu."</em> Der Archetyp vereint fürsorgliche Hingabe (Caregiver) mit bodenständiger Nahbarkeit (Everyperson). Das ist entscheidend für das Vertrauen von Senior*innen, die keine Institution wollen, sondern einen Menschen.</p>
+
+      <p style="margin-top: var(--space-md);"><strong>Strategische Begründung:</strong> Der Caregiver-Archetyp baut Vertrauen bei der primären Zielgruppe (Senior*innen, Familien), weil er Fürsorge ohne Hierarchie signalisiert. Der Everyperson-Anteil verhindert, dass die Marke bevormundend wirkt — eine häufige Falle sozialer Projekte. Für Förderer und Partner kommuniziert diese Kombination Verlässlichkeit und Bodenhaftung.</p>
+    </div>
+
+    <!-- VOICE MATRIX -->
+    <div class="narrow" style="margin-top: var(--space-2xl);">
+      <h3 style="font-size:1.3rem; margin-bottom: var(--space-md);">Voice Matrix</h3>
+      <p style="margin-bottom: var(--space-md);">Die Markenstimme bewegt sich bewusst auf diesen Achsen — der goldene Punkt (●) zeigt die Zielposition:</p>
+    </div>
+
+    <div class="voice-matrix">
+      <div class="voice-axis">
+        <h4>Ton</h4>
+        <div class="voice-slider">
+          <span class="voice-slider-label">Formell</span>
+          <div class="voice-slider-bar">
+            <div class="voice-slider-dot" style="left: 75%;"></div>
+          </div>
+          <span class="voice-slider-label">Freundlich</span>
+        </div>
+        <p style="font-size:0.82rem; color: var(--sage); margin-top: 6px;">Freundlich, aber nie flapsig. „Du"-Form in der Community, „Sie"-Form für Förderer und Behörden.</p>
+      </div>
+      <div class="voice-axis">
+        <h4>Energie</h4>
+        <div class="voice-slider">
+          <span class="voice-slider-label">Ruhig</span>
+          <div class="voice-slider-bar">
+            <div class="voice-slider-dot" style="left: 40%;"></div>
+          </div>
+          <span class="voice-slider-label">Aktivierend</span>
+        </div>
+        <p style="font-size:0.82rem; color: var(--sage); margin-top: 6px;">Einladend statt drängend. Sanfte Handlungsaufforderungen: „Komm vorbei", nicht „Jetzt anmelden!"</p>
+      </div>
+      <div class="voice-axis">
+        <h4>Reichweite</h4>
+        <div class="voice-slider">
+          <span class="voice-slider-label">Lokal</span>
+          <div class="voice-slider-bar">
+            <div class="voice-slider-dot" style="left: 30%;"></div>
+          </div>
+          <span class="voice-slider-label">Universal</span>
+        </div>
+        <p style="font-size:0.82rem; color: var(--sage); margin-top: 6px;">Kiezbezogen und konkret. Straßennamen, Ortsangaben, Berliner Verortung. Universal nur im Thema Essen.</p>
+      </div>
+      <div class="voice-axis">
+        <h4>Komplexität</h4>
+        <div class="voice-slider">
+          <span class="voice-slider-label">Einfach</span>
+          <div class="voice-slider-bar">
+            <div class="voice-slider-dot" style="left: 25%;"></div>
+          </div>
+          <span class="voice-slider-label">Fachlich</span>
+        </div>
+        <p style="font-size:0.82rem; color: var(--sage); margin-top: 6px;">Leichte Sprache als Grundhaltung. Keine Fachbegriffe ohne Erklärung. Immer konkret, nie abstrakt.</p>
+      </div>
+    </div>
+
+    <!-- MESSAGING HIERARCHY -->
+    <div class="narrow" style="margin-top: var(--space-2xl);">
+      <h3 style="font-size:1.3rem; margin-bottom: var(--space-md);">Messaging-Hierarchie</h3>
+    </div>
+
+    <div class="card--dark card" style="max-width: 780px; margin: var(--space-md) auto; border-radius: var(--radius-xl);">
+      <h4 style="font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-sm);">Elevator Pitch (30 Sek.)</h4>
+      <p style="font-size: 1.15rem; line-height: 1.6;">„Gemeinsam Kochen – Gemeinsam Wachsen" bringt Nachbar*innen in Lichtenberg durch Back- und Kochworkshops zusammen. Senior*innen, Familien und Zugewanderte kochen Seite an Seite — und stärken dabei den Zusammenhalt im Kiez.</p>
+    </div>
+
+    <div class="narrow">
+      <h4 style="font-family: var(--font-display); font-size: 0.95rem; margin: var(--space-xl) 0 var(--space-sm);">Drei Kernbotschaften</h4>
+    </div>
+
+    <div class="card-grid" style="max-width: 780px; margin: 0 auto;">
+      <div class="card">
+        <h4 style="color: var(--amber);">1. Essen verbindet</h4>
+        <p>Beim Kochen entstehen Gespräche, die an der Bushaltestelle nie stattfinden würden. Jeder Workshop ist ein Begegnungsraum.</p>
+      </div>
+      <div class="card">
+        <h4 style="color: var(--amber);">2. Vielfalt am Tisch</h4>
+        <p>Deutsche Brötchen neben syrischem Fladenbrot, ukrainischer Borschtsch neben vietnamesischer Pho — kulturelle Vielfalt, die man schmecken kann.</p>
+      </div>
+      <div class="card">
+        <h4 style="color: var(--amber);">3. Nachhaltig & nah</h4>
+        <p>Regional, saisonal, ohne Verschwendung. Wir zeigen, dass nachhaltige Ernährung kein Luxus ist, sondern gelebte Nachbarschaft.</p>
+      </div>
+    </div>
+
+    <div class="narrow" style="margin-top: var(--space-xl);">
+      <h4 style="font-family: var(--font-display); font-size: 0.95rem; margin-bottom: var(--space-sm);">Proof Points</h4>
+      <p>FEIN-Pilotprojekt im Auftrag des Bezirks Lichtenberg · Kooperation mit 4 Nachbarschaftstreffs · Transparente Fördermitteldokumentation auf der Website · Anbindung an „Zu gut für die Tonne!" (BMEL) und „Demokratie leben!"</p>
+
+      <h4 style="font-family: var(--font-display); font-size: 0.95rem; margin: var(--space-lg) 0 var(--space-sm);">CTAs nach Zielgruppe</h4>
+
+      <table class="brand-table">
+        <thead><tr><th>Zielgruppe</th><th>Primärer CTA</th><th>Sekundärer CTA</th></tr></thead>
+        <tbody>
+          <tr><td>Senior*innen, Familien</td><td>„Komm zum nächsten Workshop"</td><td>„Ruf uns an" / „Schreib uns"</td></tr>
+          <tr><td>Ehrenamtliche</td><td>„Mach mit — wir freuen uns auf dich"</td><td>„Erfahre mehr über das Projekt"</td></tr>
+          <tr><td>Förderer & Partner</td><td>„Partner werden"</td><td>„Transparenzbericht lesen"</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     02 — LOGO SYSTEM
+     ============================================================ -->
+<section id="logo">
+  <div class="container">
+    <div class="narrow">
+      <div class="section-number">02 — Logo System</div>
+      <h2 class="section-title">Drei Richtungen, ein Kern</h2>
+      <p class="section-lead">Das bestehende Mavka-Logo als Ausgangspunkt — organisch, ruhig, gemeinschaftlich. Jede Richtung respektiert diese DNA und erweitert sie strategisch.</p>
+    </div>
+
+    <!-- Direction A -->
+    <div class="logo-direction">
+      <div class="logo-direction-header">
+        <span class="logo-direction-tag">Direction A</span>
+        <h3>Evolution — Digital-ready Refinement</h3>
+      </div>
+      <p>Das bestehende Logo wird behutsam optimiert: Vereinfachung der Linien für Bildschirmdarstellung bei kleinen Größen, Bereinigung der Pfade für saubere Skalierung, optische Gewichtung der Blätter für bessere Balance. Die Figurine (Frau im Kreis) bleibt zentrales Element. Ziel: Das Logo wirkt identisch, funktioniert aber in 16px Favicon genauso wie auf einem 3m-Banner.</p>
+
+      <div class="logo-specs">
+        <div class="logo-spec-item">
+          <strong>Varianten</strong>
+          Horizontal · Stacked · Bildmarke solo · Monochrom (1c Grün, 1c Weiß, 1c Schwarz)
+        </div>
+        <div class="logo-spec-item">
+          <strong>Clear Space</strong>
+          Mindestens 1× Blattbreite um das gesamte Logo
+        </div>
+        <div class="logo-spec-item">
+          <strong>Mindestgröße</strong>
+          Bildmarke: 24px digital / 10mm Print · Mit Wortmarke: 100px / 35mm
+        </div>
+        <div class="logo-spec-item">
+          <strong>Hintergründe</strong>
+          Cream, Weiß, Deep Forest (invers) · Nie auf Fotos ohne Schutzfläche
+        </div>
+      </div>
+    </div>
+
+    <!-- Direction B -->
+    <div class="logo-direction">
+      <div class="logo-direction-header">
+        <span class="logo-direction-tag">Direction B</span>
+        <h3>Projekt-Lockup — Sub-Brand mit Rahmen</h3>
+      </div>
+      <p>Ein zweiteiliges System: Die Mavka-Bildmarke (Pflanze mit Figurine) steht links oder oben, rechts daneben oder darunter der Projektname „Gemeinsam Kochen – Gemeinsam Wachsen" in einer weichen, handschriftnahen Gewichtung von Nunito (800, leicht gesperrt). Verbindendes Element: Eine zarte Linie oder ein organischer Bogen, der Träger und Projekt visuell verklammert. Der Zusatz „Ein FEIN-Pilotprojekt" erscheint in Kapitalschrift darunter.</p>
+      <p style="margin-top: var(--space-sm);"><strong>2027-Skalierung:</strong> Beim Shift zur Trägerplattform wird der Projektname austauschbar — jedes neue Projekt erhält das gleiche Lockup-Schema mit eigenem Namen und eigener Akzentfarbe, aber identischer Struktur.</p>
+
+      <div class="logo-specs">
+        <div class="logo-spec-item">
+          <strong>Varianten</strong>
+          Horizontal (Header) · Stacked (Poster, Social) · Kompakt (Favicon = Bildmarke allein)
+        </div>
+        <div class="logo-spec-item">
+          <strong>Responsive Lockups</strong>
+          &gt;600px: Vollständig · 300–600px: Bildmarke + Kurzname · &lt;300px: Bildmarke solo
+        </div>
+        <div class="logo-spec-item">
+          <strong>Farbregeln</strong>
+          Projektname in Deep Forest · „Ein FEIN-Pilotprojekt" in Sage · Akzentlinie in Amber
+        </div>
+        <div class="logo-spec-item">
+          <strong>Clear Space</strong>
+          2× Stammbreite der Pflanze auf allen Seiten
+        </div>
+      </div>
+    </div>
+
+    <!-- Direction C -->
+    <div class="logo-direction">
+      <div class="logo-direction-header">
+        <span class="logo-direction-tag">Direction C</span>
+        <h3>Illustrations-first — Logo als Teil eines Ökosystems</h3>
+      </div>
+      <p>Das Logo wird zum Anker eines visuellen Ökosystems aus handgezeichneten Lebensmittel-Illustrationen. Die Bildmarke bleibt, wird aber um einen Kranz aus 4–6 botanischen Elementen (Brot, Kräuter, Gemüse, Kochlöffel) ergänzt, die in der gleichen Linienstärke und organischen Formensprache gezeichnet sind. Diese Elemente lösen sich auch vom Logo und leben eigenständig als Divider, Card-Dekorationen und Empty States auf der Website.</p>
+      <p style="margin-top: var(--space-sm);"><strong>Warum für Senior*innen ideal:</strong> Die Illustrationen schaffen visuelle Ankerpunkte, die Navigation ohne Text ermöglichen. Ein Brot-Icon neben dem Kalender sagt sofort: „Hier finde ich Backworkshops." Die organische, handgemachte Qualität vermittelt Wärme, die institutionelle Ästhetik nie erreicht.</p>
+
+      <div class="logo-specs">
+        <div class="logo-spec-item">
+          <strong>Assets</strong>
+          12–20 Kern-Illustrationen · 2-Farb-System (Deep Forest + Cream) · SVG + PNG
+        </div>
+        <div class="logo-spec-item">
+          <strong>Verwendung</strong>
+          Divider · Card-Deko · Empty States · Social Sticker · Workshop-Materialien
+        </div>
+        <div class="logo-spec-item">
+          <strong>Stil</strong>
+          Leicht unperfekte Handzeichnung · Organische Kurven · Konsistente 2px Strichstärke
+        </div>
+        <div class="logo-spec-item">
+          <strong>Erweiterung</strong>
+          Jedes Projekt erhält eigene thematische Illustrationen im gleichen Stil
+        </div>
+      </div>
+    </div>
+
+    <!-- DO / DON'T -->
+    <div class="narrow" style="margin-top: var(--space-xl);">
+      <h3 style="font-size:1.15rem; margin-bottom: var(--space-sm);">Logo Do's & Don'ts</h3>
+    </div>
+
+    <div class="do-dont">
+      <div class="do-box">
+        <h4>Do</h4>
+        <ul>
+          <li>Genügend Schutzraum einhalten</li>
+          <li>Auf Cream, Weiß oder Forest-Hintergrund verwenden</li>
+          <li>Invertierte Version auf dunklem Grund nutzen</li>
+          <li>Mindestgröße respektieren</li>
+          <li>Responsive Lockups je nach Viewport</li>
+        </ul>
+      </div>
+      <div class="dont-box">
+        <h4>Don't</h4>
+        <ul>
+          <li>Logo verzerren, drehen oder spiegeln</li>
+          <li>Farben ändern oder Farbverläufe anwenden</li>
+          <li>Auf unruhigen Fotoausschnitten platzieren</li>
+          <li>Schatten oder Outlines hinzufügen</li>
+          <li>Text oder Elemente in die Schutzzone setzen</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     03 — FARBSYSTEM
+     ============================================================ -->
+<section id="color">
+  <div class="container">
+    <div class="narrow">
+      <div class="section-number">03 — Farbsystem</div>
+      <h2 class="section-title">Grün trifft Amber</h2>
+      <p class="section-lead">Grün steht für Wachstum, Nachhaltigkeit und Bio-Kultur. Amber bringt die Wärme des Kochens, goldenes Brot und geteilte Mahlzeiten. Zusammen erzählen sie den Markenkern: <strong>Gemeinsam Kochen – Gemeinsam Wachsen.</strong></p>
+    </div>
+
+    <div class="narrow">
+      <h3 style="font-size:1.15rem; margin: var(--space-xl) 0 var(--space-sm);">Tier 1 — Kernfarben</h3>
+    </div>
+
+    <div class="swatch-grid">
+      <!-- Deep Forest -->
+      <div class="swatch">
+        <div class="swatch-color" style="background: #1B5E20;">
+          <span style="background: rgba(255,255,255,0.9); color: #1B5E20;">Aa</span>
+        </div>
+        <div class="swatch-info">
+          <div class="swatch-name">Deep Forest</div>
+          <div class="swatch-values">
+            <code>#1B5E20</code><br>
+            RGB 27 / 94 / 32<br>
+            CMYK 82 / 0 / 66 / 63<br>
+            ≈ PMS 3425 C
+          </div>
+          <span class="contrast-badge aaa">7.87:1 AAA ✓</span>
+        </div>
+      </div>
+
+      <!-- Forest Green -->
+      <div class="swatch">
+        <div class="swatch-color" style="background: #2E6F40;">
+          <span style="background: rgba(255,255,255,0.9); color: #2E6F40;">Aa</span>
+        </div>
+        <div class="swatch-info">
+          <div class="swatch-name">Forest Green</div>
+          <div class="swatch-values">
+            <code>#2E6F40</code><br>
+            RGB 46 / 111 / 64<br>
+            CMYK 59 / 0 / 42 / 56<br>
+            ≈ PMS 7733 C
+          </div>
+          <span class="contrast-badge aa">6.06:1 AA ✓</span>
+        </div>
+      </div>
+
+      <!-- Amber -->
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FFBF00;">
+          <span style="background: rgba(0,0,0,0.7); color: #FFBF00;">Aa</span>
+        </div>
+        <div class="swatch-info">
+          <div class="swatch-name">Amber</div>
+          <div class="swatch-values">
+            <code>#FFBF00</code><br>
+            RGB 255 / 191 / 0<br>
+            CMYK 0 / 25 / 100 / 0<br>
+            ≈ PMS 137 C
+          </div>
+          <span class="contrast-badge" style="background: var(--dark-amber); color: #fff;">Dekorativ / ≥18pt</span>
+        </div>
+      </div>
+
+      <!-- Warm Charcoal -->
+      <div class="swatch">
+        <div class="swatch-color" style="background: #4A4A4A;">
+          <span style="background: rgba(255,255,255,0.9); color: #4A4A4A;">Aa</span>
+        </div>
+        <div class="swatch-info">
+          <div class="swatch-name">Warm Charcoal</div>
+          <div class="swatch-values">
+            <code>#4A4A4A</code><br>
+            RGB 74 / 74 / 74<br>
+            Fließtext-Schwarz (statt #000)
+          </div>
+          <span class="contrast-badge aaa">9.7:1 AAA ✓</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="narrow">
+      <h3 style="font-size:1.15rem; margin: var(--space-xl) 0 var(--space-sm);">Tier 2 — Erweiterte Palette</h3>
+    </div>
+
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #6B8D53;"><span style="background:rgba(255,255,255,0.9); color:#6B8D53;">Aa</span></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Sage</div>
+          <div class="swatch-values"><code>#6B8D53</code> · Illustrationen, sekundäre Hintergründe<br>≈ PMS 17-0230 TCX</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #D4E9E2;"><span style="background:rgba(0,0,0,0.6); color:#D4E9E2;">Aa</span></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Mint</div>
+          <div class="swatch-values"><code>#D4E9E2</code> · Card-Hintergründe, helle Flächen</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FDFBD4;"><span style="background:rgba(0,0,0,0.6); color:#FDFBD4;">Aa</span></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Cream</div>
+          <div class="swatch-values"><code>#FDFBD4</code> · Seitenhintergrund<br>7.53:1 auf Deep Forest → <span class="contrast-badge aaa" style="font-size:0.6rem;">AAA</span></div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #F4E9D8;"><span style="background:rgba(0,0,0,0.6); color:#F4E9D8;">Aa</span></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Sand</div>
+          <div class="swatch-values"><code>#F4E9D8</code> · Print-Hintergründe, warme Flächen</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #D79334;"><span style="background:rgba(255,255,255,0.9); color:#D79334;">Aa</span></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Dark Amber</div>
+          <div class="swatch-values"><code>#D79334</code> · Buttons auf grünem Hintergrund</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #8EB69B;"><span style="background:rgba(0,0,0,0.6); color:#8EB69B;">Aa</span></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Light Sage</div>
+          <div class="swatch-values"><code>#8EB69B</code> · Dekorative Elemente, Hover-States</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contrast Pairings -->
+    <div class="narrow" style="margin-top: var(--space-xl);">
+      <h3 style="font-size:1.15rem; margin-bottom: var(--space-md);">Kontrastpaare — vorab getestet</h3>
+
+      <table class="brand-table">
+        <thead>
+          <tr><th>Vordergrund</th><th>Hintergrund</th><th>Ratio</th><th>Level</th><th>Verwendung</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>#1B5E20</code> Deep Forest</td><td><code>#FFFFFF</code> Weiß</td><td>7.87:1</td><td>AAA ✓</td><td>Fließtext, Überschriften</td></tr>
+          <tr><td><code>#1B5E20</code> Deep Forest</td><td><code>#FDFBD4</code> Cream</td><td>7.53:1</td><td>AAA ✓</td><td>Warme Alternative zu Weiß</td></tr>
+          <tr><td><code>#4A4A4A</code> Charcoal</td><td><code>#FFFFFF</code> Weiß</td><td>9.70:1</td><td>AAA ✓</td><td>Body-Text (Standard)</td></tr>
+          <tr><td><code>#FFBF00</code> Amber</td><td><code>#1B5E20</code> Deep Forest</td><td>4.76:1</td><td>AA ✓</td><td>Nur ≥18pt Text</td></tr>
+          <tr><td><code>#FDFBD4</code> Cream</td><td><code>#1B5E20</code> Deep Forest</td><td>7.53:1</td><td>AAA ✓</td><td>Inverse Darstellung</td></tr>
+          <tr><td><code>#2E6F40</code> Forest</td><td><code>#FDFBD4</code> Cream</td><td>5.79:1</td><td>AA ✓</td><td>Sekundäre Überschriften</td></tr>
+        </tbody>
+      </table>
+
+      <div class="highlight">
+        <strong>Wichtig — Monotonie vermeiden:</strong> Grün über 5 Stufen variieren: dunkel (#1B5E20) → mittel (#2E6F40) → gedämpft (#6B8D53) → hell (#8EB69B) → Tint (#D4E9E2). Amber als gleichberechtigte zweite Aktiv-Farbe einsetzen — nicht nur als Akzent, sondern auf CTAs, Linien und dekorativen Elementen. Blau komplett meiden (natürlicher Appetitzügler, schlecht für alternde Augen).
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     04 — TYPOGRAFIE
+     ============================================================ -->
+<section id="typography">
+  <div class="container">
+    <div class="narrow">
+      <div class="section-number">04 — Typografie</div>
+      <h2 class="section-title">Lesbar. Warm. Barrierefrei.</h2>
+      <p class="section-lead">Typografie, die für Senior*innen optimiert ist, macht das Lesen für alle angenehmer. 18px Basisgröße, großzügiger Zeilenabstand und eine Schrift, die für Sehschwächen entwickelt wurde.</p>
+    </div>
+
+    <!-- Primary Recommendation -->
+    <div class="card-grid" style="grid-template-columns: 1fr 1fr; margin-top: var(--space-xl);">
+      <div class="card card--dark" style="border-radius: var(--radius-xl);">
+        <h4 style="font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-md);">Display & Headlines</h4>
+        <p style="font-family: 'Nunito', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--cream); line-height: 1.2;">Nunito</p>
+        <p style="font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 400; color: rgba(253,251,212,0.7); margin-top: var(--space-sm);">Rund, freundlich, gemeinschaftsorientiert. Die abgerundeten Terminals vermitteln Wärme, ohne an Lesbarkeit einzubüßen.</p>
+        <p style="font-size: 0.78rem; margin-top: var(--space-sm); color: rgba(253,251,212,0.5);">Google Fonts · Open Source · 400/600/700/800</p>
+      </div>
+      <div class="card card--dark" style="border-radius: var(--radius-xl);">
+        <h4 style="font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-md);">Body & UI-Text</h4>
+        <p style="font-family: 'Atkinson Hyperlegible', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--cream); line-height: 1.2;">Atkinson Hyperlegible</p>
+        <p style="font-family: 'Atkinson Hyperlegible', sans-serif; font-size: 1rem; font-weight: 400; color: rgba(253,251,212,0.7); margin-top: var(--space-sm);">Vom Braille Institute entwickelt — maximale Buchstabenunterscheidung für Sehschwächen. Goldstandard für Senior*innen-Lesbarkeit.</p>
+        <p style="font-size: 0.78rem; margin-top: var(--space-sm); color: rgba(253,251,212,0.5);">Google Fonts · Open Source · 150+ Sprachen · 400/700</p>
+      </div>
+    </div>
+
+    <!-- Type Specimen -->
+    <div class="type-specimen">
+      <div class="type-row">
+        <div class="type-label">H1 Display</div>
+        <div>
+          <div class="type-sample" style="font-family: 'Nunito'; font-size: 2.8rem; font-weight: 800; line-height: 1.15;">Gemeinsam Kochen</div>
+          <div class="type-meta">Nunito 800 · 3.157rem (≈57px) · Line-height 1.25</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">H2</div>
+        <div>
+          <div class="type-sample" style="font-family: 'Nunito'; font-size: 2.1rem; font-weight: 700; line-height: 1.2;">Nachbarschaft stärken</div>
+          <div class="type-meta">Nunito 700 · 2.369rem (≈43px) · Line-height 1.25</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">H3</div>
+        <div>
+          <div class="type-sample" style="font-family: 'Nunito'; font-size: 1.6rem; font-weight: 700; line-height: 1.3;">Workshop-Kalender</div>
+          <div class="type-meta">Nunito 700 · 1.778rem (≈32px) · Line-height 1.3</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">Lead</div>
+        <div>
+          <div class="type-sample" style="font-family: 'Atkinson Hyperlegible'; font-size: 1.3rem; font-weight: 400; line-height: 1.6;">Beim gemeinsamen Kochen entstehen Gespräche, die an der Bushaltestelle nie stattfinden würden.</div>
+          <div class="type-meta">Atkinson Hyperlegible 400 · 1.333rem (≈24px) · Line-height 1.6</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">Body</div>
+        <div>
+          <div class="type-sample" style="font-family: 'Atkinson Hyperlegible'; font-size: 1rem; font-weight: 400; line-height: 1.7;">Unsere Workshops sind für alle offen — Senior*innen, Familien, Zugezogene und langjährige Anwohner*innen. Keine Vorkenntnisse nötig, keine Kosten. Einfach vorbeikommen, mitkochen und neue Menschen kennenlernen.</div>
+          <div class="type-meta">Atkinson Hyperlegible 400 · 1rem (18px) · Line-height 1.7 · Max 60ch</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">Caption</div>
+        <div>
+          <div class="type-sample" style="font-family: 'Atkinson Hyperlegible'; font-size: 0.889rem; font-weight: 400; line-height: 1.5; color: var(--sage);">Foto: Workshop im Bürgertreff „Gemeinsam im Kiez leben", März 2026</div>
+          <div class="type-meta">Atkinson Hyperlegible 400 · 0.889rem (≈16px, Minimum!) · Line-height 1.5</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">Overline</div>
+        <div>
+          <div class="type-sample" style="font-family: 'Nunito'; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber);">NÄCHSTER WORKSHOP</div>
+          <div class="type-meta">Nunito 700 · 0.75rem · Uppercase · Letter-spacing 0.1em</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CSS Spec -->
+    <div class="narrow">
+      <h3 style="font-size:1.15rem; margin: var(--space-xl) 0 var(--space-md);">CSS-Spezifikation</h3>
+    </div>
+
+    <div class="code-block">
+      <span class="comment">/* Basisgröße: 18px für Senior*innen-Lesbarkeit */</span><br>
+      <span class="prop">:root</span> {<br>
+      &nbsp;&nbsp;<span class="prop">font-size</span>: <span class="val">112.5%</span>; <span class="comment">/* = 18px */</span><br>
+      <br>
+      &nbsp;&nbsp;<span class="comment">/* Perfect Fourth Scale (1.333) */</span><br>
+      &nbsp;&nbsp;<span class="prop">--h1</span>: <span class="val">3.157rem</span>;&nbsp;&nbsp;<span class="comment">/* ≈ 57px */</span><br>
+      &nbsp;&nbsp;<span class="prop">--h2</span>: <span class="val">2.369rem</span>;&nbsp;&nbsp;<span class="comment">/* ≈ 43px */</span><br>
+      &nbsp;&nbsp;<span class="prop">--h3</span>: <span class="val">1.778rem</span>;&nbsp;&nbsp;<span class="comment">/* ≈ 32px */</span><br>
+      &nbsp;&nbsp;<span class="prop">--body-lg</span>: <span class="val">1.333rem</span>; <span class="comment">/* ≈ 24px Lead */</span><br>
+      &nbsp;&nbsp;<span class="prop">--body</span>: <span class="val">1rem</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/* = 18px Body */</span><br>
+      &nbsp;&nbsp;<span class="prop">--small</span>: <span class="val">0.889rem</span>;&nbsp;<span class="comment">/* ≈ 16px Min. */</span><br>
+      <br>
+      &nbsp;&nbsp;<span class="prop">--lh-body</span>: <span class="val">1.7</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/* Großzügig */</span><br>
+      &nbsp;&nbsp;<span class="prop">--max-width</span>: <span class="val">60ch</span>;&nbsp;&nbsp;<span class="comment">/* Kürzer für Deutsch */</span><br>
+      }<br>
+      <br>
+      <span class="comment">/* Silbentrennung für deutsche Komposita */</span><br>
+      <span class="prop">html[lang="de"]</span> {<br>
+      &nbsp;&nbsp;<span class="prop">hyphens</span>: <span class="val">auto</span>;<br>
+      &nbsp;&nbsp;<span class="prop">overflow-wrap</span>: <span class="val">break-word</span>;<br>
+      }
+    </div>
+
+    <div class="narrow">
+      <h3 style="font-size:1.15rem; margin: var(--space-xl) 0 var(--space-md);">Typografie-Regeln</h3>
+
+      <div class="do-dont">
+        <div class="do-box">
+          <h4>Do</h4>
+          <ul>
+            <li>Mindestens 18px Body-Text (digital)</li>
+            <li>Mindestens 14pt Body-Text (Print, matt)</li>
+            <li>Zeilenabstand 1.7 für Fließtext</li>
+            <li>Maximale Zeilenlänge 60 Zeichen</li>
+            <li><code>lang="de"</code> für Silbentrennung</li>
+            <li>Linksbündiger Flattersatz</li>
+          </ul>
+        </div>
+        <div class="dont-box">
+          <h4>Don't</h4>
+          <ul>
+            <li>Blocksatz (schlecht für Legasthenie)</li>
+            <li>Kursiv in langen Passagen</li>
+            <li>VERSALIEN in Fließtext</li>
+            <li>Text unter 16px (absolute Untergrenze)</li>
+            <li>Geringe Kontraste bei kleinem Text</li>
+            <li>Schriftfarbe #000 (zu hart)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     05 — IMAGERY & ILLUSTRATION
+     ============================================================ -->
+<section id="imagery">
+  <div class="container">
+    <div class="narrow">
+      <div class="section-number">05 — Imagery & Illustration</div>
+      <h2 class="section-title">Handgemacht, nicht perfekt</h2>
+      <p class="section-lead">Das Signature-Element der Marke: handgezeichnete Lebensmittel-Illustrationen, die aus der organischen DNA des Mavka-Logos abgeleitet sind. Sie machen die Website zum „liebevoll gestalteten Community-Kochbuch".</p>
+    </div>
+
+    <!-- Illustration System -->
+    <div class="narrow" style="margin-top: var(--space-xl);">
+      <h3 style="font-size:1.15rem; margin-bottom: var(--space-md);">Illustrations-DNA (abgeleitet aus dem Logo)</h3>
+    </div>
+
+    <div class="illus-grid">
+      <div class="illus-item">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#1B5E20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="32" cy="28" rx="18" ry="22"/>
+          <path d="M32 50 V60"/>
+          <path d="M22 35 Q27 30 32 35"/>
+          <path d="M32 8 Q28 18 32 28"/>
+        </svg>
+        <p>Brot / Laib</p>
+      </div>
+      <div class="illus-item">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#1B5E20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 8 C28 8 20 16 20 28 C20 40 28 48 32 48 C36 48 44 40 44 28 C44 16 36 8 32 8Z"/>
+          <path d="M32 48 V58"/>
+          <path d="M26 18 Q30 22 32 30"/>
+          <path d="M38 18 Q34 22 32 30"/>
+        </svg>
+        <p>Blatt / Kraut</p>
+      </div>
+      <div class="illus-item">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#1B5E20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="30" r="14"/>
+          <path d="M18 30 Q18 48 32 50 Q46 48 46 30"/>
+          <line x1="32" y1="14" x2="32" y2="8"/>
+          <path d="M28 10 Q32 6 36 10"/>
+        </svg>
+        <p>Tomate</p>
+      </div>
+      <div class="illus-item">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#1B5E20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 16 L44 16 L48 52 L16 52 Z"/>
+          <path d="M16 52 Q32 58 48 52"/>
+          <ellipse cx="32" cy="16" rx="14" ry="4"/>
+        </svg>
+        <p>Kochtopf</p>
+      </div>
+      <div class="illus-item">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#1B5E20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 8 C24 8 16 12 16 20 Q16 32 32 44 Q48 32 48 20 C48 12 40 8 32 8Z"/>
+          <path d="M32 44 V58"/>
+          <path d="M24 20 Q28 16 32 20"/>
+          <path d="M32 20 Q36 16 40 20"/>
+        </svg>
+        <p>Knoblauch</p>
+      </div>
+      <div class="illus-item">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#1B5E20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="32" y1="8" x2="32" y2="56"/>
+          <ellipse cx="32" cy="48" rx="14" ry="6"/>
+          <circle cx="32" cy="16" r="6"/>
+        </svg>
+        <p>Kochlöffel</p>
+      </div>
+    </div>
+
+    <div class="narrow">
+      <h3 style="font-size:1.15rem; margin: var(--space-xl) 0 var(--space-md);">Illustrations-Spezifikationen</h3>
+
+      <table class="brand-table">
+        <thead><tr><th>Parameter</th><th>Spezifikation</th></tr></thead>
+        <tbody>
+          <tr><td>Strichstärke</td><td><code>2px</code> regulär · <code>1.5px</code> Details · <code>3px</code> Außenlinien</td></tr>
+          <tr><td>Linienenden</td><td><code>round cap</code> (wie Logo — nie eckig)</td></tr>
+          <tr><td>Farben</td><td>2-Farb-Standard: Deep Forest + Cream · Erweitert: + Sage + Amber</td></tr>
+          <tr><td>Kurven</td><td>Organisch, leicht unregelmäßig — sichtbare „Hand" · Keine perfekte Symmetrie</td></tr>
+          <tr><td>Füllungen</td><td>Keine Vollflächenfüllung — offene, skizzenhafte Qualität</td></tr>
+          <tr><td>Detailgrad</td><td>Mini (Icons, 24px): 1 Merkmal · Spot (Cards, 64px): 2–3 Merkmale · Hero (200px+): Narrativ</td></tr>
+          <tr><td>Format</td><td>SVG (Web) + PNG @2x (Social/Print) · Artboards: 64×64, 200×200, 400×400</td></tr>
+          <tr><td>Kern-Set</td><td>12–20 Assets: 8–10 Lebensmittel, 3–4 Utensilien, 2–3 Gemeinschafts-Motive</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="narrow" style="margin-top: var(--space-xl);">
+      <h3 style="font-size:1.15rem; margin-bottom: var(--space-md);">Verwendung als Seitenelemente</h3>
+    </div>
+
+    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card" style="text-align:center;">
+        <div style="border-bottom: 2px dashed var(--mint); padding-bottom: var(--space-md); margin-bottom: var(--space-sm);">
+          <svg width="40" height="12" viewBox="0 0 120 12" fill="none" stroke="#6B8D53" stroke-width="1.5" stroke-linecap="round">
+            <path d="M5 6 Q20 2 35 6 Q50 10 65 6 Q80 2 95 6 Q110 10 115 6"/>
+          </svg>
+        </div>
+        <h4>Divider</h4>
+        <p style="font-size:0.82rem;">Organische Wellenlinien zwischen Abschnitten</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="padding-bottom: var(--space-md); margin-bottom: var(--space-sm); color: var(--sage);">
+          <svg width="48" height="48" viewBox="0 0 64 64" fill="none" stroke="#8EB69B" stroke-width="1.5" stroke-linecap="round">
+            <path d="M32 20 C28 20 22 26 22 34 C22 42 28 46 32 46"/>
+            <path d="M32 46 V56"/>
+            <path d="M26 30 Q30 28 32 34"/>
+          </svg>
+          <p style="font-size: 0.85rem; margin-top: 4px;">Noch keine Workshops —<br>aber bald!</p>
+        </div>
+        <h4>Empty States</h4>
+        <p style="font-size:0.82rem;">Freundliche Platzhalter mit Illustration</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="position:relative; padding-bottom: var(--space-md); margin-bottom: var(--space-sm);">
+          <div style="width:100%; height: 60px; background: var(--mint); border-radius: 8px; position: relative;">
+            <svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="#1B5E20" stroke-width="2" stroke-linecap="round" style="position:absolute; bottom:-8px; right:8px; opacity:0.3;">
+              <ellipse cx="32" cy="28" rx="18" ry="22"/>
+              <path d="M32 50 V60"/>
+            </svg>
+          </div>
+        </div>
+        <h4>Card-Dekoration</h4>
+        <p style="font-size:0.82rem;">Subtile Illustrationen in Ecken von Workshop-Cards</p>
+      </div>
+    </div>
+
+    <!-- Photography -->
+    <div class="narrow" style="margin-top: var(--space-2xl);">
+      <h3 style="font-size:1.15rem; margin-bottom: var(--space-md);">Fotostil</h3>
+      <p>Authentische Workshop-Dokumentation: Hände beim Teigkneten, dampfende Töpfe, lachende Gesichter am Tisch, bunte Zutaten. Kein gestelltes Food-Styling. Natürliches Licht bevorzugen. Immer mit Zustimmung der abgebildeten Personen. Vielfalt der Teilnehmer*innen zeigen — Generationen, Kulturen, Fähigkeiten.</p>
+
+      <div class="do-dont" style="margin-top: var(--space-md);">
+        <div class="do-box">
+          <h4>Foto Do's</h4>
+          <ul>
+            <li>Hände bei der Arbeit (Teig, Gemüse, Utensilien)</li>
+            <li>Echte Momente, kein Posing</li>
+            <li>Warme Farbtöne, natürliches Licht</li>
+            <li>Vielfalt: Generationen + Kulturen</li>
+            <li>Nahaufnahmen von Zutaten und fertigen Gerichten</li>
+          </ul>
+        </div>
+        <div class="dont-box">
+          <h4>Foto Don'ts</h4>
+          <ul>
+            <li>Stock-Fotos oder gestellte Szenen</li>
+            <li>Übersättigte Bearbeitung</li>
+            <li>Fotos ohne Einwilligung</li>
+            <li>Leere Räume oder sterile Settings</li>
+            <li>Nur perfekt angerichtete Gerichte</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Icon Style -->
+    <div class="narrow" style="margin-top: var(--space-xl);">
+      <h3 style="font-size:1.15rem; margin-bottom: var(--space-md);">Icon-Stil</h3>
+      <p>Icons folgen der gleichen DNA wie die Illustrationen: <strong>2px Strichstärke, runde Linienenden, organische Formen</strong>. Basis: angepasstes Lucide-Icon-Set oder handgezeichnete Varianten. Farbe: Deep Forest auf hellen Hintergründen, Cream auf dunklen. Mindestgröße: 24×24px. Touch-Targets: 44×44px (der klickbare Bereich, nicht das Icon selbst).</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     06 — BRAND ANWENDUNGEN
+     ============================================================ -->
+<section id="applications">
+  <div class="container">
+    <div class="narrow">
+      <div class="section-number">06 — Brand Anwendungen</div>
+      <h2 class="section-title">Die Marke im Einsatz</h2>
+      <p class="section-lead">Von der Website bis zum Poster — so lebt die Identität in konkreten Touchpoints.</p>
+    </div>
+
+    <div class="mockup-grid">
+
+      <!-- Website Hero -->
+      <div class="mockup">
+        <div class="mockup-header">Website Hero</div>
+        <div class="mockup-body" style="background: var(--cream); min-height: 220px; display: flex; flex-direction: column; justify-content: center; padding: var(--space-xl);">
+          <div style="font-family: var(--font-display); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px;">
+            ● Nächster Workshop: 15. März
+          </div>
+          <div style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--deep-forest); line-height: 1.2; margin-bottom: 12px;">
+            Gemeinsam Kochen.<br>Gemeinsam Wachsen.
+          </div>
+          <div style="font-family: var(--font-body); font-size: 0.85rem; color: var(--sage); max-width: 40ch; margin-bottom: 16px;">
+            Kostenlose Back- & Kochworkshops in Lichtenberg — für alle, die gerne kochen und neue Nachbarn kennenlernen.
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <span style="background: var(--deep-forest); color: var(--cream); padding: 8px 18px; border-radius: 8px; font-family: var(--font-display); font-size: 0.78rem; font-weight: 700;">Zum Workshop</span>
+            <span style="background: transparent; color: var(--forest-green); border: 1.5px solid var(--forest-green); padding: 8px 18px; border-radius: 8px; font-family: var(--font-display); font-size: 0.78rem; font-weight: 700;">Mehr erfahren</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Workshop Card -->
+      <div class="mockup">
+        <div class="mockup-header">Kalender-Card</div>
+        <div class="mockup-body" style="background: #fff;">
+          <div style="display: flex; gap: 14px; align-items: flex-start;">
+            <div style="background: var(--deep-forest); color: var(--cream); padding: 10px 14px; border-radius: 10px; text-align: center; min-width: 56px;">
+              <div style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; line-height: 1;">15</div>
+              <div style="font-family: var(--font-display); font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">Mär</div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-display); font-size: 0.65rem; font-weight: 700; color: var(--amber); text-transform: uppercase; letter-spacing: 0.06em;">Backworkshop</div>
+              <div style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--deep-forest); margin: 4px 0;">Brot aus aller Welt</div>
+              <div style="font-size: 0.82rem; color: var(--sage); line-height: 1.5;">14:00 – 17:00 Uhr<br>Bürgertreff „Gemeinsam im Kiez"</div>
+              <div style="margin-top: 10px;">
+                <span style="background: var(--mint); color: var(--deep-forest); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-family: var(--font-display); font-weight: 700;">Kostenlos</span>
+                <span style="background: var(--sand); color: var(--dark-amber); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-family: var(--font-display); font-weight: 700; margin-left: 4px;">5 Plätze frei</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Template -->
+      <div class="mockup">
+        <div class="mockup-header">Social Media Template</div>
+        <div class="mockup-body" style="background: var(--deep-forest); color: var(--cream); min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; padding: var(--space-lg);">
+          <div style="font-family: var(--font-display); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber);">Gemeinsam Kochen — Workshop-Reihe</div>
+          <div>
+            <div style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 8px;">Brot aus aller Welt</div>
+            <div style="font-size: 0.82rem; opacity: 0.8; margin-bottom: 12px;">Sa, 15. März · 14 Uhr · Lichtenberg</div>
+            <div style="display: inline-block; background: var(--amber); color: var(--deep-forest); padding: 6px 16px; border-radius: 6px; font-family: var(--font-display); font-weight: 700; font-size: 0.78rem;">Jetzt anmelden →</div>
+          </div>
+          <div style="font-size: 0.65rem; opacity: 0.5;">mavka.berlin.volunteers · #GemeinsamKochen</div>
+        </div>
+      </div>
+
+      <!-- Newsletter Block -->
+      <div class="mockup">
+        <div class="mockup-header">Newsletter-Block</div>
+        <div class="mockup-body" style="background: #fff;">
+          <div style="border-left: 3px solid var(--amber); padding-left: 14px;">
+            <div style="font-family: var(--font-display); font-size: 0.65rem; font-weight: 700; color: var(--amber); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">Neuigkeiten</div>
+            <div style="font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--deep-forest); margin-bottom: 8px;">5 Workshops, 47 Teilnehmer*innen, unzählige Rezepte</div>
+            <div style="font-size: 0.85rem; color: var(--warm-charcoal); line-height: 1.6;">Unser Rückblick auf den Februar: Von ukrainischem Borschtsch bis fränkischem Sauerteig — was wir gemeinsam auf den Tisch gebracht haben.</div>
+            <div style="margin-top: 12px;">
+              <span style="color: var(--forest-green); font-family: var(--font-display); font-weight: 700; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 3px;">Weiterlesen →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Partner One-Pager -->
+      <div class="mockup">
+        <div class="mockup-header">Partner-One-Pager</div>
+        <div class="mockup-body" style="background: var(--cream);">
+          <div style="text-align: center; margin-bottom: 14px;">
+            <div style="font-family: var(--font-display); font-size: 0.65rem; font-weight: 700; color: var(--sage); text-transform: uppercase; letter-spacing: 0.1em;">Ein FEIN-Pilotprojekt</div>
+            <div style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--deep-forest); margin-top: 4px;">Gemeinsam Kochen — Gemeinsam Wachsen</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.75rem;">
+            <div style="background: #fff; padding: 10px; border-radius: 8px;">
+              <strong style="color: var(--deep-forest); font-family: var(--font-display); font-size: 0.65rem; text-transform: uppercase;">Standort</strong><br>
+              <span style="color: var(--warm-charcoal);">Berlin-Lichtenberg</span>
+            </div>
+            <div style="background: #fff; padding: 10px; border-radius: 8px;">
+              <strong style="color: var(--deep-forest); font-family: var(--font-display); font-size: 0.65rem; text-transform: uppercase;">Zeitraum</strong><br>
+              <span style="color: var(--warm-charcoal);">Jan – Dez 2026</span>
+            </div>
+            <div style="background: #fff; padding: 10px; border-radius: 8px;">
+              <strong style="color: var(--deep-forest); font-family: var(--font-display); font-size: 0.65rem; text-transform: uppercase;">Zielgruppe</strong><br>
+              <span style="color: var(--warm-charcoal);">Senior*innen, Familien</span>
+            </div>
+            <div style="background: #fff; padding: 10px; border-radius: 8px;">
+              <strong style="color: var(--deep-forest); font-family: var(--font-display); font-size: 0.65rem; text-transform: uppercase;">Träger</strong><br>
+              <span style="color: var(--warm-charcoal);">Mavka.Berlin.Volunteers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transparenz Report -->
+      <div class="mockup">
+        <div class="mockup-header">Transparenz-Report</div>
+        <div class="mockup-body" style="background: #fff;">
+          <div style="font-family: var(--font-display); font-size: 0.65rem; font-weight: 700; color: var(--sage); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">Q1 2026 — Transparenzbericht</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+            <div style="text-align: center; padding: 12px; background: var(--mint); border-radius: 8px;">
+              <div style="font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; color: var(--deep-forest);">12</div>
+              <div style="font-size: 0.7rem; color: var(--sage);">Workshops</div>
+            </div>
+            <div style="text-align: center; padding: 12px; background: var(--cream); border-radius: 8px;">
+              <div style="font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; color: var(--dark-amber);">148</div>
+              <div style="font-size: 0.7rem; color: var(--sage);">Teilnehmer*innen</div>
+            </div>
+          </div>
+          <div style="font-size: 0.8rem; color: var(--warm-charcoal); line-height: 1.5;">Fördermittel transparent dokumentiert. Vollständiger Bericht als PDF verfügbar.</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     07 — BRAND BOOK STRUKTUR
+     ============================================================ -->
+<section id="brandbook">
+  <div class="container">
+    <div class="narrow">
+      <div class="section-number">07 — Brand Book</div>
+      <h2 class="section-title">20-seitiges Brand Book</h2>
+      <p class="section-lead">Struktur und Inhaltsverzeichnis für das gedruckte und digitale Markenhandbuch — bereit zur Umsetzung.</p>
+    </div>
+
+    <div class="brand-book-toc narrow">
+
+      <div class="toc-item">
+        <div class="toc-page">S. 1</div>
+        <div class="toc-title">Cover</div>
+        <div class="toc-desc">Logo, Projektname, Jahreszahl. Cream-Hintergrund, zentrale Bildmarke.</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-page">S. 2</div>
+        <div class="toc-title">Inhaltsverzeichnis</div>
+        <div class="toc-desc">Orientierung, Kapitelnummern mit Farbkodierung.</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-page">S. 3–4</div>
+        <div class="toc-title">Unsere Geschichte</div>
+        <div class="toc-desc">Origin Story, Mission, Vision, Brand Promise. Emotional und bildhaft.</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-page">S. 5</div>
+        <div class="toc-title">Werte & Archetyp</div>
+        <div class="toc-desc">Die vier Kernwerte visuell aufbereitet. Archetypbeschreibung „Der Gastgeber".</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-page">S. 6</div>
+        <div class="toc-title">Voice & Tone</div>
+        <div class="toc-desc">Voice-Matrix, Sprachbeispiele (du/Sie), Messaging-Hierarchie.</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-page">S. 7–8</div>
+        <div class="toc-title">Logo-System</div>
+        <div class="toc-desc">Primär-Logo, Varianten, Clear Space, Mindestgrößen, Responsive Lockups.</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-page">S. 9</div>
+        <div class="toc-title">Logo Do's & Don'ts</div>
+        <div class="toc-desc">Visuelle Gegenüberstellung korrekter und falscher Anwendungen.</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-page">S. 10–11</div>
+        <div class="toc-title">Farbsystem</div>
+        <div class="toc-desc">Tier 1 + 2 Farben mit Hex/RGB/CMYK/Pantone. Kontrastpaare-Tabelle.</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-page">S. 12–13</div>
+        <div class="toc-title">Typografie</div>
+        <div class="toc-desc">Schriftfamilien, Hierachie, Größen-Scale, CSS-Spec, Senior*innen-Regeln.</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-page">S. 14–15</div>
+        <div class="toc-title">Illustrations-System</div>
+        <div class="toc-desc">Stil-DNA, Kern-Set, Strichstärken, Verwendung (Divider, Cards, Empty States).</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-page">S. 16</div>
+        <div class="toc-title">Fotostil & Icon-Richtlinien</div>
+        <div class="toc-desc">Fotografie-Guidelines, Icon-Spezifikationen, Alt-Text-Regeln.</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-page">S. 17–18</div>
+        <div class="toc-title">Anwendungsbeispiele</div>
+        <div class="toc-desc">Website-Hero, Social, Newsletter, Workshop-Poster, Kalender-Card.</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-page">S. 19</div>
+        <div class="toc-title">Barrierefreiheit</div>
+        <div class="toc-desc">WCAG 2.1 AA/AAA Anforderungen, BITV 2.0 Checkliste, Senior*innen-Spezifika.</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-page">S. 20</div>
+        <div class="toc-title">Markenarchitektur & Zukunft</div>
+        <div class="toc-desc">Endorsed-Brand-Modell, 2027-Skalierung, Lockup-System für neue Projekte.</div>
+      </div>
+
+    </div>
+
+    <div class="highlight narrow">
+      <strong>Format-Empfehlung:</strong> Das Brand Book als interaktives PDF (mit verlinktem Inhaltsverzeichnis) und als lebende Figma-Datei pflegen. Die Figma-Datei enthält zusätzlich alle Assets als Components, die direkt von der Agentur und dem Redaktionsteam verwendet werden können.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ACCESSIBILITY REFERENCE
+     ============================================================ -->
+<section style="background: var(--deep-forest); color: var(--cream);">
+  <div class="container">
+    <div class="narrow" style="text-align: center;">
+      <div class="section-number" style="justify-content: center;">
+        <span style="display: none;"></span>
+        Barrierefreiheit — Kurzreferenz
+      </div>
+      <h2 class="section-title" style="color: var(--amber);">BITV 2.0 & Senior*innen</h2>
+      <p style="color: rgba(253,251,212,0.7); max-width: 60ch; margin: var(--space-sm) auto var(--space-xl);">
+        Barrierefreiheit ist kein Add-on — sie ist eine Design-Entscheidung, die alles besser macht.
+      </p>
+    </div>
+
+    <div class="card-grid" style="max-width: 900px; margin: 0 auto;">
+      <div style="background: rgba(255,255,255,0.08); border-radius: var(--radius-lg); padding: var(--space-lg);">
+        <h4 style="color: var(--amber); font-size: 0.95rem; margin-bottom: 0.5rem;">Text & Kontrast</h4>
+        <p style="font-size: 0.88rem; color: rgba(253,251,212,0.8); line-height: 1.6;">Body: 18–20px · Ziel: 7:1 AAA · Kein reines Schwarz · Kein Text unter 16px · Keine Farbe als einziger Informationsträger</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.08); border-radius: var(--radius-lg); padding: var(--space-lg);">
+        <h4 style="color: var(--amber); font-size: 0.95rem; margin-bottom: 0.5rem;">Interaktion</h4>
+        <p style="font-size: 0.88rem; color: rgba(253,251,212,0.8); line-height: 1.6;">Touch-Targets: 44×44px · Button-Abstand: 12px+ · Focus-Indicator: 2px, 3:1 Kontrast · Breadcrumbs auf Ebene-2-Seiten</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.08); border-radius: var(--radius-lg); padding: var(--space-lg);">
+        <h4 style="color: var(--amber); font-size: 0.95rem; margin-bottom: 0.5rem;">BITV 2.0 Pflicht</h4>
+        <p style="font-size: 0.88rem; color: rgba(253,251,212,0.8); line-height: 1.6;">DGS-Video auf der Startseite · Leichte-Sprache-Sektion · Barrierefreiheitserklärung · Feedback-Mechanismus</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.08); border-radius: var(--radius-lg); padding: var(--space-lg);">
+        <h4 style="color: var(--amber); font-size: 0.95rem; margin-bottom: 0.5rem;">Formulare</h4>
+        <p style="font-size: 0.88rem; color: rgba(253,251,212,0.8); line-height: 1.6;">Labels über Feldern · 44px Eingabehöhe · Echtzeit-Validierung · Rückgängig-Option · Klares Feedback nach Abschicken</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="brand-footer">
+  <div class="footer-logo">Mavka.Berlin.Volunteers</div>
+  <p>Brand Identity System · Gemeinsam Kochen – Gemeinsam Wachsen<br>
+  FEIN-Pilotprojekt · Berlin-Lichtenberg · 2026</p>
+  <div style="margin-top: var(--space-lg); opacity: 0.3;">
+    <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <path d="M32 8 C28 8 20 16 20 28 C20 40 28 48 32 48 C36 48 44 40 44 28 C44 16 36 8 32 8Z"/>
+      <path d="M32 48 V58"/>
+      <path d="M26 18 Q30 22 32 30"/>
+      <path d="M38 18 Q34 22 32 30"/>
+    </svg>
+  </div>
+</footer>
+
+</body>
+</html>

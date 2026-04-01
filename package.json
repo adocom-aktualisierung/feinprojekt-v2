@@ -1,0 +1,17 @@
+{
+  "name": "gemeinsam-kochen",
+  "version": "1.0.0",
+  "description": "Gemeinsam Kochen – Gemeinsam Wachsen | FEIN-Pilotprojekt Lichtenberg",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "Mavka.Berlin.Volunteers",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^8.0.3"
+  }
+}

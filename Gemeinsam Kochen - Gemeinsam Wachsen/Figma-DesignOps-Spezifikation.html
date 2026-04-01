@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Figma Design-Ops Spezifikation — Gemeinsam Kochen</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep-forest: #1B5E20;
+  --forest-green: #2E6F40;
+  --sage: #6B8D53;
+  --mint: #D4E9E2;
+  --amber: #FFBF00;
+  --soft-gold: #D4AF37;
+  --dark-amber: #D79334;
+  --cream: #FDFBD4;
+  --sand: #F4E9D8;
+  --warm-charcoal: #4A4A4A;
+  --off-white: #FAFAF5;
+  --white: #FFFDF5;
+  --error: #C43333;
+  --info: #2563EB;
+  --font-display: 'Nunito', sans-serif;
+  --font-body: 'Atkinson Hyperlegible', sans-serif;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --shadow-sm: 0 1px 3px rgba(27,94,32,0.06);
+  --shadow-md: 0 4px 12px rgba(27,94,32,0.08);
+  --shadow-lg: 0 12px 32px rgba(27,94,32,0.1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 100%; scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  font-family: var(--font-body);
+  color: var(--warm-charcoal);
+  background: var(--off-white);
+  line-height: 1.7;
+}
+h1,h2,h3,h4,h5 { font-family: var(--font-display); color: var(--deep-forest); line-height: 1.25; }
+a { color: var(--forest-green); text-decoration: none; }
+a:hover { text-decoration: underline; }
+::selection { background: var(--mint); color: var(--deep-forest); }
+
+.doc { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* Sticky nav */
+.topnav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250,250,245,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(27,94,32,0.1);
+  padding: 10px 24px;
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+}
+.topnav a {
+  font-family: var(--font-display); font-size: 0.68rem; font-weight: 700;
+  text-decoration: none; color: var(--sage); letter-spacing: 0.03em;
+  padding: 4px 8px; border-radius: 6px; transition: all 0.15s;
+  white-space: nowrap;
+}
+.topnav a:hover { background: var(--mint); color: var(--deep-forest); text-decoration: none; }
+.topnav .brand { color: var(--deep-forest); font-size: 0.78rem; font-weight: 800; margin-right: auto; }
+
+/* Cover */
+.cover {
+  padding: 80px 0 56px;
+  text-align: center;
+  background: linear-gradient(170deg, rgba(27,94,32,0.04) 0%, transparent 50%), radial-gradient(ellipse at 70% 90%, rgba(255,191,0,0.05) 0%, transparent 50%);
+}
+.cover .badge {
+  display: inline-block; font-family: var(--font-display); font-size: 0.65rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  background: var(--deep-forest); color: var(--cream);
+  padding: 5px 16px; border-radius: 50px; margin-bottom: 20px;
+}
+.cover h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; margin-bottom: 10px; }
+.cover h1 em { font-style: normal; color: var(--dark-amber); }
+.cover .subtitle { font-size: 1rem; color: var(--sage); max-width: 58ch; margin: 0 auto 28px; line-height: 1.6; }
+.cover .meta { font-size: 0.75rem; color: var(--sage); display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* Sections */
+section { padding: 56px 0 40px; }
+section:nth-child(even of section) { background: var(--white); }
+.sec-num {
+  font-family: var(--font-display); font-size: 0.65rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--dark-amber);
+  display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+}
+.sec-num::before { content: ''; width: 24px; height: 2px; background: var(--amber); border-radius: 1px; }
+.sec-title { font-size: clamp(1.4rem, 2.8vw, 2rem); font-weight: 800; margin-bottom: 4px; }
+.sec-lead { font-size: 0.92rem; color: var(--sage); max-width: 60ch; margin-bottom: 36px; line-height: 1.7; }
+
+/* Tables */
+table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  border-radius: var(--radius-lg); overflow: hidden;
+  border: 1px solid rgba(27,94,32,0.1); margin: 20px 0;
+  font-size: 0.82rem;
+}
+thead { background: var(--deep-forest); color: var(--cream); }
+th {
+  font-family: var(--font-display); font-weight: 700; font-size: 0.68rem;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 10px 14px; text-align: left;
+}
+td { padding: 9px 14px; border-bottom: 1px solid rgba(27,94,32,0.06); vertical-align: top; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:nth-child(even) { background: rgba(212,233,226,0.08); }
+code {
+  font-family: var(--font-body); font-size: 0.82em;
+  background: rgba(27,94,32,0.06); padding: 1px 5px; border-radius: 4px;
+  color: var(--deep-forest);
+}
+
+/* Color swatches */
+.swatch {
+  display: inline-block; width: 16px; height: 16px; border-radius: 4px;
+  vertical-align: middle; margin-right: 6px;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Cards */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; }
+.card {
+  background: var(--white); border: 1px solid rgba(27,94,32,0.08);
+  border-radius: var(--radius-lg); padding: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.card h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
+.card p, .card li { font-size: 0.84rem; line-height: 1.6; }
+.card ul { padding-left: 18px; margin-top: 6px; }
+.card--accent { border-left: 4px solid var(--amber); }
+.card--dark { background: var(--deep-forest); color: var(--cream); border-color: transparent; }
+.card--dark h4 { color: var(--amber); }
+.card--dark p { color: rgba(253,251,212,0.85); }
+
+/* Highlight */
+.highlight {
+  background: var(--cream); border-left: 4px solid var(--amber);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 20px; margin: 20px 0; font-size: 0.88rem;
+}
+.highlight strong { color: var(--deep-forest); }
+
+/* Info blocks */
+.info-block {
+  display: flex; gap: 10px; padding: 14px 18px;
+  border-radius: var(--radius); margin: 16px 0;
+}
+.info-block--tip { background: rgba(46,111,64,0.06); border-left: 4px solid var(--forest-green); }
+.info-block--warn { background: rgba(215,147,52,0.08); border-left: 4px solid var(--dark-amber); }
+.info-block--note { background: rgba(37,99,235,0.05); border-left: 4px solid var(--info); }
+.info-block p { font-size: 0.84rem; margin: 0; }
+
+/* Spec rows */
+.spec-row {
+  display: grid; grid-template-columns: 160px 1fr;
+  gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(27,94,32,0.06);
+  font-size: 0.84rem;
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-label {
+  font-family: var(--font-display); font-weight: 700; font-size: 0.74rem;
+  text-transform: uppercase; letter-spacing: 0.05em; color: var(--sage);
+}
+
+/* Tree view */
+.tree { font-family: var(--font-body); font-size: 0.82rem; margin: 16px 0; padding: 16px 20px; background: var(--white); border: 1px solid rgba(27,94,32,0.08); border-radius: var(--radius-lg); }
+.tree-item { padding: 3px 0; display: flex; gap: 8px; align-items: baseline; }
+.tree-item .indent { color: rgba(27,94,32,0.2); user-select: none; }
+.tree-item .name { font-weight: 700; color: var(--deep-forest); }
+.tree-item .meta { color: var(--sage); font-size: 0.78rem; }
+
+/* Designer note */
+.designer-note {
+  background: linear-gradient(135deg, rgba(212,175,55,0.05), rgba(27,94,32,0.02));
+  border: 1px solid rgba(212,175,55,0.18);
+  border-radius: var(--radius-lg); padding: 20px;
+  margin: 28px 0; position: relative;
+}
+.designer-note::before {
+  content: 'Figma-Hinweis'; position: absolute; top: -9px; left: 18px;
+  background: var(--off-white); padding: 0 8px;
+  font-family: var(--font-display); font-size: 0.6rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--soft-gold);
+}
+.designer-note p { font-size: 0.84rem; margin-bottom: 6px; }
+.designer-note p:last-child { margin-bottom: 0; }
+
+/* Footer */
+.doc-footer {
+  background: var(--deep-forest); color: var(--cream);
+  padding: 40px 24px; text-align: center; margin-top: 56px;
+}
+.doc-footer strong { color: var(--amber); }
+.doc-footer p { font-size: 0.78rem; opacity: 0.7; }
+
+/* Sub headings */
+h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 700; margin: 36px 0 12px; }
+h4 { font-size: 0.95rem; font-weight: 700; margin: 20px 0 8px; }
+
+/* Print */
+@media print {
+  .topnav { display: none; }
+  body { font-size: 10pt; }
+  section { break-inside: avoid; }
+}
+@media (max-width: 700px) {
+  .spec-row { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: 1fr; }
+  table { font-size: 0.75rem; }
+  th, td { padding: 7px 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav">
+  <span class="brand">Figma Spec</span>
+  <a href="#file-structure">Datei</a>
+  <a href="#tokens">Tokens</a>
+  <a href="#frames">Frames</a>
+  <a href="#auto-layout">Auto-Layout</a>
+  <a href="#components">Komponenten</a>
+  <a href="#screens">Screens</a>
+  <a href="#prototype">Prototyping</a>
+  <a href="#handoff">Handoff</a>
+  <a href="#a11y">A11y</a>
+  <a href="#responsive">Responsive</a>
+  <a href="#checklist">Checkliste</a>
+</nav>
+
+<!-- COVER -->
+<header class="cover">
+  <div class="doc">
+    <div class="badge">Figma Design-Ops Spezifikation v1.0</div>
+    <h1>Gemeinsam Kochen –<br>Gemeinsam <em>Wachsen</em></h1>
+    <p class="subtitle">Figma-fertige Spezifikation: Frame-Struktur, Auto-Layout, Komponenten-Architektur, Design&nbsp;Tokens, Prototyping, Dev-Handoff &amp; Accessibility.</p>
+    <div class="meta">
+      <span>Mavka.Berlin.Volunteers</span>
+      <span>&middot;</span>
+      <span>M&auml;rz 2026</span>
+      <span>&middot;</span>
+      <span>WCAG 2.1 AA+</span>
+      <span>&middot;</span>
+      <span>Apple HIG</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════
+     01 — FIGMA FILE STRUCTURE
+     ═══════════════════════════════════════════════════════════ -->
+<section id="file-structure">
+<div class="doc">
+  <div class="sec-num">01 — Dateistruktur</div>
+  <h2 class="sec-title">Figma File-Struktur &amp; Pages</h2>
+  <p class="sec-lead">Die Figma-Datei wird in dedizierte Pages organisiert. Jede Page hat einen definierten Zweck und folgt strikten Naming-Conventions.</p>
+
+  <table>
+    <thead><tr><th>Page</th><th>Inhalt</th><th>Konvention</th></tr></thead>
+    <tbody>
+      <tr><td><strong>&#127912; Cover</strong></td><td>Projekt-Cover mit Logo, Version, Status-Badge</td><td>Nicht editieren ohne Absprache</td></tr>
+      <tr><td><strong>&#128208; Design Tokens</strong></td><td>Farben, Typografie, Spacing, Shadows, Radii</td><td>Single Source of Truth</td></tr>
+      <tr><td><strong>&#129513; Components</strong></td><td>Alle Komponenten mit Varianten</td><td>Auto-Layout Pflicht</td></tr>
+      <tr><td><strong>&#128421; Desktop (1024+)</strong></td><td>8 Screens Desktop-Ansicht</td><td>Frame: 1440&times;Auto</td></tr>
+      <tr><td><strong>&#128241; Mobile (320–767)</strong></td><td>8 Screens Mobile-Ansicht</td><td>Frame: 375&times;Auto</td></tr>
+      <tr><td><strong>&#128187; Tablet (768–1023)</strong></td><td>8 Screens Tablet-Ansicht</td><td>Frame: 768&times;Auto</td></tr>
+      <tr><td><strong>&#10145; Prototyping</strong></td><td>Flows mit Connections</td><td>Benannte Flows</td></tr>
+      <tr><td><strong>&#9989; Handoff</strong></td><td>Redlines, Annotationen, Export-Marks</td><td>Dev Mode Ready</td></tr>
+      <tr><td><strong>&#128203; States</strong></td><td>Empty, Error, Loading, Success</td><td>Pro Screen gruppiert</td></tr>
+    </tbody>
+  </table>
+
+  <div class="designer-note">
+    <p><strong>Naming:</strong> Dateiname: <code>Gemeinsam-Kochen_UI-Design_v1.0</code>. Branches f&uuml;r iterative &Auml;nderungen nutzen. Main = freigegebener Stand.</p>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     02 — DESIGN TOKENS
+     ═══════════════════════════════════════════════════════════ -->
+<section id="tokens">
+<div class="doc">
+  <div class="sec-num">02 — Design Tokens</div>
+  <h2 class="sec-title">Farben, Typografie, Spacing, Effekte</h2>
+  <p class="sec-lead">Alle Tokens als Figma Variables (Collections) anlegen. Mode: Light (Standard). Dark Mode in Phase&nbsp;1 nicht vorgesehen.</p>
+
+  <h3>2.1 Farb-Tokens (Color Variables)</h3>
+  <table>
+    <thead><tr><th>Token-Name</th><th>Hex</th><th>Figma Variable</th><th>Verwendung</th></tr></thead>
+    <tbody>
+      <tr><td><code>color/primary/800</code></td><td><span class="swatch" style="background:#1B5E20"></span>#1B5E20</td><td>Primitives/Green/800</td><td>&Uuml;berschriften, Nav-BG, Deep Accents</td></tr>
+      <tr><td><code>color/primary/700</code></td><td><span class="swatch" style="background:#2E6F40"></span>#2E6F40</td><td>Primitives/Green/700</td><td>Buttons Primary, Links, Hover</td></tr>
+      <tr><td><code>color/primary/100</code></td><td><span class="swatch" style="background:#D4E9E2"></span>#D4E9E2</td><td>Primitives/Green/100</td><td>Chip-BG, Focus-Glow, Subtle Fills</td></tr>
+      <tr><td><code>color/accent/500</code></td><td><span class="swatch" style="background:#FFBF00"></span>#FFBF00</td><td>Primitives/Amber/500</td><td>CTAs, Highlights, Badges, Focus-Ring</td></tr>
+      <tr><td><code>color/accent/400</code></td><td><span class="swatch" style="background:#D4AF37"></span>#D4AF37</td><td>Primitives/Amber/400</td><td>Soft Gold Accents, Dekorativ</td></tr>
+      <tr><td><code>color/accent/600</code></td><td><span class="swatch" style="background:#D79334"></span>#D79334</td><td>Primitives/Amber/600</td><td>Section-Numbers, Dark Amber</td></tr>
+      <tr><td><code>color/bg/page</code></td><td><span class="swatch" style="background:#FAFAF5"></span>#FAFAF5</td><td>Semantic/Background/Page</td><td>Seitenhintergrund</td></tr>
+      <tr><td><code>color/bg/card</code></td><td><span class="swatch" style="background:#FFFDF5"></span>#FFFDF5</td><td>Semantic/Background/Card</td><td>Cards, Sections</td></tr>
+      <tr><td><code>color/bg/cream</code></td><td><span class="swatch" style="background:#FDFBD4"></span>#FDFBD4</td><td>Semantic/Background/Cream</td><td>Highlight-Boxen, Anmelde-Sidebar</td></tr>
+      <tr><td><code>color/bg/sand</code></td><td><span class="swatch" style="background:#F4E9D8"></span>#F4E9D8</td><td>Semantic/Background/Sand</td><td>Empty-State Chips</td></tr>
+      <tr><td><code>color/text/primary</code></td><td><span class="swatch" style="background:#4A4A4A"></span>#4A4A4A</td><td>Semantic/Text/Primary</td><td>Body-Text (Warm Charcoal)</td></tr>
+      <tr><td><code>color/text/secondary</code></td><td><span class="swatch" style="background:#6B8D53"></span>#6B8D53</td><td>Semantic/Text/Secondary</td><td>Subtitles, Meta, Captions (Sage)</td></tr>
+      <tr><td><code>color/text/onDark</code></td><td><span class="swatch" style="background:#FDFBD4"></span>#FDFBD4</td><td>Semantic/Text/OnDark</td><td>Text auf dunklem Hintergrund</td></tr>
+      <tr><td><code>color/status/error</code></td><td><span class="swatch" style="background:#C43333"></span>#C43333</td><td>Semantic/Status/Error</td><td>Fehler-Rahmen, Fehler-Text</td></tr>
+      <tr><td><code>color/status/info</code></td><td><span class="swatch" style="background:#2563EB"></span>#2563EB</td><td>Semantic/Status/Info</td><td>Info-Bl&ouml;cke, Kalender-Hinweise</td></tr>
+      <tr><td><code>color/status/success</code></td><td><span class="swatch" style="background:#2E6F40"></span>#2E6F40</td><td>Semantic/Status/Success</td><td>Formular-Erfolg</td></tr>
+      <tr><td><code>color/border/default</code></td><td>rgba(27,94,32,0.08)</td><td>Semantic/Border/Default</td><td>Card-Borders</td></tr>
+      <tr><td><code>color/border/subtle</code></td><td>rgba(27,94,32,0.06)</td><td>Semantic/Border/Subtle</td><td>Tabellen-Zeilen, Dividers</td></tr>
+    </tbody>
+  </table>
+
+  <h3>2.2 Typografie-Tokens</h3>
+  <p style="font-size:0.88rem; margin-bottom:16px;">Zwei Fontfamilien: <strong>Nunito</strong> (Display/Headlines) und <strong>Atkinson Hyperlegible</strong> (Body/Forms). Atkinson ist speziell f&uuml;r Sehbeeintr&auml;chtigte optimiert &mdash; zentral f&uuml;r die Senior*innen-Zielgruppe.</p>
+
+  <table>
+    <thead><tr><th>Token</th><th>Font</th><th>Size</th><th>Weight</th><th>Line-H.</th><th>Figma Style</th></tr></thead>
+    <tbody>
+      <tr><td><code>type/display</code></td><td>Nunito</td><td>clamp(36–56px)</td><td>800</td><td>1.25</td><td>Display/ExtraBold</td></tr>
+      <tr><td><code>type/h1</code></td><td>Nunito</td><td>clamp(30–44px)</td><td>700</td><td>1.25</td><td>Heading/H1</td></tr>
+      <tr><td><code>type/h2</code></td><td>Nunito</td><td>clamp(26–36px)</td><td>600</td><td>1.25</td><td>Heading/H2</td></tr>
+      <tr><td><code>type/h3</code></td><td>Nunito</td><td>clamp(22–28px)</td><td>600</td><td>1.25</td><td>Heading/H3</td></tr>
+      <tr><td><code>type/body-lg</code></td><td>Atkinson Hyperlegible</td><td>20px</td><td>400</td><td>1.7</td><td>Body/Large</td></tr>
+      <tr><td><code>type/body</code></td><td>Atkinson Hyperlegible</td><td>18px</td><td>400</td><td>1.7</td><td>Body/Regular</td></tr>
+      <tr><td><code>type/caption</code></td><td>Atkinson Hyperlegible</td><td>14px</td><td>400</td><td>1.5</td><td>Body/Caption</td></tr>
+      <tr><td><code>type/label</code></td><td>Nunito</td><td>11–12px</td><td>800</td><td>1.2</td><td>Label/Uppercase</td></tr>
+      <tr><td><code>type/nav</code></td><td>Nunito</td><td>12px</td><td>700</td><td>1.2</td><td>Nav/Item</td></tr>
+      <tr><td><code>type/button</code></td><td>Atkinson Hyperlegible</td><td>15–18px</td><td>600</td><td>1.2</td><td>Button/Label</td></tr>
+    </tbody>
+  </table>
+
+  <h3>2.3 Spacing-Tokens (8px-Raster)</h3>
+  <table>
+    <thead><tr><th>Token</th><th>Wert</th><th>Figma Variable</th><th>Verwendung</th></tr></thead>
+    <tbody>
+      <tr><td><code>space/2xs</code></td><td>4px</td><td>Spacing/2xs</td><td>Icon-Padding, Mini-Gaps</td></tr>
+      <tr><td><code>space/xs</code></td><td>8px</td><td>Spacing/xs</td><td>Inline-Elemente, Chip-Padding</td></tr>
+      <tr><td><code>space/sm</code></td><td>12px</td><td>Spacing/sm</td><td>Card-interne Gaps</td></tr>
+      <tr><td><code>space/md</code></td><td>16px</td><td>Spacing/md</td><td>Standard-Gap, Mobile Seitenrand</td></tr>
+      <tr><td><code>space/lg</code></td><td>24px</td><td>Spacing/lg</td><td>Card-Padding, Desktop Seitenrand, Gutter</td></tr>
+      <tr><td><code>space/xl</code></td><td>32px</td><td>Spacing/xl</td><td>Intra-Section Spacing</td></tr>
+      <tr><td><code>space/2xl</code></td><td>48px</td><td>Spacing/2xl</td><td>Section-Padding (bottom)</td></tr>
+      <tr><td><code>space/3xl</code></td><td>64px</td><td>Spacing/3xl</td><td>Section-Padding (top)</td></tr>
+      <tr><td><code>space/4xl</code></td><td>80px</td><td>Spacing/4xl</td><td>Hero-Padding, Cover</td></tr>
+    </tbody>
+  </table>
+
+  <h3>2.4 Radii, Shadows, Borders</h3>
+  <table>
+    <thead><tr><th>Token</th><th>Wert</th><th>Verwendung</th></tr></thead>
+    <tbody>
+      <tr><td><code>radius/sm</code></td><td>4px</td><td>Code-Inline, Subtle Rounding</td></tr>
+      <tr><td><code>radius/md</code></td><td>8px</td><td>Breadcrumb-BG, Nav-Items</td></tr>
+      <tr><td><code>radius/default</code></td><td>12px</td><td>Buttons, Inputs, Info-Blocks</td></tr>
+      <tr><td><code>radius/lg</code></td><td>20px</td><td>Cards, Container</td></tr>
+      <tr><td><code>radius/xl</code></td><td>32px</td><td>Wireframe-Outer, Hero-Sections</td></tr>
+      <tr><td><code>radius/full</code></td><td>50px</td><td>Chips, Badges, Filter-Buttons</td></tr>
+      <tr><td><code>shadow/sm</code></td><td>0 1px 3px rgba(27,94,32,0.06)</td><td>Buttons Default, Small Cards</td></tr>
+      <tr><td><code>shadow/md</code></td><td>0 4px 12px rgba(27,94,32,0.08)</td><td>Cards Hover, Wireframes</td></tr>
+      <tr><td><code>shadow/lg</code></td><td>0 12px 32px rgba(27,94,32,0.1)</td><td>Card Lifted, Overlays</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     03 — FRAMES & GRIDS
+     ═══════════════════════════════════════════════════════════ -->
+<section id="frames">
+<div class="doc">
+  <div class="sec-num">03 — Frame-Struktur</div>
+  <h2 class="sec-title">Frames, Grids &amp; Constraints</h2>
+  <p class="sec-lead">Jeder Screen ist ein Top-Level Frame mit fester Breite und Auto-Height (Hug Contents vertikal).</p>
+
+  <h3>3.1 Top-Level Frames</h3>
+  <table>
+    <thead><tr><th>Frame-Name</th><th>Breite</th><th>H&ouml;he</th><th>Layout Grid</th><th>Fill</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Desktop / Screen-Name</strong></td><td>1440px</td><td>Hug</td><td>12 Col, 24px Gutter, 150px Margin, Stretch</td><td>color/bg/page</td></tr>
+      <tr><td><strong>Tablet / Screen-Name</strong></td><td>768px</td><td>Hug</td><td>8 Col, 24px Gutter, 24px Margin, Stretch</td><td>color/bg/page</td></tr>
+      <tr><td><strong>Mobile / Screen-Name</strong></td><td>375px</td><td>Hug</td><td>4 Col, 16px Gutter, 16px Margin, Stretch</td><td>color/bg/page</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.2 Content Container</h3>
+  <div class="spec-row"><div class="spec-label">Standard</div><div>max-width 1140px, zentriert. Frame mit Auto-Layout Horizontal, max-width Constraint 1140px.</div></div>
+  <div class="spec-row"><div class="spec-label">Narrow</div><div>max-width 720px. F&uuml;r Bericht-Detailseiten und lange Textbl&ouml;cke.</div></div>
+
+  <h3>3.3 Grid-Definitionen</h3>
+  <table>
+    <thead><tr><th>Breakpoint</th><th>Columns</th><th>Gutter</th><th>Margin</th><th>Card-Grid</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Desktop (1440)</strong></td><td>12</td><td>24px</td><td>150px (= 1140px Content)</td><td>3 Spalten, 20px Gap</td></tr>
+      <tr><td><strong>Tablet (768)</strong></td><td>8</td><td>24px</td><td>24px</td><td>2 Spalten, 20px Gap</td></tr>
+      <tr><td><strong>Mobile (375)</strong></td><td>4</td><td>16px</td><td>16px</td><td>1 Spalte, 16px Gap</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.4 Constraints (Non-Auto-Layout)</h3>
+  <table>
+    <thead><tr><th>Element</th><th>Horizontal</th><th>Vertikal</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Header / Sticky Nav</strong></td><td>Left and Right (Stretch)</td><td>Top (Fixed)</td></tr>
+      <tr><td><strong>Content Container</strong></td><td>Center</td><td>Top</td></tr>
+      <tr><td><strong>Footer</strong></td><td>Left and Right (Stretch)</td><td>Bottom</td></tr>
+      <tr><td><strong>Sticky Phone-Bar (Mobile)</strong></td><td>Left and Right (Stretch)</td><td>Bottom (Fixed)</td></tr>
+      <tr><td><strong>Sidebar (Desktop Detail)</strong></td><td>Right (Fixed Width 340px)</td><td>Top</td></tr>
+      <tr><td><strong>Hero-Bild</strong></td><td>Left and Right (Stretch)</td><td>Top</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     04 — AUTO-LAYOUT
+     ═══════════════════════════════════════════════════════════ -->
+<section id="auto-layout">
+<div class="doc">
+  <div class="sec-num">04 — Auto-Layout</div>
+  <h2 class="sec-title">Richtung, Padding, Spacing, Alignment, Resizing</h2>
+  <p class="sec-lead">Jede Komponente und jeder Section-Frame nutzt Auto-Layout. Nachfolgend alle Definitionen.</p>
+
+  <h3>4.1 Page-Level</h3>
+  <table>
+    <thead><tr><th>Frame</th><th>Direction</th><th>Padding (T/R/B/L)</th><th>Gap</th><th>Alignment</th><th>Resizing (W/H)</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Page Root</strong></td><td>Vertical</td><td>0 / 0 / 0 / 0</td><td>0</td><td>Top-Center</td><td>Fixed / Hug</td></tr>
+      <tr><td><strong>Section</strong></td><td>Vertical</td><td>64 / 0 / 48 / 0</td><td>0</td><td>Top-Center</td><td>Fill / Hug</td></tr>
+      <tr><td><strong>.doc Container</strong></td><td>Vertical</td><td>0 / 24 / 0 / 24</td><td>40</td><td>Top-Left</td><td>Fill (max 1140) / Hug</td></tr>
+      <tr><td><strong>Header (Sticky)</strong></td><td>Horizontal</td><td>12 / 24 / 12 / 24</td><td>16</td><td>Center-Left (wrap)</td><td>Fill / Hug</td></tr>
+      <tr><td><strong>Footer</strong></td><td>Vertical</td><td>48 / 24 / 48 / 24</td><td>8</td><td>Center</td><td>Fill / Hug</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.2 Komponenten</h3>
+  <table>
+    <thead><tr><th>Komponente</th><th>Dir.</th><th>Padding (T/R/B/L)</th><th>Gap</th><th>Alignment</th><th>Resizing</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Button/*</strong></td><td>H</td><td>12 / 24 / 12 / 24</td><td>8</td><td>Center</td><td>Hug / Fixed (48px min)</td></tr>
+      <tr><td><strong>Card/Workshop</strong></td><td>V</td><td>0 / 0 / 0 / 0</td><td>0</td><td>Top-Left</td><td>Fill / Hug</td></tr>
+      <tr><td><strong>Card &gt; Image</strong></td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>Fill / Fixed (120px)</td></tr>
+      <tr><td><strong>Card &gt; Content</strong></td><td>V</td><td>16 / 16 / 16 / 16</td><td>8</td><td>Top-Left</td><td>Fill / Hug</td></tr>
+      <tr><td><strong>Card &gt; Tag-Row</strong></td><td>H</td><td>0 / 0 / 0 / 0</td><td>6</td><td>Center-Left (wrap)</td><td>Fill / Hug</td></tr>
+      <tr><td><strong>Chip/Filter</strong></td><td>H</td><td>6 / 14 / 6 / 14</td><td>0</td><td>Center</td><td>Hug / Hug</td></tr>
+      <tr><td><strong>Input (Wrapper)</strong></td><td>V</td><td>0 / 0 / 0 / 0</td><td>4</td><td>Top-Left</td><td>Fill / Hug</td></tr>
+      <tr><td><strong>Input &gt; Field</strong></td><td>H</td><td>12 / 16 / 12 / 16</td><td>0</td><td>Center-Left</td><td>Fill / Fixed (48px)</td></tr>
+      <tr><td><strong>Breadcrumb</strong></td><td>H</td><td>0 / 0 / 0 / 0</td><td>8</td><td>Center-Left</td><td>Fill / Hug</td></tr>
+      <tr><td><strong>Toast</strong></td><td>H</td><td>12 / 20 / 12 / 20</td><td>12</td><td>Center-Left</td><td>Fill (max 600) / Hug</td></tr>
+      <tr><td><strong>Info-Block</strong></td><td>H</td><td>16 / 20 / 16 / 20</td><td>12</td><td>Top-Left</td><td>Fill / Hug</td></tr>
+      <tr><td><strong>Nav-Item</strong></td><td>H</td><td>4 / 10 / 4 / 10</td><td>0</td><td>Center</td><td>Hug / Hug</td></tr>
+      <tr><td><strong>Tab-Bar</strong></td><td>H</td><td>0 / 0 / 0 / 0</td><td>0</td><td>Bottom-Left</td><td>Fill / Hug</td></tr>
+      <tr><td><strong>Tab-Item</strong></td><td>H</td><td>10 / 20 / 10 / 20</td><td>0</td><td>Center</td><td>Hug / Hug</td></tr>
+      <tr><td><strong>Card-Grid</strong></td><td>H (wrap)</td><td>0 / 0 / 0 / 0</td><td>20</td><td>Top-Left</td><td>Fill / Hug</td></tr>
+      <tr><td><strong>State-Chip</strong></td><td>H</td><td>3 / 10 / 3 / 10</td><td>0</td><td>Center</td><td>Hug / Hug</td></tr>
+      <tr><td><strong>Sidebar/Anmeldung</strong></td><td>V</td><td>24 / 24 / 24 / 24</td><td>12</td><td>Top-Left</td><td>Fixed (340px) / Hug</td></tr>
+      <tr><td><strong>Newsletter-Form</strong></td><td>H (wrap)</td><td>0 / 0 / 0 / 0</td><td>12</td><td>Center-Left</td><td>Fill / Hug</td></tr>
+      <tr><td><strong>Partner-Logo-Row</strong></td><td>H</td><td>0 / 0 / 0 / 0</td><td>24</td><td>Center</td><td>Fill / Hug</td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-block info-block--tip">
+    <span style="font-size:1.2rem;">&#9989;</span>
+    <p><strong>Card-Grid Responsive:</strong> Auto-Layout Horizontal mit Wrap. Desktop: Card min-width 300px, max 3 pro Zeile. Tablet: 2 pro Zeile. Mobile: 1, volle Breite. Workshop-Cards bewusst gro&szlig; (min 300px) f&uuml;r Touch-Targets und Lesbarkeit.</p>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     05 — KOMPONENTEN-ARCHITEKTUR
+     ═══════════════════════════════════════════════════════════ -->
+<section id="components">
+<div class="doc">
+  <div class="sec-num">05 — Komponenten</div>
+  <h2 class="sec-title">Varianten &amp; Properties</h2>
+  <p class="sec-lead">Alle Komponenten als Figma Components mit Varianten (Component Sets) und Component Properties.</p>
+
+  <h3>5.1 Button</h3>
+  <table>
+    <thead><tr><th>Property</th><th>Typ</th><th>Werte</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Variant</strong></td><td>Variant</td><td>Primary &bull; Secondary &bull; Accent &bull; Tertiary &bull; Danger</td></tr>
+      <tr><td><strong>State</strong></td><td>Variant</td><td>Default &bull; Hover &bull; Active &bull; Focus &bull; Disabled</td></tr>
+      <tr><td><strong>Size</strong></td><td>Variant</td><td>Default (48px) &bull; Small (36px)</td></tr>
+      <tr><td><strong>Label</strong></td><td>Text Property</td><td>String (editierbar)</td></tr>
+      <tr><td><strong>Icon-Left</strong></td><td>Boolean</td><td>true | false</td></tr>
+      <tr><td><strong>Icon-Right</strong></td><td>Boolean</td><td>true | false</td></tr>
+      <tr><td><strong>Full-Width</strong></td><td>Boolean</td><td>true (Fill) | false (Hug)</td></tr>
+    </tbody>
+  </table>
+  <div class="highlight">
+    <strong>Hover:</strong> translateY(-1px) + shadow/sm &rarr; shadow/md. <strong>Focus-Ring:</strong> 3px Amber Outline, 2px Offset. <strong>Disabled:</strong> Opacity 50%.
+  </div>
+
+  <h3>5.2 Card</h3>
+  <table>
+    <thead><tr><th>Property</th><th>Typ</th><th>Werte</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Variant</strong></td><td>Variant</td><td>Workshop &bull; News &bull; Engagement &bull; Partner</td></tr>
+      <tr><td><strong>State</strong></td><td>Variant</td><td>Default &bull; Hover &bull; Focus</td></tr>
+      <tr><td><strong>Has-Image</strong></td><td>Boolean</td><td>true | false</td></tr>
+      <tr><td><strong>Has-Tags</strong></td><td>Boolean</td><td>true | false</td></tr>
+      <tr><td><strong>Status</strong></td><td>Variant</td><td>Kommend &bull; Vergangen (nur Workshop)</td></tr>
+      <tr><td><strong>Title</strong></td><td>Text Property</td><td>String</td></tr>
+      <tr><td><strong>Date</strong></td><td>Text Property</td><td>String</td></tr>
+      <tr><td><strong>Location</strong></td><td>Text Property</td><td>String</td></tr>
+      <tr><td><strong>CTA-Label</strong></td><td>Text Property</td><td>String</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.84rem; margin-top:10px;"><strong>Anatomie:</strong> Image (Fill, 120px, radius-lg clip) &rarr; Content (V-AL, 16px pad, 8px gap) &rarr; Date &rarr; Title &rarr; Meta &rarr; Tag-Row &rarr; CTA. Gesamte Card klickbar (kein kleiner Link-Text).</p>
+
+  <h3>5.3 Input / Form-Field</h3>
+  <table>
+    <thead><tr><th>Property</th><th>Typ</th><th>Werte</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Type</strong></td><td>Variant</td><td>Text &bull; Email &bull; Phone &bull; Textarea &bull; Select &bull; Checkbox</td></tr>
+      <tr><td><strong>State</strong></td><td>Variant</td><td>Default &bull; Focus &bull; Filled &bull; Error &bull; Success &bull; Disabled</td></tr>
+      <tr><td><strong>Label</strong></td><td>Text Property</td><td>String</td></tr>
+      <tr><td><strong>Placeholder</strong></td><td>Text Property</td><td>String</td></tr>
+      <tr><td><strong>Error-Message</strong></td><td>Text Property</td><td>String (conditional)</td></tr>
+      <tr><td><strong>Required</strong></td><td>Boolean</td><td>true (Asterisk + Pflichtfeld) | false</td></tr>
+    </tbody>
+  </table>
+  <div class="info-block info-block--warn">
+    <span style="font-size:1.2rem;">&#9888;</span>
+    <p><strong>Senior*innen-Regel:</strong> Labels immer &uuml;ber dem Feld (nie als Placeholder). Placeholder nur als Zusatzhinweis. Pflichtfelder mit Asterisk UND &bdquo;(Pflichtfeld)&ldquo;-Text.</p>
+  </div>
+
+  <h3>5.4 Chip / Filter-Button</h3>
+  <table>
+    <thead><tr><th>Property</th><th>Typ</th><th>Werte</th></tr></thead>
+    <tbody>
+      <tr><td><strong>State</strong></td><td>Variant</td><td>Active &bull; Inactive &bull; Hover</td></tr>
+      <tr><td><strong>Label</strong></td><td>Text Property</td><td>String</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.84rem;"><strong>Active:</strong> bg Mint, text Deep Forest, weight 600. <strong>Inactive:</strong> transparent, border 1.5px, text Sage.</p>
+
+  <h3>5.5 Navigation</h3>
+  <table>
+    <thead><tr><th>Component</th><th>Varianten</th><th>Properties</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Header/Desktop</strong></td><td>Default | Scrolled (Sticky)</td><td>Logo (Instance), Nav-Items, Lang-Toggle</td></tr>
+      <tr><td><strong>Header/Mobile</strong></td><td>Default | Menu-Open</td><td>Logo, Hamburger, Lang-Toggle, Phone-Bar (Bool)</td></tr>
+      <tr><td><strong>Nav-Item</strong></td><td>Default | Hover | Active | Focus</td><td>Label (Text), isActive (Boolean)</td></tr>
+      <tr><td><strong>Breadcrumb</strong></td><td>2-Level | 3-Level</td><td>Items (Text), Separator (&rsaquo;)</td></tr>
+      <tr><td><strong>Mobile-Overlay</strong></td><td>Open</td><td>Nav-Items, Focus-Trap Annotation</td></tr>
+      <tr><td><strong>Sticky-Phone-Bar</strong></td><td>&mdash;</td><td>Phone-Number (Text), CTA-Label (Text)</td></tr>
+      <tr><td><strong>Language-Toggle</strong></td><td>DE-Active | EN-Active</td><td>DE (Text), EN (Text)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>5.6 Toast / Notification</h3>
+  <table>
+    <thead><tr><th>Property</th><th>Typ</th><th>Werte</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Type</strong></td><td>Variant</td><td>Success &bull; Error &bull; Info</td></tr>
+      <tr><td><strong>Message</strong></td><td>Text Property</td><td>String</td></tr>
+      <tr><td><strong>Has-Action</strong></td><td>Boolean</td><td>true (Retry) | false</td></tr>
+    </tbody>
+  </table>
+
+  <h3>5.7 Weitere Komponenten</h3>
+  <table>
+    <thead><tr><th>Komponente</th><th>Varianten</th><th>Key Properties</th></tr></thead>
+    <tbody>
+      <tr><td><strong>State-Badge</strong></td><td>Kommend | Vergangen | Extern</td><td>Label, Color-Schema</td></tr>
+      <tr><td><strong>Category-Tag</strong></td><td>Bericht | Neuigkeit | Extern</td><td>Label, Color</td></tr>
+      <tr><td><strong>Info-Block</strong></td><td>Tip | Warning | Note</td><td>Icon (Instance), Text</td></tr>
+      <tr><td><strong>Skeleton-Card</strong></td><td>&mdash;</td><td>Width (Fill), Pulse Annotation</td></tr>
+      <tr><td><strong>Empty-State</strong></td><td>No-Workshops | No-Filter | Generic</td><td>Illustration (Instance), Text, CTA (Bool)</td></tr>
+      <tr><td><strong>Lightbox</strong></td><td>Open</td><td>Image, Close-Button, Nav-Arrows</td></tr>
+      <tr><td><strong>Counter/Data-Viz</strong></td><td>&mdash;</td><td>Number (Text), Label (Text)</td></tr>
+      <tr><td><strong>Timeline-Item</strong></td><td>Past | Current | Future</td><td>Date, Title, Description</td></tr>
+      <tr><td><strong>Partner-Logo</strong></td><td>&mdash;</td><td>Logo (Instance), Grayscale Default</td></tr>
+      <tr><td><strong>Footer</strong></td><td>Desktop | Mobile</td><td>Newsletter (Bool), Links, Logos</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     06 — SCREEN FRAME-HIERARCHIEN
+     ═══════════════════════════════════════════════════════════ -->
+<section id="screens">
+<div class="doc">
+  <div class="sec-num">06 — Screen-Hierarchien</div>
+  <h2 class="sec-title">Frame-B&auml;ume f&uuml;r 8 Kern-Screens</h2>
+  <p class="sec-lead">Notation: Frame-Name [Auto-Layout Direction, Gap]. Verschachtelung zeigt Parent-Child-Beziehung.</p>
+
+  <h3>Screen 1 — Startseite</h3>
+  <div class="tree">
+    <div class="tree-item"><span class="name">Desktop/Startseite</span> <span class="meta">[V, 0] — 1440&times;Auto</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">Header</span> <span class="meta">[H, 16] — Fill, Sticky</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">Section/Hero</span> <span class="meta">[V, 16] — Pad 80/0/60/0, gradient BG</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">.doc</span> <span class="meta">[V, 24] — max-w 1140, center</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> Hero-Image <span class="meta">Fill, max-h 520px, object-fit cover</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> Headline + Subtitle</div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9492;&#9472;</span> CTA/Accent</div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">Section/N&auml;chste-Termine</span> <span class="meta">[V, 40]</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> Card-Grid <span class="meta">[H wrap, 20px] — max 3 Workshop-Cards</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&#9492;&#9472;</span> CTA/Primary &bdquo;Alle Workshops ansehen&ldquo;</div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">Section/Kurzvorstellung</span> <span class="meta">[V, 24]</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">Section/Partner</span> <span class="meta">[H, 24] — Logo-Row, center</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">Section/Newsletter</span> <span class="meta">[V, 16]</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&#9492;&#9472;</span> <span class="name">Footer</span> <span class="meta">[V, 8]</span></div>
+  </div>
+
+  <h3>Screen 3 — Workshop-Detail</h3>
+  <div class="tree">
+    <div class="tree-item"><span class="name">Desktop/Workshop-Detail</span> <span class="meta">[V, 0]</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">Header</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">Section/Content</span> <span class="meta">[V, 24]</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> Breadcrumb <span class="meta">[H, 8]</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> Back-Button <span class="meta">Secondary</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">Two-Column</span> <span class="meta">[H, 24px gap]</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">Left/Main</span> <span class="meta">[V, 20] — Fill</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> Status-Badge + Title + Meta</div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> Description</div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9492;&#9472;</span> Gallery</div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9492;&#9472;</span> <span class="name">Right/Sidebar</span> <span class="meta">[V, 12] — Fixed 340px</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> Anmelde-Box <span class="meta">cream bg, radius-lg</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9492;&#9472;</span> Calendar-Export-Hint</div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&#9492;&#9472;</span> <span class="name">Footer</span></div>
+  </div>
+
+  <h3>Alle 8 Screens — &Uuml;bersicht</h3>
+  <table>
+    <thead><tr><th>Screen</th><th>Layout-Besonderheit</th><th>Key Frames</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1. Startseite</strong></td><td>Hero + 3-Card-Teaser + Partner + NL</td><td>Hero, Card-Grid, Partner-Row, Newsletter-Form</td></tr>
+      <tr><td><strong>2. Workshops</strong></td><td>Filter-Chips + Tabs + Card-Grid</td><td>Filter-Row, Tab-Bar, Card-Grid</td></tr>
+      <tr><td><strong>3. Workshop-Detail</strong></td><td>2-Spalten (Content + Sidebar)</td><td>Two-Column, Anmelde-Box, Gallery</td></tr>
+      <tr><td><strong>4. &Uuml;ber das Projekt</strong></td><td>Statische Content-Bl&ouml;cke</td><td>Hero-Mini, Icon-Cards (4x), Testimonial, Partner</td></tr>
+      <tr><td><strong>5. Mitmachen</strong></td><td>3 Engagement-Cards + Kontakt</td><td>Card-Grid (Accent), Kontakt-Block</td></tr>
+      <tr><td><strong>6. Aktuelles</strong></td><td>News-Grid mit Kategorie-Filter</td><td>Filter-Chips, News-Card-Grid</td></tr>
+      <tr><td><strong>7. Kontakt</strong></td><td>2-Spalten (Form + Karte)</td><td>Phone/Email-Box, Formular, OSM-Karte</td></tr>
+      <tr><td><strong>8. Bericht-Detail</strong></td><td>Narrow Layout (720px)</td><td>Narrow Content, Gallery, Prev/Next Nav</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     07 — PROTOTYPE FLOWS
+     ═══════════════════════════════════════════════════════════ -->
+<section id="prototype">
+<div class="doc">
+  <div class="sec-num">07 — Prototyping</div>
+  <h2 class="sec-title">Flows, Trigger &amp; Animationen</h2>
+  <p class="sec-lead">Alle Prototype-Flows mit Triggern, Smart Animate und Timing-Definitionen.</p>
+
+  <h3>7.1 Flow-Definitionen</h3>
+  <table>
+    <thead><tr><th>Flow-Name</th><th>Start</th><th>Schritte</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Workshop entdecken</strong></td><td>Startseite</td><td>Hero CTA &rarr; &Uuml;bersicht &rarr; Card klicken &rarr; Detail &rarr; Anmeldung &rarr; Erfolg-Toast</td></tr>
+      <tr><td><strong>Filter-Workflow</strong></td><td>Workshop-&Uuml;bersicht</td><td>Chip klicken &rarr; Ergebnisse filtern &rarr; Zur&uuml;cksetzen</td></tr>
+      <tr><td><strong>Kontakt-Flow</strong></td><td>Startseite</td><td>Nav &bdquo;Kontakt&ldquo; &rarr; Seite &rarr; Formular &rarr; Absenden &rarr; Erfolg</td></tr>
+      <tr><td><strong>News lesen</strong></td><td>Startseite</td><td>Nav &rarr; News-&Uuml;bersicht &rarr; Card &rarr; Bericht-Detail &rarr; Prev/Next</td></tr>
+      <tr><td><strong>Mobile Navigation</strong></td><td>Mobile Start</td><td>Hamburger &rarr; Overlay &rarr; Nav-Item &rarr; Close</td></tr>
+      <tr><td><strong>Sprache wechseln</strong></td><td>Beliebig</td><td>Lang-Toggle DE &rarr; EN &rarr; Seite in EN</td></tr>
+      <tr><td><strong>Error &amp; Recovery</strong></td><td>Workshop-Detail</td><td>Formular mit Fehler &rarr; Error-State &rarr; Korrektur &rarr; Erfolg</td></tr>
+    </tbody>
+  </table>
+
+  <h3>7.2 Trigger &amp; Animationen</h3>
+  <table>
+    <thead><tr><th>Trigger</th><th>Action</th><th>Animation</th><th>Dauer</th><th>Easing</th></tr></thead>
+    <tbody>
+      <tr><td><strong>On Click (Card)</strong></td><td>Navigate to Detail</td><td>Smart Animate</td><td>300ms</td><td>Ease Out</td></tr>
+      <tr><td><strong>On Click (Button)</strong></td><td>Navigate / Submit</td><td>Smart Animate</td><td>200ms</td><td>Ease Out</td></tr>
+      <tr><td><strong>On Click (Filter)</strong></td><td>Swap Active/Inactive</td><td>Smart Animate</td><td>100ms</td><td>Ease</td></tr>
+      <tr><td><strong>On Click (Hamburger)</strong></td><td>Overlay &rarr; Open</td><td>Slide In Left</td><td>350ms</td><td>Ease Default</td></tr>
+      <tr><td><strong>On Click (Close)</strong></td><td>Overlay &rarr; Close</td><td>Slide Out Left</td><td>250ms</td><td>Ease In</td></tr>
+      <tr><td><strong>On Click (Tab)</strong></td><td>Swap Content</td><td>Smart Animate</td><td>200ms</td><td>Ease Out</td></tr>
+      <tr><td><strong>While Hover (Card)</strong></td><td>Swap to Hover</td><td>Smart Animate</td><td>200ms</td><td>cubic-bezier(0.4,0,0.2,1)</td></tr>
+      <tr><td><strong>While Hover (Button)</strong></td><td>Swap to Hover</td><td>Smart Animate</td><td>100ms</td><td>Ease Out</td></tr>
+      <tr><td><strong>After Delay (Toast)</strong></td><td>Close Toast</td><td>Dissolve</td><td>300ms</td><td>after 5s delay</td></tr>
+      <tr><td><strong>Mouse Enter (Logo)</strong></td><td>Grayscale &rarr; Color</td><td>Smart Animate</td><td>200ms</td><td>Ease</td></tr>
+    </tbody>
+  </table>
+
+  <h3>7.3 Scroll-Animationen (Dev-Annotations)</h3>
+  <div class="info-block info-block--note">
+    <span style="font-size:1.2rem;">&#9881;</span>
+    <p>Figma Prototyping unterst&uuml;tzt keine Scroll-Trigger nativ. Folgende werden als Annotations dokumentiert:</p>
+  </div>
+  <table>
+    <thead><tr><th>Animation</th><th>Beschreibung</th><th>Dauer / Easing</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Page Load (fadeUp)</strong></td><td>opacity 0&rarr;1, translateY 20&rarr;0</td><td>400ms, ease-out</td></tr>
+      <tr><td><strong>Skeleton Loading</strong></td><td>Pulsierendes Grau, opacity 0.6&rarr;1</td><td>1.5s loop, ease-in-out</td></tr>
+      <tr><td><strong>Counter (Data-Viz)</strong></td><td>Count-Up bei Scroll-in-View</td><td>800ms, ease-out</td></tr>
+      <tr><td><strong>Focus Ring</strong></td><td>3px Amber Outline, 2px offset</td><td>instant</td></tr>
+    </tbody>
+  </table>
+
+  <div class="highlight">
+    <strong>prefers-reduced-motion: reduce</strong> &mdash; Alle Animationen auf 0.01ms. Nur essenzielle State-Wechsel (Focus, Active) bleiben.
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     08 — DEV HANDOFF
+     ═══════════════════════════════════════════════════════════ -->
+<section id="handoff">
+<div class="doc">
+  <div class="sec-num">08 — Dev-Handoff</div>
+  <h2 class="sec-title">CSS-Mapping, Exports &amp; Naming</h2>
+  <p class="sec-lead">Vollst&auml;ndiges Setup f&uuml;r Figma Dev Mode, Export-Konfiguration und Naming-Conventions.</p>
+
+  <h3>8.1 Naming Conventions</h3>
+  <table>
+    <thead><tr><th>Ebene</th><th>Pattern</th><th>Beispiel</th></tr></thead>
+    <tbody>
+      <tr><td>Pages</td><td>Emoji + Name</td><td>&#128421; Desktop</td></tr>
+      <tr><td>Top-Level Frames</td><td>Breakpoint / Screen</td><td>Desktop / Startseite</td></tr>
+      <tr><td>Sections</td><td>Section / Bezeichnung</td><td>Section / Hero</td></tr>
+      <tr><td>Components</td><td>PascalCase / Variant</td><td>Button / Primary</td></tr>
+      <tr><td>Varianten-Property</td><td>camelCase</td><td>state=hover, size=default</td></tr>
+      <tr><td>Layers</td><td>kebab-case</td><td>card-content, nav-item</td></tr>
+      <tr><td>Tokens (Variables)</td><td>category/subcategory/name</td><td>color/primary/800</td></tr>
+      <tr><td>Text Styles</td><td>Category / Style</td><td>Heading / H1</td></tr>
+      <tr><td>Effect Styles</td><td>shadow/size</td><td>shadow/md</td></tr>
+    </tbody>
+  </table>
+
+  <h3>8.2 CSS-Mapping</h3>
+  <table>
+    <thead><tr><th>Figma Variable</th><th>CSS Custom Property</th><th>Wert</th></tr></thead>
+    <tbody>
+      <tr><td>color/primary/800</td><td><code>--color-primary-800</code></td><td>#1B5E20</td></tr>
+      <tr><td>color/primary/700</td><td><code>--color-primary-700</code></td><td>#2E6F40</td></tr>
+      <tr><td>color/accent/500</td><td><code>--color-accent-500</code></td><td>#FFBF00</td></tr>
+      <tr><td>color/bg/page</td><td><code>--color-bg-page</code></td><td>#FAFAF5</td></tr>
+      <tr><td>color/bg/card</td><td><code>--color-bg-card</code></td><td>#FFFDF5</td></tr>
+      <tr><td>Spacing/lg</td><td><code>--space-lg</code></td><td>24px</td></tr>
+      <tr><td>radius/default</td><td><code>--radius</code></td><td>12px</td></tr>
+      <tr><td>radius/lg</td><td><code>--radius-lg</code></td><td>20px</td></tr>
+      <tr><td>shadow/sm</td><td><code>--shadow-sm</code></td><td>0 1px 3px rgba(27,94,32,0.06)</td></tr>
+      <tr><td>shadow/md</td><td><code>--shadow-md</code></td><td>0 4px 12px rgba(27,94,32,0.08)</td></tr>
+      <tr><td>type/body</td><td><code>--font-body</code></td><td>Atkinson Hyperlegible, 18px/1.7, 400</td></tr>
+      <tr><td>type/h1</td><td><code>--font-display</code></td><td>Nunito, clamp(30-44px)/1.25, 700</td></tr>
+    </tbody>
+  </table>
+
+  <h3>8.3 Export Settings</h3>
+  <table>
+    <thead><tr><th>Asset-Typ</th><th>Format</th><th>Scale</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Icons</strong></td><td>SVG</td><td>1x</td><td>Outline-Stroke, currentColor</td></tr>
+      <tr><td><strong>Illustrationen</strong></td><td>SVG + PNG</td><td>1x, 2x, 3x</td><td>Handgezeichnete Lebensmittel</td></tr>
+      <tr><td><strong>Hero-Bilder</strong></td><td>JPG (WebP/AVIF)</td><td>1x, 2x</td><td>Max 520px, responsive srcset</td></tr>
+      <tr><td><strong>Gallery</strong></td><td>JPG (WebP)</td><td>1x, 2x</td><td>Lazy Loading, blur-up Placeholder</td></tr>
+      <tr><td><strong>Logos</strong></td><td>SVG</td><td>1x</td><td>Mavka + Partner-Logos</td></tr>
+      <tr><td><strong>Favicons</strong></td><td>PNG + SVG</td><td>16/32/180/512</td><td>Multi-Resolution</td></tr>
+    </tbody>
+  </table>
+
+  <h3>8.4 Dev Mode Annotations</h3>
+  <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+    <div class="card">
+      <h4>CSS-Klassen</h4>
+      <p>Vorgeschlagener Klassenname pro Komponente: <code>.btn--primary</code>, <code>.card--workshop</code>, <code>.chip--active</code></p>
+    </div>
+    <div class="card">
+      <h4>Breakpoint-Regeln</h4>
+      <p><code>@media</code> Queries pro Komponente annotiert: 320px, 768px, 1024px</p>
+    </div>
+    <div class="card">
+      <h4>ARIA-Attribute</h4>
+      <p>Direkt an der Komponente annotiert (aria-label, aria-expanded, role)</p>
+    </div>
+    <div class="card">
+      <h4>Z-Index-Hierarchie</h4>
+      <p>Header(100), Overlay(200), Toast(300), Lightbox(400)</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     09 — ACCESSIBILITY
+     ═══════════════════════════════════════════════════════════ -->
+<section id="a11y">
+<div class="doc">
+  <div class="sec-num">09 — Barrierefreiheit</div>
+  <h2 class="sec-title">WCAG 2.1 AA+, ARIA &amp; Senior*innen-Extras</h2>
+  <p class="sec-lead">Barrierefreiheit ist kein Feature sondern Grundlage. Jedes Element wird mit Accessibility-Annotationen versehen.</p>
+
+  <h3>9.1 Kontrast-Pr&uuml;fungen</h3>
+  <table>
+    <thead><tr><th>Kombination</th><th>Ratio</th><th>Level</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><span class="swatch" style="background:#1B5E20"></span>Deep Forest auf <span class="swatch" style="background:#FAFAF5"></span>Off-White</td><td>9.2:1</td><td>AAA</td><td>&#9989; Bestanden</td></tr>
+      <tr><td><span class="swatch" style="background:#2E6F40"></span>Forest Green auf <span class="swatch" style="background:#FAFAF5"></span>Off-White</td><td>6.8:1</td><td>AA</td><td>&#9989; Bestanden</td></tr>
+      <tr><td><span class="swatch" style="background:#4A4A4A"></span>Charcoal auf <span class="swatch" style="background:#FAFAF5"></span>Off-White</td><td>7.5:1</td><td>AAA</td><td>&#9989; Bestanden</td></tr>
+      <tr><td><span class="swatch" style="background:#6B8D53"></span>Sage auf <span class="swatch" style="background:#FAFAF5"></span>Off-White</td><td>3.8:1</td><td>AA (gro&szlig;)</td><td>&#9888; Nur &gt;18px/bold</td></tr>
+      <tr><td><span class="swatch" style="background:#FDFBD4"></span>Cream auf <span class="swatch" style="background:#1B5E20"></span>Deep Forest</td><td>8.4:1</td><td>AAA</td><td>&#9989; Bestanden</td></tr>
+      <tr><td><span class="swatch" style="background:#FFBF00"></span>Amber auf <span class="swatch" style="background:#1B5E20"></span>Deep Forest</td><td>6.1:1</td><td>AA</td><td>&#9989; Bestanden</td></tr>
+      <tr><td><span class="swatch" style="background:#C43333"></span>Error auf <span class="swatch" style="background:#FAFAF5"></span>Off-White</td><td>5.4:1</td><td>AA</td><td>&#9989; Bestanden</td></tr>
+    </tbody>
+  </table>
+
+  <h3>9.2 Keyboard Tab-Order</h3>
+  <table>
+    <thead><tr><th>Screen</th><th>Tab-Reihenfolge</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Alle</strong></td><td>Skip-to-Content &rarr; Logo &rarr; Nav-Items (L&rarr;R) &rarr; Lang-Toggle &rarr; Inhalt &rarr; Footer</td></tr>
+      <tr><td><strong>Startseite</strong></td><td>Hero CTA &rarr; Workshop-Cards &rarr; Alle-Workshops CTA &rarr; Newsletter &rarr; Footer</td></tr>
+      <tr><td><strong>Workshop-Detail</strong></td><td>Back-Button &rarr; Content &rarr; Tel &rarr; Email &rarr; Formular-Felder &rarr; Submit</td></tr>
+      <tr><td><strong>Mobile Overlay</strong></td><td>Focus-Trap: Close &rarr; Nav-Items &rarr; Lang &rarr; Loop. Escape schlie&szlig;t.</td></tr>
+      <tr><td><strong>Lightbox</strong></td><td>Focus-Trap: Close &rarr; Prev &rarr; Next &rarr; Loop. Escape schlie&szlig;t.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>9.3 ARIA-Annotationen</h3>
+  <table>
+    <thead><tr><th>Komponente</th><th>HTML-Element</th><th>ARIA / Attribute</th></tr></thead>
+    <tbody>
+      <tr><td>Header</td><td><code>&lt;nav&gt;</code></td><td><code>aria-label="Hauptnavigation"</code></td></tr>
+      <tr><td>Mobile Menu</td><td><code>&lt;div role="dialog"&gt;</code></td><td><code>aria-modal="true"</code>, Focus-Trap</td></tr>
+      <tr><td>Workshop-Liste</td><td><code>&lt;ul role="list"&gt;</code></td><td>Live-Region f&uuml;r Filter-Ergebnisse</td></tr>
+      <tr><td>Filter-Chip</td><td><code>&lt;button&gt;</code></td><td><code>aria-pressed="true|false"</code></td></tr>
+      <tr><td>Tab-Bar</td><td><code>&lt;div role="tablist"&gt;</code></td><td><code>aria-selected</code>, <code>role="tabpanel"</code></td></tr>
+      <tr><td>Form-Input</td><td><code>&lt;input&gt;</code></td><td><code>aria-describedby</code>, <code>aria-invalid</code></td></tr>
+      <tr><td>Toast</td><td><code>&lt;div role="alert"&gt;</code></td><td><code>aria-live="polite"</code></td></tr>
+      <tr><td>Breadcrumb</td><td><code>&lt;nav aria-label="Breadcrumb"&gt;</code></td><td><code>aria-current="page"</code></td></tr>
+      <tr><td>Lang-Toggle</td><td><code>&lt;button&gt;</code></td><td><code>aria-label="Sprache wechseln"</code></td></tr>
+      <tr><td>Skip-Link</td><td><code>&lt;a&gt;</code></td><td>Visuell versteckt, bei <code>:focus</code> sichtbar</td></tr>
+      <tr><td>Bilder</td><td><code>&lt;img&gt;</code></td><td><code>alt</code> Pflicht (beschreibend)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>9.4 Senior*innen-Extras (&uuml;ber AA hinaus)</h3>
+  <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+    <div class="card card--accent">
+      <h4>Breadcrumb &uuml;berall</h4>
+      <p>Auf jeder Unterseite. Nicht nur per Browser-Zur&uuml;ck.</p>
+    </div>
+    <div class="card card--accent">
+      <h4>Telefon immer sichtbar</h4>
+      <p>Mobile: Sticky-Phone-Bar. Desktop: in Sidebar und Footer.</p>
+    </div>
+    <div class="card card--accent">
+      <h4>Kein Auto-Play</h4>
+      <p>Keine Timeouts. Kein Parallax. Keine Karussells.</p>
+    </div>
+    <div class="card card--accent">
+      <h4>Gro&szlig;e Klickfl&auml;chen</h4>
+      <p>Gesamte Card klickbar. Min 44&times;44px Touch-Targets.</p>
+    </div>
+    <div class="card card--accent">
+      <h4>Klare Fehlermeldungen</h4>
+      <p>Einfache Sprache (B1-B2): &bdquo;Bitte geben Sie eine g&uuml;ltige E-Mail ein.&ldquo;</p>
+    </div>
+    <div class="card card--accent">
+      <h4>Focus-Management</h4>
+      <p>Bei Overlay-&Ouml;ffnung Focus auf erstes Element, bei Schlie&szlig;en zur&uuml;ck.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     10 — RESPONSIVE
+     ═══════════════════════════════════════════════════════════ -->
+<section id="responsive">
+<div class="doc">
+  <div class="sec-num">10 — Responsive</div>
+  <h2 class="sec-title">Breakpoints &amp; Anpassungen</h2>
+  <p class="sec-lead">Mobile-First. In Figma: Drei separate Frames pro Screen (Mobile &rarr; Tablet &rarr; Desktop).</p>
+
+  <h3>10.1 Breakpoint-Strategie</h3>
+  <table>
+    <thead><tr><th>Breakpoint</th><th>Frame</th><th>Navigation</th><th>Cards</th><th>Sidebar</th><th>Rand</th></tr></thead>
+    <tbody>
+      <tr><td><strong>320–767px</strong></td><td>375&times;Auto</td><td>Hamburger + Overlay</td><td>1 Spalte</td><td>Unter Content</td><td>16px</td></tr>
+      <tr><td><strong>768–1023px</strong></td><td>768&times;Auto</td><td>Hamburger oder Horizontal</td><td>2 Spalten</td><td>Unter Content</td><td>24px</td></tr>
+      <tr><td><strong>1024px+</strong></td><td>1440&times;Auto</td><td>Horizontal, Sticky</td><td>3 Spalten</td><td>Sticky rechts</td><td>Auto (1140)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>10.2 Komponentenanpassungen</h3>
+  <table>
+    <thead><tr><th>Komponente</th><th>Mobile (&lt;768)</th><th>Desktop (&ge;1024)</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Hero</strong></td><td>100vw, k&uuml;rzerer Text, CTA fullwidth</td><td>max-height 520px, l&auml;ngerer Text</td></tr>
+      <tr><td><strong>Workshop-Card</strong></td><td>Vollbreite, kein Bild</td><td>1/3 Breite, mit Bild</td></tr>
+      <tr><td><strong>Filter</strong></td><td>Horizontal scroll, Bottom-Sheet</td><td>Inline-Chips + Reset-Link</td></tr>
+      <tr><td><strong>Kontakt-Sidebar</strong></td><td>Unter Content, Tel prominent</td><td>Sticky rechts 340px</td></tr>
+      <tr><td><strong>Galerie</strong></td><td>2 Spalten, Swipe</td><td>4 Spalten, Lightbox</td></tr>
+      <tr><td><strong>Footer</strong></td><td>Gestapelt (NL &rarr; Links &rarr; Legal)</td><td>4-Spalten Grid</td></tr>
+    </tbody>
+  </table>
+
+  <h3>10.3 Performance-Budget</h3>
+  <div class="spec-row"><div class="spec-label">First Paint</div><div>&lt; 1.5s auf 3G</div></div>
+  <div class="spec-row"><div class="spec-label">LCP</div><div>&lt; 2.5s (Hero-Bild)</div></div>
+  <div class="spec-row"><div class="spec-label">CLS</div><div>&lt; 0.1 (keine Layout-Shifts)</div></div>
+  <div class="spec-row"><div class="spec-label">Bilder</div><div>WebP/AVIF, responsive srcset, Lazy Loading ab Fold</div></div>
+  <div class="spec-row"><div class="spec-label">Fonts</div><div>font-display: swap, preconnect Google Fonts</div></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     11 — CHECKLISTE
+     ═══════════════════════════════════════════════════════════ -->
+<section id="checklist">
+<div class="doc">
+  <div class="sec-num">11 — Setup-Checkliste</div>
+  <h2 class="sec-title">Figma-Datei Schritt f&uuml;r Schritt aufbauen</h2>
+  <p class="sec-lead">15-Schritte-Anleitung zum vollst&auml;ndigen Aufbau der Figma-Datei.</p>
+
+  <table>
+    <thead><tr><th>#</th><th>Schritt</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td>Figma-Datei erstellen</td><td><code>Gemeinsam-Kochen_UI-Design_v1.0</code></td></tr>
+      <tr><td><strong>2</strong></td><td>Pages anlegen</td><td>9 Pages gem&auml;&szlig; Abschnitt 1</td></tr>
+      <tr><td><strong>3</strong></td><td>Variable Collections</td><td>Colors, Spacing, Radii &mdash; Semantic + Primitives</td></tr>
+      <tr><td><strong>4</strong></td><td>Text Styles registrieren</td><td>Display, H1&ndash;H3, Body, Caption, Label, Nav, Button</td></tr>
+      <tr><td><strong>5</strong></td><td>Effect Styles</td><td>shadow/sm, shadow/md, shadow/lg</td></tr>
+      <tr><td><strong>6</strong></td><td>Basis-Komponenten bauen</td><td>Button &rarr; Input &rarr; Chip &rarr; Card &rarr; Nav &rarr; Toast</td></tr>
+      <tr><td><strong>7</strong></td><td>Varianten anlegen</td><td>Component Sets mit allen States und Properties</td></tr>
+      <tr><td><strong>8</strong></td><td>Layout Grids konfigurieren</td><td>12/8/4 Column Grids auf Frame-Ebene</td></tr>
+      <tr><td><strong>9</strong></td><td>Desktop-Screens aufbauen</td><td>8 Screens mit korrekter Hierarchie</td></tr>
+      <tr><td><strong>10</strong></td><td>Mobile + Tablet adaptieren</td><td>Responsive Varianten pro Screen</td></tr>
+      <tr><td><strong>11</strong></td><td>States designen</td><td>Empty, Error, Loading, Success pro Screen</td></tr>
+      <tr><td><strong>12</strong></td><td>Prototype Flows verbinden</td><td>7 Flows mit Smart Animate</td></tr>
+      <tr><td><strong>13</strong></td><td>Dev Mode Annotations</td><td>CSS-Klassen, ARIA, Breakpoints, Z-Index</td></tr>
+      <tr><td><strong>14</strong></td><td>Accessibility-Review</td><td>Stark/axe Plugin, Kontrast-Check, Tab-Through</td></tr>
+      <tr><td><strong>15</strong></td><td>Publish &amp; Export</td><td>Export Settings konfigurieren, Team Library publishen</td></tr>
+    </tbody>
+  </table>
+
+  <div class="designer-note">
+    <p><strong>Reihenfolge ist wichtig:</strong> Tokens &rarr; Styles &rarr; Basis-Komponenten &rarr; Komplexe Komponenten &rarr; Screens &rarr; States &rarr; Prototyping &rarr; Handoff. Jede Ebene baut auf der vorherigen auf. &Auml;nderungen an Tokens propagieren automatisch durch.</p>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="doc-footer">
+  <p><strong>Figma Design-Ops Spezifikation v1.0</strong></p>
+  <p>Gemeinsam Kochen &ndash; Gemeinsam Wachsen &middot; FEIN-Pilotprojekt &middot; Mavka.Berlin.Volunteers</p>
+  <p style="margin-top:8px;">Apple HIG &middot; WCAG 2.1 AA+ &middot; Mobile-First &middot; Senior*innen-optimiert</p>
+  <p style="margin-top:14px; opacity:0.5;">Stand: M&auml;rz 2026 &mdash; Entwurf</p>
+</footer>
+
+</body>
+</html>
