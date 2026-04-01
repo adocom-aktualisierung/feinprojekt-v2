@@ -899,6 +899,28 @@ dialog::backdrop {
   fill: var(--color-medium-green);
 }
 
+.download-card--pending {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.download-card--pending:hover {
+  box-shadow: var(--shadow-soft);
+  border-color: var(--color-border);
+  transform: none;
+}
+
+.download-badge {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-warm-gray);
+  background: var(--color-cream);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+}
+
 /* ========================================
    OPENSTREETMAP EMBEDS
    ======================================== */
