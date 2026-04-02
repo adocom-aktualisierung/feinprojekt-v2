@@ -96,6 +96,11 @@
   --color-border-mid: rgba(27, 94, 32, 0.2);
   --color-hero-overlay: rgba(26, 26, 20, 0.42);
 
+  /* Colors — State/Feedback */
+  --color-error: #C43333;
+  --color-error-dark: #991B1B;
+  --color-fab-bg: #1F4D3A;            /* Phone FAB — dunkler Forest-Ton */
+
   /* Typography */
   --font-display: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, sans-serif;

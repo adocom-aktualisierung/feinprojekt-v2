@@ -690,7 +690,7 @@ textarea.form-input {
 }
 
 .toast--error {
-  background: #C43333;
+  background: var(--color-error);
   color: #fff;
 }
 
@@ -731,16 +731,16 @@ textarea.form-input {
    FORM INLINE VALIDATION
    ======================================== */
 .form-input.is-invalid {
-  border-color: #C43333;
+  border-color: var(--color-error);
 }
 
 .form-input.is-invalid:focus {
   box-shadow: 0 0 0 3px rgba(196, 51, 51, 0.12);
-  border-color: #C43333;
+  border-color: var(--color-error);
 }
 
 .form-error-message {
-  color: #991B1B;
+  color: var(--color-error-dark);
   font-size: 0.85rem;
   margin-top: 4px;
   display: none;

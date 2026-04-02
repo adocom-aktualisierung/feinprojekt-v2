@@ -42,7 +42,7 @@ The strategic concept deliberately contains **no color/font/spacing values** —
 
 Authoritative values — `css/tokens.css` must match these:
 
-**Colors**: Primary `#1B5E20` (Deep Forest), Secondary `#2E6F40`, Accent `#FFBF00` (Amber), Soft Gold `#D4AF37`, Background `#FFFDF5`, Text `#4A4A4A`
+**Colors**: Primary `#1B5E20` (Deep Forest), Secondary `#2E6F40`, Accent `#FFBF00` (Amber), Soft Gold `#D4AF37`, Background `#FFFDF5` (Brand White / Cards), Page Background `#FAFAF5` (Off-white), Text `#4A4A4A`, Error `#C43333`, FAB `#1F4D3A`
 **Fonts**: Nunito (display/headings), Atkinson Hyperlegible (body — chosen for accessibility)
 **Body**: 18px base, line-height 1.65
 
