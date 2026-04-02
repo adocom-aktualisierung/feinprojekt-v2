@@ -93,7 +93,13 @@ if (regDialog) {
   // Open dialog from workshop card buttons
   document.querySelectorAll('[data-workshop]').forEach(btn => {
     btn.addEventListener('click', () => {
-      // Safely populate workshop info using DOM methods (no innerHTML)
+      // Populate hidden fields with workshop data
+      document.getElementById('reg-workshop').value = btn.dataset.workshop;
+      document.getElementById('reg-date').value = btn.dataset.date;
+      document.getElementById('reg-time').value = btn.dataset.time;
+      document.getElementById('reg-location').value = btn.dataset.location;
+
+      // Safely populate workshop info display (no innerHTML)
       workshopInfo.textContent = '';
       const strong = document.createElement('strong');
       strong.textContent = btn.dataset.workshop;
@@ -122,7 +128,7 @@ if (regDialog) {
 
 // Registration form submit
 if (regForm) {
-  regForm.addEventListener('submit', (e) => {
+  regForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const requiredInputs = regForm.querySelectorAll('.form-input[required]');
     let firstInvalid = null;
@@ -143,8 +149,48 @@ if (regForm) {
       return;
     }
 
-    regDialog.close();
-    showToast('Anmeldung erfolgreich! Wir melden uns bald bei Ihnen.');
+    // Collect form data
+    const payload = {
+      name:      regForm.querySelector('[name="name"]').value.trim(),
+      phone:     regForm.querySelector('[name="phone"]').value.trim(),
+      email:     regForm.querySelector('[name="email"]').value.trim(),
+      companion: regForm.querySelector('[name="companion"]').value.trim(),
+      workshop:  regForm.querySelector('[name="workshop"]').value,
+      date:      regForm.querySelector('[name="date"]').value,
+      time:      regForm.querySelector('[name="time"]').value,
+      location:  regForm.querySelector('[name="location"]').value,
+      consent:       true,
+      photo_consent: regForm.querySelector('[name="photo_consent"]')?.checked ?? false
+    };
+
+    // Disable submit button during request
+    const submitBtn = regForm.querySelector('[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird gesendet\u2026';
+
+    try {
+      const res = await fetch('/api/register.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await res.json();
+
+      if (result.ok) {
+        regDialog.close();
+        showToast('Anmeldung erfolgreich! Wir melden uns bald bei Ihnen.');
+      } else {
+        showToast(result.error || 'Ein Fehler ist aufgetreten.', 'error');
+      }
+    } catch {
+      // Network error — show fallback with phone number
+      showToast('Verbindungsfehler. Bitte melden Sie sich telefonisch unter +49 163 7038724.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
   });
 }
 

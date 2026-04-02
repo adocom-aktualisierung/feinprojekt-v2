@@ -739,19 +739,23 @@
       <div class="dialog-workshop-info" id="dialog-workshop-info" aria-live="polite"></div>
 
       <form class="contact-form" id="registration-form" aria-label="Anmeldeformular" novalidate>
+        <input type="hidden" name="workshop" id="reg-workshop">
+        <input type="hidden" name="date" id="reg-date">
+        <input type="hidden" name="time" id="reg-time">
+        <input type="hidden" name="location" id="reg-location">
         <div class="form-group">
           <label for="reg-name">Name *</label>
           <input type="text" id="reg-name" name="name" required autocomplete="name" class="form-input">
           <span class="form-error-message" aria-live="polite">Bitte geben Sie Ihren Namen ein.</span>
         </div>
         <div class="form-group">
-          <label for="reg-phone">Telefon *</label>
-          <input type="tel" id="reg-phone" name="phone" required autocomplete="tel" class="form-input">
-          <span class="form-error-message" aria-live="polite">Bitte geben Sie eine Telefonnummer ein.</span>
+          <label for="reg-email">E-Mail *</label>
+          <input type="email" id="reg-email" name="email" required autocomplete="email" class="form-input">
+          <span class="form-error-message" aria-live="polite">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
         </div>
         <div class="form-group">
-          <label for="reg-email">E-Mail <span style="font-weight:400;color:var(--color-warm-gray);">(optional)</span></label>
-          <input type="email" id="reg-email" name="email" autocomplete="email" class="form-input">
+          <label for="reg-phone">Telefon <span style="font-weight:400;color:var(--color-warm-gray);">(optional)</span></label>
+          <input type="tel" id="reg-phone" name="phone" autocomplete="tel" class="form-input">
         </div>
         <div class="form-group">
           <label for="reg-companion">Begleitperson <span style="font-weight:400;color:var(--color-warm-gray);">(optional)</span></label>
@@ -764,11 +768,17 @@
           </label>
         </div>
         <div>
+          <label class="form-consent">
+            <input type="checkbox" id="reg-photo-consent" name="photo_consent">
+            Ich bin damit einverstanden, dass während des Workshops Fotos zu Dokumentationszwecken gemacht und auf der Website sowie in sozialen Medien veröffentlicht werden dürfen. <span style="font-weight:400;color:var(--color-warm-gray);">(freiwillig)</span>
+          </label>
+        </div>
+        <div>
           <button type="submit" class="btn btn-green">Verbindlich anmelden</button>
         </div>
       </form>
 
-      <p class="dialog-note">Nach der Anmeldung erhalten Sie eine Bestätigung per E-Mail (falls angegeben) oder wir melden uns telefonisch bei Ihnen.</p>
+      <p class="dialog-note">Nach der Anmeldung erhalten Sie eine Bestätigung per E-Mail.</p>
     </div>
   </dialog>
 
