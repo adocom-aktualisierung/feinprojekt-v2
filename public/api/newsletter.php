@@ -15,7 +15,13 @@ define('REACH_API_BASE',     'https://developers.hostinger.com/api/reach/v1');
 
 // ── CORS & Security ────────────────────────────────────────
 header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: ' . ($_SERVER['HTTP_ORIGIN'] ?? '*'));
+$allowedOrigins = ['https://mavka-berlin.de', 'https://www.mavka-berlin.de'];
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if (in_array($origin, $allowedOrigins, true)) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+} else {
+    header('Access-Control-Allow-Origin: https://mavka-berlin.de');
+}
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 

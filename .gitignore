@@ -7,3 +7,6 @@ dist/
 *.zip
 docs/Bilder/
 .claude/
+.env
+.env.*
+*.local
