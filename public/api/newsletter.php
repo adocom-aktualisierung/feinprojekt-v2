@@ -8,22 +8,11 @@
  * Body: { "email": "...", "consent": true }
  */
 
-// ── Konfiguration (aus Umgebungsvariablen) ──────────────────
-define('REACH_API_TOKEN',    getenv('REACH_API_TOKEN')    ?: '');
-define('REACH_PROFILE_UUID', getenv('REACH_PROFILE_UUID') ?: '');
-define('REACH_API_BASE',     'https://developers.hostinger.com/api/reach/v1');
+require_once __DIR__ . '/config.php';
 
 // ── CORS & Security ────────────────────────────────────────
 header('Content-Type: application/json; charset=utf-8');
-$allowedOrigins = ['https://mavka-berlin.de', 'https://www.mavka-berlin.de'];
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if (in_array($origin, $allowedOrigins, true)) {
-    header('Access-Control-Allow-Origin: ' . $origin);
-} else {
-    header('Access-Control-Allow-Origin: https://mavka-berlin.de');
-}
-header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
+setCorsHeaders();
 
 // Preflight
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
