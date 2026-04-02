@@ -68,7 +68,7 @@ if (count($_SESSION['nl_timestamps']) >= $maxRequests) {
 }
 
 // ── Input lesen & validieren ────────────────────────────────
-$raw = file_get_contents('php://input');
+$raw = file_get_contents('php://input', false, null, 0, 2048); // Max 2 KB
 $data = json_decode($raw, true);
 
 if (!$data) {
@@ -82,6 +82,7 @@ $consent = (bool)($data['consent'] ?? false);
 
 $errors = [];
 if ($email === '')                              $errors[] = 'E-Mail-Adresse fehlt';
+if (mb_strlen($email) > 254)                    $errors[] = 'E-Mail-Adresse zu lang';
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'E-Mail-Adresse ungültig';
 if (!$consent)                                  $errors[] = 'Datenschutz-Einwilligung fehlt';
 

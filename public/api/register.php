@@ -65,7 +65,7 @@ if (count($_SESSION['reg_timestamps']) >= $maxRequests) {
 }
 
 // ── Input lesen & validieren ────────────────────────────────
-$raw = file_get_contents('php://input');
+$raw = file_get_contents('php://input', false, null, 0, 8192); // Max 8 KB
 $data = json_decode($raw, true);
 
 if (!$data) {
@@ -90,11 +90,16 @@ $photo_consent = (bool)($data['photo_consent'] ?? false);
 
 // Validierung
 $errors = [];
-if ($name === '')     $errors[] = 'Name fehlt';
-if ($email === '')    $errors[] = 'E-Mail-Adresse fehlt';
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'E-Mail-Adresse ungültig';
-if (!$consent)        $errors[] = 'Datenschutz-Einwilligung fehlt';
-if ($workshop === '') $errors[] = 'Workshop-Information fehlt';
+if ($name === '')                               $errors[] = 'Name fehlt';
+if (mb_strlen($name) > 100)                     $errors[] = 'Name zu lang (max. 100 Zeichen)';
+if ($email === '')                               $errors[] = 'E-Mail-Adresse fehlt';
+if (mb_strlen($email) > 254)                     $errors[] = 'E-Mail-Adresse zu lang';
+if (!filter_var($email, FILTER_VALIDATE_EMAIL))  $errors[] = 'E-Mail-Adresse ungültig';
+if (mb_strlen($phone) > 30)                      $errors[] = 'Telefonnummer zu lang';
+if (mb_strlen($companion) > 100)                 $errors[] = 'Name der Begleitperson zu lang';
+if (mb_strlen($workshop) > 200)                  $errors[] = 'Workshop-Name zu lang';
+if (!$consent)                                   $errors[] = 'Datenschutz-Einwilligung fehlt';
+if ($workshop === '')                            $errors[] = 'Workshop-Information fehlt';
 
 if (!empty($errors)) {
     http_response_code(422);

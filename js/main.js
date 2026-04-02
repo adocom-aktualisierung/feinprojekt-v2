@@ -319,7 +319,7 @@ if (newsletterForm) {
 // Contact form
 const contactForm = document.querySelector('[data-form="contact"]');
 if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const requiredInputs = contactForm.querySelectorAll('.form-input[required]');
     let firstInvalid = null;
@@ -342,10 +342,40 @@ if (contactForm) {
       return;
     }
 
-    // Replace form with success message using safe DOM methods
-    const formParent = contactForm.parentElement;
-    contactForm.remove();
-    formParent.appendChild(createSuccessMessage());
-    showToast('Nachricht erfolgreich gesendet!');
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird gesendet…';
+
+    try {
+      const res = await fetch('/api/contact.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: contactForm.querySelector('[name="name"]').value.trim(),
+          email: contactForm.querySelector('[name="email"]').value.trim(),
+          subject: contactForm.querySelector('[name="subject"]').value.trim(),
+          message: contactForm.querySelector('[name="message"]').value.trim(),
+          consent: checkbox.checked,
+        }),
+      });
+
+      const result = await res.json();
+
+      if (result.ok) {
+        const formParent = contactForm.parentElement;
+        contactForm.remove();
+        formParent.appendChild(createSuccessMessage());
+        showToast('Nachricht erfolgreich gesendet!');
+      } else {
+        showToast(result.error || 'Die Nachricht konnte nicht gesendet werden.', 'error');
+      }
+    } catch {
+      showToast('Verbindungsfehler – bitte versuchen Sie es telefonisch unter +49 163 7038724.', 'error');
+    } finally {
+      if (submitBtn.parentElement) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Nachricht senden';
+      }
+    }
   });
 }
