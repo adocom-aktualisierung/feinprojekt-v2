@@ -271,10 +271,11 @@ function createSuccessMessage() {
 // Newsletter form
 const newsletterForm = document.querySelector('[data-form="newsletter"]');
 if (newsletterForm) {
-  newsletterForm.addEventListener('submit', (e) => {
+  newsletterForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = newsletterForm.querySelector('input[type="email"]');
-    const checkbox = newsletterForm.querySelector('input[type="checkbox"]');
+    const checkbox = newsletterForm.closest('.newsletter-card').querySelector('.newsletter-consent input[type="checkbox"]');
+    const submitBtn = newsletterForm.querySelector('button[type="submit"]');
 
     if (!email.validity.valid) {
       email.focus();
@@ -285,8 +286,33 @@ if (newsletterForm) {
       return;
     }
 
-    showToast('Vielen Dank für Ihre Anmeldung! Sie erhalten eine Bestätigung per E-Mail.');
-    newsletterForm.reset();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird gesendet…';
+
+    try {
+      const res = await fetch('/api/newsletter.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email.value.trim(),
+          consent: checkbox.checked,
+        }),
+      });
+
+      const result = await res.json();
+
+      if (result.ok) {
+        showToast(result.message || 'Vielen Dank! Sie erhalten in Kürze eine Bestätigungs-E-Mail.');
+        newsletterForm.reset();
+      } else {
+        showToast(result.error || 'Die Anmeldung konnte nicht durchgeführt werden.', 'error');
+      }
+    } catch {
+      showToast('Verbindungsfehler – bitte versuchen Sie es später erneut.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Anmelden';
+    }
   });
 }
 

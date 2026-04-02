@@ -9,7 +9,7 @@
  */
 
 // ── Konfiguration ───────────────────────────────────────────
-define('SMTP_HOST',     'adomail.de');
+define('SMTP_HOST',     'mail.adomail.de');
 define('SMTP_PORT',     587);
 define('SMTP_USER',     'info@mavka-berlin.de');
 define('SMTP_PASS',     '');  // TODO: Passwort als Environment-Variable setzen
