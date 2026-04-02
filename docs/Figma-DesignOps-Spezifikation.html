@@ -9,7 +9,7 @@
 :root {
   --deep-forest: #1B5E20;
   --forest-green: #2E6F40;
-  --sage: #6B8D53;
+  --sage: #577842; /* AA-korrigiert, 4.6:1 auf #FFFDF5 (Design-Original: #6B8D53) */
   --mint: #D4E9E2;
   --amber: #FFBF00;
   --soft-gold: #D4AF37;
@@ -37,7 +37,7 @@ body {
   font-family: var(--font-body);
   color: var(--warm-charcoal);
   background: var(--off-white);
-  line-height: 1.7;
+  line-height: 1.65;
 }
 h1,h2,h3,h4,h5 { font-family: var(--font-display); color: var(--deep-forest); line-height: 1.25; }
 a { color: var(--forest-green); text-decoration: none; }
@@ -90,7 +90,7 @@ section:nth-child(even of section) { background: var(--white); }
 }
 .sec-num::before { content: ''; width: 24px; height: 2px; background: var(--amber); border-radius: 1px; }
 .sec-title { font-size: clamp(1.4rem, 2.8vw, 2rem); font-weight: 800; margin-bottom: 4px; }
-.sec-lead { font-size: 0.92rem; color: var(--sage); max-width: 60ch; margin-bottom: 36px; line-height: 1.7; }
+.sec-lead { font-size: 0.92rem; color: var(--sage); max-width: 60ch; margin-bottom: 36px; line-height: 1.65; }
 
 /* Tables */
 table {
@@ -306,12 +306,12 @@ h4 { font-size: 0.95rem; font-weight: 700; margin: 20px 0 8px; }
       <tr><td><code>color/bg/cream</code></td><td><span class="swatch" style="background:#FDFBD4"></span>#FDFBD4</td><td>Semantic/Background/Cream</td><td>Highlight-Boxen, Anmelde-Sidebar</td></tr>
       <tr><td><code>color/bg/sand</code></td><td><span class="swatch" style="background:#F4E9D8"></span>#F4E9D8</td><td>Semantic/Background/Sand</td><td>Empty-State Chips</td></tr>
       <tr><td><code>color/text/primary</code></td><td><span class="swatch" style="background:#4A4A4A"></span>#4A4A4A</td><td>Semantic/Text/Primary</td><td>Body-Text (Warm Charcoal)</td></tr>
-      <tr><td><code>color/text/secondary</code></td><td><span class="swatch" style="background:#6B8D53"></span>#6B8D53</td><td>Semantic/Text/Secondary</td><td>Subtitles, Meta, Captions (Sage)</td></tr>
+      <tr><td><code>color/text/secondary</code></td><td><span class="swatch" style="background:#577842"></span>#577842</td><td>Semantic/Text/Secondary</td><td>Subtitles, Meta, Captions (Sage, AA-korrigiert)</td></tr>
       <tr><td><code>color/text/onDark</code></td><td><span class="swatch" style="background:#FDFBD4"></span>#FDFBD4</td><td>Semantic/Text/OnDark</td><td>Text auf dunklem Hintergrund</td></tr>
       <tr><td><code>color/status/error</code></td><td><span class="swatch" style="background:#C43333"></span>#C43333</td><td>Semantic/Status/Error</td><td>Fehler-Rahmen, Fehler-Text</td></tr>
       <tr><td><code>color/status/info</code></td><td><span class="swatch" style="background:#2563EB"></span>#2563EB</td><td>Semantic/Status/Info</td><td>Info-Bl&ouml;cke, Kalender-Hinweise</td></tr>
       <tr><td><code>color/status/success</code></td><td><span class="swatch" style="background:#2E6F40"></span>#2E6F40</td><td>Semantic/Status/Success</td><td>Formular-Erfolg</td></tr>
-      <tr><td><code>color/border/default</code></td><td>rgba(27,94,32,0.08)</td><td>Semantic/Border/Default</td><td>Card-Borders</td></tr>
+      <tr><td><code>color/border/default</code></td><td>rgba(27,94,32,0.1)</td><td>Semantic/Border/Default</td><td>Card-Borders</td></tr>
       <tr><td><code>color/border/subtle</code></td><td>rgba(27,94,32,0.06)</td><td>Semantic/Border/Subtle</td><td>Tabellen-Zeilen, Dividers</td></tr>
     </tbody>
   </table>
@@ -326,8 +326,8 @@ h4 { font-size: 0.95rem; font-weight: 700; margin: 20px 0 8px; }
       <tr><td><code>type/h1</code></td><td>Nunito</td><td>clamp(30–44px)</td><td>700</td><td>1.25</td><td>Heading/H1</td></tr>
       <tr><td><code>type/h2</code></td><td>Nunito</td><td>clamp(26–36px)</td><td>600</td><td>1.25</td><td>Heading/H2</td></tr>
       <tr><td><code>type/h3</code></td><td>Nunito</td><td>clamp(22–28px)</td><td>600</td><td>1.25</td><td>Heading/H3</td></tr>
-      <tr><td><code>type/body-lg</code></td><td>Atkinson Hyperlegible</td><td>20px</td><td>400</td><td>1.7</td><td>Body/Large</td></tr>
-      <tr><td><code>type/body</code></td><td>Atkinson Hyperlegible</td><td>18px</td><td>400</td><td>1.7</td><td>Body/Regular</td></tr>
+      <tr><td><code>type/body-lg</code></td><td>Atkinson Hyperlegible</td><td>20px</td><td>400</td><td>1.65</td><td>Body/Large</td></tr>
+      <tr><td><code>type/body</code></td><td>Atkinson Hyperlegible</td><td>18px</td><td>400</td><td>1.65</td><td>Body/Regular</td></tr>
       <tr><td><code>type/caption</code></td><td>Atkinson Hyperlegible</td><td>14px</td><td>400</td><td>1.5</td><td>Body/Caption</td></tr>
       <tr><td><code>type/label</code></td><td>Nunito</td><td>11–12px</td><td>800</td><td>1.2</td><td>Label/Uppercase</td></tr>
       <tr><td><code>type/nav</code></td><td>Nunito</td><td>12px</td><td>700</td><td>1.2</td><td>Nav/Item</td></tr>
@@ -335,32 +335,31 @@ h4 { font-size: 0.95rem; font-weight: 700; margin: 20px 0 8px; }
     </tbody>
   </table>
 
-  <h3>2.3 Spacing-Tokens (8px-Raster)</h3>
+  <h3>2.3 Spacing-Tokens (semantische Skala, aligned mit tokens.css)</h3>
   <table>
-    <thead><tr><th>Token</th><th>Wert</th><th>Figma Variable</th><th>Verwendung</th></tr></thead>
+    <thead><tr><th>Token</th><th>Wert</th><th>CSS Variable</th><th>Figma Variable</th><th>Verwendung</th></tr></thead>
     <tbody>
-      <tr><td><code>space/2xs</code></td><td>4px</td><td>Spacing/2xs</td><td>Icon-Padding, Mini-Gaps</td></tr>
-      <tr><td><code>space/xs</code></td><td>8px</td><td>Spacing/xs</td><td>Inline-Elemente, Chip-Padding</td></tr>
-      <tr><td><code>space/sm</code></td><td>12px</td><td>Spacing/sm</td><td>Card-interne Gaps</td></tr>
-      <tr><td><code>space/md</code></td><td>16px</td><td>Spacing/md</td><td>Standard-Gap, Mobile Seitenrand</td></tr>
-      <tr><td><code>space/lg</code></td><td>24px</td><td>Spacing/lg</td><td>Card-Padding, Desktop Seitenrand, Gutter</td></tr>
-      <tr><td><code>space/xl</code></td><td>32px</td><td>Spacing/xl</td><td>Intra-Section Spacing</td></tr>
-      <tr><td><code>space/2xl</code></td><td>48px</td><td>Spacing/2xl</td><td>Section-Padding (bottom)</td></tr>
-      <tr><td><code>space/3xl</code></td><td>64px</td><td>Spacing/3xl</td><td>Section-Padding (top)</td></tr>
-      <tr><td><code>space/4xl</code></td><td>80px</td><td>Spacing/4xl</td><td>Hero-Padding, Cover</td></tr>
+      <tr><td><code>space/xs</code></td><td>0.5rem (8px)</td><td><code>--spacing-xs</code></td><td>Spacing/xs</td><td>Icon-Padding, Mini-Gaps, Chip-Padding</td></tr>
+      <tr><td><code>space/sm</code></td><td>1rem (16px)</td><td><code>--spacing-sm</code></td><td>Spacing/sm</td><td>Standard-Gap, Mobile Seitenrand, Card-interne Gaps</td></tr>
+      <tr><td><code>space/md</code></td><td>1.5rem (24px)</td><td><code>--spacing-md</code></td><td>Spacing/md</td><td>Card-Padding, Desktop Seitenrand, Gutter</td></tr>
+      <tr><td><code>space/lg</code></td><td>2.5rem (40px)</td><td><code>--spacing-lg</code></td><td>Spacing/lg</td><td>Intra-Section Spacing</td></tr>
+      <tr><td><code>space/xl</code></td><td>4rem (64px)</td><td><code>--spacing-xl</code></td><td>Spacing/xl</td><td>Section-Padding</td></tr>
+      <tr><td><code>space/2xl</code></td><td>6rem (96px)</td><td><code>--spacing-2xl</code></td><td>Spacing/2xl</td><td>Hero-Padding, Cover, gro&szlig;e Abst&auml;nde</td></tr>
     </tbody>
   </table>
+  <div class="info-block info-block--tip">
+    <strong>Hinweis:</strong> Die Skala orientiert sich an der semantischen tokens.css-Skala (xs/sm/md/lg/xl/2xl), nicht am 8px-Raster. F&uuml;r Zwischen&shy;werte (z.&nbsp;B. 4px, 12px) direkte Pixelwerte verwenden — keine Tokens n&ouml;tig.
+  </div>
 
   <h3>2.4 Radii, Shadows, Borders</h3>
   <table>
     <thead><tr><th>Token</th><th>Wert</th><th>Verwendung</th></tr></thead>
     <tbody>
-      <tr><td><code>radius/sm</code></td><td>4px</td><td>Code-Inline, Subtle Rounding</td></tr>
-      <tr><td><code>radius/md</code></td><td>8px</td><td>Breadcrumb-BG, Nav-Items</td></tr>
-      <tr><td><code>radius/default</code></td><td>12px</td><td>Buttons, Inputs, Info-Blocks</td></tr>
+      <tr><td><code>radius/sm</code></td><td>6px</td><td>Code-Inline, Subtle Rounding, Breadcrumb-BG</td></tr>
+      <tr><td><code>radius/md</code></td><td>12px</td><td>Buttons, Inputs, Info-Blocks, Nav-Items</td></tr>
       <tr><td><code>radius/lg</code></td><td>20px</td><td>Cards, Container</td></tr>
       <tr><td><code>radius/xl</code></td><td>32px</td><td>Wireframe-Outer, Hero-Sections</td></tr>
-      <tr><td><code>radius/full</code></td><td>50px</td><td>Chips, Badges, Filter-Buttons</td></tr>
+      <tr><td><code>radius/pill</code></td><td>9999px</td><td>Chips, Badges, Filter-Buttons</td></tr>
       <tr><td><code>shadow/sm</code></td><td>0 1px 3px rgba(27,94,32,0.06)</td><td>Buttons Default, Small Cards</td></tr>
       <tr><td><code>shadow/md</code></td><td>0 4px 12px rgba(27,94,32,0.08)</td><td>Cards Hover, Wireframes</td></tr>
       <tr><td><code>shadow/lg</code></td><td>0 12px 32px rgba(27,94,32,0.1)</td><td>Card Lifted, Overlays</td></tr>
@@ -389,14 +388,14 @@ h4 { font-size: 0.95rem; font-weight: 700; margin: 20px 0 8px; }
   </table>
 
   <h3>3.2 Content Container</h3>
-  <div class="spec-row"><div class="spec-label">Standard</div><div>max-width 1140px, zentriert. Frame mit Auto-Layout Horizontal, max-width Constraint 1140px.</div></div>
+  <div class="spec-row"><div class="spec-label">Standard</div><div>max-width 1200px, zentriert. Frame mit Auto-Layout Horizontal, max-width Constraint 1200px.</div></div>
   <div class="spec-row"><div class="spec-label">Narrow</div><div>max-width 720px. F&uuml;r Bericht-Detailseiten und lange Textbl&ouml;cke.</div></div>
 
   <h3>3.3 Grid-Definitionen</h3>
   <table>
     <thead><tr><th>Breakpoint</th><th>Columns</th><th>Gutter</th><th>Margin</th><th>Card-Grid</th></tr></thead>
     <tbody>
-      <tr><td><strong>Desktop (1440)</strong></td><td>12</td><td>24px</td><td>150px (= 1140px Content)</td><td>3 Spalten, 20px Gap</td></tr>
+      <tr><td><strong>Desktop (1440)</strong></td><td>12</td><td>24px</td><td>120px (= 1200px Content)</td><td>3 Spalten, 20px Gap</td></tr>
       <tr><td><strong>Tablet (768)</strong></td><td>8</td><td>24px</td><td>24px</td><td>2 Spalten, 20px Gap</td></tr>
       <tr><td><strong>Mobile (375)</strong></td><td>4</td><td>16px</td><td>16px</td><td>1 Spalte, 16px Gap</td></tr>
     </tbody>
@@ -432,7 +431,7 @@ h4 { font-size: 0.95rem; font-weight: 700; margin: 20px 0 8px; }
     <tbody>
       <tr><td><strong>Page Root</strong></td><td>Vertical</td><td>0 / 0 / 0 / 0</td><td>0</td><td>Top-Center</td><td>Fixed / Hug</td></tr>
       <tr><td><strong>Section</strong></td><td>Vertical</td><td>64 / 0 / 48 / 0</td><td>0</td><td>Top-Center</td><td>Fill / Hug</td></tr>
-      <tr><td><strong>.doc Container</strong></td><td>Vertical</td><td>0 / 24 / 0 / 24</td><td>40</td><td>Top-Left</td><td>Fill (max 1140) / Hug</td></tr>
+      <tr><td><strong>.doc Container</strong></td><td>Vertical</td><td>0 / 24 / 0 / 24</td><td>40</td><td>Top-Left</td><td>Fill (max 1200) / Hug</td></tr>
       <tr><td><strong>Header (Sticky)</strong></td><td>Horizontal</td><td>12 / 24 / 12 / 24</td><td>16</td><td>Center-Left (wrap)</td><td>Fill / Hug</td></tr>
       <tr><td><strong>Footer</strong></td><td>Vertical</td><td>48 / 24 / 48 / 24</td><td>8</td><td>Center</td><td>Fill / Hug</td></tr>
     </tbody>
@@ -598,7 +597,7 @@ h4 { font-size: 0.95rem; font-weight: 700; margin: 20px 0 8px; }
     <div class="tree-item"><span class="name">Desktop/Startseite</span> <span class="meta">[V, 0] — 1440&times;Auto</span></div>
     <div class="tree-item"><span class="indent">&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">Header</span> <span class="meta">[H, 16] — Fill, Sticky</span></div>
     <div class="tree-item"><span class="indent">&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">Section/Hero</span> <span class="meta">[V, 16] — Pad 80/0/60/0, gradient BG</span></div>
-    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">.doc</span> <span class="meta">[V, 24] — max-w 1140, center</span></div>
+    <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> <span class="name">.doc</span> <span class="meta">[V, 24] — max-w 1200, center</span></div>
     <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> Hero-Image <span class="meta">Fill, max-h 520px, object-fit cover</span></div>
     <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;</span> Headline + Subtitle</div>
     <div class="tree-item"><span class="indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9492;&#9472;</span> CTA/Accent</div>
@@ -746,7 +745,7 @@ h4 { font-size: 0.95rem; font-weight: 700; margin: 20px 0 8px; }
       <tr><td>radius/lg</td><td><code>--radius-lg</code></td><td>20px</td></tr>
       <tr><td>shadow/sm</td><td><code>--shadow-sm</code></td><td>0 1px 3px rgba(27,94,32,0.06)</td></tr>
       <tr><td>shadow/md</td><td><code>--shadow-md</code></td><td>0 4px 12px rgba(27,94,32,0.08)</td></tr>
-      <tr><td>type/body</td><td><code>--font-body</code></td><td>Atkinson Hyperlegible, 18px/1.7, 400</td></tr>
+      <tr><td>type/body</td><td><code>--font-body</code></td><td>Atkinson Hyperlegible, 18px/1.65, 400</td></tr>
       <tr><td>type/h1</td><td><code>--font-display</code></td><td>Nunito, clamp(30-44px)/1.25, 700</td></tr>
     </tbody>
   </table>
@@ -802,7 +801,7 @@ h4 { font-size: 0.95rem; font-weight: 700; margin: 20px 0 8px; }
       <tr><td><span class="swatch" style="background:#1B5E20"></span>Deep Forest auf <span class="swatch" style="background:#FAFAF5"></span>Off-White</td><td>9.2:1</td><td>AAA</td><td>&#9989; Bestanden</td></tr>
       <tr><td><span class="swatch" style="background:#2E6F40"></span>Forest Green auf <span class="swatch" style="background:#FAFAF5"></span>Off-White</td><td>6.8:1</td><td>AA</td><td>&#9989; Bestanden</td></tr>
       <tr><td><span class="swatch" style="background:#4A4A4A"></span>Charcoal auf <span class="swatch" style="background:#FAFAF5"></span>Off-White</td><td>7.5:1</td><td>AAA</td><td>&#9989; Bestanden</td></tr>
-      <tr><td><span class="swatch" style="background:#6B8D53"></span>Sage auf <span class="swatch" style="background:#FAFAF5"></span>Off-White</td><td>3.8:1</td><td>AA (gro&szlig;)</td><td>&#9888; Nur &gt;18px/bold</td></tr>
+      <tr><td><span class="swatch" style="background:#577842"></span>Sage auf <span class="swatch" style="background:#FAFAF5"></span>Off-White</td><td>4.6:1</td><td>AA</td><td>&#10003; Ab 16px (AA-korrigiert von #6B8D53)</td></tr>
       <tr><td><span class="swatch" style="background:#FDFBD4"></span>Cream auf <span class="swatch" style="background:#1B5E20"></span>Deep Forest</td><td>8.4:1</td><td>AAA</td><td>&#9989; Bestanden</td></tr>
       <tr><td><span class="swatch" style="background:#FFBF00"></span>Amber auf <span class="swatch" style="background:#1B5E20"></span>Deep Forest</td><td>6.1:1</td><td>AA</td><td>&#9989; Bestanden</td></tr>
       <tr><td><span class="swatch" style="background:#C43333"></span>Error auf <span class="swatch" style="background:#FAFAF5"></span>Off-White</td><td>5.4:1</td><td>AA</td><td>&#9989; Bestanden</td></tr>
@@ -855,7 +854,7 @@ h4 { font-size: 0.95rem; font-weight: 700; margin: 20px 0 8px; }
     </div>
     <div class="card card--accent">
       <h4>Gro&szlig;e Klickfl&auml;chen</h4>
-      <p>Gesamte Card klickbar. Min 44&times;44px Touch-Targets.</p>
+      <p>Gesamte Card klickbar. Min 48&times;48px Touch-Targets (WCAG 2.5.8).</p>
     </div>
     <div class="card card--accent">
       <h4>Klare Fehlermeldungen</h4>
@@ -884,7 +883,7 @@ h4 { font-size: 0.95rem; font-weight: 700; margin: 20px 0 8px; }
     <tbody>
       <tr><td><strong>320–767px</strong></td><td>375&times;Auto</td><td>Hamburger + Overlay</td><td>1 Spalte</td><td>Unter Content</td><td>16px</td></tr>
       <tr><td><strong>768–1023px</strong></td><td>768&times;Auto</td><td>Hamburger oder Horizontal</td><td>2 Spalten</td><td>Unter Content</td><td>24px</td></tr>
-      <tr><td><strong>1024px+</strong></td><td>1440&times;Auto</td><td>Horizontal, Sticky</td><td>3 Spalten</td><td>Sticky rechts</td><td>Auto (1140)</td></tr>
+      <tr><td><strong>1024px+</strong></td><td>1440&times;Auto</td><td>Horizontal, Sticky</td><td>3 Spalten</td><td>Sticky rechts</td><td>Auto (1200)</td></tr>
     </tbody>
   </table>
 
