@@ -1,43 +1,47 @@
 <?php
 /**
  * Zentrale Konfiguration für alle API-Endpoints.
- * Liest Credentials aus Umgebungsvariablen (hPanel, .htaccess, $_ENV, $_SERVER).
+ *
+ * Credentials werden geladen aus (Priorität):
+ *   1. config.local.php  — Datei nur auf dem Server, nicht im Git
+ *   2. Umgebungsvariablen — getenv() / $_ENV / $_SERVER
  *
  * Eingebunden via: require_once __DIR__ . '/config.php';
  */
 
+// ── Lokale Credentials laden (falls vorhanden) ─────────────
+// config.local.php liegt NUR auf dem Server und definiert die
+// Secrets per define(). Wird von .gitignore ausgeschlossen.
+$localConfig = __DIR__ . '/config.local.php';
+if (file_exists($localConfig)) {
+    require_once $localConfig;
+}
+
 /**
  * Liest eine Umgebungsvariable aus allen verfügbaren Quellen.
- * Hostinger hPanel setzt Vars je nach PHP-FPM-Konfiguration
- * in unterschiedlichen Superglobals.
  */
 function env(string $key, string $default = ''): string {
-    // 1. getenv() — Standard-PHP
     $val = getenv($key);
     if ($val !== false && $val !== '') return $val;
-
-    // 2. $_ENV — PHP Superglobal
     if (isset($_ENV[$key]) && $_ENV[$key] !== '') return $_ENV[$key];
-
-    // 3. $_SERVER — FastCGI/FPM schreibt oft hierhin
     if (isset($_SERVER[$key]) && $_SERVER[$key] !== '') return $_SERVER[$key];
-
     return $default;
 }
 
 // ── SMTP (für register.php + contact.php) ───────────────────
-define('SMTP_HOST',       'mail.adomail.de');
-define('SMTP_PORT',       587);
-define('SMTP_USER',       'info@mavka-berlin.de');
-define('SMTP_PASS',       env('SMTP_PASS'));
-define('SMTP_FROM',       'info@mavka-berlin.de');
-define('SMTP_FROM_NAME',  'Gemeinsam Kochen');
-define('ORGANIZER_EMAIL', 'info@mavka-berlin.de');
+// config.local.php kann diese bereits definiert haben → nur setzen wenn noch nicht definiert
+if (!defined('SMTP_HOST'))       define('SMTP_HOST',       'mail.adomail.de');
+if (!defined('SMTP_PORT'))       define('SMTP_PORT',       587);
+if (!defined('SMTP_USER'))       define('SMTP_USER',       'info@mavka-berlin.de');
+if (!defined('SMTP_PASS'))       define('SMTP_PASS',       env('SMTP_PASS'));
+if (!defined('SMTP_FROM'))       define('SMTP_FROM',       'info@mavka-berlin.de');
+if (!defined('SMTP_FROM_NAME'))  define('SMTP_FROM_NAME',  'Gemeinsam Kochen');
+if (!defined('ORGANIZER_EMAIL')) define('ORGANIZER_EMAIL', 'info@mavka-berlin.de');
 
 // ── Hostinger Reach (für newsletter.php) ────────────────────
-define('REACH_API_TOKEN',    env('REACH_API_TOKEN'));
-define('REACH_PROFILE_UUID', env('REACH_PROFILE_UUID'));
-define('REACH_API_BASE',     'https://developers.hostinger.com/api/reach/v1');
+if (!defined('REACH_API_TOKEN'))    define('REACH_API_TOKEN',    env('REACH_API_TOKEN'));
+if (!defined('REACH_PROFILE_UUID')) define('REACH_PROFILE_UUID', env('REACH_PROFILE_UUID'));
+if (!defined('REACH_API_BASE'))     define('REACH_API_BASE',     'https://developers.hostinger.com/api/reach/v1');
 
 // ── CORS ────────────────────────────────────────────────────
 define('ALLOWED_ORIGINS', ['https://mavka-berlin.de', 'https://www.mavka-berlin.de']);
