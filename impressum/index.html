@@ -42,7 +42,28 @@
 
   <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
 
-  <!-- HEADER -->
+  <!-- ABOVE-HEADER (Utility Bar) -->
+  <div class="above-header" role="complementary" aria-label="Service-Leiste">
+    <div class="above-header-inner">
+      <a href="/#transparenz" class="foerderer-link">Für Förderer &amp; Partner</a>
+      <div class="above-header-right">
+        <a href="tel:+491637038724" class="header-phone" aria-label="Anrufen: +49 163 7038724">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          +49 163 7038724
+        </a>
+        <div class="font-size-switch" role="group" aria-label="Schriftgröße wählen">
+          <button class="font-btn" data-size="normal" aria-pressed="true" aria-label="Normale Schriftgröße">A</button>
+          <button class="font-btn" data-size="large" aria-pressed="false" aria-label="Große Schriftgröße">A+</button>
+        </div>
+        <div class="lang-switch" role="group" aria-label="Sprache wählen">
+          <button class="lang-btn" aria-pressed="true" aria-label="Deutsch">DE</button>
+          <button class="lang-btn" aria-pressed="false" aria-label="English">EN</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIMARY HEADER -->
   <header class="site-header" role="banner">
     <div class="header-inner">
       <a href="/" class="logo" aria-label="Gemeinsam Kochen – Startseite">
@@ -64,29 +85,9 @@
           <li><a href="/#kontakt">Träger &amp; Kontakt</a></li>
         </ul>
       </nav>
-
-      <div class="header-right">
-        <a href="/#transparenz" class="foerderer-link">Für Förderer &amp; Partner</a>
-
-        <div class="font-size-switch" role="group" aria-label="Schriftgröße wählen">
-          <button class="font-btn" data-size="normal" aria-pressed="true" aria-label="Normale Schriftgröße">A</button>
-          <button class="font-btn" data-size="large" aria-pressed="false" aria-label="Große Schriftgröße">A+</button>
-        </div>
-
-        <a href="tel:+491637038724" class="header-phone" aria-label="Anrufen: +49 163 7038724">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-          +49 163 7038724
-        </a>
-
-        <div class="lang-switch" role="group" aria-label="Sprache wählen">
-          <button class="lang-btn" aria-pressed="true" aria-label="Deutsch">DE</button>
-          <button class="lang-btn" aria-pressed="false" aria-label="English">EN</button>
-        </div>
-
-        <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav-imp" aria-label="Navigation öffnen">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav-imp" aria-label="Navigation öffnen">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
