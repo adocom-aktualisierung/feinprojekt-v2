@@ -15,8 +15,16 @@ echo "Pass:  " . (SMTP_PASS !== '' ? str_repeat('*', strlen(SMTP_PASS)) : '*** E
 echo "From:  " . SMTP_FROM . "\n";
 echo "To:    " . ORGANIZER_EMAIL . "\n\n";
 
-echo "1. Connecting to " . SMTP_HOST . ":587 ...\n";
-$socket = @fsockopen(SMTP_HOST, 587, $errno, $errstr, 10);
+echo "PHP version: " . PHP_VERSION . "\n";
+echo "OpenSSL: " . (defined('OPENSSL_VERSION_TEXT') ? OPENSSL_VERSION_TEXT : 'N/A') . "\n\n";
+
+echo "1. Connecting via stream_socket_client to " . SMTP_HOST . ":587 ...\n";
+$ctx = stream_context_create(['ssl' => [
+    'verify_peer' => false,
+    'verify_peer_name' => false,
+    'allow_self_signed' => true,
+]]);
+$socket = @stream_socket_client('tcp://' . SMTP_HOST . ':587', $errno, $errstr, 10, STREAM_CLIENT_CONNECT, $ctx);
 
 if (!$socket) {
     echo "FAILED: {$errstr} ({$errno})\n";
@@ -64,7 +72,7 @@ foreach ($methods as $name => $method) {
     echo "failed\n";
     // Reconnect for next attempt since socket may be broken
     fclose($socket);
-    $socket = @fsockopen(SMTP_HOST, 587, $errno, $errstr, 10);
+    $socket = @stream_socket_client('tcp://' . SMTP_HOST . ':587', $errno, $errstr, 10, STREAM_CLIENT_CONNECT, $ctx);
     if (!$socket) { echo "   Reconnect failed\n"; exit; }
     fgets($socket, 512); // greeting
     fwrite($socket, "EHLO test\r\n");
@@ -75,9 +83,6 @@ foreach ($methods as $name => $method) {
 
 if (!$success) {
     echo "\nAll TLS methods failed.\n";
-    echo "PHP version: " . PHP_VERSION . "\n";
-    echo "OpenSSL: " . (defined('OPENSSL_VERSION_TEXT') ? OPENSSL_VERSION_TEXT : 'not available') . "\n";
-    echo "stream_socket_enable_crypto available: " . (function_exists('stream_socket_enable_crypto') ? 'yes' : 'NO') . "\n";
     fclose($socket);
     exit;
 }
