@@ -31,7 +31,7 @@ function env(string $key, string $default = ''): string {
 // ── SMTP (für register.php + contact.php) ───────────────────
 // config.local.php kann diese bereits definiert haben → nur setzen wenn noch nicht definiert
 if (!defined('SMTP_HOST'))       define('SMTP_HOST',       'mail.adomail.de');
-if (!defined('SMTP_PORT'))       define('SMTP_PORT',       587);
+if (!defined('SMTP_PORT'))       define('SMTP_PORT',       465);
 if (!defined('SMTP_USER'))       define('SMTP_USER',       'info@mavka-berlin.de');
 if (!defined('SMTP_PASS'))       define('SMTP_PASS',       env('SMTP_PASS'));
 if (!defined('SMTP_FROM'))       define('SMTP_FROM',       'info@mavka-berlin.de');
