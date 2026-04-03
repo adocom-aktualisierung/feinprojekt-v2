@@ -112,8 +112,9 @@ if (regDialog) {
     });
   });
 
-  // Workshop detail page: CTA button opens dialog
+  // Workshop detail page: CTA button opens dialog (skip if disabled/sold-out)
   document.querySelectorAll('.workshop-detail-cta[data-workshop]').forEach(btn => {
+    if (btn.disabled) return;
     btn.addEventListener('click', () => openWorkshopDialog(btn));
   });
 

@@ -1150,3 +1150,61 @@ dialog::backdrop {
   text-decoration: none;
   color: inherit;
 }
+
+/* Sold-out Workshop States */
+.tag-sold-out {
+  background: rgba(196, 51, 51, 0.12);
+  color: var(--color-error);
+}
+
+.workshop-card.is-sold-out {
+  opacity: 0.75;
+}
+
+.workshop-card.is-sold-out:hover {
+  transform: none;
+  box-shadow: var(--shadow-card);
+}
+
+.workshop-card.is-sold-out .workshop-card-cta {
+  background: var(--color-border);
+  color: var(--color-warm-gray);
+  border-color: var(--color-border);
+  cursor: default;
+}
+
+/* Detail page: disabled CTA */
+.workshop-detail-cta:disabled,
+.workshop-detail-cta[disabled] {
+  background: var(--color-border);
+  color: var(--color-warm-gray);
+  border-color: var(--color-border);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.workshop-detail-cta:disabled:hover,
+.workshop-detail-cta[disabled]:hover {
+  background: var(--color-border);
+  transform: none;
+  box-shadow: none;
+}
+
+/* Spots badge */
+.workshop-spots {
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  display: inline-block;
+}
+
+.workshop-spots.is-available {
+  background: rgba(107, 141, 83, 0.15);
+  color: var(--color-dark-green);
+}
+
+.workshop-spots.is-sold-out {
+  background: rgba(196, 51, 51, 0.1);
+  color: var(--color-error);
+}
