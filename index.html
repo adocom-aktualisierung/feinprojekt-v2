@@ -47,7 +47,7 @@
 
         <div class="lang-switch" role="group" aria-label="Sprache wählen">
           <button class="lang-btn" aria-pressed="true" aria-label="Deutsch">DE</button>
-          <button class="lang-btn" aria-pressed="false" aria-label="English">EN</button>
+          <button class="lang-btn lang-btn-disabled" aria-pressed="false" aria-label="English – Bald verfügbar" disabled title="Bald verfügbar">EN</button>
         </div>
       </div>
     </div>
@@ -165,7 +165,12 @@
 
         <div class="workshops-grid">
           <!-- Workshop 1 -->
-          <article class="workshop-card fade-up stagger-1">
+          <article class="workshop-card fade-up stagger-1"
+            data-workshop="Soljanka &amp; Apfelkuchen Sharlotka"
+            data-date="12. April 2026"
+            data-time="14:30 – 17:30 Uhr"
+            data-location="Lichtenberg"
+            tabindex="0" role="button" aria-label="Workshop anmelden: Soljanka &amp; Apfelkuchen Sharlotka, 12. April 2026">
             <div class="workshop-card-image">
               <img class="card-illustration" src="/images/workshops/IMG_7512.jpg" alt="Nachbar*innen kochen gemeinsam Teigtaschen an einem langen Holztisch" loading="lazy">
               <div class="card-date-badge">
@@ -190,18 +195,19 @@
                   Lichtenberg
                 </div>
               </div>
-              <button type="button" class="btn btn-outline workshop-card-cta"
-                data-workshop="Soljanka &amp; Apfelkuchen Sharlotka"
-                data-date="12. April 2026"
-                data-time="14:30 – 17:30 Uhr"
-                data-location="Lichtenberg">
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true">
                 Platz sichern
-              </button>
+              </span>
             </div>
           </article>
 
           <!-- Workshop 2 -->
-          <article class="workshop-card fade-up stagger-2">
+          <article class="workshop-card fade-up stagger-2"
+            data-workshop="Pilzquiche &amp; Zimtschnecken"
+            data-date="26. April 2026"
+            data-time="12:00 – 15:00 Uhr"
+            data-location="Lichtenberg 13055"
+            tabindex="0" role="button" aria-label="Workshop anmelden: Pilzquiche &amp; Zimtschnecken, 26. April 2026">
             <div class="workshop-card-image">
               <img class="card-illustration" src="/images/workshops/IMG_8737.jpg" alt="Kinder kneten begeistert Teig und haben Mehl an den Händen" loading="lazy">
               <div class="card-date-badge">
@@ -226,18 +232,19 @@
                   Lichtenberg 13055
                 </div>
               </div>
-              <button type="button" class="btn btn-outline workshop-card-cta"
-                data-workshop="Pilzquiche &amp; Zimtschnecken"
-                data-date="26. April 2026"
-                data-time="12:00 – 15:00 Uhr"
-                data-location="Lichtenberg 13055">
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true">
                 Platz sichern
-              </button>
+              </span>
             </div>
           </article>
 
           <!-- Workshop 3 -->
-          <article class="workshop-card fade-up stagger-3">
+          <article class="workshop-card fade-up stagger-3"
+            data-workshop="Khachapuri &amp; Brownies"
+            data-date="10. Mai 2026"
+            data-time="12:30 – 15:00 Uhr"
+            data-location="Maggie, Frankfurter Allee 205"
+            tabindex="0" role="button" aria-label="Workshop anmelden: Khachapuri &amp; Brownies, 10. Mai 2026">
             <div class="workshop-card-image">
               <img class="card-illustration" src="/images/workshops/IMG_7563.jpg" alt="Frisch zubereitete Teigtaschen werden dampfend auf einem Teller serviert" loading="lazy">
               <div class="card-date-badge">
@@ -262,13 +269,9 @@
                   Maggie, Frankfurter Allee 205
                 </div>
               </div>
-              <button type="button" class="btn btn-outline workshop-card-cta"
-                data-workshop="Khachapuri &amp; Brownies"
-                data-date="10. Mai 2026"
-                data-time="12:30 – 15:00 Uhr"
-                data-location="Maggie, Frankfurter Allee 205">
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true">
                 Platz sichern
-              </button>
+              </span>
             </div>
           </article>
         </div>

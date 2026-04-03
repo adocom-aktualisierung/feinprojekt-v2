@@ -55,13 +55,7 @@ if (navToggle && mobileNav) {
   });
 }
 
-// Language Switcher
-document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.lang-btn').forEach(b => b.setAttribute('aria-pressed', 'false'));
-    btn.setAttribute('aria-pressed', 'true');
-  });
-});
+// Language Switcher — i18n not yet implemented, EN button is disabled
 
 // Font-Size Switcher
 const fontBtns = document.querySelectorAll('.font-btn');
@@ -90,22 +84,29 @@ if (regDialog) {
   const regClose = regDialog.querySelector('.dialog-close');
   const workshopInfo = document.getElementById('dialog-workshop-info');
 
-  // Open dialog from workshop card buttons
-  document.querySelectorAll('[data-workshop]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Populate hidden fields with workshop data
-      document.getElementById('reg-workshop').value = btn.dataset.workshop;
-      document.getElementById('reg-date').value = btn.dataset.date;
-      document.getElementById('reg-time').value = btn.dataset.time;
-      document.getElementById('reg-location').value = btn.dataset.location;
+  // Open dialog from workshop cards (entire card is clickable)
+  function openWorkshopDialog(card) {
+    document.getElementById('reg-workshop').value = card.dataset.workshop;
+    document.getElementById('reg-date').value = card.dataset.date;
+    document.getElementById('reg-time').value = card.dataset.time;
+    document.getElementById('reg-location').value = card.dataset.location;
 
-      // Safely populate workshop info display (no innerHTML)
-      workshopInfo.textContent = '';
-      const strong = document.createElement('strong');
-      strong.textContent = btn.dataset.workshop;
-      workshopInfo.appendChild(strong);
-      workshopInfo.appendChild(document.createTextNode(' · ' + btn.dataset.date + ', ' + btn.dataset.time + ' · ' + btn.dataset.location));
-      regDialog.showModal();
+    // Safely populate workshop info display (no innerHTML)
+    workshopInfo.textContent = '';
+    const strong = document.createElement('strong');
+    strong.textContent = card.dataset.workshop;
+    workshopInfo.appendChild(strong);
+    workshopInfo.appendChild(document.createTextNode(' · ' + card.dataset.date + ', ' + card.dataset.time + ' · ' + card.dataset.location));
+    regDialog.showModal();
+  }
+
+  document.querySelectorAll('.workshop-card[data-workshop]').forEach(card => {
+    card.addEventListener('click', () => openWorkshopDialog(card));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openWorkshopDialog(card);
+      }
     });
   });
 

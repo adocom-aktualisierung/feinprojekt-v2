@@ -147,8 +147,13 @@
   color: #fff;
 }
 
-.above-header .lang-btn:hover:not([aria-pressed="true"]) {
+.above-header .lang-btn:hover:not([aria-pressed="true"]):not(:disabled) {
   color: rgba(255, 255, 255, 0.95);
+}
+
+.above-header .lang-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
 }
 
 /* ========================================
@@ -217,7 +222,7 @@
 
 .logo-text span {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--color-warm-gray);
   letter-spacing: 0.04em;
@@ -482,7 +487,7 @@
   align-items: center;
   gap: 8px;
   background: rgba(255, 255, 255, 0.14);
-  color: var(--color-mint);
+  color: rgba(255, 255, 255, 0.95);
   font-family: var(--font-display);
   font-size: var(--font-size-small);
   font-weight: 700;
@@ -491,13 +496,13 @@
   margin-bottom: var(--spacing-md);
   letter-spacing: 0.03em;
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(212, 233, 226, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .hero-label svg {
   width: 16px;
   height: 16px;
-  fill: var(--color-mint);
+  fill: rgba(255, 255, 255, 0.95);
 }
 
 .hero h1 {
@@ -660,7 +665,7 @@
    ======================================== */
 .site-footer {
   background: var(--color-dark);
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.72);
   padding: var(--spacing-xl) 0 var(--spacing-lg);
 }
 
@@ -685,7 +690,7 @@
 }
 
 .footer-brand .logo-text span {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .footer-brand p {
@@ -710,7 +715,7 @@
 }
 
 .footer-col a {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.72);
   text-decoration: none;
   font-size: var(--font-size-small);
   transition: color var(--transition-fast);
@@ -734,7 +739,7 @@
 }
 
 .footer-legal a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
   margin-right: var(--spacing-md);
 }
@@ -748,13 +753,13 @@
   align-items: center;
   gap: var(--spacing-xs);
   font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .footer-funding svg {
   width: 18px;
   height: 18px;
-  fill: rgba(255, 255, 255, 0.3);
+  fill: rgba(255, 255, 255, 0.5);
 }
 
 /* ========================================
