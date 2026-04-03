@@ -12,6 +12,10 @@ html {
   scroll-padding-top: calc(var(--header-height) + 1rem);
 }
 
+/* i18n: hide untranslated text until translations are applied */
+html:not([data-lang="de"]):not(.i18n-ready) [data-i18n] { visibility: hidden; }
+html:not([data-lang="de"]):not(.i18n-ready) [data-i18n-placeholder] { visibility: hidden; }
+
 body {
   font-family: var(--font-body);
   font-size: var(--font-size-body);

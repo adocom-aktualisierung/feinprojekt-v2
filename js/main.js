@@ -1,3 +1,8 @@
+import { initI18n, t } from './i18n.js';
+
+// Initialize i18n
+initI18n();
+
 // Mobile Navigation Toggle
 const navToggle = document.querySelector('.nav-toggle');
 const mobileNav = document.querySelector('.mobile-nav');
@@ -55,7 +60,7 @@ if (navToggle && mobileNav) {
   });
 }
 
-// Language Switcher — i18n not yet implemented, EN button is disabled
+// Language Switcher — handled by js/i18n.js (initLangSwitcher)
 
 // Font-Size Switcher
 const fontBtns = document.querySelectorAll('.font-btn');
@@ -156,13 +161,13 @@ if (regForm) {
 
     const consent = regForm.querySelector('input[type="checkbox"]');
     if (consent && !consent.checked) {
-      showToast('Bitte stimmen Sie der Datenschutzerklärung zu.', 'error');
+      showToast(t('common.toast.consentRequired', 'Bitte stimmen Sie der Datenschutzerklärung zu.'), 'error');
       return;
     }
 
     if (firstInvalid) {
       showErrorSummary(regForm, invalidFields);
-      showToast('Bitte korrigieren Sie die markierten Felder.', 'error');
+      showToast(t('common.toast.fixFields', 'Bitte korrigieren Sie die markierten Felder.'), 'error');
       return;
     }
     clearErrorSummary(regForm);
@@ -185,7 +190,7 @@ if (regForm) {
     const submitBtn = regForm.querySelector('[type="submit"]');
     const originalText = submitBtn.textContent;
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Wird gesendet\u2026';
+    submitBtn.textContent = t('common.toast.sending', 'Wird gesendet\u2026');
 
     try {
       const res = await fetch('/api/register.php', {
@@ -198,13 +203,12 @@ if (regForm) {
 
       if (result.ok) {
         regDialog.close();
-        showToast('Anmeldung erfolgreich! Wir melden uns bald bei Ihnen.');
+        showToast(result.message || t('common.toast.regSuccess', 'Anmeldung erfolgreich! Wir melden uns bald bei Ihnen.'));
       } else {
-        showToast(result.error || 'Ein Fehler ist aufgetreten.', 'error');
+        showToast(result.error || t('common.toast.genericError', 'Ein Fehler ist aufgetreten.'), 'error');
       }
     } catch {
-      // Network error — show fallback with phone number
-      showToast('Verbindungsfehler. Bitte melden Sie sich telefonisch unter +49 163 7038724.', 'error');
+      showToast(t('common.toast.networkError', 'Verbindungsfehler. Bitte melden Sie sich telefonisch unter +49 163 7038724.'), 'error');
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
@@ -254,8 +258,8 @@ function showErrorSummary(form, invalidFields) {
 
   const heading = document.createElement('strong');
   heading.textContent = invalidFields.length === 1
-    ? 'Es gibt 1 Fehler im Formular:'
-    : `Es gibt ${invalidFields.length} Fehler im Formular:`;
+    ? t('common.toast.errorSummary1', 'Es gibt 1 Fehler im Formular:')
+    : t('common.toast.errorSummaryN', `Es gibt ${invalidFields.length} Fehler im Formular:`).replace('{count}', invalidFields.length);
   summary.appendChild(heading);
 
   const list = document.createElement('ul');
@@ -330,10 +334,10 @@ function createSuccessMessage() {
   iconWrap.appendChild(svg);
 
   const heading = document.createElement('h3');
-  heading.textContent = 'Vielen Dank für Ihre Nachricht!';
+  heading.textContent = t('common.contactSuccessHeading', 'Vielen Dank für Ihre Nachricht!');
 
   const paragraph = document.createElement('p');
-  paragraph.textContent = 'Wir melden uns innerhalb von 2 Werktagen bei Ihnen.';
+  paragraph.textContent = t('common.contactSuccessText', 'Wir melden uns innerhalb von 2 Werktagen bei Ihnen.');
 
   wrapper.appendChild(iconWrap);
   wrapper.appendChild(heading);
@@ -355,12 +359,12 @@ if (newsletterForm) {
       return;
     }
     if (checkbox && !checkbox.checked) {
-      showToast('Bitte stimmen Sie der Datenschutzerklärung zu.', 'error');
+      showToast(t('common.toast.consentRequired', 'Bitte stimmen Sie der Datenschutzerklärung zu.'), 'error');
       return;
     }
 
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Wird gesendet…';
+    submitBtn.textContent = t('common.toast.sending', 'Wird gesendet…');
 
     try {
       const res = await fetch('/api/newsletter.php', {
@@ -375,16 +379,16 @@ if (newsletterForm) {
       const result = await res.json();
 
       if (result.ok) {
-        showToast(result.message || 'Bitte prüfen Sie Ihr Postfach – wir haben Ihnen eine Bestätigungs-E-Mail gesendet.');
+        showToast(result.message || t('common.toast.newsletterSuccess', 'Bitte prüfen Sie Ihr Postfach – wir haben Ihnen eine Bestätigungs-E-Mail gesendet.'));
         newsletterForm.reset();
       } else {
-        showToast(result.error || 'Die Anmeldung konnte nicht durchgeführt werden.', 'error');
+        showToast(result.error || t('common.toast.newsletterError', 'Die Anmeldung konnte nicht durchgeführt werden.'), 'error');
       }
     } catch {
-      showToast('Verbindungsfehler – bitte versuchen Sie es später erneut.', 'error');
+      showToast(t('common.toast.newsletterNetworkError', 'Verbindungsfehler – bitte versuchen Sie es später erneut.'), 'error');
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Anmelden';
+      submitBtn.textContent = t('common.form.subscribe', 'Anmelden');
     }
   });
 }
@@ -407,20 +411,20 @@ if (contactForm) {
 
     const checkbox = contactForm.querySelector('input[type="checkbox"]');
     if (checkbox && !checkbox.checked) {
-      showToast('Bitte stimmen Sie der Datenschutzerklärung zu.', 'error');
+      showToast(t('common.toast.consentRequired', 'Bitte stimmen Sie der Datenschutzerklärung zu.'), 'error');
       return;
     }
 
     if (firstInvalid) {
       showErrorSummary(contactForm, invalidFields);
-      showToast('Bitte korrigieren Sie die markierten Felder.', 'error');
+      showToast(t('common.toast.fixFields', 'Bitte korrigieren Sie die markierten Felder.'), 'error');
       return;
     }
     clearErrorSummary(contactForm);
 
     const submitBtn = contactForm.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Wird gesendet…';
+    submitBtn.textContent = t('common.toast.sending', 'Wird gesendet…');
 
     try {
       const res = await fetch('/api/contact.php', {
@@ -441,16 +445,16 @@ if (contactForm) {
         const formParent = contactForm.parentElement;
         contactForm.remove();
         formParent.appendChild(createSuccessMessage());
-        showToast('Nachricht erfolgreich gesendet!');
+        showToast(t('common.toast.contactSuccess', 'Nachricht erfolgreich gesendet!'));
       } else {
-        showToast(result.error || 'Die Nachricht konnte nicht gesendet werden.', 'error');
+        showToast(result.error || t('common.toast.contactError', 'Die Nachricht konnte nicht gesendet werden.'), 'error');
       }
     } catch {
-      showToast('Verbindungsfehler – bitte versuchen Sie es telefonisch unter +49 163 7038724.', 'error');
+      showToast(t('common.toast.contactNetworkError', 'Verbindungsfehler – bitte versuchen Sie es telefonisch unter +49 163 7038724.'), 'error');
     } finally {
       if (submitBtn.parentElement) {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Nachricht senden';
+        submitBtn.textContent = t('common.form.sendMessage', 'Nachricht senden');
       }
     }
   });

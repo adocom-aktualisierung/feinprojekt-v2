@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-i18n-page="aktuelles">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>(function(){var l=localStorage.getItem('lang')||'de';document.documentElement.lang=l;document.documentElement.dataset.lang=l;})()</script>
   <title>Was bisher passiert ist – Gemeinsam Kochen – Gemeinsam Wachsen</title>
   <meta name="description" content="Berichte, Neuigkeiten und Veranstaltungshinweise des FEIN-Pilotprojekts Gemeinsam Kochen in Berlin-Lichtenberg.">
   <link rel="icon" type="image/png" href="/images/logos/mavka.png">
@@ -17,23 +18,23 @@
 </head>
 <body>
 
-  <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
+  <a href="#main-content" class="skip-link" data-i18n="common.skipLink">Zum Inhalt springen</a>
 
-  <div class="above-header" role="complementary" aria-label="Service-Leiste">
+  <div class="above-header" role="complementary" aria-label="Service-Leiste" data-i18n-aria-label="common.aboveHeader.serviceBar">
     <div class="above-header-inner">
-      <a href="/transparenz/" class="foerderer-link">Für Förderer &amp; Partner</a>
+      <a href="/transparenz/" class="foerderer-link" data-i18n="common.aboveHeader.foerderer">Für Förderer &amp; Partner</a>
       <div class="above-header-right">
-        <a href="tel:+491637038724" class="header-phone" aria-label="Anrufen: +49 163 7038724">
+        <a href="tel:+491637038724" class="header-phone" aria-label="Anrufen: +49 163 7038724" data-i18n-aria-label="common.aboveHeader.callLabel">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
           +49 163 7038724
         </a>
-        <div class="font-size-switch" role="group" aria-label="Schriftgröße wählen">
-          <button class="font-btn" data-size="normal" aria-pressed="true" aria-label="Normale Schriftgröße">A</button>
-          <button class="font-btn" data-size="large" aria-pressed="false" aria-label="Große Schriftgröße">A+</button>
+        <div class="font-size-switch" role="group" aria-label="Schriftgröße wählen" data-i18n-aria-label="common.aboveHeader.fontSizeLabel">
+          <button class="font-btn" data-size="normal" aria-pressed="true" aria-label="Normale Schriftgröße" data-i18n-aria-label="common.aboveHeader.fontNormal">A</button>
+          <button class="font-btn" data-size="large" aria-pressed="false" aria-label="Große Schriftgröße" data-i18n-aria-label="common.aboveHeader.fontLarge">A+</button>
         </div>
-        <div class="lang-switch" role="group" aria-label="Sprache wählen">
-          <button class="lang-btn" aria-pressed="true" aria-label="Deutsch">DE</button>
-          <button class="lang-btn lang-btn-disabled" aria-pressed="false" aria-label="English – Bald verfügbar" disabled title="Bald verfügbar">EN</button>
+        <div class="lang-switch" role="group" aria-label="Sprache wählen" data-i18n-aria-label="common.aboveHeader.langLabel">
+          <button class="lang-btn" data-lang="de" aria-pressed="true" aria-label="Deutsch">DE</button>
+          <button class="lang-btn" data-lang="en" aria-pressed="false" aria-label="English">EN</button>
         </div>
       </div>
     </div>
@@ -41,35 +42,35 @@
 
   <header class="site-header" role="banner">
     <div class="header-inner">
-      <a href="/" class="logo" aria-label="Gemeinsam Kochen – Startseite">
-        <div class="logo-icon"><img src="/images/logos/mavka.png" alt="Gemeinsam Kochen – Gemeinsam Wachsen, zur Startseite" width="40" height="40"></div>
+      <a href="/" class="logo" aria-label="Gemeinsam Kochen – Startseite" data-i18n-aria-label="common.logo.ariaLabel">
+        <div class="logo-icon"><img src="/images/logos/mavka.png" alt="Gemeinsam Kochen – Gemeinsam Wachsen, zur Startseite" data-i18n-alt="common.logo.altText" width="40" height="40"></div>
         <div class="logo-text">Gemeinsam Kochen <span>Gemeinsam Wachsen</span></div>
       </a>
-      <nav class="main-nav" aria-label="Hauptnavigation">
+      <nav class="main-nav" aria-label="Hauptnavigation" data-i18n-aria-label="common.nav.mainLabel">
         <ul>
-          <li><a href="/">Start</a></li>
-          <li><a href="/projekt/">Über das Projekt</a></li>
-          <li><a href="/workshops/">Workshops &amp; Termine</a></li>
-          <li><a href="/aktuelles/" aria-current="page">Was bisher passiert ist</a></li>
-          <li><a href="/#mitmachen">Teilnehmen</a></li>
-          <li><a href="/#kontakt">Träger &amp; Kontakt</a></li>
+          <li><a href="/" data-i18n="common.nav.start">Start</a></li>
+          <li><a href="/projekt/" data-i18n="common.nav.projekt">Über das Projekt</a></li>
+          <li><a href="/workshops/" data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
+          <li><a href="/aktuelles/" aria-current="page" data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
+          <li><a href="/#mitmachen" data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
+          <li><a href="/#kontakt" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
         </ul>
       </nav>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav-akt" aria-label="Navigation öffnen"><span></span><span></span><span></span></button>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav-akt" aria-label="Navigation öffnen" data-i18n-aria-label="common.nav.openLabel"><span></span><span></span><span></span></button>
     </div>
   </header>
 
-  <nav id="mobile-nav-akt" class="mobile-nav" aria-label="Mobile Navigation" role="navigation">
+  <nav id="mobile-nav-akt" class="mobile-nav" aria-label="Mobile Navigation" data-i18n-aria-label="common.nav.mobileLabel" role="navigation">
     <ul>
-      <li><a href="/">Start</a></li>
-      <li><a href="/projekt/">Über das Projekt</a></li>
-      <li><a href="/workshops/">Workshops &amp; Termine</a></li>
-      <li><a href="/aktuelles/" aria-current="page">Was bisher passiert ist</a></li>
-      <li><a href="/#mitmachen">Teilnehmen</a></li>
-      <li><a href="/#kontakt">Träger &amp; Kontakt</a></li>
+      <li><a href="/" data-i18n="common.nav.start">Start</a></li>
+      <li><a href="/projekt/" data-i18n="common.nav.projekt">Über das Projekt</a></li>
+      <li><a href="/workshops/" data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
+      <li><a href="/aktuelles/" aria-current="page" data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
+      <li><a href="/#mitmachen" data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
+      <li><a href="/#kontakt" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
     </ul>
     <div class="mobile-contact">
-      <p><strong>Direkt erreichen:</strong></p>
+      <p><strong data-i18n="common.mobileContact.heading">Direkt erreichen:</strong></p>
       <p><a href="tel:+491637038724">+49 163 7038724</a></p>
       <p><a href="mailto:info@mavka-berlin.de">info@mavka-berlin.de</a></p>
     </div>
@@ -81,27 +82,27 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <ol itemscope itemtype="https://schema.org/BreadcrumbList">
           <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a itemprop="item" href="/"><span itemprop="name">Startseite</span></a>
+            <a itemprop="item" href="/"><span itemprop="name" data-i18n="common.breadcrumb.home">Startseite</span></a>
             <meta itemprop="position" content="1">
           </li>
           <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <span itemprop="name" aria-current="page">Was bisher passiert ist</span>
+            <span itemprop="name" aria-current="page" data-i18n="common.breadcrumb.aktuelles">Was bisher passiert ist</span>
             <meta itemprop="position" content="2">
           </li>
         </ol>
       </nav>
 
       <div class="page-hero">
-        <h1>Was bisher passiert ist</h1>
-        <p>Berichte aus unseren Workshops, Neuigkeiten und Veranstaltungshinweise.</p>
+        <h1 data-i18n="aktuelles.heading">Was bisher passiert ist</h1>
+        <p data-i18n="aktuelles.description">Berichte aus unseren Workshops, Neuigkeiten und Veranstaltungshinweise.</p>
       </div>
 
       <!-- FILTER -->
       <div class="filter-bar" role="group" aria-label="Beiträge filtern" data-filter-group="news-list">
-        <button class="filter-chip is-active" data-filter="all">Alle</button>
-        <button class="filter-chip" data-filter="bericht">Berichte</button>
-        <button class="filter-chip" data-filter="neuigkeit">Neuigkeiten</button>
-        <button class="filter-chip" data-filter="extern">Extern</button>
+        <button class="filter-chip is-active" data-filter="all" data-i18n="aktuelles.filterAll">Alle</button>
+        <button class="filter-chip" data-filter="bericht" data-i18n="aktuelles.filterBerichte">Berichte</button>
+        <button class="filter-chip" data-filter="neuigkeit" data-i18n="aktuelles.filterNeuigkeiten">Neuigkeiten</button>
+        <button class="filter-chip" data-filter="extern" data-i18n="aktuelles.filterExtern">Extern</button>
       </div>
 
       <!-- NEWS CARDS -->
@@ -112,8 +113,8 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4.86 8.86l-3 3.87L9 13.14 6 17h12l-3.86-5.14z"/></svg>
           </div>
           <span class="tag tag-green">Bericht</span>
-          <h3>Unser erster Workshop</h3>
-          <p>Rückblick auf den Eröffnungsworkshop „Herzhafter Pilzkuchen &amp; Honigkuchen" im Februar 2026 — mit Eindrücken der Teilnehmer*innen.</p>
+          <h3 data-i18n="aktuelles.card1.title">Unser erster Workshop</h3>
+          <p data-i18n="aktuelles.card1.text">Rückblick auf den Eröffnungsworkshop „Herzhafter Pilzkuchen &amp; Honigkuchen" im Februar 2026 — mit Eindrücken der Teilnehmer*innen.</p>
         </div>
 
         <div class="news-card" data-filter-target data-category="bericht">
@@ -121,8 +122,8 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4.86 8.86l-3 3.87L9 13.14 6 17h12l-3.86-5.14z"/></svg>
           </div>
           <span class="tag tag-green">Bericht</span>
-          <h3>6 Workshops — 180 Teilnehmer*innen</h3>
-          <p>In nur 6 Wochen haben wir 6 ausgebuchte Workshops durchgeführt. Ein Rückblick auf Rezepte, Begegnungen und Geschichten.</p>
+          <h3 data-i18n="aktuelles.card2.title">6 Workshops — 180 Teilnehmer*innen</h3>
+          <p data-i18n="aktuelles.card2.text">In nur 6 Wochen haben wir 6 ausgebuchte Workshops durchgeführt. Ein Rückblick auf Rezepte, Begegnungen und Geschichten.</p>
         </div>
 
         <div class="news-card" data-filter-target data-category="neuigkeit">
@@ -130,8 +131,8 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
           </div>
           <span class="tag tag-green">Neuigkeit</span>
-          <h3>Neue Kooperationspartner</h3>
-          <p>Wir freuen uns über neue Partner im Netzwerk — gemeinsam erreichen wir noch mehr Menschen im Kiez.</p>
+          <h3 data-i18n="aktuelles.card3.title">Neue Kooperationspartner</h3>
+          <p data-i18n="aktuelles.card3.text">Wir freuen uns über neue Partner im Netzwerk — gemeinsam erreichen wir noch mehr Menschen im Kiez.</p>
         </div>
 
         <div class="news-card" data-filter-target data-category="neuigkeit">
@@ -139,8 +140,8 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
           </div>
           <span class="tag tag-green">Neuigkeit</span>
-          <h3>Website-Launch</h3>
-          <p>Unsere neue Website ist online! Hier finden Sie alle Informationen zu Workshops, Terminen und dem Projekt.</p>
+          <h3 data-i18n="aktuelles.card4.title">Website-Launch</h3>
+          <p data-i18n="aktuelles.card4.text">Unsere neue Website ist online! Hier finden Sie alle Informationen zu Workshops, Terminen und dem Projekt.</p>
         </div>
 
         <div class="news-card" data-filter-target data-category="extern">
@@ -148,8 +149,8 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
           </div>
           <span class="tag tag-lime">Extern</span>
-          <h3>Aktionswoche Lebensmittel</h3>
-          <p>Das BMEL lädt zur bundesweiten Aktionswoche ein — wir sind dabei mit einem offenen Kochabend.</p>
+          <h3 data-i18n="aktuelles.card5.title">Aktionswoche Lebensmittel</h3>
+          <p data-i18n="aktuelles.card5.text">Das BMEL lädt zur bundesweiten Aktionswoche ein — wir sind dabei mit einem offenen Kochabend.</p>
         </div>
 
       </div>
@@ -157,7 +158,7 @@
     </div>
   </main>
 
-  <a href="tel:+491637038724" class="phone-fab" aria-label="Jetzt anrufen: +49 163 7038724">
+  <a href="tel:+491637038724" class="phone-fab" aria-label="Jetzt anrufen: +49 163 7038724" data-i18n-aria-label="common.fab.ariaLabel">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
   </a>
 
@@ -165,12 +166,12 @@
     <div class="container">
       <div class="footer-bottom">
         <div class="footer-legal">
-          <a href="/impressum">Impressum</a>
-          <a href="/datenschutz">Datenschutz</a>
+          <a href="/impressum" data-i18n="common.footer.impressum">Impressum</a>
+          <a href="/datenschutz" data-i18n="common.footer.datenschutz">Datenschutz</a>
         </div>
         <div class="footer-funding">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-          Gefördert durch das Programm FEIN – Bezirk Lichtenberg
+          <span data-i18n="common.footer.fundingLine">Gefördert durch das Programm FEIN – Bezirk Lichtenberg</span>
         </div>
       </div>
     </div>

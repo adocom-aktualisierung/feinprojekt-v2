@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-i18n-page="workshops">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>(function(){var l=localStorage.getItem('lang')||'de';document.documentElement.lang=l;document.documentElement.dataset.lang=l;})()</script>
   <title>Workshops &amp; Termine – Gemeinsam Kochen – Gemeinsam Wachsen</title>
   <meta name="description" content="Alle Koch- und Backworkshops des FEIN-Pilotprojekts Gemeinsam Kochen in Berlin-Lichtenberg. Termine, Orte und Anmeldung.">
   <link rel="icon" type="image/png" href="/images/logos/mavka.png">
@@ -17,23 +18,23 @@
 </head>
 <body>
 
-  <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
+  <a href="#main-content" class="skip-link" data-i18n="common.skipLink">Zum Inhalt springen</a>
 
-  <div class="above-header" role="complementary" aria-label="Service-Leiste">
+  <div class="above-header" role="complementary" aria-label="Service-Leiste" data-i18n-aria-label="common.aboveHeader.serviceBar">
     <div class="above-header-inner">
-      <a href="/transparenz/" class="foerderer-link">Für Förderer &amp; Partner</a>
+      <a href="/transparenz/" class="foerderer-link" data-i18n="common.aboveHeader.foerderer">Für Förderer &amp; Partner</a>
       <div class="above-header-right">
-        <a href="tel:+491637038724" class="header-phone" aria-label="Anrufen: +49 163 7038724">
+        <a href="tel:+491637038724" class="header-phone" aria-label="Anrufen: +49 163 7038724" data-i18n-aria-label="common.aboveHeader.callLabel">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
           +49 163 7038724
         </a>
-        <div class="font-size-switch" role="group" aria-label="Schriftgröße wählen">
-          <button class="font-btn" data-size="normal" aria-pressed="true" aria-label="Normale Schriftgröße">A</button>
-          <button class="font-btn" data-size="large" aria-pressed="false" aria-label="Große Schriftgröße">A+</button>
+        <div class="font-size-switch" role="group" aria-label="Schriftgröße wählen" data-i18n-aria-label="common.aboveHeader.fontSizeLabel">
+          <button class="font-btn" data-size="normal" aria-pressed="true" aria-label="Normale Schriftgröße" data-i18n-aria-label="common.aboveHeader.fontNormal">A</button>
+          <button class="font-btn" data-size="large" aria-pressed="false" aria-label="Große Schriftgröße" data-i18n-aria-label="common.aboveHeader.fontLarge">A+</button>
         </div>
-        <div class="lang-switch" role="group" aria-label="Sprache wählen">
-          <button class="lang-btn" aria-pressed="true" aria-label="Deutsch">DE</button>
-          <button class="lang-btn lang-btn-disabled" aria-pressed="false" aria-label="English – Bald verfügbar" disabled title="Bald verfügbar">EN</button>
+        <div class="lang-switch" role="group" aria-label="Sprache wählen" data-i18n-aria-label="common.aboveHeader.langLabel">
+          <button class="lang-btn" data-lang="de" aria-pressed="true" aria-label="Deutsch">DE</button>
+          <button class="lang-btn" data-lang="en" aria-pressed="false" aria-label="English">EN</button>
         </div>
       </div>
     </div>
@@ -41,35 +42,35 @@
 
   <header class="site-header" role="banner">
     <div class="header-inner">
-      <a href="/" class="logo" aria-label="Gemeinsam Kochen – Startseite">
-        <div class="logo-icon"><img src="/images/logos/mavka.png" alt="Gemeinsam Kochen – Gemeinsam Wachsen, zur Startseite" width="40" height="40"></div>
+      <a href="/" class="logo" aria-label="Gemeinsam Kochen – Startseite" data-i18n-aria-label="common.logo.ariaLabel">
+        <div class="logo-icon"><img src="/images/logos/mavka.png" alt="Gemeinsam Kochen – Gemeinsam Wachsen, zur Startseite" data-i18n-alt="common.logo.altText" width="40" height="40"></div>
         <div class="logo-text">Gemeinsam Kochen <span>Gemeinsam Wachsen</span></div>
       </a>
-      <nav class="main-nav" aria-label="Hauptnavigation">
+      <nav class="main-nav" aria-label="Hauptnavigation" data-i18n-aria-label="common.nav.mainLabel">
         <ul>
-          <li><a href="/">Start</a></li>
-          <li><a href="/projekt/">Über das Projekt</a></li>
-          <li><a href="/workshops/" aria-current="page">Workshops &amp; Termine</a></li>
-          <li><a href="/aktuelles/">Was bisher passiert ist</a></li>
-          <li><a href="/#mitmachen">Teilnehmen</a></li>
-          <li><a href="/#kontakt">Träger &amp; Kontakt</a></li>
+          <li><a href="/" data-i18n="common.nav.start">Start</a></li>
+          <li><a href="/projekt/" data-i18n="common.nav.projekt">Über das Projekt</a></li>
+          <li><a href="/workshops/" aria-current="page" data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
+          <li><a href="/aktuelles/" data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
+          <li><a href="/#mitmachen" data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
+          <li><a href="/#kontakt" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
         </ul>
       </nav>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav-wso" aria-label="Navigation öffnen"><span></span><span></span><span></span></button>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav-wso" aria-label="Navigation öffnen" data-i18n-aria-label="common.nav.openLabel"><span></span><span></span><span></span></button>
     </div>
   </header>
 
-  <nav id="mobile-nav-wso" class="mobile-nav" aria-label="Mobile Navigation" role="navigation">
+  <nav id="mobile-nav-wso" class="mobile-nav" aria-label="Mobile Navigation" data-i18n-aria-label="common.nav.mobileLabel" role="navigation">
     <ul>
-      <li><a href="/">Start</a></li>
-      <li><a href="/projekt/">Über das Projekt</a></li>
-      <li><a href="/workshops/" aria-current="page">Workshops &amp; Termine</a></li>
-      <li><a href="/aktuelles/">Was bisher passiert ist</a></li>
-      <li><a href="/#mitmachen">Teilnehmen</a></li>
-      <li><a href="/#kontakt">Träger &amp; Kontakt</a></li>
+      <li><a href="/" data-i18n="common.nav.start">Start</a></li>
+      <li><a href="/projekt/" data-i18n="common.nav.projekt">Über das Projekt</a></li>
+      <li><a href="/workshops/" aria-current="page" data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
+      <li><a href="/aktuelles/" data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
+      <li><a href="/#mitmachen" data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
+      <li><a href="/#kontakt" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
     </ul>
     <div class="mobile-contact">
-      <p><strong>Direkt erreichen:</strong></p>
+      <p><strong data-i18n="common.mobileContact.heading">Direkt erreichen:</strong></p>
       <p><a href="tel:+491637038724">+49 163 7038724</a></p>
       <p><a href="mailto:info@mavka-berlin.de">info@mavka-berlin.de</a></p>
     </div>
@@ -81,24 +82,24 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <ol itemscope itemtype="https://schema.org/BreadcrumbList">
           <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a itemprop="item" href="/"><span itemprop="name">Startseite</span></a>
+            <a itemprop="item" href="/"><span itemprop="name" data-i18n="common.breadcrumb.home">Startseite</span></a>
             <meta itemprop="position" content="1">
           </li>
           <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <span itemprop="name" aria-current="page">Workshops &amp; Termine</span>
+            <span itemprop="name" aria-current="page" data-i18n="common.breadcrumb.workshops">Workshops &amp; Termine</span>
             <meta itemprop="position" content="2">
           </li>
         </ol>
       </nav>
 
       <div class="page-hero">
-        <h1>Workshops &amp; Termine</h1>
-        <p>Alle bisherigen Koch- und Backworkshops im Überblick. Neue Termine folgen bald!</p>
+        <h1 data-i18n="workshops.heading">Workshops &amp; Termine</h1>
+        <p data-i18n="workshops.description">Alle bisherigen Koch- und Backworkshops im Überblick. Neue Termine folgen bald!</p>
       </div>
 
       <!-- FILTER -->
       <div class="filter-bar" role="group" aria-label="Workshops filtern nach Ort" data-filter-group="workshops-list">
-        <button class="filter-chip is-active" data-filter="all">Alle</button>
+        <button class="filter-chip is-active" data-filter="all" data-i18n="workshops.filterAll">Alle</button>
         <button class="filter-chip" data-filter="maggie">Maggie</button>
         <button class="filter-chip" data-filter="benn">BENN</button>
         <button class="filter-chip" data-filter="lichtenberg">Lichtenberg</button>
@@ -116,7 +117,7 @@
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
                 <span class="tag tag-green">Kochen &amp; Backen</span>
-                <span class="tag tag-sold-out">Ausgebucht</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
               </div>
               <h3>Herzhafter Pilzkuchen &amp; Honigkuchen</h3>
               <p>Würziger Pilzkuchen mit frischen Champignons und dazu ein süßer, aromatischer Honigkuchen.</p>
@@ -138,7 +139,7 @@
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
                 <span class="tag tag-green">Kochen</span>
-                <span class="tag tag-sold-out">Ausgebucht</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
               </div>
               <h3>Pfannkuchen mit Füllungen &amp; Salat</h3>
               <p>Feine Pfannkuchen mit süßen und herzhaften Füllungen, dazu ein frischer Salat.</p>
@@ -160,7 +161,7 @@
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
                 <span class="tag tag-green">Kochen &amp; Backen</span>
-                <span class="tag tag-sold-out">Ausgebucht</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
               </div>
               <h3>Khachapuri &amp; Brownies</h3>
               <p>Georgische Käsefladen aus der Pfanne und saftige Brownies.</p>
@@ -182,7 +183,7 @@
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
                 <span class="tag tag-green">Backen</span>
-                <span class="tag tag-sold-out">Ausgebucht</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
               </div>
               <h3>Aserbaidschanische Şekerbura</h3>
               <p>Traditionelles aserbaidschanisches Gebäck mit Nussfüllung.</p>
@@ -204,7 +205,7 @@
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
                 <span class="tag tag-green">Kochen &amp; Backen</span>
-                <span class="tag tag-sold-out">Ausgebucht</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
               </div>
               <h3>Pilz-Quiche &amp; Zimtschnecken</h3>
               <p>Herzhafte Pilzquiche trifft auf duftende Zimtschnecken.</p>
@@ -226,7 +227,7 @@
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
                 <span class="tag tag-green">Kochen</span>
-                <span class="tag tag-sold-out">Ausgebucht</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
               </div>
               <h3>Soljanka &amp; Apfelkuchen Sharlotka</h3>
               <p>Herzhaft trifft süß: Soljanka und klassische Sharlotka.</p>
@@ -242,13 +243,13 @@
       </div>
 
       <div style="text-align:center;margin-top:var(--spacing-xl);">
-        <p style="color:var(--color-warm-gray);">Neue Workshops sind in Planung. <a href="/#kontakt">Kontaktieren Sie uns</a> für Informationen zu kommenden Terminen.</p>
+        <p style="color:var(--color-warm-gray);" data-i18n="workshops.newWorkshopsNote">Neue Workshops sind in Planung. <a href="/#kontakt">Kontaktieren Sie uns</a> für Informationen zu kommenden Terminen.</p>
       </div>
 
     </div>
   </main>
 
-  <a href="tel:+491637038724" class="phone-fab" aria-label="Jetzt anrufen: +49 163 7038724">
+  <a href="tel:+491637038724" class="phone-fab" aria-label="Jetzt anrufen: +49 163 7038724" data-i18n-aria-label="common.fab.ariaLabel">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
   </a>
 
@@ -256,12 +257,12 @@
     <div class="container">
       <div class="footer-bottom">
         <div class="footer-legal">
-          <a href="/impressum">Impressum</a>
-          <a href="/datenschutz">Datenschutz</a>
+          <a href="/impressum" data-i18n="common.footer.impressum">Impressum</a>
+          <a href="/datenschutz" data-i18n="common.footer.datenschutz">Datenschutz</a>
         </div>
         <div class="footer-funding">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-          Gefördert durch das Programm FEIN – Bezirk Lichtenberg
+          <span data-i18n="common.footer.fundingLine">Gefördert durch das Programm FEIN – Bezirk Lichtenberg</span>
         </div>
       </div>
     </div>

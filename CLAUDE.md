@@ -78,9 +78,17 @@ Primary audience: **seniors (72+) and families**. All code changes must respect:
 
 Secondary entry: "Für Förderer & Partner" text link in header.
 
-## Language
+## Language / i18n
 
-All content is in German. Language switcher (DE/EN) exists in UI but is not functional — no i18n implementation yet. URL structure planned: `/de/`, `/en/`.
+Client-side i18n with DE (source in HTML) and EN (fetched from `/locales/en.json`). Language preference persisted in localStorage.
+
+**Architecture**: `js/i18n.js` module — `initI18n()`, `t(key, fallback)`, `setLang(lang)`. Translations applied via `data-i18n` attributes on HTML elements. German is the HTML source; English is overlaid at runtime. Switching to German reloads the page.
+
+**Files**: `js/i18n.js` (module), `public/locales/en.json` (English translations), `css/base.css` (flash-prevention rules). Every HTML page has an inline `<script>` in `<head>` for early lang detection and `data-i18n-page` on `<html>`.
+
+**Attributes**: `data-i18n` (textContent), `data-i18n-placeholder`, `data-i18n-aria-label`, `data-i18n-title`, `data-i18n-alt`.
+
+URL structure `/de/`, `/en/` planned but not yet implemented (client-side switching only).
 
 ## Signature Design Element
 

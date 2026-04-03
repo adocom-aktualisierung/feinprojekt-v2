@@ -1,0 +1,493 @@
+{
+  "meta": {
+    "home": {
+      "title": "Cooking Together – Growing Together | FEIN Pilot Project Lichtenberg",
+      "description": "Cooking and baking workshops in Berlin-Lichtenberg. Cooking together, growing together – open community spaces for the neighborhood."
+    },
+    "projekt": {
+      "title": "About the Project – Cooking Together – Growing Together",
+      "description": "Background, goals and the people behind the FEIN pilot project Cooking Together – Growing Together in Berlin-Lichtenberg."
+    },
+    "workshops": {
+      "title": "Workshops & Dates – Cooking Together – Growing Together",
+      "description": "All cooking and baking workshops of the FEIN pilot project Cooking Together in Berlin-Lichtenberg. Dates, locations and registration."
+    },
+    "aktuelles": {
+      "title": "What's Happened So Far – Cooking Together – Growing Together",
+      "description": "Reports, news and event information from the FEIN pilot project Cooking Together in Berlin-Lichtenberg."
+    },
+    "partner": {
+      "title": "Partners & Supporters – Cooking Together – Growing Together",
+      "description": "Our partners and supporters in the Lichtenberg district and beyond. FEIN pilot project Cooking Together."
+    },
+    "transparenz": {
+      "title": "Transparency & Documentation – Cooking Together – Growing Together",
+      "description": "Funding reports, project documentation and information about the FEIN pilot project Cooking Together in Berlin-Lichtenberg."
+    },
+    "workshopDetail": {
+      "title": "Workshop | Cooking Together"
+    }
+  },
+  "common": {
+    "skipLink": "Skip to content",
+    "aboveHeader": {
+      "serviceBar": "Service bar",
+      "foerderer": "For Supporters & Partners",
+      "callLabel": "Call: +49 163 7038724",
+      "fontSizeLabel": "Choose font size",
+      "fontNormal": "Normal font size",
+      "fontLarge": "Large font size",
+      "langLabel": "Choose language"
+    },
+    "logo": {
+      "ariaLabel": "Cooking Together – Home",
+      "altText": "Cooking Together – Growing Together, go to homepage",
+      "line1": "Cooking Together",
+      "line2": "Growing Together"
+    },
+    "nav": {
+      "mainLabel": "Main navigation",
+      "mobileLabel": "Mobile navigation",
+      "openLabel": "Open navigation",
+      "start": "Home",
+      "projekt": "About the Project",
+      "workshops": "Workshops & Dates",
+      "aktuelles": "What's Happened So Far",
+      "mitmachen": "Participate",
+      "kontakt": "Organization & Contact"
+    },
+    "mobileContact": {
+      "heading": "Contact us directly:",
+      "phone": "+49 163 7038724",
+      "email": "info@mavka-berlin.de"
+    },
+    "fab": {
+      "ariaLabel": "Call now: +49 163 7038724"
+    },
+    "footer": {
+      "brandText": "A FEIN pilot project by Mavka.Berlin.Volunteers in the Berlin-Lichtenberg district. Open cooking and baking workshops for the neighborhood.",
+      "navHeading": "Navigation",
+      "traegerHeading": "Organization",
+      "mavkaLink": "Mavka.Berlin.Volunteers",
+      "kontaktLink": "Get in touch",
+      "socialHeading": "Social Media",
+      "impressum": "Legal Notice",
+      "datenschutz": "Privacy Policy",
+      "fundedBy": "Funded by:",
+      "fundingLine": "Funded by the FEIN program – Lichtenberg district"
+    },
+    "breadcrumb": {
+      "label": "Breadcrumb",
+      "home": "Home",
+      "workshops": "Workshops",
+      "projekt": "About the Project",
+      "aktuelles": "News",
+      "partner": "Partners",
+      "transparenz": "Transparency"
+    },
+    "tags": {
+      "kochenBacken": "Cooking & Baking",
+      "kochen": "Cooking",
+      "backen": "Baking",
+      "ausgebucht": "Fully Booked",
+      "bericht": "Report",
+      "neuigkeit": "News",
+      "extern": "External"
+    },
+    "form": {
+      "requiredHint": "* = Required field",
+      "name": "Name *",
+      "email": "Email *",
+      "subject": "Subject",
+      "message": "Message *",
+      "phone": "Phone",
+      "phoneOptional": "(optional)",
+      "companion": "Companion",
+      "companionOptional": "(optional)",
+      "companionPlaceholder": "Companion's name",
+      "sendMessage": "Send message",
+      "subscribe": "Subscribe",
+      "register": "Register now",
+      "emailPlaceholder": "Your email address",
+      "nameError": "Please enter your name.",
+      "emailError": "Please enter a valid email address.",
+      "messageError": "Please enter a message.",
+      "consentText": "I agree to the processing of my data according to the",
+      "privacyLink": "Privacy Policy",
+      "consentAriaLabel": "Consent to data processing",
+      "photoConsent": "I agree that photos may be taken during the workshop for documentation purposes and published on the website and social media.",
+      "photoOptional": "(optional)",
+      "consentRegistrationAriaLabel": "Consent to data processing for workshop registration",
+      "consentPhotoAriaLabel": "Consent to photo documentation (optional)"
+    },
+    "toast": {
+      "consentRequired": "Please agree to the privacy policy.",
+      "fixFields": "Please correct the highlighted fields.",
+      "sending": "Sending\u2026",
+      "regSuccess": "Registration successful! We will contact you soon.",
+      "genericError": "An error occurred.",
+      "networkError": "Connection error. Please call us at +49 163 7038724.",
+      "newsletterSuccess": "Please check your inbox – we have sent you a confirmation email.",
+      "newsletterAlreadySent": "We have already sent you a confirmation email. Please check your inbox (including spam).",
+      "newsletterError": "Registration could not be completed.",
+      "newsletterNetworkError": "Connection error – please try again later.",
+      "contactSuccess": "Message sent successfully!",
+      "contactError": "The message could not be sent.",
+      "contactNetworkError": "Connection error – please call us at +49 163 7038724.",
+      "errorSummary1": "There is 1 error in the form:",
+      "errorSummaryN": "There are {count} errors in the form:"
+    },
+    "dialog": {
+      "closeLabel": "Close dialog",
+      "title": "Register for workshop",
+      "note": "After registration you will receive a confirmation by email."
+    },
+    "contactSuccessHeading": "Thank you for your message!",
+    "contactSuccessText": "We will get back to you within 2 business days."
+  },
+  "home": {
+    "hero": {
+      "label": "FEIN Pilot Project Lichtenberg",
+      "titleLine1": "Cooking Together –",
+      "titleLine2": "Growing Together.",
+      "description": "Open cooking and baking workshops in Berlin-Lichtenberg. We bring neighbors together – across generations, cultures and walks of life.",
+      "ctaWorkshop": "Discover next workshop",
+      "ctaLearnMore": "Learn more"
+    },
+    "contactBar": {
+      "label": "Quick contact",
+      "address": "Frankfurter Allee 205, 10365 Berlin-Lichtenberg"
+    },
+    "workshops": {
+      "label": "Upcoming Workshops",
+      "heading": "Our Workshops",
+      "description": "Cooking connects. Here you can see our previous workshops — new dates coming soon!",
+      "allWorkshopsCta": "Inquire about all workshops & dates"
+    },
+    "about": {
+      "label": "About the Project",
+      "heading": "Connection starts at the cooking pot",
+      "p1prefix": "\"Cooking Together – Growing Together\"",
+      "p1": " is a FEIN pilot project by the organization Mavka.Berlin.Volunteers in Berlin-Lichtenberg. In our open cooking and baking workshops, we create spaces for exchange, community and mutual learning.",
+      "p2": "In the focus areas of Hohenschönhausen, Alt-Lichtenberg and Rummelsburg, we invite all neighbors – regardless of age, origin or life situation.",
+      "features": {
+        "sustainability": "Sustainability & healthy eating",
+        "diversity": "Experience cultural diversity",
+        "participation": "Promote participation & dialogue",
+        "generations": "Connect generations"
+      },
+      "cta": "What matters to us"
+    },
+    "values": {
+      "label": "Our Focus Areas",
+      "heading": "What matters to us",
+      "description": "Our workshops stand for openness, sustainability and respectful interaction.",
+      "sustainability": {
+        "title": "Sustainability",
+        "text": "Conscious use of food and seasonal, regional ingredients."
+      },
+      "diversity": {
+        "title": "Diversity",
+        "text": "Sharing recipes and stories from different cultures and learning from each other."
+      },
+      "participation": {
+        "title": "Participation",
+        "text": "Low-barrier programs for everyone – free and without registration hurdles."
+      },
+      "dialogue": {
+        "title": "Dialogue",
+        "text": "Creating meeting spaces – across generations and walks of life."
+      }
+    },
+    "mitmachen": {
+      "label": "Participate",
+      "heading": "Participate & Get Involved",
+      "description": "There are many ways to become part of our community. We look forward to hearing from you!",
+      "volunteer": {
+        "title": "Volunteer",
+        "text": "Support our workshops as a volunteer – cooking, organizing or translating.",
+        "cta": "Get in touch"
+      },
+      "cooperate": {
+        "title": "Cooperate",
+        "text": "Are you an organization, initiative or company? Let's create impact together.",
+        "cta": "Inquire about cooperation"
+      },
+      "support": {
+        "title": "Support",
+        "text": "With your support, we can reach even more people and create connections.",
+        "cta": "Discuss support"
+      }
+    },
+    "aktuelles": {
+      "label": "News",
+      "heading": "What's happened so far",
+      "description": "Reports from our workshops, news and event information.",
+      "firstWorkshop": {
+        "title": "Our first workshop",
+        "text": "Looking back at the opening workshop at the community center – with photos and impressions from participants."
+      },
+      "newPartners": {
+        "title": "New cooperation partners",
+        "text": "We are happy about new partners in our network – together we reach even more people in the neighborhood."
+      },
+      "foodWeek": {
+        "title": "Food Action Week",
+        "text": "The Federal Ministry invites to the nationwide action week – we're joining with an open cooking evening."
+      }
+    },
+    "transparenz": {
+      "label": "Transparency and Downloads",
+      "heading": "Transparency & Documentation",
+      "description": "Funding reports, project documentation and information materials for download.",
+      "foerderbericht": {
+        "title": "Funding Report 2025",
+        "meta": "PDF · Funding period I"
+      },
+      "projektkonzept": {
+        "title": "Project Concept",
+        "meta": "PDF · Cooking Together – Growing Together"
+      },
+      "jahresbericht": {
+        "title": "Annual Report Mavka.Berlin.Volunteers 2025",
+        "meta": "PDF · Parent organization"
+      },
+      "inPreparation": "In Preparation"
+    },
+    "partners": {
+      "label": "Partners and Supporters",
+      "heading": "Partners & Network",
+      "description": "Together with strong partners in the district and beyond."
+    },
+    "newsletter": {
+      "label": "Newsletter",
+      "heading": "Stay informed",
+      "description": "New workshops, reports and news directly to your inbox – once a month.",
+      "emailLabel": "Email address *",
+      "hint": "After submitting, you will receive a confirmation email."
+    },
+    "contact": {
+      "label": "Organization and Contact",
+      "heading": "Organization & Contact",
+      "description": "Do you have questions or would you like to participate? We look forward to hearing from you!",
+      "directHeading": "Contact us directly",
+      "addressHeading": "Address",
+      "socialHeading": "Social Media",
+      "telegramLink": "Telegram group",
+      "locationsHeading": "Workshop Locations",
+      "showLargerMap": "Show larger map",
+      "transportNote": "All locations are easily accessible by public transport (tram, bus, S-Bahn).",
+      "transportLabel": "Getting there:"
+    }
+  },
+  "projekt": {
+    "breadcrumbTitle": "About the Project",
+    "heading": "About the Project",
+    "subheading": "Background, goals and the people behind \"Cooking Together – Growing Together\".",
+    "aboutLabel": "Project description",
+    "aboutHeading": "Connection starts at the cooking pot",
+    "aboutP1prefix": "\"Cooking Together – Growing Together\"",
+    "aboutP1": " is a FEIN pilot project by the organization Mavka.Berlin.Volunteers in Berlin-Lichtenberg. In our open cooking and baking workshops, we create spaces for exchange, community and mutual learning.",
+    "aboutP2": "In the focus areas of Hohenschönhausen, Alt-Lichtenberg and Rummelsburg, we invite all neighbors – regardless of age, origin or life situation.",
+    "aboutP3": "Since February 2026, we have already conducted 6 workshops with a total of 180 participants — all fully booked. From Soljanka to Şekerbura, from mushroom quiche to pancakes: every workshop brings new recipes, stories and connections.",
+    "valuesLabel": "Our Values",
+    "valuesHeading": "What matters to us",
+    "valuesDescription": "Our workshops stand for openness, sustainability and respectful interaction.",
+    "sustainability": {
+      "title": "Sustainability",
+      "text": "Conscious use of food and seasonal, regional ingredients. We cook with what the season offers and avoid food waste."
+    },
+    "diversity": {
+      "title": "Diversity",
+      "text": "Sharing recipes and stories from different cultures and learning from each other. Every workshop is a culinary journey."
+    },
+    "participation": {
+      "title": "Participation",
+      "text": "Low-barrier programs for everyone – free and without registration hurdles. Children, seniors, families and individuals are equally welcome."
+    },
+    "dialogue": {
+      "title": "Dialogue",
+      "text": "Creating meeting spaces – across generations and walks of life. At the cooking pot, conversations happen that otherwise wouldn't take place."
+    },
+    "testimonialsLabel": "Voices",
+    "testimonialsHeading": "Voices from the project",
+    "quote": "\"I came here alone and I'm leaving with new friends. The cooking was just the beginning.\"",
+    "quoteAuthor": "— Participant, Workshop \"Pancakes with Fillings\", February 2026",
+    "traegerLabel": "Parent Organization",
+    "traegerHeading": "The parent organization",
+    "traegerP1": "Mavka.Berlin.Volunteers e.V. (in formation) is a nonprofit organization in Berlin-Lichtenberg. We are committed to neighborhood engagement, cultural exchange and social participation.",
+    "traegerP2": "The organization was founded to bring together experiences from volunteer work in the neighborhood and put them into action with the FEIN program of the Lichtenberg district.",
+    "traegerContact": "Contact:",
+    "traegerAddress": "Frankfurter Allee 205, 10365 Berlin"
+  },
+  "workshops": {
+    "heading": "Workshops & Dates",
+    "description": "All previous cooking and baking workshops at a glance. New dates coming soon!",
+    "filterLabel": "Filter workshops by location",
+    "filterAll": "All",
+    "newWorkshopsNote": "New workshops are being planned. Contact us for information about upcoming dates.",
+    "workshopDetailPrefix": "Workshop details:"
+  },
+  "workshop": {
+    "pilzkuchenHonigkuchen": {
+      "title": "Savory Mushroom Pie & Honey Cake",
+      "description": "Savory mushroom pie with fresh champignons and herbs, plus a sweet, aromatic honey cake — opposites that go wonderfully together.",
+      "whatToExpectHeading": "What to expect",
+      "whatToExpect1": "We will prepare a savory mushroom pie with fresh champignons, onions and herbs together. The dough will be kneaded by hand, the filling seasoned together. In addition, we will bake a traditional honey cake — golden brown and aromatic.",
+      "whatToExpect2": "Whether beginner or experienced cook: everyone is welcome here. We share recipes, stories and a meal together at the end.",
+      "whatToBringHeading": "What to bring",
+      "bring1": "Good mood and curiosity",
+      "bring2": "An apron (if you have one)",
+      "bring3": "Your own containers if you want to take leftovers home",
+      "notesHeading": "Notes",
+      "notes": "All ingredients are provided. If you have food allergies or special dietary needs, please contact us in advance. Children are welcome when accompanied.",
+      "impressionsHeading": "Impressions from our workshops",
+      "date": "Date",
+      "dateValue": "Sunday, February 15, 2026",
+      "time": "Time",
+      "location": "Location",
+      "participationLabel": "Participation",
+      "participationValue": "Free · 30 places · Fully booked"
+    },
+    "pfannkuchenFuellungen": {
+      "title": "Pancakes with Fillings & Salad",
+      "description": "Fine pancakes with sweet and savory fillings, served with a fresh salad."
+    },
+    "khachapuriBrownies": {
+      "title": "Khachapuri & Brownies",
+      "description": "Georgian cheese flatbreads from the pan and juicy brownies – a culinary journey to join in."
+    },
+    "sekerbura": {
+      "title": "Azerbaijani Şekerbura",
+      "description": "Traditional Azerbaijani pastry with nut filling – a sweet piece of the Caucasus to make yourself."
+    },
+    "pilzquicheZimtschnecken": {
+      "title": "Mushroom Quiche & Cinnamon Rolls",
+      "description": "Savory mushroom quiche meets fragrant cinnamon rolls – an afternoon full of aromas for the whole family."
+    },
+    "soljankaSharlotka": {
+      "title": "Soljanka & Apple Cake Sharlotka",
+      "description": "Savory meets sweet: Together we cook a spicy Soljanka and bake a classic Sharlotka."
+    }
+  },
+  "aktuelles": {
+    "heading": "What's Happened So Far",
+    "description": "Reports from our workshops, news and event information.",
+    "filterLabel": "Filter posts",
+    "filterAll": "All",
+    "filterBerichte": "Reports",
+    "filterNeuigkeiten": "News",
+    "filterExtern": "External",
+    "firstWorkshop": {
+      "title": "Our first workshop",
+      "text": "Looking back at the opening workshop \"Savory Mushroom Pie & Honey Cake\" in February 2026 — with impressions from participants."
+    },
+    "sixWorkshops": {
+      "title": "6 Workshops — 180 Participants",
+      "text": "In just 6 weeks, we conducted 6 fully booked workshops. A look back at recipes, connections and stories."
+    },
+    "newPartners": {
+      "title": "New cooperation partners",
+      "text": "We are happy about new partners in our network — together we reach even more people in the neighborhood."
+    },
+    "websiteLaunch": {
+      "title": "Website Launch",
+      "text": "Our new website is live! Here you'll find all information about workshops, dates and the project."
+    },
+    "foodWeek": {
+      "title": "Food Action Week",
+      "text": "The Federal Ministry invites to the nationwide action week — we're joining with an open cooking evening."
+    }
+  },
+  "partner": {
+    "heading": "Partners & Supporters",
+    "description": "Together with strong partners in the Lichtenberg district and beyond.",
+    "koopHeading": "Cooperation Partners",
+    "koopLabel": "Cooperation partners",
+    "koopDescription": "Our workshops take place at various locations in the district — thanks to our local partners.",
+    "buergertreff": {
+      "name": "Community Center \"Gemeinsam im Kiez\"",
+      "text": "Neighborhood meeting point in Alt-Lichtenberg. Host of our first workshops and an important contact point in the neighborhood."
+    },
+    "oskar": {
+      "name": "Oskar Volunteer Agency",
+      "text": "Connects volunteer helpers and supports us in networking with engaged volunteers."
+    },
+    "kiezspinne": {
+      "name": "Kiezspinne e.V.",
+      "text": "Community center in Lichtenberg. Provides spaces and infrastructure for community projects."
+    },
+    "lebensnetz": {
+      "name": "Kieztreff Lebensnetz",
+      "text": "Contact point for seniors in Hohenschönhausen. Important partner for intergenerational programs."
+    },
+    "benn": {
+      "name": "BENN Alt-Hohenschönhausen",
+      "text": "Berlin Develops New Neighborhoods. Strengthens community life and connects local initiatives."
+    },
+    "roberto": {
+      "name": "Nachbarschaftshaus RoBertO",
+      "text": "Open house in Rummelsburg. Provides space for community, culture and social interaction."
+    },
+    "fundingHeading": "Funding",
+    "fundingLabel": "Funding",
+    "fundingDescription": "This project is funded by the FEIN program (Voluntary Engagement in Neighborhoods) of the Lichtenberg District Office of Berlin.",
+    "fein": {
+      "name": "FEIN – Voluntary Engagement in Neighborhoods",
+      "text": "Funding program of the Lichtenberg district to strengthen neighborhood engagement."
+    },
+    "bezirksamt": {
+      "name": "Lichtenberg District Office of Berlin",
+      "text": "Supports civic engagement and social projects in the district."
+    },
+    "cooperationHeading": "Cooperation",
+    "cooperationLabel": "Cooperation",
+    "cooperationText": "Are you an organization, initiative or company looking to work with us? We welcome new partners in our network.",
+    "cooperationCta": "Inquire about cooperation"
+  },
+  "transparenz": {
+    "heading": "Transparency & Documentation",
+    "description": "Funding reports, project documentation and information materials for download.",
+    "docsHeading": "Documents",
+    "docsLabel": "Downloads",
+    "foerderbericht": {
+      "title": "Funding Report 2025",
+      "meta": "PDF · Funding period I"
+    },
+    "projektkonzept": {
+      "title": "Project Concept",
+      "meta": "PDF · Cooking Together – Growing Together"
+    },
+    "jahresbericht": {
+      "title": "Annual Report Mavka.Berlin.Volunteers 2025",
+      "meta": "PDF · Parent organization"
+    },
+    "inPreparation": "In Preparation",
+    "timelineHeading": "Project Milestones",
+    "timelineLabel": "Project milestones",
+    "milestone1": {
+      "date": "October 2025",
+      "text": "Funding approval by the FEIN program of the Lichtenberg District Office."
+    },
+    "milestone2": {
+      "date": "January 2026",
+      "text": "Founding of Mavka.Berlin.Volunteers e.V. (in formation) as the parent organization."
+    },
+    "milestone3": {
+      "date": "February 2026",
+      "text": "First workshop \"Savory Mushroom Pie & Honey Cake\" — 30 places, fully booked."
+    },
+    "milestone4": {
+      "date": "February – March 2026",
+      "text": "6 workshops conducted with a total of 180 participants. All fully booked."
+    },
+    "milestone5": {
+      "date": "April 2026",
+      "text": "Website launch and building of digital presence. Planning of new workshops."
+    },
+    "questionsHeading": "Questions?",
+    "questionsLabel": "Questions about transparency",
+    "questionsText": "If you have questions about our funding reports, the project concept or the use of funds, we are happy to help.",
+    "questionsCta": "Get in touch"
+  }
+}
