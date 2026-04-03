@@ -42,14 +42,46 @@ if ((int)$resp >= 400) {
     exit;
 }
 
-echo "5. Upgrading to TLS ... ";
-$crypto = @stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT | STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT);
-if (!$crypto) {
-    echo "FAILED\n";
+echo "5. Upgrading to TLS ...\n";
+
+// Try different crypto methods
+$methods = [
+    'TLS_CLIENT (any)'      => STREAM_CRYPTO_METHOD_TLS_CLIENT,
+    'TLSv1.2'               => STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT,
+    'TLSv1.1'               => STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT,
+    'TLSv1.0'               => STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT,
+];
+
+$success = false;
+foreach ($methods as $name => $method) {
+    echo "   Trying {$name} ... ";
+    $crypto = @stream_socket_enable_crypto($socket, true, $method);
+    if ($crypto) {
+        echo "OK!\n";
+        $success = true;
+        break;
+    }
+    echo "failed\n";
+    // Reconnect for next attempt since socket may be broken
+    fclose($socket);
+    $socket = @fsockopen(SMTP_HOST, 587, $errno, $errstr, 10);
+    if (!$socket) { echo "   Reconnect failed\n"; exit; }
+    fgets($socket, 512); // greeting
+    fwrite($socket, "EHLO test\r\n");
+    do { $line = fgets($socket, 512); } while (isset($line[3]) && $line[3] === '-');
+    fwrite($socket, "STARTTLS\r\n");
+    fgets($socket, 512);
+}
+
+if (!$success) {
+    echo "\nAll TLS methods failed.\n";
+    echo "PHP version: " . PHP_VERSION . "\n";
+    echo "OpenSSL: " . (defined('OPENSSL_VERSION_TEXT') ? OPENSSL_VERSION_TEXT : 'not available') . "\n";
+    echo "stream_socket_enable_crypto available: " . (function_exists('stream_socket_enable_crypto') ? 'yes' : 'NO') . "\n";
     fclose($socket);
     exit;
 }
-echo "OK\n";
+echo "\n";
 
 fwrite($socket, "EHLO test\r\n");
 $resp = '';
