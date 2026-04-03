@@ -10,18 +10,26 @@
  */
 
 // ── Lokale Credentials laden (falls vorhanden) ─────────────
-// Suche config.local.php an mehreren Stellen (dist/api/ wird bei
-// jedem Build gelöscht, daher Fallback auf Projekt-Root).
+// Auto-Deploy löscht das gesamte Repo-Verzeichnis. config.local.php
+// muss daher AUSSERHALB des Repos liegen (z.B. Home-Verzeichnis).
 $searchPaths = [
-    __DIR__ . '/config.local.php',           // Neben config.php (dist/api/)
-    dirname(__DIR__) . '/config.local.php',   // Eine Ebene höher (dist/)
-    dirname(__DIR__, 2) . '/config.local.php', // Projekt-Root
+    __DIR__ . '/config.local.php',             // Neben config.php
+    dirname(__DIR__) . '/config.local.php',     // dist/
+    dirname(__DIR__, 2) . '/config.local.php',  // Projekt-Root
+    dirname(__DIR__, 3) . '/config.local.php',  // Über Projekt-Root
+    ($_SERVER['HOME'] ?? ($_SERVER['DOCUMENT_ROOT'] ? dirname($_SERVER['DOCUMENT_ROOT']) : '')) . '/config.local.php',
 ];
+$configLoaded = false;
 foreach ($searchPaths as $path) {
-    if (file_exists($path)) {
+    if ($path && file_exists($path)) {
         require_once $path;
+        $configLoaded = true;
         break;
     }
+}
+// Debug-Hilfe: zeigt wo gesucht wurde (nur im Error-Log)
+if (!$configLoaded) {
+    error_log('config.local.php NOT FOUND. Searched: ' . implode(', ', array_filter($searchPaths)));
 }
 
 /**
