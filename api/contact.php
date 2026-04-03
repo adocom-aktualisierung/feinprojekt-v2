@@ -107,7 +107,8 @@ $body .= "Einwilligung:  Ja (Datenschutzerklärung akzeptiert)\n";
 $body .= "Zeitpunkt:     " . date('d.m.Y H:i') . " Uhr\n";
 $body .= "IP:            " . ($_SERVER['REMOTE_ADDR'] ?? 'unbekannt') . "\n";
 
-$mailSent = sendMail(ORGANIZER_EMAIL, $mailSubject, $body, $email);
+$mailError = '';
+$mailSent = sendMail(ORGANIZER_EMAIL, $mailSubject, $body, $email, $mailError);
 
 // Rate-Limit Timestamp setzen (nur bei Erfolg)
 if ($mailSent) {
@@ -118,6 +119,7 @@ if ($mailSent) {
 if ($mailSent) {
     echo json_encode(['ok' => true, 'message' => 'Nachricht erfolgreich gesendet']);
 } else {
+    error_log("Contact form mail failed: {$mailError}");
     http_response_code(500);
     echo json_encode([
         'ok' => false,
@@ -126,27 +128,33 @@ if ($mailSent) {
 }
 
 // ── Mail-Funktionen (identisch mit register.php) ────────────
-function sendMail(string $to, string $subject, string $body, string $replyTo = ''): bool {
+function sendMail(string $to, string $subject, string $body, string $replyTo = '', string &$error = ''): bool {
     if (SMTP_PASS !== '') {
-        return sendViaSMTP($to, $subject, $body, $replyTo);
+        return sendViaSMTP($to, $subject, $body, $replyTo, $error);
     }
-    return sendViaMailFunction($to, $subject, $body, $replyTo);
+    $error = 'SMTP_PASS is empty, mail() fallback';
+    return sendViaMailFunction($to, $subject, $body, $replyTo, $error);
 }
 
-function sendViaMailFunction(string $to, string $subject, string $body, string $replyTo = ''): bool {
+function sendViaMailFunction(string $to, string $subject, string $body, string $replyTo = '', string &$error = ''): bool {
     $headers  = "From: " . SMTP_FROM_NAME . " <" . SMTP_FROM . ">\r\n";
     $headers .= "Reply-To: " . ($replyTo ?: SMTP_FROM) . "\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
     $headers .= "X-Mailer: GemeinsamKochen/1.0\r\n";
 
-    return mail($to, "=?UTF-8?B?" . base64_encode($subject) . "?=", $body, $headers);
+    $result = @mail($to, "=?UTF-8?B?" . base64_encode($subject) . "?=", $body, $headers);
+    if (!$result) {
+        $error .= ' | mail() failed';
+    }
+    return $result;
 }
 
-function sendViaSMTP(string $to, string $subject, string $body, string $replyTo = ''): bool {
+function sendViaSMTP(string $to, string $subject, string $body, string $replyTo = '', string &$error = ''): bool {
     $socket = @fsockopen('tls://' . SMTP_HOST, SMTP_PORT, $errno, $errstr, 10);
     if (!$socket) {
-        error_log("SMTP connect failed: {$errstr} ({$errno})");
-        return sendViaMailFunction($to, $subject, $body, $replyTo);
+        $error = "SMTP connect tls://" . SMTP_HOST . ":" . SMTP_PORT . " failed: {$errstr} ({$errno})";
+        error_log($error);
+        return sendViaMailFunction($to, $subject, $body, $replyTo, $error);
     }
 
     $commands = [
@@ -166,9 +174,10 @@ function sendViaSMTP(string $to, string $subject, string $body, string $replyTo 
         }
         $response = fgets($socket, 512);
         if ($response === false || (int)$response >= 400) {
-            error_log("SMTP error at '{$cmd}': {$response}");
+            $error = "SMTP error at '{$cmd}': " . trim($response ?? 'no response');
+            error_log($error);
             fclose($socket);
-            return sendViaMailFunction($to, $subject, $body, $replyTo);
+            return sendViaMailFunction($to, $subject, $body, $replyTo, $error);
         }
         while (isset($response[3]) && $response[3] === '-') {
             $response = fgets($socket, 512);
@@ -193,5 +202,9 @@ function sendViaSMTP(string $to, string $subject, string $body, string $replyTo 
     fwrite($socket, "QUIT\r\n");
     fclose($socket);
 
-    return $response !== false && (int)$response < 400;
+    if ($response === false || (int)$response >= 400) {
+        $error = "SMTP DATA response: " . trim($response ?? 'no response');
+        return false;
+    }
+    return true;
 }
