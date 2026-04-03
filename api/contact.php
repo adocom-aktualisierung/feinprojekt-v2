@@ -151,7 +151,10 @@ function sendViaMailFunction(string $to, string $subject, string $body, string $
 
 function sendViaSMTP(string $to, string $subject, string $body, string $replyTo = '', string &$error = ''): bool {
     // Connect plain on port 587, then upgrade via STARTTLS
-    $socket = @fsockopen(SMTP_HOST, 587, $errno, $errstr, 10);
+    $ctx = stream_context_create(['ssl' => [
+        'verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true,
+    ]]);
+    $socket = @stream_socket_client('tcp://' . SMTP_HOST . ':587', $errno, $errstr, 10, STREAM_CLIENT_CONNECT, $ctx);
     if (!$socket) {
         $error = "SMTP connect " . SMTP_HOST . ":587 failed: {$errstr} ({$errno})";
         error_log($error);
@@ -184,7 +187,7 @@ function sendViaSMTP(string $to, string $subject, string $body, string $replyTo 
     if ((int)$resp >= 400) { $error = "SMTP STARTTLS: " . trim($resp); fclose($socket); return sendViaMailFunction($to, $subject, $body, $replyTo, $error); }
 
     // Upgrade to TLS
-    $crypto = @stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT | STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT);
+    $crypto = @stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
     if (!$crypto) {
         $error = "STARTTLS crypto upgrade failed";
         error_log($error);
