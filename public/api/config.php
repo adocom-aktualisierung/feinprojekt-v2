@@ -10,11 +10,18 @@
  */
 
 // ── Lokale Credentials laden (falls vorhanden) ─────────────
-// config.local.php liegt NUR auf dem Server und definiert die
-// Secrets per define(). Wird von .gitignore ausgeschlossen.
-$localConfig = __DIR__ . '/config.local.php';
-if (file_exists($localConfig)) {
-    require_once $localConfig;
+// Suche config.local.php an mehreren Stellen (dist/api/ wird bei
+// jedem Build gelöscht, daher Fallback auf Projekt-Root).
+$searchPaths = [
+    __DIR__ . '/config.local.php',           // Neben config.php (dist/api/)
+    dirname(__DIR__) . '/config.local.php',   // Eine Ebene höher (dist/)
+    dirname(__DIR__, 2) . '/config.local.php', // Projekt-Root
+];
+foreach ($searchPaths as $path) {
+    if (file_exists($path)) {
+        require_once $path;
+        break;
+    }
 }
 
 /**
