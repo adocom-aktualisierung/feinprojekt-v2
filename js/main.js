@@ -375,7 +375,7 @@ if (newsletterForm) {
       const result = await res.json();
 
       if (result.ok) {
-        showToast(result.message || 'Vielen Dank! Sie erhalten in Kürze eine Bestätigungs-E-Mail.');
+        showToast(result.message || 'Bitte prüfen Sie Ihr Postfach – wir haben Ihnen eine Bestätigungs-E-Mail gesendet.');
         newsletterForm.reset();
       } else {
         showToast(result.error || 'Die Anmeldung konnte nicht durchgeführt werden.', 'error');

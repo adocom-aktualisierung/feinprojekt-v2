@@ -58,6 +58,44 @@ if (!defined('REACH_API_TOKEN'))    define('REACH_API_TOKEN',    env('REACH_API_
 if (!defined('REACH_PROFILE_UUID')) define('REACH_PROFILE_UUID', env('REACH_PROFILE_UUID'));
 if (!defined('REACH_API_BASE'))     define('REACH_API_BASE',     'https://developers.hostinger.com/api/reach/v1');
 
+// ── SQLite (für Double-Opt-in) ──────────────────────────────
+if (!defined('DB_PATH'))   define('DB_PATH',   dirname(__DIR__) . '/.data/newsletter.sqlite');
+if (!defined('SITE_URL'))  define('SITE_URL',  'https://mavka-berlin.de');
+
+/**
+ * Gibt eine PDO-Verbindung zur Newsletter-SQLite-Datenbank zurück.
+ * Erstellt Tabelle automatisch beim ersten Zugriff.
+ */
+function getDB(): PDO {
+    static $pdo = null;
+    if ($pdo !== null) return $pdo;
+
+    $dir = dirname(DB_PATH);
+    if (!is_dir($dir)) {
+        mkdir($dir, 0750, true);
+    }
+
+    $pdo = new PDO('sqlite:' . DB_PATH, null, null, [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
+    $pdo->exec('PRAGMA journal_mode=WAL');
+    $pdo->exec('PRAGMA busy_timeout=5000');
+
+    $pdo->exec('CREATE TABLE IF NOT EXISTS newsletter_pending (
+        id         INTEGER PRIMARY KEY AUTOINCREMENT,
+        email      TEXT    NOT NULL,
+        token      TEXT    NOT NULL UNIQUE,
+        created_at INTEGER NOT NULL,
+        verified_at INTEGER DEFAULT NULL,
+        ip_address TEXT    DEFAULT NULL
+    )');
+    $pdo->exec('CREATE INDEX IF NOT EXISTS idx_nl_token ON newsletter_pending(token)');
+    $pdo->exec('CREATE INDEX IF NOT EXISTS idx_nl_email ON newsletter_pending(email)');
+
+    return $pdo;
+}
+
 // ── CORS ────────────────────────────────────────────────────
 define('ALLOWED_ORIGINS', ['https://mavka-berlin.de', 'https://www.mavka-berlin.de']);
 

@@ -18,15 +18,26 @@ No test framework, linter, or formatter configured.
 
 Static multi-page site: Vite 8 + vanilla JS (ES modules) + custom CSS. No framework.
 
-**Pages** (3 entry points in `vite.config.js`):
+**Pages** (14 entry points in `vite.config.js`):
 
 - `index.html` — Main landing page (single-page with anchor sections)
+- `projekt/index.html` — Über das Projekt (standalone page)
+- `workshops/index.html` — Workshops & Termine overview (with location filter)
+- `workshops/soljanka-sharlotka/index.html` — Workshop detail page
+- `workshops/pilzquiche-zimtschnecken/index.html` — Workshop detail page
+- `workshops/khachapuri-brownies/index.html` — Workshop detail page
+- `workshops/pilzkuchen-honigkuchen/index.html` — Workshop detail page
+- `workshops/pfannkuchen-fuellungen/index.html` — Workshop detail page
+- `workshops/sekerbura/index.html` — Workshop detail page
+- `aktuelles/index.html` — Was bisher passiert ist (with category filter)
+- `partner/index.html` — Träger & Partner
+- `transparenz/index.html` — Für Förderer & Partner
 - `impressum/index.html` — Legal notice
 - `datenschutz/index.html` — Privacy policy
 
-**CSS** (loaded in order): `tokens.css` → `base.css` → `layout.css` → `components.css` → `animations.css`
+**CSS** (loaded in order): `tokens.css` → `base.css` → `layout.css` → `components.css` → `animations.css`. Standalone pages additionally load `pages.css`.
 
-**JS**: Single file `js/main.js` — mobile nav, font-size switcher (localStorage), registration dialog, form validation, toast notifications, IntersectionObserver animations. Uses `textContent`/`createElement` (no innerHTML) for XSS safety.
+**JS**: `js/main.js` — mobile nav, font-size switcher (localStorage), registration dialog, form validation, toast notifications, IntersectionObserver animations. Uses `textContent`/`createElement` (no innerHTML) for XSS safety. `js/filter.js` — filter chips on workshops overview and aktuelles pages.
 
 ## Document Authority Hierarchy
 
