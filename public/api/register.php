@@ -178,7 +178,6 @@ if ($mailSent) {
 
 // ── SMTP Mail-Funktion ──────────────────────────────────────
 function sendMail(string $to, string $subject, string $body): bool {
-    // Versuche zuerst SMTP, Fallback auf mail()
     if (SMTP_PASS !== '') {
         return sendViaSMTP($to, $subject, $body);
     }
@@ -191,20 +190,56 @@ function sendViaMailFunction(string $to, string $subject, string $body): bool {
     $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
     $headers .= "X-Mailer: GemeinsamKochen/1.0\r\n";
 
-    return mail($to, "=?UTF-8?B?" . base64_encode($subject) . "?=", $body, $headers);
+    return @mail($to, "=?UTF-8?B?" . base64_encode($subject) . "?=", $body, $headers);
 }
 
 function sendViaSMTP(string $to, string $subject, string $body): bool {
-    $socket = @fsockopen('tls://' . SMTP_HOST, SMTP_PORT, $errno, $errstr, 10);
+    // Connect plain on port 587, then upgrade via STARTTLS
+    $socket = @fsockopen(SMTP_HOST, 587, $errno, $errstr, 10);
     if (!$socket) {
-        error_log("SMTP connect failed: {$errstr} ({$errno})");
+        error_log("SMTP connect " . SMTP_HOST . ":587 failed: {$errstr} ({$errno})");
         return sendViaMailFunction($to, $subject, $body);
     }
 
-    $response = '';
+    // Helper: read response, consume multi-line
+    $readResp = function() use ($socket): string {
+        $resp = '';
+        do {
+            $line = fgets($socket, 512);
+            if ($line === false) return '';
+            $resp .= $line;
+        } while (isset($line[3]) && $line[3] === '-');
+        return $resp;
+    };
+
+    // Greeting
+    $resp = $readResp();
+    if ((int)$resp >= 400) { error_log("SMTP greeting: " . trim($resp)); fclose($socket); return sendViaMailFunction($to, $subject, $body); }
+
+    // EHLO
+    fwrite($socket, "EHLO " . gethostname() . "\r\n");
+    $resp = $readResp();
+    if ((int)$resp >= 400) { fclose($socket); return sendViaMailFunction($to, $subject, $body); }
+
+    // STARTTLS
+    fwrite($socket, "STARTTLS\r\n");
+    $resp = $readResp();
+    if ((int)$resp >= 400) { fclose($socket); return sendViaMailFunction($to, $subject, $body); }
+
+    // Upgrade to TLS
+    $crypto = @stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT | STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT);
+    if (!$crypto) {
+        error_log("STARTTLS crypto upgrade failed");
+        fclose($socket);
+        return sendViaMailFunction($to, $subject, $body);
+    }
+
+    // EHLO again after STARTTLS
+    fwrite($socket, "EHLO " . gethostname() . "\r\n");
+    $readResp();
+
+    // AUTH + MAIL
     $commands = [
-        null, // Read greeting
-        "EHLO " . gethostname(),
         "AUTH LOGIN",
         base64_encode(SMTP_USER),
         base64_encode(SMTP_PASS),
@@ -214,37 +249,31 @@ function sendViaSMTP(string $to, string $subject, string $body): bool {
     ];
 
     foreach ($commands as $cmd) {
-        if ($cmd !== null) {
-            fwrite($socket, $cmd . "\r\n");
-        }
-        $response = fgets($socket, 512);
-        if ($response === false || (int)$response >= 400) {
-            error_log("SMTP error at '{$cmd}': {$response}");
+        fwrite($socket, $cmd . "\r\n");
+        $resp = $readResp();
+        if ((int)$resp >= 400) {
+            error_log("SMTP error at '{$cmd}': " . trim($resp));
             fclose($socket);
-            return sendViaMailFunction($to, $subject, $body);
-        }
-        // Read multi-line responses (EHLO)
-        while (isset($response[3]) && $response[3] === '-') {
-            $response = fgets($socket, 512);
+            return false;
         }
     }
 
     // Send mail content
     $encodedSubject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
-    $message  = "From: " . SMTP_FROM_NAME . " <" . SMTP_FROM . ">\r\n";
-    $message .= "To: <{$to}>\r\n";
-    $message .= "Subject: {$encodedSubject}\r\n";
-    $message .= "Content-Type: text/plain; charset=UTF-8\r\n";
-    $message .= "X-Mailer: GemeinsamKochen/1.0\r\n";
-    $message .= "\r\n";
-    $message .= $body;
-    $message .= "\r\n.\r\n";
+    $msg  = "From: " . SMTP_FROM_NAME . " <" . SMTP_FROM . ">\r\n";
+    $msg .= "To: <{$to}>\r\n";
+    $msg .= "Subject: {$encodedSubject}\r\n";
+    $msg .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    $msg .= "X-Mailer: GemeinsamKochen/1.0\r\n";
+    $msg .= "\r\n";
+    $msg .= $body;
+    $msg .= "\r\n.\r\n";
 
-    fwrite($socket, $message);
-    $response = fgets($socket, 512);
+    fwrite($socket, $msg);
+    $resp = $readResp();
 
     fwrite($socket, "QUIT\r\n");
     fclose($socket);
 
-    return $response !== false && (int)$response < 400;
+    return $resp !== '' && (int)$resp < 400;
 }

@@ -150,16 +150,54 @@ function sendViaMailFunction(string $to, string $subject, string $body, string $
 }
 
 function sendViaSMTP(string $to, string $subject, string $body, string $replyTo = '', string &$error = ''): bool {
-    $socket = @fsockopen('tls://' . SMTP_HOST, SMTP_PORT, $errno, $errstr, 10);
+    // Connect plain on port 587, then upgrade via STARTTLS
+    $socket = @fsockopen(SMTP_HOST, 587, $errno, $errstr, 10);
     if (!$socket) {
-        $error = "SMTP connect tls://" . SMTP_HOST . ":" . SMTP_PORT . " failed: {$errstr} ({$errno})";
+        $error = "SMTP connect " . SMTP_HOST . ":587 failed: {$errstr} ({$errno})";
         error_log($error);
         return sendViaMailFunction($to, $subject, $body, $replyTo, $error);
     }
 
+    // Helper: read response, consume multi-line
+    $readResp = function() use ($socket): string {
+        $resp = '';
+        do {
+            $line = fgets($socket, 512);
+            if ($line === false) return '';
+            $resp .= $line;
+        } while (isset($line[3]) && $line[3] === '-');
+        return $resp;
+    };
+
+    // Greeting
+    $resp = $readResp();
+    if ((int)$resp >= 400) { $error = "SMTP greeting: " . trim($resp); fclose($socket); return sendViaMailFunction($to, $subject, $body, $replyTo, $error); }
+
+    // EHLO
+    fwrite($socket, "EHLO " . gethostname() . "\r\n");
+    $resp = $readResp();
+    if ((int)$resp >= 400) { $error = "SMTP EHLO: " . trim($resp); fclose($socket); return sendViaMailFunction($to, $subject, $body, $replyTo, $error); }
+
+    // STARTTLS
+    fwrite($socket, "STARTTLS\r\n");
+    $resp = $readResp();
+    if ((int)$resp >= 400) { $error = "SMTP STARTTLS: " . trim($resp); fclose($socket); return sendViaMailFunction($to, $subject, $body, $replyTo, $error); }
+
+    // Upgrade to TLS
+    $crypto = @stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT | STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT);
+    if (!$crypto) {
+        $error = "STARTTLS crypto upgrade failed";
+        error_log($error);
+        fclose($socket);
+        return sendViaMailFunction($to, $subject, $body, $replyTo, $error);
+    }
+
+    // EHLO again after STARTTLS
+    fwrite($socket, "EHLO " . gethostname() . "\r\n");
+    $resp = $readResp();
+
+    // AUTH LOGIN
     $commands = [
-        null, // Read greeting
-        "EHLO " . gethostname(),
         "AUTH LOGIN",
         base64_encode(SMTP_USER),
         base64_encode(SMTP_PASS),
@@ -169,18 +207,13 @@ function sendViaSMTP(string $to, string $subject, string $body, string $replyTo 
     ];
 
     foreach ($commands as $cmd) {
-        if ($cmd !== null) {
-            fwrite($socket, $cmd . "\r\n");
-        }
-        $response = fgets($socket, 512);
-        if ($response === false || (int)$response >= 400) {
-            $error = "SMTP error at '{$cmd}': " . trim($response ?? 'no response');
+        fwrite($socket, $cmd . "\r\n");
+        $resp = $readResp();
+        if ((int)$resp >= 400) {
+            $error = "SMTP error at '{$cmd}': " . trim($resp);
             error_log($error);
             fclose($socket);
-            return sendViaMailFunction($to, $subject, $body, $replyTo, $error);
-        }
-        while (isset($response[3]) && $response[3] === '-') {
-            $response = fgets($socket, 512);
+            return false; // Don't fallback to mail() after auth failure
         }
     }
 
@@ -197,13 +230,13 @@ function sendViaSMTP(string $to, string $subject, string $body, string $replyTo 
     $msg .= "\r\n.\r\n";
 
     fwrite($socket, $msg);
-    $response = fgets($socket, 512);
+    $resp = $readResp();
 
     fwrite($socket, "QUIT\r\n");
     fclose($socket);
 
-    if ($response === false || (int)$response >= 400) {
-        $error = "SMTP DATA response: " . trim($response ?? 'no response');
+    if ($resp === '' || (int)$resp >= 400) {
+        $error = "SMTP DATA response: " . trim($resp ?: 'no response');
         return false;
     }
     return true;
