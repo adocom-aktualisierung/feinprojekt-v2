@@ -14,7 +14,7 @@
   cursor: pointer;
   border-radius: var(--radius-pill);
   padding: 15px 32px;
-  min-height: 52px;
+  min-height: 56px;
   transition: all var(--transition-medium);
   line-height: 1.2;
 }
@@ -343,25 +343,26 @@
 .partner-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  opacity: 0.55;
+  gap: var(--spacing-sm);
+  opacity: 0.7;
   transition: opacity var(--transition-fast);
-  padding: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
 }
 
 .partner-item:hover {
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .partner-logo {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-sm);
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
   background: var(--color-cream);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .partner-logo img {
@@ -403,6 +404,14 @@
   color: rgba(255, 255, 255, 0.78);
 }
 
+.newsletter-label {
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: calc(-1 * var(--spacing-xs));
+}
+
 .newsletter-form {
   display: flex;
   flex-direction: column;
@@ -424,7 +433,7 @@
   color: var(--color-white);
   font-family: var(--font-body);
   font-size: 1rem;
-  min-height: 52px;
+  min-height: 56px;
   backdrop-filter: blur(4px);
 }
 
@@ -569,6 +578,12 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
+}
+
+.form-required-hint {
+  font-size: 0.85rem;
+  color: var(--color-warm-gray);
+  margin-bottom: var(--spacing-xs);
 }
 
 .form-group label {
@@ -748,6 +763,30 @@ textarea.form-input {
 
 .form-input.is-invalid + .form-error-message {
   display: block;
+}
+
+.form-error-summary {
+  background: #FEF2F2;
+  border: 2px solid var(--color-error-dark);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.form-error-summary strong {
+  display: block;
+  color: var(--color-error-dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.form-error-summary ul {
+  list-style: disc;
+  padding-left: var(--spacing-md);
+}
+
+.form-error-summary a {
+  color: var(--color-error-dark);
+  font-size: 0.92rem;
 }
 
 /* ========================================

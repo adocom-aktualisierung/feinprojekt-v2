@@ -19,6 +19,7 @@ No test framework, linter, or formatter configured.
 Static multi-page site: Vite 8 + vanilla JS (ES modules) + custom CSS. No framework.
 
 **Pages** (3 entry points in `vite.config.js`):
+
 - `index.html` — Main landing page (single-page with anchor sections)
 - `impressum/index.html` — Legal notice
 - `datenschutz/index.html` — Privacy policy

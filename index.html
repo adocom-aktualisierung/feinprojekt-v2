@@ -71,10 +71,10 @@
       <nav class="main-nav" aria-label="Hauptnavigation">
         <ul>
           <li><a href="#start" aria-current="page">Start</a></li>
-          <li><a href="#projekt">Über das Projekt</a></li>
           <li><a href="#workshops">Workshops &amp; Termine</a></li>
-          <li><a href="#aktuelles">Was bisher passiert ist</a></li>
+          <li><a href="#projekt">Über das Projekt</a></li>
           <li><a href="#mitmachen">Teilnehmen</a></li>
+          <li><a href="#aktuelles">Was bisher passiert ist</a></li>
           <li><a href="#kontakt">Träger &amp; Kontakt</a></li>
         </ul>
       </nav>
@@ -91,10 +91,10 @@
   <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile Navigation" role="navigation">
     <ul>
       <li><a href="#start">Start</a></li>
-      <li><a href="#projekt">Über das Projekt</a></li>
       <li><a href="#workshops">Workshops &amp; Termine</a></li>
-      <li><a href="#aktuelles">Was bisher passiert ist</a></li>
+      <li><a href="#projekt">Über das Projekt</a></li>
       <li><a href="#mitmachen">Teilnehmen</a></li>
+      <li><a href="#aktuelles">Was bisher passiert ist</a></li>
       <li><a href="#kontakt">Träger &amp; Kontakt</a></li>
     </ul>
     <div class="mobile-contact">
@@ -274,7 +274,7 @@
         </div>
 
         <div class="workshops-cta fade-up">
-          <a href="#workshops" class="btn btn-outline">Alle Workshops &amp; Termine anzeigen</a>
+          <a href="#kontakt" class="btn btn-outline">Alle Workshops &amp; Termine anfragen</a>
         </div>
       </div>
     </section>
@@ -304,14 +304,14 @@
               <li>Teilhabe &amp; Dialog fördern</li>
               <li>Generationen verbinden</li>
             </ul>
-            <a href="#projekt" class="btn btn-green">Mehr über das Projekt</a>
+            <a href="#schwerpunkte" class="btn btn-green">Was uns wichtig ist</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ======= VALUES / SCHWERPUNKTE ======= -->
-    <section class="section section-green" aria-label="Unsere Schwerpunkte">
+    <section id="schwerpunkte" class="section section-green" aria-label="Unsere Schwerpunkte">
       <div class="container">
         <div class="section-header fade-up">
           <h2>Was uns wichtig ist</h2>
@@ -532,8 +532,9 @@
         <div class="newsletter-card fade-up">
           <h2>Bleiben Sie informiert</h2>
           <p>Neue Workshops, Berichte und Neuigkeiten direkt in Ihr Postfach – einmal im Monat.</p>
+          <p class="form-required-hint" style="color:rgba(255,255,255,0.6);" aria-hidden="true"><small>* = Pflichtangabe</small></p>
           <form class="newsletter-form" aria-label="Newsletter-Anmeldung" data-form="newsletter">
-            <label for="newsletter-email" class="sr-only">E-Mail-Adresse</label>
+            <label for="newsletter-email" class="newsletter-label">E-Mail-Adresse *</label>
             <input type="email" id="newsletter-email" name="email" placeholder="Ihre E-Mail-Adresse" required autocomplete="email">
             <button type="submit" class="btn btn-primary">Anmelden</button>
           </form>
@@ -557,16 +558,17 @@
 
         <div class="about-grid">
           <div class="fade-up">
+            <p class="form-required-hint" aria-hidden="true"><small>* = Pflichtangabe</small></p>
             <form class="contact-form" aria-label="Kontaktformular" data-form="contact">
               <div class="form-group">
                 <label for="contact-name">Name *</label>
-                <input type="text" id="contact-name" name="name" required autocomplete="name" class="form-input">
-                <span class="form-error-message" aria-live="polite">Bitte geben Sie Ihren Namen ein.</span>
+                <input type="text" id="contact-name" name="name" required autocomplete="name" class="form-input" aria-describedby="contact-name-error">
+                <span id="contact-name-error" class="form-error-message" aria-live="polite">Bitte geben Sie Ihren Namen ein.</span>
               </div>
               <div class="form-group">
                 <label for="contact-email">E-Mail *</label>
-                <input type="email" id="contact-email" name="email" required autocomplete="email" class="form-input">
-                <span class="form-error-message" aria-live="polite">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
+                <input type="email" id="contact-email" name="email" required autocomplete="email" class="form-input" aria-describedby="contact-email-error">
+                <span id="contact-email-error" class="form-error-message" aria-live="polite">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
               </div>
               <div class="form-group">
                 <label for="contact-subject">Betreff</label>
@@ -574,12 +576,12 @@
               </div>
               <div class="form-group">
                 <label for="contact-message">Nachricht *</label>
-                <textarea id="contact-message" name="message" rows="5" required class="form-input"></textarea>
-                <span class="form-error-message" aria-live="polite">Bitte geben Sie eine Nachricht ein.</span>
+                <textarea id="contact-message" name="message" rows="5" required class="form-input" aria-describedby="contact-message-error"></textarea>
+                <span id="contact-message-error" class="form-error-message" aria-live="polite">Bitte geben Sie eine Nachricht ein.</span>
               </div>
               <div>
                 <label class="form-consent">
-                  <input type="checkbox" required>
+                  <input type="checkbox" required aria-label="Einwilligung zur Datenverarbeitung für das Kontaktformular">
                   Ich stimme der Verarbeitung meiner Daten gemäß der <a href="/datenschutz">Datenschutzerklärung</a> zu. *
                 </label>
               </div>
@@ -687,10 +689,10 @@
           <h4>Navigation</h4>
           <ul>
             <li><a href="#start">Start</a></li>
-            <li><a href="#projekt">Über das Projekt</a></li>
             <li><a href="#workshops">Workshops &amp; Termine</a></li>
-            <li><a href="#aktuelles">Was bisher passiert ist</a></li>
+            <li><a href="#projekt">Über das Projekt</a></li>
             <li><a href="#mitmachen">Teilnehmen</a></li>
+            <li><a href="#aktuelles">Was bisher passiert ist</a></li>
             <li><a href="#kontakt">Träger &amp; Kontakt</a></li>
           </ul>
         </div>
@@ -707,6 +709,12 @@
             <li><a href="https://t.me/mavkavolunteer" target="_blank" rel="noopener">Telegram</a></li>
           </ul>
         </div>
+      </div>
+
+      <div class="footer-funding-logos" style="display:flex;align-items:center;justify-content:center;gap:var(--spacing-lg);padding:var(--spacing-lg) 0;border-top:1px solid rgba(255,255,255,0.1);margin-top:var(--spacing-lg);flex-wrap:wrap;">
+        <span style="font-size:0.82rem;color:rgba(255,255,255,0.6);">Gefördert durch:</span>
+        <img src="/images/logos/fein.jpg" alt="FEIN Pilotprojekt – Förderung durch den Bezirk Lichtenberg" loading="lazy" style="height:52px;width:auto;border-radius:6px;background:#fff;padding:4px 8px;">
+        <img src="/images/logos/bezirksamt.jpg" alt="Bezirksamt Lichtenberg von Berlin" loading="lazy" style="height:52px;width:auto;border-radius:6px;background:#fff;padding:4px 8px;">
       </div>
 
       <div class="footer-bottom">
@@ -742,6 +750,7 @@
       <h2 id="dialog-title">Workshop anmelden</h2>
       <div class="dialog-workshop-info" id="dialog-workshop-info" aria-live="polite"></div>
 
+      <p class="form-required-hint" aria-hidden="true"><small>* = Pflichtangabe</small></p>
       <form class="contact-form" id="registration-form" aria-label="Anmeldeformular" novalidate>
         <input type="hidden" name="workshop" id="reg-workshop">
         <input type="hidden" name="date" id="reg-date">
@@ -749,13 +758,13 @@
         <input type="hidden" name="location" id="reg-location">
         <div class="form-group">
           <label for="reg-name">Name *</label>
-          <input type="text" id="reg-name" name="name" required autocomplete="name" class="form-input">
-          <span class="form-error-message" aria-live="polite">Bitte geben Sie Ihren Namen ein.</span>
+          <input type="text" id="reg-name" name="name" required autocomplete="name" class="form-input" aria-describedby="reg-name-error">
+          <span id="reg-name-error" class="form-error-message" aria-live="polite">Bitte geben Sie Ihren Namen ein.</span>
         </div>
         <div class="form-group">
           <label for="reg-email">E-Mail *</label>
-          <input type="email" id="reg-email" name="email" required autocomplete="email" class="form-input">
-          <span class="form-error-message" aria-live="polite">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
+          <input type="email" id="reg-email" name="email" required autocomplete="email" class="form-input" aria-describedby="reg-email-error">
+          <span id="reg-email-error" class="form-error-message" aria-live="polite">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
         </div>
         <div class="form-group">
           <label for="reg-phone">Telefon <span style="font-weight:400;color:var(--color-warm-gray);">(optional)</span></label>
@@ -767,13 +776,13 @@
         </div>
         <div>
           <label class="form-consent">
-            <input type="checkbox" id="reg-consent" required>
+            <input type="checkbox" id="reg-consent" required aria-label="Einwilligung zur Datenverarbeitung für die Workshop-Anmeldung">
             Ich stimme der Verarbeitung meiner Daten gemäß der <a href="/datenschutz">Datenschutzerklärung</a> zu. *
           </label>
         </div>
         <div>
           <label class="form-consent">
-            <input type="checkbox" id="reg-photo-consent" name="photo_consent">
+            <input type="checkbox" id="reg-photo-consent" name="photo_consent" aria-label="Einwilligung zur Fotodokumentation (freiwillig)">
             Ich bin damit einverstanden, dass während des Workshops Fotos zu Dokumentationszwecken gemacht und auf der Website sowie in sozialen Medien veröffentlicht werden dürfen. <span style="font-weight:400;color:var(--color-warm-gray);">(freiwillig)</span>
           </label>
         </div>

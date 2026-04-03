@@ -122,7 +122,11 @@ if (regDialog) {
   // Reset form on close
   regDialog.addEventListener('close', () => {
     if (regForm) regForm.reset();
-    regForm?.querySelectorAll('.form-input').forEach(i => i.classList.remove('is-invalid'));
+    regForm?.querySelectorAll('.form-input').forEach(i => {
+      i.classList.remove('is-invalid');
+      i.setAttribute('aria-invalid', 'false');
+    });
+    regForm?.querySelectorAll('.form-error-message').forEach(el => { el.style.display = 'none'; });
   });
 }
 
@@ -132,9 +136,13 @@ if (regForm) {
     e.preventDefault();
     const requiredInputs = regForm.querySelectorAll('.form-input[required]');
     let firstInvalid = null;
+    const invalidFields = [];
 
     requiredInputs.forEach(input => {
-      if (!validateField(input) && !firstInvalid) firstInvalid = input;
+      if (!validateField(input)) {
+        invalidFields.push(input);
+        if (!firstInvalid) firstInvalid = input;
+      }
     });
 
     const consent = regForm.querySelector('input[type="checkbox"]');
@@ -144,10 +152,11 @@ if (regForm) {
     }
 
     if (firstInvalid) {
-      firstInvalid.focus();
+      showErrorSummary(regForm, invalidFields);
       showToast('Bitte korrigieren Sie die markierten Felder.', 'error');
       return;
     }
+    clearErrorSummary(regForm);
 
     // Collect form data
     const payload = {
@@ -223,13 +232,68 @@ function showToast(message, type = 'success') {
   }, 4000);
 }
 
+// Error Summary — WCAG pattern: list errors above form on submit
+function showErrorSummary(form, invalidFields) {
+  // Remove any existing summary
+  clearErrorSummary(form);
+  if (!invalidFields.length) return;
+
+  const summary = document.createElement('div');
+  summary.className = 'form-error-summary';
+  summary.setAttribute('role', 'alert');
+  summary.setAttribute('tabindex', '-1');
+
+  const heading = document.createElement('strong');
+  heading.textContent = invalidFields.length === 1
+    ? 'Es gibt 1 Fehler im Formular:'
+    : `Es gibt ${invalidFields.length} Fehler im Formular:`;
+  summary.appendChild(heading);
+
+  const list = document.createElement('ul');
+  invalidFields.forEach(input => {
+    const li = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = '#' + input.id;
+    const label = form.querySelector(`label[for="${input.id}"]`);
+    link.textContent = label ? label.textContent.replace(/\s*\*\s*$/, '') : input.name;
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      input.focus();
+    });
+    li.appendChild(link);
+    list.appendChild(li);
+  });
+  summary.appendChild(list);
+
+  form.insertBefore(summary, form.firstChild);
+  summary.focus();
+}
+
+function clearErrorSummary(form) {
+  const existing = form.querySelector('.form-error-summary');
+  if (existing) existing.remove();
+}
+
 // Form handling — inline validation + toast feedback
 function validateField(input) {
   if (!input.required) return true;
   const valid = input.validity.valid;
   input.classList.toggle('is-invalid', !valid);
+  input.setAttribute('aria-invalid', !valid ? 'true' : 'false');
+  // Show/hide the associated error message
+  const errorId = input.getAttribute('aria-describedby');
+  if (errorId) {
+    const errorEl = document.getElementById(errorId);
+    if (errorEl) errorEl.style.display = valid ? 'none' : 'block';
+  }
   return valid;
 }
+
+// Hide error messages initially and set aria-invalid=false
+document.querySelectorAll('.form-error-message').forEach(el => { el.style.display = 'none'; });
+document.querySelectorAll('.form-input[required]').forEach(input => {
+  input.setAttribute('aria-invalid', 'false');
+});
 
 // Real-time validation on blur
 document.querySelectorAll('.form-input[required]').forEach(input => {
@@ -323,10 +387,12 @@ if (contactForm) {
     e.preventDefault();
     const requiredInputs = contactForm.querySelectorAll('.form-input[required]');
     let firstInvalid = null;
+    const invalidFields = [];
 
     requiredInputs.forEach(input => {
-      if (!validateField(input) && !firstInvalid) {
-        firstInvalid = input;
+      if (!validateField(input)) {
+        invalidFields.push(input);
+        if (!firstInvalid) firstInvalid = input;
       }
     });
 
@@ -337,10 +403,11 @@ if (contactForm) {
     }
 
     if (firstInvalid) {
-      firstInvalid.focus();
+      showErrorSummary(contactForm, invalidFields);
       showToast('Bitte korrigieren Sie die markierten Felder.', 'error');
       return;
     }
+    clearErrorSummary(contactForm);
 
     const submitBtn = contactForm.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
