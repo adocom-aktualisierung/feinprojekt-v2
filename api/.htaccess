@@ -1,0 +1,11 @@
+# Allow POST + OPTIONS (CORS preflight) to PHP endpoints
+<FilesMatch "\.php$">
+    <LimitExcept POST OPTIONS>
+        Deny from all
+    </LimitExcept>
+</FilesMatch>
+
+# Block direct access to config files
+<FilesMatch "config\.">
+    Deny from all
+</FilesMatch>
