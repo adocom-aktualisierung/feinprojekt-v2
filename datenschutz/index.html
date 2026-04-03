@@ -117,9 +117,15 @@
   <main id="main-content">
     <div class="legal-content">
       <nav class="breadcrumb" aria-label="Breadcrumb">
-        <ol>
-          <li><a href="/">Startseite</a></li>
-          <li><span aria-current="page">Datenschutz</span></li>
+        <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a itemprop="item" href="/"><span itemprop="name">Startseite</span></a>
+            <meta itemprop="position" content="1">
+          </li>
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span itemprop="name" aria-current="page">Datenschutz</span>
+            <meta itemprop="position" content="2">
+          </li>
         </ol>
       </nav>
 

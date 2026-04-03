@@ -100,7 +100,9 @@ if (regDialog) {
     regDialog.showModal();
   }
 
+  // Workshop cards: if wrapped in a link, let the link navigate; otherwise open dialog
   document.querySelectorAll('.workshop-card[data-workshop]').forEach(card => {
+    if (card.querySelector('.workshop-card-link')) return;
     card.addEventListener('click', () => openWorkshopDialog(card));
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -108,6 +110,11 @@ if (regDialog) {
         openWorkshopDialog(card);
       }
     });
+  });
+
+  // Workshop detail page: CTA button opens dialog
+  document.querySelectorAll('.workshop-detail-cta[data-workshop]').forEach(btn => {
+    btn.addEventListener('click', () => openWorkshopDialog(btn));
   });
 
   // Close via × button
