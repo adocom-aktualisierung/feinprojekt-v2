@@ -426,9 +426,77 @@
   text-decoration: underline;
 }
 
+/* Mobile Utility Switches (font-size + language), injected into mobile-nav
+   because `.above-header` is hidden under 1024px. UX-Audit 2026-04-14, P0-2. */
+.mobile-utility-switches {
+  margin-top: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.mobile-utility-switches .mobile-switch-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+}
+
+.mobile-utility-switches .mobile-switch-label {
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  color: var(--color-dark-green);
+}
+
+.mobile-utility-switches .font-size-switch,
+.mobile-utility-switches .lang-switch {
+  display: flex;
+  gap: 4px;
+  background: var(--color-cream);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+}
+
+.mobile-utility-switches .font-btn,
+.mobile-utility-switches .lang-btn {
+  background: none;
+  border: none;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0 var(--spacing-sm);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-dark-green);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.mobile-utility-switches .font-btn[data-size="large"] {
+  font-size: 1.15rem;
+}
+
+.mobile-utility-switches .font-btn[aria-pressed="true"],
+.mobile-utility-switches .lang-btn[aria-pressed="true"] {
+  background: var(--color-primary-green, #1B5E20);
+  color: #fff;
+}
+
+.mobile-utility-switches .font-btn:focus-visible,
+.mobile-utility-switches .lang-btn:focus-visible {
+  outline: 2px solid var(--color-primary-green, #1B5E20);
+  outline-offset: 2px;
+}
+
 @media (min-width: 1024px) {
   .mobile-nav {
     display: none !important;
+  }
+  .mobile-utility-switches {
+    display: none;
   }
 }
 

@@ -1,5 +1,95 @@
 import { initI18n, t } from './i18n.js';
 
+// Inject Font-Size + Language switches into the mobile nav (they live in
+// `.above-header`, which is hidden < 1024px). Runs before i18n + font/lang
+// handlers so the existing `querySelectorAll` bindings pick up both instances.
+// UX-Audit 2026-04-14, P0-2.
+(function injectMobileUtilitySwitches() {
+  const mobileNavEl = document.querySelector('.mobile-nav');
+  if (!mobileNavEl) return;
+  if (mobileNavEl.querySelector('.mobile-utility-switches')) return; // already injected
+
+  const currentFontSize = localStorage.getItem('font-size') || 'normal';
+  const currentLang = localStorage.getItem('lang') || document.documentElement.lang || 'de';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'mobile-utility-switches';
+  wrap.innerHTML = `
+    <div class="mobile-switch-group">
+      <span class="mobile-switch-label" data-i18n="common.aboveHeader.fontSizeLabel">Schriftgröße wählen</span>
+      <div class="font-size-switch" role="group" aria-label="Schriftgröße wählen" data-i18n-aria-label="common.aboveHeader.fontSizeLabel">
+        <button type="button" class="font-btn" data-size="normal" aria-pressed="${currentFontSize === 'normal'}" aria-label="Normale Schriftgröße" data-i18n-aria-label="common.aboveHeader.fontNormal">A</button>
+        <button type="button" class="font-btn" data-size="large" aria-pressed="${currentFontSize === 'large'}" aria-label="Große Schriftgröße" data-i18n-aria-label="common.aboveHeader.fontLarge">A+</button>
+      </div>
+    </div>
+    <div class="mobile-switch-group">
+      <span class="mobile-switch-label" data-i18n="common.aboveHeader.langLabel">Sprache wählen</span>
+      <div class="lang-switch" role="group" aria-label="Sprache wählen" data-i18n-aria-label="common.aboveHeader.langLabel">
+        <button type="button" class="lang-btn" data-lang="de" aria-pressed="${currentLang === 'de'}" aria-label="Deutsch">DE</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="${currentLang === 'en'}" aria-label="English">EN</button>
+      </div>
+    </div>
+  `;
+
+  const contactBlock = mobileNavEl.querySelector('.mobile-contact');
+  if (contactBlock) {
+    mobileNavEl.insertBefore(wrap, contactBlock);
+  } else {
+    mobileNavEl.appendChild(wrap);
+  }
+})();
+
+// Inject the Waitlist dialog markup if this page has any `.waitlist-btn`.
+// The dialog itself is not in the HTML on purpose (DRY across 7 pages).
+// UX-Audit 2026-04-14, P0-1.
+(function injectWaitlistDialog() {
+  if (!document.querySelector('.waitlist-btn')) return;
+  if (document.getElementById('waitlist-dialog')) return;
+
+  const dialog = document.createElement('dialog');
+  dialog.id = 'waitlist-dialog';
+  dialog.setAttribute('aria-labelledby', 'waitlist-title');
+  dialog.setAttribute('aria-describedby', 'waitlist-workshop-info');
+  dialog.innerHTML = `
+    <div class="dialog-inner">
+      <button type="button" class="dialog-close" aria-label="Dialog schließen" data-i18n-aria-label="common.dialog.closeLabel">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+      <h2 id="waitlist-title" data-i18n="common.waitlist.title">Auf die Warteliste</h2>
+      <p id="waitlist-workshop-info" class="dialog-workshop-info" aria-live="polite"></p>
+      <p data-i18n="common.waitlist.intro">Wir informieren Sie, sobald ein Platz frei wird oder ein Zusatztermin feststeht.</p>
+      <p class="form-required-hint" aria-hidden="true" data-i18n="common.form.requiredHint"><small>* = Pflichtangabe</small></p>
+      <form class="contact-form" id="waitlist-form" aria-label="Warteliste-Formular" novalidate>
+        <input type="hidden" name="workshop" id="waitlist-workshop">
+        <div class="form-group">
+          <label for="waitlist-name" data-i18n="common.form.name">Name *</label>
+          <input type="text" id="waitlist-name" name="name" required autocomplete="name" class="form-input" aria-describedby="waitlist-name-error">
+          <span id="waitlist-name-error" class="form-error-message" aria-live="polite" data-i18n="common.form.nameError">Bitte geben Sie Ihren Namen ein.</span>
+        </div>
+        <div class="form-group">
+          <label for="waitlist-email" data-i18n="common.form.email">E-Mail *</label>
+          <input type="email" id="waitlist-email" name="email" required autocomplete="email" class="form-input" aria-describedby="waitlist-email-error">
+          <span id="waitlist-email-error" class="form-error-message" aria-live="polite" data-i18n="common.form.emailError">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
+        </div>
+        <div class="form-group">
+          <label for="waitlist-phone">Telefon <span class="label-optional" data-i18n="common.form.phoneOptional">(optional)</span></label>
+          <input type="tel" id="waitlist-phone" name="phone" autocomplete="tel" class="form-input">
+        </div>
+        <div>
+          <label class="form-consent">
+            <input type="checkbox" id="waitlist-consent" required>
+            Ich stimme der Verarbeitung meiner Daten gemäß der <a href="/datenschutz">Datenschutzerklärung</a> zu. *
+          </label>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-green" data-i18n="common.waitlist.submit">Auf Warteliste eintragen</button>
+        </div>
+      </form>
+    </div>
+  `;
+  document.body.appendChild(dialog);
+})();
+
 // Initialize i18n
 initI18n();
 
@@ -481,6 +571,110 @@ if (contactForm) {
         submitBtn.disabled = false;
         submitBtn.textContent = t('common.form.sendMessage', 'Nachricht senden');
       }
+    }
+  });
+}
+
+// ── Waitlist Dialog (UX-Audit 2026-04-14, P0-1) ─────────────────
+const waitlistDialog = document.getElementById('waitlist-dialog');
+const waitlistForm = document.getElementById('waitlist-form');
+
+if (waitlistDialog && waitlistForm) {
+  const waitlistWorkshopInfo = document.getElementById('waitlist-workshop-info');
+  const waitlistClose = waitlistDialog.querySelector('.dialog-close');
+
+  function openWaitlistDialog(btn) {
+    const slug = btn.dataset.workshop || '';
+    const title = btn.dataset.workshopTitle || slug;
+    document.getElementById('waitlist-workshop').value = title || slug;
+    waitlistWorkshopInfo.textContent = '';
+    if (title) {
+      const strong = document.createElement('strong');
+      strong.textContent = title;
+      waitlistWorkshopInfo.appendChild(strong);
+    }
+    waitlistDialog.showModal();
+    requestAnimationFrame(() => document.getElementById('waitlist-name')?.focus());
+  }
+
+  document.querySelectorAll('.waitlist-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openWaitlistDialog(btn);
+    });
+  });
+
+  if (waitlistClose) {
+    waitlistClose.addEventListener('click', () => waitlistDialog.close());
+  }
+  waitlistDialog.addEventListener('click', (e) => {
+    if (e.target === waitlistDialog) waitlistDialog.close();
+  });
+  waitlistDialog.addEventListener('close', () => {
+    waitlistForm.reset();
+    waitlistForm.querySelectorAll('.form-input').forEach(i => {
+      i.classList.remove('is-invalid');
+      i.setAttribute('aria-invalid', 'false');
+    });
+    waitlistForm.querySelectorAll('.form-error-message').forEach(el => { el.style.display = 'none'; });
+    clearErrorSummary(waitlistForm);
+  });
+
+  waitlistForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const requiredInputs = waitlistForm.querySelectorAll('.form-input[required]');
+    let firstInvalid = null;
+    const invalidFields = [];
+    requiredInputs.forEach(input => {
+      if (!validateField(input)) {
+        invalidFields.push(input);
+        if (!firstInvalid) firstInvalid = input;
+      }
+    });
+    const consent = waitlistForm.querySelector('#waitlist-consent');
+    if (consent && !consent.checked) {
+      showToast(t('common.toast.consentRequired', 'Bitte stimmen Sie der Datenschutzerklärung zu.'), 'error');
+      return;
+    }
+    if (firstInvalid) {
+      showErrorSummary(waitlistForm, invalidFields);
+      showToast(t('common.toast.fixFields', 'Bitte korrigieren Sie die markierten Felder.'), 'error');
+      return;
+    }
+    clearErrorSummary(waitlistForm);
+
+    const payload = {
+      name:     waitlistForm.querySelector('[name="name"]').value.trim(),
+      email:    waitlistForm.querySelector('[name="email"]').value.trim(),
+      phone:    waitlistForm.querySelector('[name="phone"]').value.trim(),
+      workshop: waitlistForm.querySelector('[name="workshop"]').value,
+      consent:  true,
+    };
+
+    const submitBtn = waitlistForm.querySelector('[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = t('common.toast.sending', 'Wird gesendet\u2026');
+
+    try {
+      const res = await fetch('/api/waitlist.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const result = await res.json();
+      if (result.ok) {
+        waitlistDialog.close();
+        showToast(t('common.waitlist.success', 'Danke! Wir melden uns, sobald ein Platz frei wird.'));
+      } else {
+        showToast(result.error || t('common.toast.genericError', 'Ein Fehler ist aufgetreten.'), 'error');
+      }
+    } catch {
+      showToast(t('common.toast.networkError', 'Verbindungsfehler. Bitte melden Sie sich telefonisch unter +49 163 7038724.'), 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
     }
   });
 }

@@ -1162,7 +1162,7 @@ dialog::backdrop {
   color: var(--color-error);
 }
 
-.workshop-card.is-sold-out {
+.workshop-card.is-sold-out .workshop-card-link {
   opacity: 0.75;
 }
 
@@ -1176,6 +1176,35 @@ dialog::backdrop {
   color: var(--color-warm-gray);
   border-color: var(--color-border);
   cursor: default;
+}
+
+/* Waitlist CTA on workshop cards (UX-Audit 2026-04-14 P0-1) */
+.workshop-card-waitlist {
+  margin: 0 var(--spacing-md) var(--spacing-md);
+  min-height: 48px;
+  font-weight: 600;
+}
+
+.workshop-detail-waitlist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.workshop-detail-waitlist-hint {
+  font-size: var(--font-size-body);
+  color: var(--color-dark-green);
+  background: var(--color-cream);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-left: 4px solid var(--color-accent, #FFBF00);
+  border-radius: var(--radius-sm);
+  margin: 0;
+}
+
+.workshop-detail-cta.waitlist-btn {
+  cursor: pointer;
+  opacity: 1;
+  min-height: 56px;
 }
 
 /* Detail page: disabled CTA */

@@ -150,7 +150,10 @@
               </div>
             </dl>
 
-            <button type="button" class="btn btn-green workshop-detail-cta" disabled><span data-i18n="common.tags.ausgebucht">Ausgebucht</span></button>
+            <div class="workshop-detail-waitlist">
+              <p class="workshop-detail-waitlist-hint" data-i18n="common.waitlist.detailHint">Dieser Workshop ist ausgebucht. Tragen Sie sich auf die Warteliste ein — wir informieren Sie, sobald ein Platz frei wird oder ein Zusatztermin steht.</p>
+              <button type="button" class="btn btn-green workshop-detail-cta waitlist-btn" data-workshop="soljanka-sharlotka" data-workshop-title="Soljanka & Apfelkuchen Sharlotka" data-i18n="common.waitlist.cta">Auf Warteliste</button>
+            </div>
           </div>
         </div>
       </section>
@@ -197,57 +200,57 @@
   </a>
 
   <!-- REGISTRATION DIALOG -->
-  <dialog id="registration-dialog" aria-labelledby="dialog-title">
+  <dialog id="registration-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-workshop-info">
     <div class="dialog-inner">
-      <button type="button" class="dialog-close" aria-label="Dialog schließen">
+      <button type="button" class="dialog-close" aria-label="Dialog schließen" data-i18n-aria-label="common.dialog.closeLabel">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
       </button>
 
-      <h2 id="dialog-title">Workshop anmelden</h2>
+      <h2 id="dialog-title" data-i18n="common.dialog.title">Workshop anmelden</h2>
       <div class="dialog-workshop-info" id="dialog-workshop-info" aria-live="polite"></div>
 
-      <p class="form-required-hint" aria-hidden="true"><small>* = Pflichtangabe</small></p>
+      <p class="form-required-hint" aria-hidden="true" data-i18n="common.form.requiredHint"><small>* = Pflichtangabe</small></p>
       <form class="contact-form" id="registration-form" aria-label="Anmeldeformular" novalidate>
         <input type="hidden" name="workshop" id="reg-workshop">
         <input type="hidden" name="date" id="reg-date">
         <input type="hidden" name="time" id="reg-time">
         <input type="hidden" name="location" id="reg-location">
         <div class="form-group">
-          <label for="reg-name">Name *</label>
+          <label for="reg-name" data-i18n="common.form.name">Name *</label>
           <input type="text" id="reg-name" name="name" required autocomplete="name" class="form-input" aria-describedby="reg-name-error">
-          <span id="reg-name-error" class="form-error-message" aria-live="polite">Bitte geben Sie Ihren Namen ein.</span>
+          <span id="reg-name-error" class="form-error-message" aria-live="polite" data-i18n="common.form.nameError">Bitte geben Sie Ihren Namen ein.</span>
         </div>
         <div class="form-group">
-          <label for="reg-email">E-Mail *</label>
+          <label for="reg-email" data-i18n="common.form.email">E-Mail *</label>
           <input type="email" id="reg-email" name="email" required autocomplete="email" class="form-input" aria-describedby="reg-email-error">
-          <span id="reg-email-error" class="form-error-message" aria-live="polite">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
+          <span id="reg-email-error" class="form-error-message" aria-live="polite" data-i18n="common.form.emailError">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
         </div>
         <div class="form-group">
-          <label for="reg-phone">Telefon <span style="font-weight:400;color:var(--color-warm-gray);">(optional)</span></label>
+          <label for="reg-phone">Telefon <span class="label-optional" data-i18n="common.form.phoneOptional">(optional)</span></label>
           <input type="tel" id="reg-phone" name="phone" autocomplete="tel" class="form-input">
         </div>
         <div class="form-group">
-          <label for="reg-companion">Begleitperson <span style="font-weight:400;color:var(--color-warm-gray);">(optional)</span></label>
-          <input type="text" id="reg-companion" name="companion" class="form-input" placeholder="Name der Begleitperson">
+          <label for="reg-companion">Begleitperson <span class="label-optional" data-i18n="common.form.companionOptional">(optional)</span></label>
+          <input type="text" id="reg-companion" name="companion" class="form-input" placeholder="Name der Begleitperson" data-i18n-placeholder="common.form.companionPlaceholder">
         </div>
         <div>
           <label class="form-consent">
-            <input type="checkbox" id="reg-consent" required aria-label="Einwilligung zur Datenverarbeitung für die Workshop-Anmeldung">
+            <input type="checkbox" id="reg-consent" required>
             Ich stimme der Verarbeitung meiner Daten gemäß der <a href="/datenschutz">Datenschutzerklärung</a> zu. *
           </label>
         </div>
         <div>
           <label class="form-consent">
-            <input type="checkbox" id="reg-photo-consent" name="photo_consent" aria-label="Einwilligung zur Fotodokumentation (freiwillig)">
-            Ich bin damit einverstanden, dass während des Workshops Fotos zu Dokumentationszwecken gemacht und auf der Website sowie in sozialen Medien veröffentlicht werden dürfen. <span style="font-weight:400;color:var(--color-warm-gray);">(freiwillig)</span>
+            <input type="checkbox" id="reg-photo-consent" name="photo_consent">
+            Ich bin damit einverstanden, dass während des Workshops Fotos zu Dokumentationszwecken gemacht und auf der Website sowie in sozialen Medien veröffentlicht werden dürfen. <span class="label-optional" data-i18n="common.form.photoOptional">(freiwillig)</span>
           </label>
         </div>
         <div>
-          <button type="submit" class="btn btn-green">Verbindlich anmelden</button>
+          <button type="submit" class="btn btn-green" data-i18n="common.form.register">Verbindlich anmelden</button>
         </div>
       </form>
 
-      <p class="dialog-note">Nach der Anmeldung erhalten Sie eine Bestätigung per E-Mail.</p>
+      <p class="dialog-note" data-i18n="common.dialog.note">Nach der Anmeldung erhalten Sie eine Bestätigung per E-Mail.</p>
     </div>
   </dialog>
 

@@ -154,6 +154,14 @@
       "title": "Register for workshop",
       "note": "After registration you will receive a confirmation by email."
     },
+    "waitlist": {
+      "cta": "Join waitlist",
+      "title": "Join the waitlist",
+      "intro": "We will let you know as soon as a spot opens up or a new date is announced.",
+      "submit": "Sign up for waitlist",
+      "success": "Thank you! We will get in touch as soon as a spot opens up.",
+      "detailHint": "This workshop is fully booked. Join the waitlist and we will notify you as soon as a spot opens up or a new date is announced."
+    },
     "contactSuccessHeading": "Thank you for your message!",
     "contactSuccessText": "We will get back to you within 2 business days."
   },
