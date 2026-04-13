@@ -110,6 +110,7 @@
   --font-size-h2: clamp(1.625rem, 1.4rem + 1.1vw, 2.25rem);
   --font-size-h3: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
   --font-size-nav: 1.0625rem;
+  --font-size-utility: 0.8125rem;
 
   --line-height-body: 1.65;
   --line-height-heading: 1.25;
@@ -153,4 +154,5 @@ html[data-font-size="large"] {
   --font-size-h1: clamp(2.2rem, 1.7rem + 2vw, 3.5rem);
   --font-size-h2: clamp(1.75rem, 1.5rem + 1.1vw, 2.4rem);
   --font-size-h3: clamp(1.35rem, 1.2rem + 0.5vw, 1.65rem);
+  --font-size-utility: 1rem;
 }

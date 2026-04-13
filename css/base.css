@@ -12,6 +12,11 @@ html {
   scroll-padding-top: calc(var(--header-height) + 1rem);
 }
 
+/* Desktop has above-header stacked on top of main header */
+@media (min-width: 1024px) {
+  html { scroll-padding-top: calc(var(--header-height) + 32px + 1rem); }
+}
+
 /* i18n: hide untranslated text until translations are applied */
 html:not([data-lang="de"]):not(.i18n-ready) [data-i18n] { visibility: hidden; }
 html:not([data-lang="de"]):not(.i18n-ready) [data-i18n-placeholder] { visibility: hidden; }

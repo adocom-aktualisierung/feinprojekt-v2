@@ -94,6 +94,13 @@
       "neuigkeit": "News",
       "extern": "External"
     },
+    "months": {
+      "short": {
+        "jan": "Jan", "feb": "Feb", "mar": "Mar", "apr": "Apr",
+        "may": "May", "jun": "Jun", "jul": "Jul", "aug": "Aug",
+        "sep": "Sep", "oct": "Oct", "nov": "Nov", "dec": "Dec"
+      }
+    },
     "form": {
       "requiredHint": "* = Required field",
       "name": "Name *",
@@ -148,6 +155,7 @@
   "home": {
     "hero": {
       "label": "FEIN Pilot Project Lichtenberg",
+      "regionLabel": "Welcome",
       "titleLine1": "Cooking Together –",
       "titleLine2": "Growing Together.",
       "description": "Open cooking and baking workshops in Berlin-Lichtenberg. We bring neighbors together – across generations, cultures and walks of life.",
@@ -320,6 +328,11 @@
     "description": "All previous cooking and baking workshops at a glance. New dates coming soon!",
     "filterLabel": "Filter workshops by location",
     "filterAll": "All",
+    "filterEmptyHeading": "No workshops for this location",
+    "filterEmptyText": "There are currently no workshops scheduled for this location. Please select another location or view all workshops.",
+    "filterReset": "Show all workshops",
+    "filterStatusOne": "1 workshop found",
+    "filterStatusMany": "{count} workshops found",
     "newWorkshopsNote": "New workshops are being planned. Contact us for information about upcoming dates.",
     "workshopDetailPrefix": "Workshop details:"
   },
@@ -344,6 +357,9 @@
       "title": "Savory Mushroom Pie & Honey Cake",
       "description": "Savory mushroom pie with fresh champignons and herbs, plus a sweet, aromatic honey cake — opposites that go wonderfully together.",
       "dateValue": "Sunday, February 15, 2026",
+      "timeValue": "12:00 – 15:00",
+      "locationValue": "Maggie, Frankfurter Allee 205",
+      "heroAlt": "Neighbors cooking together at a long wooden table",
       "participationValue": "Free · 30 places · Fully booked",
       "whatToExpect1": "We will prepare a savory mushroom pie with fresh champignons, onions and herbs together. The dough will be kneaded by hand, the filling seasoned together. In addition, we will bake a traditional honey cake — golden brown and aromatic.",
       "whatToExpect2": "Whether beginner or experienced cook: everyone is welcome here. We share recipes, stories and a meal together at the end."
@@ -352,6 +368,9 @@
       "title": "Pancakes with Fillings & Salad",
       "description": "Fine pancakes with sweet and savory fillings, served with a fresh salad.",
       "dateValue": "Friday, February 27, 2026",
+      "timeValue": "15:00 – 18:00",
+      "locationValue": "BENN, Wartenberger Str. 24, 13053",
+      "heroAlt": "Children excitedly kneading dough with flour on their hands",
       "participationValue": "Free · 30 places · Fully booked",
       "whatToExpect1": "Together we prepare thin, golden-brown pancakes and fill them as we please: with quark and berries, with minced meat and onions, or with cheese and herbs. Accompanied by a fresh seasonal salad.",
       "whatToExpect2": "A workshop for everyone who likes to experiment — and prefers to taste right away. Children can help with flipping and filling."
@@ -360,6 +379,9 @@
       "title": "Khachapuri & Brownies",
       "description": "Georgian cheese flatbreads from the pan and juicy brownies – a culinary journey to join in.",
       "dateValue": "Saturday, March 7, 2026",
+      "timeValue": "12:30 – 15:00",
+      "locationValue": "Maggie, Frankfurter Allee 205",
+      "heroAlt": "Freshly prepared dumplings on a plate",
       "participationValue": "Free · 30 places · Fully booked",
       "whatToExpect1": "Khachapuri is a Georgian flatbread filled with a creamy mixture of cheese and egg — we prepare it together in the pan, without an oven. In addition, we bake juicy brownies with intense chocolate flavor.",
       "whatToExpect2": "A workshop that combines Georgian tradition with a sweet classic. Ideal for everyone who wants to try something new."
@@ -368,6 +390,9 @@
       "title": "Azerbaijani Şekerbura",
       "description": "Traditional Azerbaijani pastry with nut filling – a sweet piece of the Caucasus to make yourself.",
       "dateValue": "Sunday, March 15, 2026",
+      "timeValue": "12:30 – 15:30",
+      "locationValue": "Lichtenberg",
+      "heroAlt": "Several people shaping dumplings together",
       "participationValue": "Free · 30 places · Fully booked",
       "whatToExpect1": "Şekerbura is a traditional Azerbaijani pastry baked for the Novruz New Year celebration. The buttery dough is filled with an aromatic mixture of ground almonds, sugar and cardamom and artfully shaped into crescent form.",
       "whatToExpect2": "In this workshop, we learn the technique of rolling the dough thin and forming the typical patterns with a fork or tweezers. At the end, we enjoy the freshly baked Şekerbura with tea and conversation."
@@ -376,6 +401,9 @@
       "title": "Mushroom Quiche & Cinnamon Rolls",
       "description": "Savory mushroom quiche meets fragrant cinnamon rolls – an afternoon full of aromas for the whole family.",
       "dateValue": "Saturday, March 21, 2026",
+      "timeValue": "12:00 – 15:00",
+      "locationValue": "Lichtenberg 13055",
+      "heroAlt": "Golden baked mushroom quiche next to fresh cinnamon rolls",
       "participationValue": "Free · 30 places · Fully booked",
       "whatToExpect1": "Together we prepare a savory mushroom quiche with fresh champignons, leeks and a creamy filling. In addition, we bake fluffy cinnamon rolls decorated with cinnamon sugar and a delicate glaze.",
       "whatToExpect2": "A workshop for the whole family: children can help with kneading, rolling and decorating. At the end, we enjoy everything together at a large table."
@@ -384,6 +412,9 @@
       "title": "Soljanka & Apple Cake Sharlotka",
       "description": "Savory meets sweet: Together we cook a spicy Soljanka and bake a classic Sharlotka.",
       "dateValue": "Tuesday, March 24, 2026",
+      "timeValue": "14:30 – 17:30",
+      "locationValue": "Lichtenberg",
+      "heroAlt": "Neighbors cooking dumplings together at a long wooden table",
       "participationValue": "Free · 30 places · Fully booked",
       "whatToExpect1": "In this workshop, we prepare two beloved classics together: a hearty Soljanka — a rich stew with sausage, pickles and peppers — and a Sharlotka, the famous Russian apple cake that uses few ingredients and is wonderfully moist.",
       "whatToExpect2": "A culinary journey through Eastern European cuisine. Whether you know these dishes or are trying them for the first time — here everyone cooks together."

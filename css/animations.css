@@ -18,6 +18,9 @@
               transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* No-JS fallback: if the inline bootstrap never ran, show content immediately */
+html:not(.js) .fade-up { opacity: 1; transform: none; }
+
 .fade-up.is-visible {
   opacity: 1;
   transform: translateY(0);

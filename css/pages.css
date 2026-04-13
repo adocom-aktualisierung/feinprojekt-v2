@@ -47,10 +47,34 @@
   color: var(--color-dark-green);
 }
 
-.filter-chip.is-active {
+.filter-chip.is-active,
+.filter-chip[aria-pressed="true"] {
   background: var(--color-dark-green);
   color: #fff;
   border-color: var(--color-dark-green);
+}
+
+/* Empty state when filter yields no results */
+.filter-empty-state {
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-md);
+  background: var(--color-cream);
+  border-radius: var(--radius-lg);
+  margin-top: var(--spacing-md);
+}
+
+.filter-empty-state h3 {
+  margin-bottom: var(--spacing-xs);
+}
+
+.filter-empty-state p {
+  color: var(--color-warm-gray);
+  max-width: 48ch;
+  margin: 0 auto var(--spacing-md);
+}
+
+.filter-empty-state[hidden] {
+  display: none;
 }
 
 /* Partner Detail Card */

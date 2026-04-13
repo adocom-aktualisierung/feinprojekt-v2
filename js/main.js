@@ -103,6 +103,10 @@ if (regDialog) {
     workshopInfo.appendChild(strong);
     workshopInfo.appendChild(document.createTextNode(' · ' + card.dataset.date + ', ' + card.dataset.time + ' · ' + card.dataset.location));
     regDialog.showModal();
+    // Move focus to first required input (not the close button, which is the browser default)
+    requestAnimationFrame(() => {
+      document.getElementById('reg-name')?.focus();
+    });
   }
 
   // Workshop cards: if wrapped in a link, let the link navigate; otherwise open dialog

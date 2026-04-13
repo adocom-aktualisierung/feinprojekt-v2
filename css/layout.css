@@ -21,7 +21,7 @@
   display: none;
   background: var(--color-dark-green);
   color: rgba(255, 255, 255, 0.9);
-  font-size: 0.8125rem;
+  font-size: var(--font-size-utility);
 }
 
 @media (min-width: 1024px) {
@@ -35,7 +35,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 6px var(--spacing-xl);
+  padding: 8px var(--spacing-xl);
 }
 
 .above-header .foerderer-link {
@@ -43,10 +43,13 @@
   align-items: center;
   color: var(--color-amber);
   font-family: var(--font-display);
-  font-size: 0.8125rem;
+  font-size: var(--font-size-utility);
   font-weight: 700;
   text-decoration: none;
   transition: color var(--transition-fast);
+  min-height: 32px;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
 }
 
 .above-header .foerderer-link:hover {
@@ -65,10 +68,13 @@
   gap: 6px;
   color: rgba(255, 255, 255, 0.9);
   font-family: var(--font-display);
-  font-size: 0.8125rem;
+  font-size: var(--font-size-utility);
   font-weight: 600;
   text-decoration: none;
   transition: color var(--transition-fast);
+  min-height: 32px;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
 }
 
 .above-header .header-phone:hover {
@@ -93,16 +99,16 @@
 .above-header .font-btn {
   background: none;
   border: none;
-  padding: 3px 10px;
+  padding: 6px 12px;
   border-radius: var(--radius-pill);
   font-family: var(--font-display);
   font-weight: 700;
   color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
   transition: all var(--transition-fast);
-  min-width: 32px;
-  min-height: 28px;
-  font-size: 0.8rem;
+  min-width: 36px;
+  min-height: 32px;
+  font-size: 0.85rem;
   line-height: 1;
 }
 
@@ -130,16 +136,16 @@
 .above-header .lang-btn {
   background: none;
   border: none;
-  padding: 3px 10px;
+  padding: 6px 12px;
   border-radius: var(--radius-pill);
   font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
   transition: all var(--transition-fast);
-  min-width: 32px;
-  min-height: 28px;
+  min-width: 36px;
+  min-height: 32px;
 }
 
 .above-header .lang-btn[aria-pressed="true"] {
@@ -760,6 +766,30 @@
   width: 18px;
   height: 18px;
   fill: rgba(255, 255, 255, 0.5);
+}
+
+.footer-funding-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.footer-funding-label {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-funding-logo {
+  height: 52px;
+  width: auto;
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  padding: 4px 8px;
 }
 
 /* ========================================

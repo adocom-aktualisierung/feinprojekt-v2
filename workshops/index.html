@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>(function(){var l=localStorage.getItem('lang')||'de';document.documentElement.lang=l;document.documentElement.dataset.lang=l;})()</script>
+  <script>(function(){var l=localStorage.getItem('lang')||'de';document.documentElement.lang=l;document.documentElement.dataset.lang=l;document.documentElement.classList.add('js');})()</script>
   <title>Workshops &amp; Termine – Gemeinsam Kochen – Gemeinsam Wachsen</title>
   <meta name="description" content="Alle Koch- und Backworkshops des FEIN-Pilotprojekts Gemeinsam Kochen in Berlin-Lichtenberg. Termine, Orte und Anmeldung.">
   <link rel="icon" type="image/png" href="/images/logos/mavka.png">
@@ -99,11 +99,14 @@
 
       <!-- FILTER -->
       <div class="filter-bar" role="group" aria-label="Workshops filtern nach Ort" data-i18n-aria-label="workshops.filterLabel" data-filter-group="workshops-list">
-        <button class="filter-chip is-active" data-filter="all" data-i18n="workshops.filterAll">Alle</button>
-        <button class="filter-chip" data-filter="maggie">Maggie</button>
-        <button class="filter-chip" data-filter="benn">BENN</button>
-        <button class="filter-chip" data-filter="lichtenberg">Lichtenberg</button>
+        <button class="filter-chip is-active" data-filter="all" aria-pressed="true" data-i18n="workshops.filterAll">Alle</button>
+        <button class="filter-chip" data-filter="maggie" aria-pressed="false">Maggie</button>
+        <button class="filter-chip" data-filter="benn" aria-pressed="false">BENN</button>
+        <button class="filter-chip" data-filter="lichtenberg" aria-pressed="false">Lichtenberg</button>
       </div>
+
+      <!-- Screen-reader-only live region for filter result count -->
+      <p class="sr-only" id="filter-status" role="status" aria-live="polite"></p>
 
       <!-- WORKSHOP CARDS -->
       <div class="workshops-grid" id="workshops-list">
@@ -112,7 +115,7 @@
           <a class="workshop-card-link" href="/workshops/pilzkuchen-honigkuchen/" aria-label="Workshop-Details: Herzhafter Pilzkuchen &amp; Honigkuchen, 15. Februar 2026">
             <div class="workshop-card-image">
               <img class="card-illustration" src="/images/workshops/IMG_7512.jpg" alt="Nachbar*innen kochen gemeinsam" loading="lazy">
-              <div class="card-date-badge"><span class="date-day">15</span><span class="date-month">Feb</span></div>
+              <div class="card-date-badge"><span class="date-day">15</span><span class="date-month" data-i18n="common.months.short.feb">Feb</span></div>
             </div>
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
@@ -134,7 +137,7 @@
           <a class="workshop-card-link" href="/workshops/pfannkuchen-fuellungen/" aria-label="Workshop-Details: Pfannkuchen mit Füllungen &amp; Salat, 27. Februar 2026">
             <div class="workshop-card-image">
               <img class="card-illustration" src="/images/workshops/IMG_8737.jpg" alt="Kinder kneten begeistert Teig" loading="lazy">
-              <div class="card-date-badge"><span class="date-day">27</span><span class="date-month">Feb</span></div>
+              <div class="card-date-badge"><span class="date-day">27</span><span class="date-month" data-i18n="common.months.short.feb">Feb</span></div>
             </div>
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
@@ -156,7 +159,7 @@
           <a class="workshop-card-link" href="/workshops/khachapuri-brownies/" aria-label="Workshop-Details: Khachapuri &amp; Brownies, 7. März 2026">
             <div class="workshop-card-image">
               <img class="card-illustration" src="/images/workshops/IMG_7563.jpg" alt="Frisch zubereitete Teigtaschen" loading="lazy">
-              <div class="card-date-badge"><span class="date-day">07</span><span class="date-month">Mär</span></div>
+              <div class="card-date-badge"><span class="date-day">07</span><span class="date-month" data-i18n="common.months.short.mar">Mär</span></div>
             </div>
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
@@ -178,7 +181,7 @@
           <a class="workshop-card-link" href="/workshops/sekerbura/" aria-label="Workshop-Details: Aserbaidschanische Şekerbura, 15. März 2026">
             <div class="workshop-card-image">
               <img class="card-illustration" src="/images/workshops/IMG_7525.jpg" alt="Mehrere Personen formen Teigtaschen" loading="lazy">
-              <div class="card-date-badge"><span class="date-day">15</span><span class="date-month">Mär</span></div>
+              <div class="card-date-badge"><span class="date-day">15</span><span class="date-month" data-i18n="common.months.short.mar">Mär</span></div>
             </div>
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
@@ -200,7 +203,7 @@
           <a class="workshop-card-link" href="/workshops/pilzquiche-zimtschnecken/" aria-label="Workshop-Details: Pilz-Quiche &amp; Zimtschnecken, 21. März 2026">
             <div class="workshop-card-image">
               <img class="card-illustration" src="/images/workshops/IMG_7554.jpg" alt="Zubereitung von Teig in der Gruppe" loading="lazy">
-              <div class="card-date-badge"><span class="date-day">21</span><span class="date-month">Mär</span></div>
+              <div class="card-date-badge"><span class="date-day">21</span><span class="date-month" data-i18n="common.months.short.mar">Mär</span></div>
             </div>
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
@@ -222,7 +225,7 @@
           <a class="workshop-card-link" href="/workshops/soljanka-sharlotka/" aria-label="Workshop-Details: Soljanka &amp; Apfelkuchen Sharlotka, 24. März 2026">
             <div class="workshop-card-image">
               <img class="card-illustration" src="/images/workshops/IMG_8723.jpg" alt="Kinder und Erwachsene beim Backen" loading="lazy">
-              <div class="card-date-badge"><span class="date-day">24</span><span class="date-month">Mär</span></div>
+              <div class="card-date-badge"><span class="date-day">24</span><span class="date-month" data-i18n="common.months.short.mar">Mär</span></div>
             </div>
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
@@ -240,6 +243,13 @@
           </a>
         </article>
 
+      </div>
+
+      <!-- Empty-State for filter with no matches -->
+      <div class="filter-empty-state" id="filter-empty" hidden>
+        <h3 data-i18n="workshops.filterEmptyHeading">Für diesen Ort sind aktuell keine Workshops geplant</h3>
+        <p data-i18n="workshops.filterEmptyText">Für diesen Ort sind aktuell keine Workshops geplant. Wählen Sie einen anderen Ort oder schauen Sie sich alle Workshops an.</p>
+        <button type="button" class="btn btn-outline" data-clear-filter data-i18n="workshops.filterReset">Alle Workshops anzeigen</button>
       </div>
 
       <div style="text-align:center;margin-top:var(--spacing-xl);">

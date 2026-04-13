@@ -257,8 +257,8 @@
   margin-top: auto;
   align-self: flex-start;
   font-size: var(--font-size-small) !important;
-  padding: 10px 22px !important;
-  min-height: 44px !important;
+  padding: 12px 24px !important;
+  min-height: 48px !important;
 }
 
 .workshops-cta {
@@ -554,10 +554,10 @@
   font-weight: 600;
   color: var(--color-dark-green);
   text-decoration: none;
-  padding: var(--spacing-xs);
+  padding: 12px var(--spacing-sm);
   border-radius: var(--radius-sm);
   transition: background var(--transition-fast);
-  min-height: 44px;
+  min-height: 48px;
 }
 
 .contact-bar-item:hover {
@@ -585,6 +585,11 @@
   font-size: 0.85rem;
   color: var(--color-warm-gray);
   margin-bottom: var(--spacing-xs);
+}
+
+.label-optional {
+  font-weight: 400;
+  color: var(--color-warm-gray);
 }
 
 .form-group label {
@@ -820,8 +825,8 @@ dialog::backdrop {
   background: var(--color-cream);
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -835,15 +840,15 @@ dialog::backdrop {
 }
 
 .dialog-close svg {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   fill: var(--color-warm-gray);
 }
 
 .dialog-inner h2 {
   font-size: var(--font-size-h3);
   margin-bottom: var(--spacing-xs);
-  padding-right: 48px;
+  padding-right: 56px;
 }
 
 .dialog-workshop-info {
