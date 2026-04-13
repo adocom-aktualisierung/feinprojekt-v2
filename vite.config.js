@@ -19,6 +19,7 @@ export default defineConfig({
         aktuelles: resolve(__dirname, 'aktuelles/index.html'),
         partner: resolve(__dirname, 'partner/index.html'),
         transparenz: resolve(__dirname, 'transparenz/index.html'),
+        teilnehmen: resolve(__dirname, 'teilnehmen/index.html'),
       },
     },
   },

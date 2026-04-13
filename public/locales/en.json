@@ -24,6 +24,10 @@
       "title": "Transparency & Documentation – Cooking Together – Growing Together",
       "description": "Funding reports, project documentation and information about the FEIN pilot project Cooking Together in Berlin-Lichtenberg."
     },
+    "teilnehmen": {
+      "title": "Participate – Cooking Together – Growing Together",
+      "description": "Join the FEIN pilot project Cooking Together in Berlin-Lichtenberg: workshop registration, volunteering, cooperation and support."
+    },
     "workshopDetail": {
       "title": "Workshop | Cooking Together"
     }
@@ -83,7 +87,8 @@
       "projekt": "About the Project",
       "aktuelles": "News",
       "partner": "Partners & Supporters",
-      "transparenz": "Transparency"
+      "transparenz": "Transparency",
+      "teilnehmen": "Participate"
     },
     "tags": {
       "kochenBacken": "Cooking & Baking",
@@ -530,6 +535,22 @@
       "heading": "Questions?",
       "text": "If you have questions about our funding reports, the project concept or the use of funds, we are happy to help.",
       "cta": "Get in touch"
+    }
+  },
+  "teilnehmen": {
+    "heading": "Participate",
+    "subheading": "There are many ways to become part of our community. We look forward to hearing from you!",
+    "workshop": {
+      "heading": "Join a workshop",
+      "text": "Our cooking and baking workshops are free and open to all neighbors. All ingredients are provided, and no prior experience is needed.",
+      "cta": "View workshops & dates"
+    },
+    "ways": {
+      "heading": "More ways to participate"
+    },
+    "contact": {
+      "heading": "Direct contact",
+      "text": "The easiest way to reach us is by phone or email. We respond within 2 business days."
     }
   }
 }

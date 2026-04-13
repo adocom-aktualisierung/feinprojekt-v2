@@ -89,6 +89,27 @@ if (regDialog) {
   const regClose = regDialog.querySelector('.dialog-close');
   const workshopInfo = document.getElementById('dialog-workshop-info');
 
+  // Focus trap fallback: native <dialog> traps focus in modern browsers via the
+  // top-layer, but older browsers and polyfills leak focus. Mirrors the mobile-nav
+  // pattern above.
+  const dialogFocusables = () => regDialog.querySelectorAll(
+    'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+  );
+  regDialog.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab' || !regDialog.open) return;
+    const els = dialogFocusables();
+    if (!els.length) return;
+    const first = els[0];
+    const last = els[els.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
   // Open dialog from workshop cards (entire card is clickable)
   function openWorkshopDialog(card) {
     document.getElementById('reg-workshop').value = card.dataset.workshop;
