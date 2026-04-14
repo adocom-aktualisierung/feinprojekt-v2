@@ -9,6 +9,9 @@
 let translations = null;
 let currentLang = localStorage.getItem('lang') || 'de';
 
+// In-memory map of original DE values, keyed by attribute type → element
+const deCache = new Map();
+
 /**
  * Returns the current language code.
  */
@@ -30,53 +33,92 @@ export function t(key, fallback = '') {
 }
 
 /**
+ * Cache the original DE value for a given element and attribute type,
+ * then apply the EN translation.
+ */
+function cacheAndApply(el, attr, getter, setter) {
+  const key = el.getAttribute(attr);
+  const val = key.split('.').reduce((obj, k) => obj?.[k], translations);
+  if (!val) return;
+  const cacheKey = attr + '::' + key;
+  if (!deCache.has(cacheKey)) {
+    deCache.set(cacheKey, { elements: new Set(), original: getter(el) });
+  }
+  deCache.get(cacheKey).elements.add(el);
+  setter(el, val);
+}
+
+/**
  * Apply translations to all [data-i18n] elements in the DOM.
  */
 function applyTranslations() {
   if (!translations) return;
 
-  // textContent
   document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    const val = key.split('.').reduce((obj, k) => obj?.[k], translations);
-    if (val) el.textContent = val;
+    cacheAndApply(el, 'data-i18n', e => e.textContent, (e, v) => { e.textContent = v; });
   });
 
-  // placeholder
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.getAttribute('data-i18n-placeholder');
-    const val = key.split('.').reduce((obj, k) => obj?.[k], translations);
-    if (val) el.placeholder = val;
+    cacheAndApply(el, 'data-i18n-placeholder', e => e.placeholder, (e, v) => { e.placeholder = v; });
   });
 
-  // aria-label
   document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
-    const key = el.getAttribute('data-i18n-aria-label');
-    const val = key.split('.').reduce((obj, k) => obj?.[k], translations);
-    if (val) el.setAttribute('aria-label', val);
+    cacheAndApply(el, 'data-i18n-aria-label', e => e.getAttribute('aria-label'), (e, v) => { e.setAttribute('aria-label', v); });
   });
 
-  // title attribute
   document.querySelectorAll('[data-i18n-title]').forEach(el => {
-    const key = el.getAttribute('data-i18n-title');
-    const val = key.split('.').reduce((obj, k) => obj?.[k], translations);
-    if (val) el.title = val;
+    cacheAndApply(el, 'data-i18n-title', e => e.title, (e, v) => { e.title = v; });
   });
 
-  // alt text on images
   document.querySelectorAll('[data-i18n-alt]').forEach(el => {
-    const key = el.getAttribute('data-i18n-alt');
-    const val = key.split('.').reduce((obj, k) => obj?.[k], translations);
-    if (val) el.alt = val;
+    cacheAndApply(el, 'data-i18n-alt', e => e.alt, (e, v) => { e.alt = v; });
   });
 
   // Page title + meta description
   const pageKey = document.documentElement.getAttribute('data-i18n-page');
   if (pageKey && translations.meta?.[pageKey]) {
     const meta = translations.meta[pageKey];
-    if (meta.title) document.title = meta.title;
+    if (meta.title) {
+      if (!deCache.has('meta::title')) deCache.set('meta::title', document.title);
+      document.title = meta.title;
+    }
     const desc = document.querySelector('meta[name="description"]');
-    if (desc && meta.description) desc.setAttribute('content', meta.description);
+    if (desc && meta.description) {
+      if (!deCache.has('meta::description')) deCache.set('meta::description', desc.getAttribute('content'));
+      desc.setAttribute('content', meta.description);
+    }
+  }
+}
+
+/**
+ * Restore all elements to their original DE text from the in-memory cache.
+ */
+function restoreGerman() {
+  const setters = {
+    'data-i18n': (el, v) => { el.textContent = v; },
+    'data-i18n-placeholder': (el, v) => { el.placeholder = v; },
+    'data-i18n-aria-label': (el, v) => { el.setAttribute('aria-label', v); },
+    'data-i18n-title': (el, v) => { el.title = v; },
+    'data-i18n-alt': (el, v) => { el.alt = v; },
+  };
+
+  for (const [cacheKey, entry] of deCache) {
+    if (cacheKey === 'meta::title') {
+      document.title = entry;
+      continue;
+    }
+    if (cacheKey === 'meta::description') {
+      const desc = document.querySelector('meta[name="description"]');
+      if (desc) desc.setAttribute('content', entry);
+      continue;
+    }
+    const attr = cacheKey.split('::')[0];
+    const setter = setters[attr];
+    if (setter && entry.elements) {
+      for (const el of entry.elements) {
+        if (el.isConnected) setter(el, entry.original);
+      }
+    }
   }
 }
 
@@ -87,7 +129,10 @@ function applyTranslations() {
 export async function setLang(lang) {
   localStorage.setItem('lang', lang);
   if (lang === 'de') {
-    location.reload();
+    currentLang = 'de';
+    document.documentElement.lang = 'de';
+    document.documentElement.dataset.lang = 'de';
+    restoreGerman();
     return;
   }
   currentLang = lang;

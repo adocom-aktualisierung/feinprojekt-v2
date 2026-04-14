@@ -374,7 +374,7 @@ function showErrorSummary(form, invalidFields) {
   const heading = document.createElement('strong');
   heading.textContent = invalidFields.length === 1
     ? t('common.toast.errorSummary1', 'Es gibt 1 Fehler im Formular:')
-    : t('common.toast.errorSummaryN', `Es gibt ${invalidFields.length} Fehler im Formular:`).replace('{count}', invalidFields.length);
+    : t('common.toast.errorSummaryN', 'Es gibt {count} Fehler im Formular:').replace('{count}', invalidFields.length);
   summary.appendChild(heading);
 
   const list = document.createElement('ul');

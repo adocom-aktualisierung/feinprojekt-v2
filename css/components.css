@@ -1159,7 +1159,7 @@ dialog::backdrop {
 /* Sold-out Workshop States */
 .tag-sold-out {
   background: rgba(196, 51, 51, 0.12);
-  color: var(--color-error);
+  color: #8B1F1F;
 }
 
 .workshop-card.is-sold-out .workshop-card-link {
