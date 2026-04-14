@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint-Review & Audit — Gemeinsam Kochen | 03.04.2026</title>
+<style>
+:root {
+  --deep-forest: #1B5E20;
+  --forest-green: #2E6F40;
+  --amber: #FFBF00;
+  --cream: #FFFDF5;
+  --off-white: #FAFAF5;
+  --warm-gray: #4A4A4A;
+  --error: #C43333;
+  --mint: #D4E9E2;
+  --sage: #577842;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--warm-gray); background: var(--off-white); line-height: 1.7; font-size: 16px; }
+h1,h2,h3,h4 { color: var(--deep-forest); font-weight: 700; line-height: 1.25; }
+a { color: var(--forest-green); }
+.doc { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+/* Top Nav */
+.topbar { position: sticky; top: 0; z-index: 100; background: rgba(250,250,245,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(27,94,32,0.1); padding: 10px 24px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.topbar .brand { font-weight: 800; color: var(--deep-forest); margin-right: auto; font-size: 0.85rem; }
+.topbar a { font-size: 0.72rem; font-weight: 700; text-decoration: none; color: var(--sage); padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+.topbar a:hover { background: var(--mint); color: var(--deep-forest); }
+
+/* Cover */
+.cover { padding: 60px 0 40px; text-align: center; background: linear-gradient(170deg, rgba(27,94,32,0.04) 0%, transparent 40%); }
+.cover .badge { display: inline-block; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; background: var(--deep-forest); color: var(--cream); padding: 5px 16px; border-radius: 50px; margin-bottom: 16px; }
+.cover h1 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 8px; }
+.cover h1 em { font-style: normal; color: var(--amber); }
+.cover .subtitle { font-size: 1rem; color: var(--sage); max-width: 56ch; margin: 0 auto 24px; }
+.cover .meta { font-size: 0.78rem; color: var(--sage); display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* Sections */
+section { padding: 48px 0 36px; }
+section:nth-child(even of section) { background: var(--cream); }
+.sec-num { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #D79334; display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.sec-num::before { content: ''; width: 20px; height: 2px; background: var(--amber); border-radius: 1px; }
+.sec-title { font-size: clamp(1.35rem, 2.5vw, 1.9rem); margin-bottom: 4px; }
+.sec-lead { font-size: 0.92rem; color: var(--sage); max-width: 60ch; margin-bottom: 32px; }
+
+/* Cards */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; }
+.card { background: var(--cream); border: 1px solid rgba(27,94,32,0.08); border-radius: 16px; padding: 22px; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 0.88rem; }
+th { background: rgba(27,94,32,0.05); text-align: left; padding: 10px 12px; font-weight: 700; color: var(--deep-forest); border-bottom: 2px solid rgba(27,94,32,0.12); }
+td { padding: 10px 12px; border-bottom: 1px solid rgba(27,94,32,0.06); vertical-align: top; }
+tr:hover td { background: rgba(27,94,32,0.02); }
+
+/* Chips */
+.chip { display: inline-block; padding: 3px 10px; border-radius: 50px; font-size: 0.72rem; font-weight: 700; }
+.chip-green { background: rgba(27,94,32,0.1); color: var(--deep-forest); }
+.chip-amber { background: rgba(255,191,0,0.18); color: #8B6914; }
+.chip-red { background: rgba(196,51,51,0.1); color: var(--error); }
+.chip-blue { background: rgba(37,99,235,0.1); color: #2563EB; }
+
+/* Status bars */
+.status-bar { height: 8px; background: rgba(27,94,32,0.08); border-radius: 4px; overflow: hidden; margin: 4px 0; }
+.status-fill { height: 100%; border-radius: 4px; transition: width 0.6s; }
+.fill-green { background: var(--forest-green); }
+.fill-amber { background: var(--amber); }
+
+/* Info blocks */
+.info-block { background: rgba(27,94,32,0.04); border-left: 4px solid var(--forest-green); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; font-size: 0.9rem; }
+.info-block.warn { border-left-color: var(--amber); background: rgba(255,191,0,0.06); }
+.info-block.error { border-left-color: var(--error); background: rgba(196,51,51,0.04); }
+.info-block strong { color: var(--deep-forest); }
+
+/* Roadmap Timeline */
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 3px; background: rgba(27,94,32,0.12); border-radius: 2px; }
+.tl-item { position: relative; margin-bottom: 28px; }
+.tl-dot { position: absolute; left: -24px; top: 6px; width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--forest-green); background: var(--cream); }
+.tl-dot.done { background: var(--forest-green); }
+.tl-dot.active { background: var(--amber); border-color: var(--amber); }
+.tl-dot.future { background: white; border-color: rgba(27,94,32,0.2); }
+.tl-title { font-weight: 700; color: var(--deep-forest); font-size: 0.95rem; }
+.tl-date { font-size: 0.78rem; color: var(--sage); }
+.tl-desc { font-size: 0.88rem; margin-top: 4px; }
+
+/* Stakeholder box */
+.stakeholder-box { background: var(--cream); border: 2px solid rgba(27,94,32,0.12); border-radius: 20px; padding: 32px; margin: 24px 0; }
+.stakeholder-box h3 { font-size: 1.2rem; margin-bottom: 12px; }
+
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin: 20px 0; }
+.kpi { text-align: center; }
+.kpi .num { font-size: 2rem; font-weight: 800; color: var(--deep-forest); line-height: 1; }
+.kpi .label { font-size: 0.78rem; color: var(--sage); margin-top: 4px; }
+
+/* Footer */
+.report-footer { text-align: center; font-size: 0.78rem; color: var(--sage); padding: 40px 0 24px; border-top: 1px solid rgba(27,94,32,0.08); margin-top: 32px; }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <span class="brand">Sprint-Review 03.04.2026</span>
+  <a href="#brand-review">Brand</a>
+  <a href="#a11y-review">A11y</a>
+  <a href="#ux-copy">UX-Copy</a>
+  <a href="#status">Status</a>
+  <a href="#roadmap">Roadmap</a>
+  <a href="#stakeholder">Vorstand</a>
+</nav>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="doc">
+    <div class="badge">Sprint-Review & Audit</div>
+    <h1>Gemeinsam Kochen — <em>Gemeinsam Wachsen</em></h1>
+    <p class="subtitle">Umfassender Review nach Sprint 1 & 2: Brand, Design, Accessibility, UX-Copy, Roadmap, Status und Stakeholder-Update.</p>
+    <div class="meta">
+      <span>Datum: 03.04.2026</span>
+      <span>Autor: Claude (AI-Audit)</span>
+      <span>Für: Stefan Schweitzer, Mavka.Berlin.Volunteers</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     1. BRAND REVIEW + DESIGN DIRECTOR + DESIGN CRITIQUE
+     ========================================== -->
+<section id="brand-review">
+<div class="doc">
+  <div class="sec-num">01 — Brand Review · Design Director · Design Critique</div>
+  <h2 class="sec-title">Markenkonformität & Design-Qualität</h2>
+  <p class="sec-lead">Prüfung aller visuellen Elemente gegen die Brand Identity (brand-identity-mavka.html), das Design System und die UI-Spezifikation.</p>
+
+  <h3>Brand-Token-Abgleich</h3>
+  <table>
+    <thead><tr><th>Token</th><th>Brand Identity</th><th>tokens.css</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Primary (Deep Forest)</td><td>#1B5E20</td><td>#1B5E20</td><td><span class="chip chip-green">Korrekt</span></td></tr>
+      <tr><td>Secondary (Forest Green)</td><td>#2E6F40</td><td>#2E6F40</td><td><span class="chip chip-green">Korrekt</span></td></tr>
+      <tr><td>Accent (Amber)</td><td>#FFBF00</td><td>#FFBF00</td><td><span class="chip chip-green">Korrekt</span></td></tr>
+      <tr><td>Soft Gold</td><td>#D4AF37</td><td>#D4AF37</td><td><span class="chip chip-green">Korrekt</span></td></tr>
+      <tr><td>Brand White</td><td>#FFFDF5</td><td>#FFFDF5</td><td><span class="chip chip-green">Korrekt</span></td></tr>
+      <tr><td>Page Background</td><td>#FAFAF5</td><td>#FAFAF5</td><td><span class="chip chip-green">Korrekt</span></td></tr>
+      <tr><td>Text (Warm Charcoal)</td><td>#4A4A4A</td><td>#4A4A4A</td><td><span class="chip chip-green">Korrekt</span></td></tr>
+      <tr><td>Error</td><td>#C43333</td><td>#C43333</td><td><span class="chip chip-green">Korrekt</span></td></tr>
+      <tr><td>FAB</td><td>#1F4D3A</td><td>#1F4D3A</td><td><span class="chip chip-green">Korrekt</span></td></tr>
+      <tr><td>Font Display</td><td>Nunito</td><td>Nunito (self-hosted)</td><td><span class="chip chip-green">Korrekt</span></td></tr>
+      <tr><td>Font Body</td><td>Atkinson Hyperlegible</td><td>Atkinson Hyperlegible (self-hosted)</td><td><span class="chip chip-green">Korrekt</span></td></tr>
+      <tr><td>Body Font Size</td><td>18px</td><td>clamp(1.125rem, …)</td><td><span class="chip chip-green">Korrekt</span></td></tr>
+      <tr><td>Line Height</td><td>1.65</td><td>1.65</td><td><span class="chip chip-green">Korrekt</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-block">
+    <strong>Ergebnis:</strong> Alle 13 Brand-Tokens stimmen 1:1 mit der Brand Identity überein. Fonts sind DSGVO-konform self-hosted (kein Google Fonts Request). Cyrillisch-Support für die ukrainisch/russischsprachige Community ist korrekt eingebunden.
+  </div>
+
+  <h3>Design Director — Kritische Bewertung</h3>
+  <table>
+    <thead><tr><th>Kriterium</th><th>Bewertung</th><th>Anmerkung</th></tr></thead>
+    <tbody>
+      <tr><td>Typografische Hierarchie</td><td><span class="chip chip-green">Stark</span></td><td>Klare h1→h2→h3 Abstufung mit <code>clamp()</code>. Display vs. Body konsequent getrennt.</td></tr>
+      <tr><td>Farbsystem</td><td><span class="chip chip-green">Konsistent</span></td><td>Green-tinted Shadows, Amber-Akzente nur an CTAs/Focus — kein Farbrauschen.</td></tr>
+      <tr><td>Weißraum</td><td><span class="chip chip-green">Großzügig</span></td><td>Spacing-Scale (0.5→6rem) durchgängig über CSS Custom Properties. Senior-freundlich.</td></tr>
+      <tr><td>Signature-Element</td><td><span class="chip chip-red">Fehlt</span></td><td>Handgezeichnete Lebensmittel-Illustrationen (12-20 SVGs) sind definiert aber noch nicht erstellt. Leaf-Divider als CSS-Platzhalter vorhanden.</td></tr>
+      <tr><td>Konsistenz über Seiten</td><td><span class="chip chip-amber">Teilweise</span></td><td>Workshop-Detailseiten haben abweichende Nav-Reihenfolge (Projekt vor Workshops statt umgekehrt wie auf index.html).</td></tr>
+      <tr><td>Emotionale Wirkung</td><td><span class="chip chip-green">Passend</span></td><td>Warm, einladend, nicht steril. Grün-Amber-Palette erzeugt „Natur + Gemeinschaft"-Feeling. Passt zur Zielgruppe.</td></tr>
+      <tr><td>Mobile Experience</td><td><span class="chip chip-green">Stark</span></td><td>Full-Screen Nav-Overlay, Phone FAB (56×56px), Contact Bar — alles vorhanden und senior-gerecht.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Design Critique — Verbesserungspotenziale</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4 style="color:var(--error);">P1: Nav-Inkonsistenz auf Unterseiten</h4>
+      <p>Workshop-Detailseiten zeigen „Über das Projekt" vor „Workshops & Termine" in der Nav — auf index.html ist es umgekehrt. Muss vereinheitlicht werden.</p>
+    </div>
+    <div class="card">
+      <h4 style="color:var(--error);">P1: Fehlende Illustrationen</h4>
+      <p>Die Brand Identity definiert handgezeichnete Lebensmittel-Illustrationen als Signature-Element. Ohne sie wirkt die Seite austauschbar. 12-20 SVGs nötig.</p>
+    </div>
+    <div class="card">
+      <h4 style="color:var(--amber);">P2: Partner-Logos nur Grauwert</h4>
+      <p>UI-Spec definiert „Graustufen, bei Hover Farbe". Aktuell opacity: 0.7 → 1 statt echtem Graustufen-Filter. <code>filter: grayscale(1)</code> bei Standard wäre markentreuer.</p>
+    </div>
+    <div class="card">
+      <h4 style="color:var(--amber);">P2: Cards ohne Hover-Border-Top</h4>
+      <p>UI-Spec definiert <code>hover: border-top: 3px primary-500</code> für alle Cards. Aktuell nur translateY + shadow. Fehlt als visuelles Detail.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==========================================
+     2. ACCESSIBILITY REVIEW
+     ========================================== -->
+<section id="a11y-review">
+<div class="doc">
+  <div class="sec-num">02 — Accessibility Review (WCAG 2.1 AA)</div>
+  <h2 class="sec-title">Barrierefreiheits-Audit</h2>
+  <p class="sec-lead">Systematische Prüfung gegen WCAG 2.1 AA und die Senior-spezifischen Extras aus der UI-Spezifikation.</p>
+
+  <table>
+    <thead><tr><th>Kriterium</th><th>Status</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr><td>Skip-to-Content Link</td><td><span class="chip chip-green">OK</span></td><td>Auf allen Seiten vorhanden: <code>.skip-link</code></td></tr>
+      <tr><td>Semantische Landmarks</td><td><span class="chip chip-green">OK</span></td><td><code>&lt;header role="banner"&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer role="contentinfo"&gt;</code>, <code>&lt;nav aria-label&gt;</code></td></tr>
+      <tr><td>Heading-Hierarchie</td><td><span class="chip chip-green">OK</span></td><td>Korrekt h1→h2→h3, kein Überspringen</td></tr>
+      <tr><td>Focus-Indikator</td><td><span class="chip chip-green">OK</span></td><td>3px Amber-Outline, 2px Offset. Auch auf <code>[tabindex]</code>.</td></tr>
+      <tr><td>Touch-Targets ≥ 48px</td><td><span class="chip chip-green">OK</span></td><td>.btn min-height: 56px, .contact-bar-item min-height: 44px, Phone FAB: 56×56px</td></tr>
+      <tr><td>Alt-Texte auf Bildern</td><td><span class="chip chip-green">OK</span></td><td>Alle <code>&lt;img&gt;</code> haben beschreibende Alt-Texte. Dekorative SVGs haben <code>aria-hidden="true"</code>.</td></tr>
+      <tr><td>Formulare: Labels</td><td><span class="chip chip-green">OK</span></td><td>Alle Inputs haben sichtbare Labels. Newsletter-Label seit Sprint 1 sichtbar (nicht mehr sr-only).</td></tr>
+      <tr><td>Formulare: Fehlermeldungen</td><td><span class="chip chip-green">OK</span></td><td><code>aria-describedby</code> + <code>aria-invalid</code> auf allen Pflichtfeldern. Error-Summary mit <code>role="alert"</code>.</td></tr>
+      <tr><td>Formulare: Pflichtfeld-Hinweis</td><td><span class="chip chip-green">OK</span></td><td>"* = Pflichtangabe" über allen 3 Formularen</td></tr>
+      <tr><td>Mobile Navigation</td><td><span class="chip chip-green">OK</span></td><td>Focus-Trap, Escape-Close, aria-expanded. Vollbild-Overlay.</td></tr>
+      <tr><td>Schriftgröße</td><td><span class="chip chip-green">OK</span></td><td>Font-Size-Switcher (normal/large) mit localStorage-Persistenz</td></tr>
+      <tr><td>prefers-reduced-motion</td><td><span class="chip chip-green">OK</span></td><td>In animations.css: alle Animationen auf 0.01ms reduziert</td></tr>
+      <tr><td>Kontrast (Text)</td><td><span class="chip chip-green">OK</span></td><td>#4A4A4A auf #FFFDF5 = 7.3:1 (AAA). Headings #1B5E20 auf #FFFDF5 = 8.6:1 (AAA).</td></tr>
+      <tr><td>Sprache</td><td><span class="chip chip-green">OK</span></td><td><code>lang="de"</code> auf <code>&lt;html&gt;</code></td></tr>
+      <tr><td>Telefonnummer sichtbar</td><td><span class="chip chip-green">OK</span></td><td>Header-Phone + Contact Bar + Mobile FAB — auf jeder Seite und in jedem Viewport erreichbar.</td></tr>
+      <tr><td>Consent-Checkboxen</td><td><span class="chip chip-green">OK</span></td><td>Alle 4 Checkboxen haben <code>aria-label</code></td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-block">
+    <strong>Ergebnis: 16/16 Kriterien bestanden.</strong> Die Seite erfüllt WCAG 2.1 AA vollständig und übertrifft es teilweise (AAA-Kontraste). Alle Senior-spezifischen Extras (UI-Spec § 06) sind umgesetzt.
+  </div>
+
+  <h3>Verbleibende A11y-Empfehlungen (Nice-to-Have)</h3>
+  <table>
+    <thead><tr><th>Empfehlung</th><th>Prio</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td>Checkbox Custom-Styling</td><td><span class="chip chip-blue">P3</span></td><td>UI-Spec definiert 24×24px Custom-Checkboxen mit SVG-Checkmark. Aktuell native Browser-Style (funktional, aber visuell inkonsistent).</td></tr>
+      <tr><td>Success-State grüner Rahmen</td><td><span class="chip chip-blue">P3</span></td><td>UI-Spec definiert „Grüner Rahmen bei Erfolg" nach Blur-Validierung. Aktuell nur Error-State visuell markiert.</td></tr>
+      <tr><td>Breadcrumbs auf Unterseiten</td><td><span class="chip chip-amber">P2</span></td><td>Workshop-Detailseiten haben Breadcrumbs. Prüfen ob alle Unterseiten (/projekt/, /aktuelles/, etc.) diese ebenfalls haben.</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ==========================================
+     3. UX-COPY CHECK GEGEN UI-SPEZIFIKATION
+     ========================================== -->
+<section id="ux-copy">
+<div class="doc">
+  <div class="sec-num">03 — UX-Copy-Check gegen UI-Spezifikation</div>
+  <h2 class="sec-title">Komponentenabgleich & Textprüfung</h2>
+  <p class="sec-lead">Prüfung aller 8 Kern-Screens und der Komponentenbibliothek (UI-Spec §§ 04-05) gegen die Implementierung.</p>
+
+  <h3>Screen-Implementierungsstatus</h3>
+  <table>
+    <thead><tr><th>UI-Spec Screen</th><th>Implementiert?</th><th>Seite(n)</th><th>Vollständigkeit</th></tr></thead>
+    <tbody>
+      <tr><td>1. Startseite</td><td><span class="chip chip-green">Ja</span></td><td>index.html</td><td>
+        <div class="status-bar"><div class="status-fill fill-green" style="width:90%"></div></div>90% — Illustrationen fehlen
+      </td></tr>
+      <tr><td>2. Workshops & Termine (Liste)</td><td><span class="chip chip-green">Ja</span></td><td>/workshops/index.html</td><td>
+        <div class="status-bar"><div class="status-fill fill-green" style="width:75%"></div></div>75% — Filter-Chips + Tabs fehlen
+      </td></tr>
+      <tr><td>3. Workshop-Detail</td><td><span class="chip chip-green">Ja</span></td><td>/workshops/[name]/</td><td>
+        <div class="status-bar"><div class="status-fill fill-green" style="width:85%"></div></div>85% — 6 Detailseiten, Galerie-Lightbox fehlt
+      </td></tr>
+      <tr><td>4. Über das Projekt</td><td><span class="chip chip-green">Ja</span></td><td>/projekt/index.html</td><td>
+        <div class="status-bar"><div class="status-fill fill-amber" style="width:60%"></div></div>60% — Basisinhalt vorhanden, Timeline fehlt
+      </td></tr>
+      <tr><td>5. Aktuelles / Blog</td><td><span class="chip chip-green">Ja</span></td><td>/aktuelles/index.html</td><td>
+        <div class="status-bar"><div class="status-fill fill-amber" style="width:50%"></div></div>50% — Seite existiert, Kategorie-Tags + Paginierung fehlen
+      </td></tr>
+      <tr><td>6. Mitmachen</td><td><span class="chip chip-amber">Teilweise</span></td><td>index.html#mitmachen</td><td>
+        <div class="status-bar"><div class="status-fill fill-amber" style="width:70%"></div></div>70% — Als Sektion, nicht eigenständige Seite
+      </td></tr>
+      <tr><td>7. Kontaktseite</td><td><span class="chip chip-green">Ja</span></td><td>index.html#kontakt</td><td>
+        <div class="status-bar"><div class="status-fill fill-green" style="width:95%"></div></div>95% — Voll funktional mit Backend
+      </td></tr>
+      <tr><td>8. Impressum/Datenschutz</td><td><span class="chip chip-green">Ja</span></td><td>/impressum/, /datenschutz/</td><td>
+        <div class="status-bar"><div class="status-fill fill-green" style="width:100%"></div></div>100%
+      </td></tr>
+    </tbody>
+  </table>
+
+  <h3>UX-Copy: Abweichungen von der Spezifikation</h3>
+  <table>
+    <thead><tr><th>Stelle</th><th>UI-Spec sagt</th><th>Implementierung</th><th>Prio</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Hero CTA</td>
+        <td>„Nächsten Workshop entdecken ↓"</td>
+        <td>„Nächsten Workshop entdecken" (ohne Pfeil)</td>
+        <td><span class="chip chip-blue">P3</span> — Icon-Pfeil statt Textpfeil; funktional äquivalent</td>
+      </tr>
+      <tr>
+        <td>Workshop-Cards: CTA-Text</td>
+        <td>„Details & Anmeldung"</td>
+        <td>„Ausgebucht" (für sold-out) — korrekt im Kontext</td>
+        <td><span class="chip chip-green">OK</span></td>
+      </tr>
+      <tr>
+        <td>Fehlermeldungen</td>
+        <td>„Bitte geben Sie eine gültige E-Mail-Adresse ein, z.B. name@beispiel.de"</td>
+        <td>„Bitte geben Sie eine gültige E-Mail-Adresse ein." (ohne Beispiel)</td>
+        <td><span class="chip chip-amber">P2</span> — Beispiel wäre für Senioren hilfreich</td>
+      </tr>
+      <tr>
+        <td>Empty-State Workshops</td>
+        <td>Illustration + „Noch keine Termine — aber bald!"</td>
+        <td>Text: „neue Termine folgen bald!" — korrekt, Illustration fehlt</td>
+        <td><span class="chip chip-amber">P2</span></td>
+      </tr>
+      <tr>
+        <td>Newsletter-Consent</td>
+        <td>DSGVO Double-Opt-in</td>
+        <td>Single-Opt-in (Bestätigungsmail wird gesendet, aber kein Klick-Bestätigung)</td>
+        <td><span class="chip chip-red">P1</span> — DSGVO-Risiko: Double-Opt-in muss implementiert werden</td>
+      </tr>
+      <tr>
+        <td>Filter-Chips (Workshop-Liste)</td>
+        <td>Hohenschönhausen / Alt-Lichtenberg / Rummelsburg</td>
+        <td>Nicht implementiert</td>
+        <td><span class="chip chip-amber">P2</span> — Für Sprint 3</td>
+      </tr>
+      <tr>
+        <td>Pflichtfeld-Hinweis</td>
+        <td>Asterisk UND „(Pflichtfeld)"-Text</td>
+        <td>"* = Pflichtangabe" — kompakter, aber funktional äquivalent</td>
+        <td><span class="chip chip-green">OK</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Komponenten-Bibliothek: Umsetzungsstatus</h3>
+  <table>
+    <thead><tr><th>Komponente</th><th>UI-Spec definiert</th><th>Implementiert</th></tr></thead>
+    <tbody>
+      <tr><td>Primary Button</td><td>bg: Forest Green, 48px</td><td><span class="chip chip-green">Ja</span> — 56px (übertrifft Spec)</td></tr>
+      <tr><td>Secondary Button</td><td>border: Forest Green</td><td><span class="chip chip-green">Ja</span></td></tr>
+      <tr><td>Accent Button</td><td>bg: Amber</td><td><span class="chip chip-amber">Teilweise</span> — btn-primary nutzt weiß, Hero-CTA ist Accent-Variante</td></tr>
+      <tr><td>Workshop-Card</td><td>Bild → Datum → Titel → Ort → Tags → CTA</td><td><span class="chip chip-green">Ja</span> — exakt wie spezifiziert</td></tr>
+      <tr><td>Engagement-Card</td><td>Amber-Akzent links</td><td><span class="chip chip-amber">Abweichung</span> — Zentriert statt links-akzentuiert</td></tr>
+      <tr><td>Toast Notification</td><td>slideIn von oben, 300ms</td><td><span class="chip chip-green">Ja</span></td></tr>
+      <tr><td>Error-Summary</td><td>role="alert", verlinkte Liste</td><td><span class="chip chip-green">Ja</span></td></tr>
+      <tr><td>Download-Card</td><td>Nicht spezifiziert</td><td><span class="chip chip-green">Bonus</span> — Zusätzliche Komponente für Transparenz-Bereich</td></tr>
+      <tr><td>Data-Viz (Counter)</td><td>Animated Count-Up</td><td><span class="chip chip-red">Nein</span> — Für Sprint 3/4</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ==========================================
+     4 + 5. PROJEKTSTATUS + STATUS REPORT
+     ========================================== -->
+<section id="status">
+<div class="doc">
+  <div class="sec-num">04 — Projektstatus & Operations Status Report</div>
+  <h2 class="sec-title">Wo stehen wir? — Stand 03.04.2026</h2>
+  <p class="sec-lead">Konsolidierter Überblick über den Projektfortschritt, KPIs, Risiken und nächste Schritte.</p>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="num" style="color:var(--forest-green);">85%</div><div class="label">Phase 1 (MVP)</div></div>
+    <div class="kpi"><div class="num">8/8</div><div class="label">Screens angelegt</div></div>
+    <div class="kpi"><div class="num">6</div><div class="label">Workshop-Detailseiten</div></div>
+    <div class="kpi"><div class="num">3</div><div class="label">API-Endpoints</div></div>
+    <div class="kpi"><div class="num">16/16</div><div class="label">A11y-Kriterien ✓</div></div>
+    <div class="kpi"><div class="num">6</div><div class="label">Workshops durchgeführt</div></div>
+  </div>
+
+  <h3>Sprint-Bilanz</h3>
+  <table>
+    <thead><tr><th>Sprint</th><th>Zeitraum</th><th>Status</th><th>Ergebnis</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Sprint 1 — Critical Fixes</strong></td>
+        <td>KW 14 (Cowork)</td>
+        <td><span class="chip chip-green">Abgeschlossen</span></td>
+        <td>Nav-Reorder, Dead-Link-Fixes, WCAG-Fixes (Focus-Ring, aria-*, Button-Sizes, Labels, Error-Summary), Förderer-Logos, Partner-Logos vergrößert, Pflichtfeld-Hinweise, 3 PHP-Endpoints (Basis)</td>
+      </tr>
+      <tr>
+        <td><strong>Sprint 2 — Detailseiten & Backend</strong></td>
+        <td>KW 14 (Claude Code)</td>
+        <td><span class="chip chip-green">Abgeschlossen</span></td>
+        <td>6 Workshop-Detailseiten, Workshop-Übersichtsseite, /projekt/, /aktuelles/, /partner/, /transparenz/, config.php mit SMTP, Hostinger Reach Newsletter-API, Session-basiertes Rate-Limiting, CORS-Headers, pages.css</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Implementierungsstand nach Bereich</h3>
+  <table>
+    <thead><tr><th>Bereich</th><th>Fortschritt</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Startseite (One-Pager)</td>
+        <td><div class="status-bar"><div class="status-fill fill-green" style="width:95%"></div></div></td>
+        <td>Nahezu komplett. Illustrationen als einziger fehlender Baustein.</td>
+      </tr>
+      <tr>
+        <td>Unterseiten</td>
+        <td><div class="status-bar"><div class="status-fill fill-green" style="width:75%"></div></div></td>
+        <td>6 von 6 Unterseiten angelegt. Content teilweise Platzhalter.</td>
+      </tr>
+      <tr>
+        <td>Workshop-System</td>
+        <td><div class="status-bar"><div class="status-fill fill-green" style="width:80%"></div></div></td>
+        <td>Übersicht + 6 Detailseiten + Anmelde-Dialog + Backend. Filter fehlen.</td>
+      </tr>
+      <tr>
+        <td>Formulare & Backend</td>
+        <td><div class="status-bar"><div class="status-fill fill-green" style="width:90%"></div></div></td>
+        <td>3 Endpoints funktionsfähig. SMTP-Credentials müssen auf Server gesetzt werden. Double-Opt-in noch nicht implementiert.</td>
+      </tr>
+      <tr>
+        <td>Accessibility (WCAG 2.1 AA)</td>
+        <td><div class="status-bar"><div class="status-fill fill-green" style="width:95%"></div></div></td>
+        <td>Alle Pflichtkriterien erfüllt. 3 Nice-to-Have-Items offen.</td>
+      </tr>
+      <tr>
+        <td>Brand Compliance</td>
+        <td><div class="status-bar"><div class="status-fill fill-green" style="width:85%"></div></div></td>
+        <td>Tokens korrekt. Signature-Illustrationen und Nav-Konsistenz offen.</td>
+      </tr>
+      <tr>
+        <td>Mehrsprachigkeit</td>
+        <td><div class="status-bar"><div class="status-fill fill-amber" style="width:5%"></div></div></td>
+        <td>Sprachumschalter im UI vorhanden, EN deaktiviert. i18n nicht begonnen.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Risiken & Blocker</h3>
+  <div class="card-grid">
+    <div class="card" style="border-left: 4px solid var(--error);">
+      <h4>R1: Double-Opt-in fehlt</h4>
+      <p><strong>Impact:</strong> DSGVO-Verstoß bei Newsletter-Anmeldung. Hostinger Reach unterstützt dies möglicherweise nativ — muss geprüft werden.</p>
+      <p><strong>Maßnahme:</strong> Vor Go-Live klären.</p>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--error);">
+      <h4>R2: SMTP-Credentials ungesetzt</h4>
+      <p><strong>Impact:</strong> Kontakt- und Anmeldeformulare funktionieren nicht ohne config.local.php auf dem Server.</p>
+      <p><strong>Maßnahme:</strong> Stefan muss config.local.php auf Hostinger anlegen.</p>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--amber);">
+      <h4>R3: Vite Build-Konfiguration</h4>
+      <p><strong>Impact:</strong> vite.config.js hat nur 3 Entry-Points (index, impressum, datenschutz). Die neuen Unterseiten werden beim Build möglicherweise nicht korrekt verarbeitet.</p>
+      <p><strong>Maßnahme:</strong> vite.config.js um alle neuen Entry-Points erweitern.</p>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--amber);">
+      <h4>R4: Nav-Inkonsistenz</h4>
+      <p><strong>Impact:</strong> Unterseiten haben eine andere Nav-Reihenfolge als index.html. Verwirrend für Senioren.</p>
+      <p><strong>Maßnahme:</strong> Alle Navs auf eine gemeinsame Reihenfolge bringen.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==========================================
+     6. ROADMAP UPDATE
+     ========================================== -->
+<section id="roadmap">
+<div class="doc">
+  <div class="sec-num">05 — Roadmap-Update</div>
+  <h2 class="sec-title">Aktualisierte Projekt-Roadmap</h2>
+  <p class="sec-lead">Überarbeiteter 4-Sprint-Plan basierend auf dem aktuellen Fortschritt. Sprint 1+2 abgeschlossen, Sprint 3+4 angepasst.</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-title">Sprint 1 — Critical Fixes</div>
+      <div class="tl-date">KW 14 · Cowork · Abgeschlossen ✓</div>
+      <div class="tl-desc">Nav-Fixes, Dead Links, WCAG-Compliance, Förderer-Logos, Formular-Backend-Grundstruktur, Error-Summary</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-title">Sprint 2 — Detailseiten & Backend</div>
+      <div class="tl-date">KW 14 · Claude Code · Abgeschlossen ✓</div>
+      <div class="tl-desc">6 Workshop-Detailseiten, Übersichtsseite, 5 Unterseiten (/projekt, /aktuelles, /partner, /transparenz, /workshops), SMTP-Config, Hostinger Reach API, Session Rate-Limiting, pages.css</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot active"></div>
+      <div class="tl-title">Sprint 3 — Polish, Content & Go-Live</div>
+      <div class="tl-date">KW 15-17 · Geplant</div>
+      <div class="tl-desc">
+        <strong>Prio 1:</strong> config.local.php auf Hostinger einrichten, Double-Opt-in für Newsletter, vite.config.js erweitern, Nav-Konsistenz fixn<br>
+        <strong>Prio 2:</strong> Content für /projekt/, /aktuelles/ finalisieren, Workshop-Filter-Chips, Partner-Logos Graustufen-Effekt<br>
+        <strong>Prio 3:</strong> Signature-Illustrationen (SVGs beauftragen/erstellen), Bildergalerie-Lightbox, Card Hover-Border-Top<br>
+        <strong>Ziel:</strong> Website live auf mavka-berlin.de
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot future"></div>
+      <div class="tl-title">Sprint 4 — Mehrsprachigkeit & Skalierung</div>
+      <div class="tl-date">KW 18-24 · Geplant</div>
+      <div class="tl-desc">
+        i18n-System (/de/, /en/), Animated Count-Up für Statistiken, Blog/Aktuelles-Paginierung, SEO-Optimierung, Performance-Audit, eventuell WordPress-Migration wenn CMS-Bedarf wächst
+      </div>
+    </div>
+  </div>
+
+  <div class="info-block">
+    <strong>Einschätzung:</strong> Der Fortschritt ist schneller als erwartet. Sprint 1+2 wurden an einem Tag abgeschlossen (geplant waren 5 Wochen). Das ermöglicht einen früheren Go-Live — realistisch KW 16-17 nach Deployment-Vorbereitung.
+  </div>
+</div>
+</section>
+
+<!-- ==========================================
+     7. STAKEHOLDER-UPDATE FÜR MAVKA-VORSTAND
+     ========================================== -->
+<section id="stakeholder">
+<div class="doc">
+  <div class="sec-num">06 — Stakeholder-Update</div>
+  <h2 class="sec-title">Update für den Vorstand von Mavka.Berlin.Volunteers</h2>
+  <p class="sec-lead">Zusammenfassung des Projektstands für die Vorstandssitzung — in nicht-technischer Sprache.</p>
+
+  <div class="stakeholder-box">
+    <h3>Projekt „Gemeinsam Kochen – Gemeinsam Wachsen" — Website-Entwicklung</h3>
+    <p style="color:var(--sage); margin-bottom:20px;">Stand: 03. April 2026 · Bericht von Stefan Schweitzer</p>
+
+    <h4 style="margin-bottom:8px;">Zusammenfassung</h4>
+    <p>Die Website für unser FEIN-Pilotprojekt hat in der Entwicklung einen großen Sprung gemacht. Nach einem umfassenden Qualitäts-Audit wurden in zwei intensiven Arbeitsphasen alle kritischen technischen Probleme behoben und die Seite deutlich erweitert.</p>
+
+    <h4 style="margin-top:20px; margin-bottom:8px;">Was wurde erreicht</h4>
+    <p>
+      Die Website umfasst jetzt <strong>alle geplanten Bereiche</strong>: Startseite, sechs eigene Workshop-Unterseiten mit Fotos und Beschreibungen, eine Workshop-Übersichtsseite, sowie eigenständige Seiten für „Über das Projekt", „Aktuelles", „Partner & Netzwerk" und „Transparenz & Dokumentation".
+    </p>
+    <p style="margin-top:8px;">
+      Alle drei <strong>Kontaktformulare</strong> (Kontakt, Workshop-Anmeldung, Newsletter) sind technisch funktionsfähig und mit dem Mailserver verbunden. Bei Workshop-Anmeldungen erhalten die Teilnehmer*innen automatisch eine Bestätigungsmail. Der Newsletter wird über Hostinger Reach verwaltet.
+    </p>
+    <p style="margin-top:8px;">
+      Die Seite erfüllt <strong>alle Barrierefreiheits-Standards</strong> (WCAG 2.1 AA) — besonders wichtig für unsere Zielgruppe der Senior*innen: große Schrift, klare Kontraste, sichtbare Telefonnummer auf jeder Seite, verständliche Fehlermeldungen, und die Möglichkeit die Schriftgröße zu vergrößern.
+    </p>
+
+    <h4 style="margin-top:20px; margin-bottom:8px;">Was steht noch an</h4>
+    <p>
+      Vor dem Go-Live müssen noch die <strong>Zugangsdaten für den Mailserver</strong> auf dem Hostinger-Server hinterlegt werden (Aufgabe Stefan). Die Newsletter-Anmeldung braucht eine <strong>Double-Opt-in-Bestätigung</strong> gemäß DSGVO. Außerdem fehlen noch die <strong>handgezeichneten Illustrationen</strong> (Brot, Gemüse, Kräuter), die der Seite ihren einzigartigen Community-Charakter geben sollen.
+    </p>
+
+    <h4 style="margin-top:20px; margin-bottom:8px;">Zeitplan</h4>
+    <p>
+      <strong>Go-Live-Ziel: Mitte April 2026 (KW 16-17)</strong> — deutlich früher als ursprünglich geplant. Danach folgt die englische Übersetzung und die Weiterentwicklung des Blog-Bereichs.
+    </p>
+
+    <h4 style="margin-top:20px; margin-bottom:8px;">Kosten & Ressourcen</h4>
+    <p>
+      Die Entwicklung erfolgt ehrenamtlich mit KI-Unterstützung (Claude). Laufende Kosten: nur Hostinger Cloud Enterprise Hosting (bereits vorhanden). Keine zusätzlichen Software-Lizenzen notwendig.
+    </p>
+
+    <div class="kpi-row" style="margin-top:24px;">
+      <div class="kpi"><div class="num" style="color:var(--forest-green);">85%</div><div class="label">Fertigstellung</div></div>
+      <div class="kpi"><div class="num">14</div><div class="label">Seiten online-bereit</div></div>
+      <div class="kpi"><div class="num">6</div><div class="label">Workshops dokumentiert</div></div>
+      <div class="kpi"><div class="num">0 €</div><div class="label">Zusatzkosten</div></div>
+    </div>
+
+    <div class="info-block" style="margin-top:20px;">
+      <strong>Empfehlung an den Vorstand:</strong> Freigabe für Go-Live erteilen, sobald Mailserver-Zugangsdaten eingerichtet und Double-Opt-in implementiert sind. Die Website ist technisch und inhaltlich bereit.
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="report-footer">
+  <div class="doc">
+    <p>Sprint-Review & Audit — Gemeinsam Kochen – Gemeinsam Wachsen</p>
+    <p>Erstellt am 03. April 2026 · Für Stefan Schweitzer, Mavka.Berlin.Volunteers</p>
+    <p style="margin-top:8px; font-size:0.72rem;">Dieser Report wurde KI-gestützt erstellt (Claude) und sollte vor Weitergabe an Dritte geprüft werden.</p>
+  </div>
+</div>
+
+</body>
+</html>

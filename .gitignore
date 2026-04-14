@@ -10,3 +10,7 @@ docs/Bilder/
 .env
 .env.*
 *.local
+*.tmp
+*.plugin
+~$*
+.~lock.*

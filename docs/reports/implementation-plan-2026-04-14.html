@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Umsetzungsplan — Design-Critique Fixes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#0F0F0F; --card:#1A1A1A; --card-h:#1F1F1F; --inset:#141414;
+    --border:rgba(255,255,255,.06); --border-m:rgba(255,255,255,.1);
+    --text:rgba(255,255,255,.88); --dim:rgba(255,255,255,.5); --muted:rgba(255,255,255,.35);
+    --accent:#FFBF00; --accent-d:rgba(255,191,0,.12);
+    --green:#4ADE80; --green-d:rgba(74,222,128,.1);
+    --red:#F87171; --red-d:rgba(248,113,113,.1);
+    --orange:#FB923C; --orange-d:rgba(251,146,60,.1);
+    --blue:#60A5FA; --blue-d:rgba(96,165,250,.1);
+    --purple:#A78BFA; --purple-d:rgba(167,139,250,.1);
+    --r:12px; --rs:8px; --rx:6px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  body{font-family:'Inter',-apple-system,sans-serif;font-size:15px;line-height:1.65;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
+
+  .topnav{position:sticky;top:0;z-index:100;background:rgba(15,15,15,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px}
+  .topnav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:28px;height:56px;overflow-x:auto;scrollbar-width:none}
+  .topnav-inner::-webkit-scrollbar{display:none}
+  .topnav a{color:var(--dim);text-decoration:none;font-size:13px;font-weight:500;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent;transition:all .2s}
+  .topnav a:hover,.topnav a.active{color:var(--text);border-bottom-color:var(--accent)}
+  .topnav .brand{font-weight:800;font-size:14px;color:var(--text);letter-spacing:-.02em;flex-shrink:0}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  .hero{padding:72px 0 40px;border-bottom:1px solid var(--border)}
+  .hero-eyebrow{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:12px}
+  .hero h1{font-size:clamp(28px,4.5vw,42px);font-weight:800;letter-spacing:-.03em;line-height:1.15;color:#fff;margin-bottom:16px}
+  .hero-sub{font-size:15px;color:var(--dim);max-width:640px;line-height:1.7;margin-bottom:24px}
+
+  /* Overview Grid */
+  .overview{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+  @media(max-width:768px){.overview{grid-template-columns:repeat(2,1fr)}}
+  .ov-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px}
+  .ov-card .ov-num{font-size:28px;font-weight:800;color:#fff;letter-spacing:-.02em}
+  .ov-card .ov-label{font-size:12px;color:var(--muted);margin-top:4px;font-weight:500}
+
+  /* Timeline */
+  .section{padding:48px 0;border-bottom:1px solid var(--border)}
+  .section:last-child{border-bottom:none}
+  .section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:8px}
+  .section h2{font-size:22px;font-weight:800;letter-spacing:-.02em;color:#fff;margin-bottom:6px}
+  .section .section-desc{font-size:14px;color:var(--dim);margin-bottom:24px}
+
+  /* Sprint Card */
+  .sprint{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:24px;overflow:hidden}
+  .sprint-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;cursor:pointer;user-select:none;gap:16px;flex-wrap:wrap}
+  .sprint-header:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:var(--r)}
+  .sprint-left{display:flex;align-items:center;gap:14px;flex:1;min-width:0}
+  .sprint-id{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:5px 10px;border-radius:var(--rx);white-space:nowrap}
+  .sprint-1-id{background:var(--red-d);color:var(--red)}
+  .sprint-2-id{background:var(--orange-d);color:var(--orange)}
+  .sprint-3-id{background:var(--blue-d);color:var(--blue)}
+  .sprint-4-id{background:var(--purple-d);color:var(--purple)}
+  .sprint-name{font-weight:700;font-size:15px;color:var(--text)}
+  .sprint-meta{display:flex;gap:16px;font-size:12px;color:var(--muted);flex-shrink:0}
+  .sprint-meta span{display:flex;align-items:center;gap:4px}
+  .chevron{width:20px;height:20px;flex-shrink:0;color:var(--muted);transition:transform .25s}
+  .sprint.open .chevron{transform:rotate(180deg)}
+  .sprint-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .sprint.open .sprint-body{max-height:8000px}
+
+  /* Task Row */
+  .task-list{padding:0 24px 24px}
+  .task{display:grid;grid-template-columns:32px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--border);align-items:start}
+  .task:last-child{border-bottom:none}
+  .task-num{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--muted);padding-top:2px}
+  .task-content h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .task-content p{font-size:13px;color:var(--dim);line-height:1.65;margin-bottom:8px}
+  .task-content p:last-child{margin-bottom:0}
+
+  /* File chips */
+  .files{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .file{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--inset);color:var(--dim);padding:3px 10px;border-radius:var(--rx);border:1px solid var(--border)}
+
+  /* Priority tag */
+  .ptag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:var(--rx);white-space:nowrap}
+  .ptag-c{background:var(--red-d);color:var(--red)}
+  .ptag-i{background:var(--orange-d);color:var(--orange)}
+  .ptag-p{background:var(--blue-d);color:var(--blue)}
+
+  /* Dependency callout */
+  .dep{background:var(--inset);border-left:3px solid var(--orange);border-radius:0 var(--rx) var(--rx) 0;padding:10px 14px;margin:8px 0;font-size:12px;color:var(--dim);line-height:1.6}
+  .dep strong{color:var(--text)}
+
+  /* Risk */
+  .risk{background:var(--inset);border-left:3px solid var(--red);border-radius:0 var(--rx) var(--rx) 0;padding:10px 14px;margin:8px 0;font-size:12px;color:var(--dim);line-height:1.6}
+  .risk strong{color:var(--text)}
+
+  /* Phase separator */
+  .phase-sep{display:flex;align-items:center;gap:16px;padding:32px 0 8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .phase-sep::after{content:'';flex:1;height:1px;background:var(--border)}
+
+  /* Gantt-like timeline */
+  .timeline-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:32px}
+  .tl-week{text-align:center}
+  .tl-label{font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:500}
+  .tl-bar{height:8px;border-radius:4px;background:var(--border)}
+  .tl-bar.active-1{background:var(--red)}
+  .tl-bar.active-2{background:var(--orange)}
+  .tl-bar.active-3{background:var(--blue)}
+  .tl-bar.active-4{background:var(--purple)}
+
+  code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--inset);padding:2px 6px;border-radius:4px;color:var(--accent)}
+
+  .footer{padding:48px 0;text-align:center;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <span class="brand">Umsetzungsplan</span>
+    <a href="#timeline">Timeline</a>
+    <a href="#sprint1">Sprint 1</a>
+    <a href="#sprint2">Sprint 2</a>
+    <a href="#sprint3">Sprint 3</a>
+    <a href="#sprint4">Sprint 4</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="hero-eyebrow">Design-Critique 2026-04-14 &rarr; Umsetzung</div>
+  <h1>Umsetzungsplan:<br>13 Fixes in 4 Sprints +<br>Redesign-Entwurf</h1>
+  <p class="hero-sub">Erst alle Fixes umsetzen (Sprint 1–3), dann Redesign-Richtung A „Kochbuch" als separaten Entwurf dokumentieren (Sprint 4). Keine visuelle Grundrichtung wird verändert — nur Qualität, Konsistenz und UX werden geschärft.</p>
+
+  <div class="overview">
+    <div class="ov-card">
+      <div class="ov-num">13</div>
+      <div class="ov-label">Fixes total</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-num">4</div>
+      <div class="ov-label">Sprints</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-num">18</div>
+      <div class="ov-label">Dateien betroffen</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-num">~4 Wo.</div>
+      <div class="ov-label">Zeitrahmen</div>
+    </div>
+  </div>
+</header>
+
+<!-- ━━ TIMELINE ━━ -->
+<section class="section" id="timeline">
+  <div class="section-label">Übersicht</div>
+  <h2>Timeline &amp; Sprints</h2>
+  <p class="section-desc">Jeder Sprint endet mit Review + Build-Check (<code>npm run build</code>). Sprint 4 ist rein konzeptionell.</p>
+
+  <div class="timeline-bar">
+    <div class="tl-week">
+      <div class="tl-label">Woche 1</div>
+      <div class="tl-bar active-1"></div>
+    </div>
+    <div class="tl-week">
+      <div class="tl-label">Woche 2</div>
+      <div class="tl-bar active-2"></div>
+    </div>
+    <div class="tl-week">
+      <div class="tl-label">Woche 3</div>
+      <div class="tl-bar active-2"></div>
+    </div>
+    <div class="tl-week">
+      <div class="tl-label">Woche 4</div>
+      <div class="tl-bar active-3"></div>
+    </div>
+    <div class="tl-week">
+      <div class="tl-label">Woche 5</div>
+      <div class="tl-bar active-4"></div>
+    </div>
+  </div>
+
+  <div class="overview" style="grid-template-columns:repeat(4,1fr)">
+    <div class="ov-card" style="border-left:3px solid var(--red)">
+      <div class="ov-num" style="font-size:16px;color:var(--red)">Sprint 1</div>
+      <div class="ov-label">Critical — Woche 1</div>
+      <div style="font-size:13px;color:var(--dim);margin-top:8px">3 Fixes: Startseite kürzen, Card-States, innerHTML</div>
+    </div>
+    <div class="ov-card" style="border-left:3px solid var(--orange)">
+      <div class="ov-num" style="font-size:16px;color:var(--orange)">Sprint 2</div>
+      <div class="ov-label">Important — Woche 2–3</div>
+      <div style="font-size:13px;color:var(--dim);margin-top:8px">5 Fixes: Breakpoints, Amber-CTAs, Hero, Tokens, Line-Heights</div>
+    </div>
+    <div class="ov-card" style="border-left:3px solid var(--blue)">
+      <div class="ov-num" style="font-size:16px;color:var(--blue)">Sprint 3</div>
+      <div class="ov-label">Polish — Woche 4</div>
+      <div style="font-size:13px;color:var(--dim);margin-top:8px">5 Fixes: Divider, Shadows, Newsletter, 404, Filter</div>
+    </div>
+    <div class="ov-card" style="border-left:3px solid var(--purple)">
+      <div class="ov-num" style="font-size:16px;color:var(--purple)">Sprint 4</div>
+      <div class="ov-label">Entwurf — Woche 5</div>
+      <div style="font-size:13px;color:var(--dim);margin-top:8px">Redesign A „Kochbuch" als Konzept-Dokument (keine Code-Änderungen)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ SPRINT 1 ━━ -->
+<section class="section" id="sprint1">
+  <div class="phase-sep">Sprint 1 — Critical Fixes</div>
+
+  <div class="sprint open">
+    <div class="sprint-header" tabindex="0" role="button" aria-expanded="true">
+      <div class="sprint-left">
+        <span class="sprint-id sprint-1-id">SPRINT 1</span>
+        <span class="sprint-name">Critical Fixes — Woche 1</span>
+      </div>
+      <div class="sprint-meta">
+        <span>3 Fixes</span>
+        <span>~12 Dateien</span>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="sprint-body">
+      <div class="task-list">
+
+        <!-- Fix #1 -->
+        <div class="task">
+          <span class="task-num">#01</span>
+          <div class="task-content">
+            <h4><span class="ptag ptag-c">Critical</span> Startseite auf ~2 Scroll-Screens kürzen</h4>
+            <p><strong>Was:</strong> Die Startseite (<code>index.html</code>) hat 13 Sektionen und 12–15 Scroll-Screens auf Mobile. Laut Spec sollen es max. 2 sein. Wir reduzieren auf: Hero → 3 Workshop-Cards → Kurztext Über uns → Kontakt/Newsletter.</p>
+            <p><strong>Wie:</strong></p>
+            <p>1. Workshop-Cards von 6 auf 3 reduzieren (die neuesten behalten). „Alle Workshops anzeigen"-Link zu <code>/workshops/</code> ergänzen.</p>
+            <p>2. Sektionen <code>#schwerpunkte</code> (Values, Zeile 412–454), <code>#mitmachen</code> (Zeile 456–498) und <code>#aktuelles</code> (Zeile 500–537) aus index.html entfernen. Inhalte bleiben auf ihren Subpages (<code>/projekt/</code>, <code>/aktuelles/</code>) erhalten.</p>
+            <p>3. <code>#transparenz</code>-Section (Zeile 539–654) entfernen — Inhalt existiert unter <code>/transparenz/</code>.</p>
+            <p>4. Navigation-Ankerlinks anpassen: <code>#schwerpunkte</code>, <code>#mitmachen</code>, <code>#aktuelles</code> → auf Subpage-Links umbiegen.</p>
+            <p>5. Leaf-Divider zwischen entfernten Sektionen mitentfernen.</p>
+            <div class="risk"><strong>Risiko:</strong> Ankerlinks in der Navigation (<code>#projekt</code>, <code>#workshops</code> etc.) brechen, wenn Sektionen entfernt werden. Alle nav-Links prüfen — sowohl desktop als auch mobile-nav.</div>
+            <div class="dep"><strong>Abhängigkeit:</strong> Navigation-Items in header und mobile-nav müssen synchron aktualisiert werden (auch in allen Subpage-Templates die Handlebars-Partials nutzen).</div>
+            <div class="files">
+              <span class="file">index.html</span>
+              <span class="file">css/layout.css (nav)</span>
+              <span class="file">workshops/index.html (verify)</span>
+              <span class="file">projekt/index.html (verify)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fix #2 -->
+        <div class="task">
+          <span class="task-num">#02</span>
+          <div class="task-content">
+            <h4><span class="ptag ptag-c">Critical</span> Workshop-Card-States visuell differenzieren</h4>
+            <p><strong>Was:</strong> Alle 6 Cards haben <code>is-sold-out</code> mit identischem Opacity-Drop (0.75). Kein Unterschied zwischen „vergangen" und „Warteliste möglich".</p>
+            <p><strong>Wie:</strong> Drei Zustände in CSS definieren:</p>
+            <p><strong>a) Buchbar</strong> (<code>.workshop-card</code> ohne Modifier): Volle Farbe, grüner CTA „Platz reservieren".</p>
+            <p><strong>b) Ausgebucht + Warteliste</strong> (<code>.workshop-card.is-sold-out.has-waitlist</code>): Card bei voller Opacity. Amber-Warteliste-Badge statt rotem „Ausgebucht"-Tag. <code>.waitlist-btn</code> als funktionaler CTA.</p>
+            <p><strong>c) Vergangen</strong> (<code>.workshop-card.is-past</code>): Bild entsättigt (<code>filter: grayscale(40%)</code>). Opacity 0.65. Kein CTA. Optional: „Fotos ansehen"-Link falls Galerie existiert.</p>
+            <p>In <code>index.html</code> die 6 Cards entsprechend markieren: die vergangenen (Feb/Mär) bekommen <code>is-past</code>, die mit Warteliste bekommen <code>has-waitlist</code>.</p>
+            <div class="files">
+              <span class="file">css/components.css (Z. 1159–1245)</span>
+              <span class="file">index.html (6 Cards)</span>
+              <span class="file">workshops/index.html (Cards)</span>
+              <span class="file">css/pages.css (filter empty state)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fix #3 -->
+        <div class="task">
+          <span class="task-num">#03</span>
+          <div class="task-content">
+            <h4><span class="ptag ptag-c">Critical</span> innerHTML in injectMobileUtilitySwitches durch createElement ersetzen</h4>
+            <p><strong>Was:</strong> <code>js/main.js</code> Zeile 17 nutzt <code>wrap.innerHTML</code> mit Template-Literal. Widerspricht dem eigenen Sicherheitsstandard (alle anderen DOM-Operationen nutzen <code>createElement</code>/<code>textContent</code>).</p>
+            <p><strong>Wie:</strong> Die gesamte Funktion <code>injectMobileUtilitySwitches()</code> (Zeile 7–40) refactoren: Jeden Button und Container via <code>document.createElement()</code> aufbauen, Attribute via <code>setAttribute()</code> setzen, Text via <code>textContent</code>.</p>
+            <p>Gleiche Logik wie die bestehende <code>createSuccessMessage()</code>-Funktion (Zeile 437–461) als Muster verwenden.</p>
+            <div class="files">
+              <span class="file">js/main.js (Z. 7–40)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ SPRINT 2 ━━ -->
+<section class="section" id="sprint2">
+  <div class="phase-sep">Sprint 2 — Important Fixes</div>
+
+  <div class="sprint">
+    <div class="sprint-header" tabindex="0" role="button" aria-expanded="false">
+      <div class="sprint-left">
+        <span class="sprint-id sprint-2-id">SPRINT 2</span>
+        <span class="sprint-name">Important Fixes — Woche 2–3</span>
+      </div>
+      <div class="sprint-meta">
+        <span>5 Fixes</span>
+        <span>~8 Dateien</span>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="sprint-body">
+      <div class="task-list">
+
+        <!-- Fix #4 -->
+        <div class="task">
+          <span class="task-num">#04</span>
+          <div class="task-content">
+            <h4><span class="ptag ptag-i">Important</span> Breakpoint-System bereinigen (5 → 3)</h4>
+            <p><strong>Was:</strong> 5 verschiedene Breakpoints (640, 768, 900, 960, 1024px) ohne Systematik.</p>
+            <p><strong>Wie:</strong></p>
+            <p>1. <code>768px</code>-Breakpoints (layout.css Z. 11, 189, 688 + components.css Z. 486, 999, 1075, 1135) → auf <code>640px</code> vereinheitlichen.</p>
+            <p>2. <code>900px</code>-Breakpoints (pages.css Z. 123, 232) → auf <code>960px</code> ändern.</p>
+            <p>3. Verbleibendes System: <code>640px</code> (mobile→tablet), <code>960px</code> (tablet→desktop), <code>1024px</code> (nav-only).</p>
+            <p>4. Als Kommentar in <code>tokens.css</code> dokumentieren.</p>
+            <div class="dep"><strong>Reihenfolge:</strong> Vor Amber-CTAs und Hero-Umbau machen — Breakpoint-Änderungen beeinflussen Layout-Tests.</div>
+            <div class="files">
+              <span class="file">css/layout.css (3 Stellen)</span>
+              <span class="file">css/components.css (4 Stellen)</span>
+              <span class="file">css/pages.css (2 Stellen)</span>
+              <span class="file">css/tokens.css (Dokumentation)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fix #5 -->
+        <div class="task">
+          <span class="task-num">#05</span>
+          <div class="task-content">
+            <h4><span class="ptag ptag-i">Important</span> Amber als Handlungsfarbe etablieren</h4>
+            <p><strong>Was:</strong> Primäre CTAs nutzen <code>.btn-green</code> oder <code>.btn-primary</code> (weiß). <code>#FFBF00</code> Amber wird nur als Focus-Ring und Akzent eingesetzt — die kraftvollste Farbe im System wird verschenkt.</p>
+            <p><strong>Wie:</strong></p>
+            <p>1. Neue Button-Variante <code>.btn-amber</code> erstellen: <code>background: var(--color-amber)</code>, <code>color: var(--color-dark-green)</code>, Hover mit <code>var(--color-soft-gold)</code>.</p>
+            <p>2. Alle primären Handlungs-CTAs umstellen: „Nächsten Workshop entdecken" (Hero), „Platz reservieren" (Cards), „Auf Warteliste" (Waitlist), Newsletter-Submit.</p>
+            <p>3. <code>.btn-green</code> für sekundäre/informative CTAs behalten: „Was uns wichtig ist", „Kontakt aufnehmen".</p>
+            <p>4. Kontrastprüfung: <code>#FFBF00</code> auf <code>#1B5E20</code> (Text) = 5.7:1 ✓ AA. <code>#FFBF00</code> auf <code>#FFFDF5</code> (Hintergrund) — als Button-Background auf hellem Grund prüfen.</p>
+            <div class="risk"><strong>Risiko:</strong> Amber auf hellem Hintergrund kann Kontrast-Probleme verursachen. Lösung: Amber-Buttons immer mit dunklem Text (<code>--color-dark-green</code>) und leichtem Schatten.</div>
+            <div class="files">
+              <span class="file">css/components.css (neuer .btn-amber)</span>
+              <span class="file">index.html (CTA-Klassen)</span>
+              <span class="file">workshops/**/index.html (CTAs)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fix #6 -->
+        <div class="task">
+          <span class="task-num">#06</span>
+          <div class="task-content">
+            <h4><span class="ptag ptag-i">Important</span> Hero-Hintergrund überarbeiten</h4>
+            <p><strong>Was:</strong> Gradient + morphBlob-Animation spricht Tech-Startup-Sprache. Für eine Community-Küche deplatziert.</p>
+            <p><strong>Wie:</strong></p>
+            <p>1. Hero-Foto aus dem Workshop-Archiv wählen (z.B. <code>IMG_7512.jpg</code> — Gemeinschaftskochen). Als <code>.hero-bg img</code> einsetzen mit <code>object-fit: cover</code>.</p>
+            <p>2. Warm-toned Overlay: <code>linear-gradient(to bottom, rgba(27,94,32,0.75), rgba(26,26,20,0.6))</code>.</p>
+            <p>3. <code>.hero-bg-pattern</code> und <code>::before</code>/<code>::after</code> Blobs entfernen (layout.css Z. 542–572).</p>
+            <p>4. <code>@keyframes morphBlob</code> aus animations.css entfernen (Z. 4–9).</p>
+            <p>5. <code>.section-green</code>-Hintergrund (Values-Section auf Subpages) beibehalten — nur den Hero umbauen.</p>
+            <div class="dep"><strong>Abhängigkeit:</strong> Bild muss ausreichend groß sein (min. 1600px breit). Lazy-Loading NICHT für Hero-Bild verwenden (above the fold).</div>
+            <div class="files">
+              <span class="file">index.html (Hero-Section Z. 117–140)</span>
+              <span class="file">css/layout.css (Z. 528–572)</span>
+              <span class="file">css/animations.css (Z. 4–9)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fix #7 -->
+        <div class="task">
+          <span class="task-num">#07</span>
+          <div class="task-content">
+            <h4><span class="ptag ptag-i">Important</span> Token-Inkonsistenzen bereinigen</h4>
+            <p><strong>Was:</strong> <code>--color-primary-green</code> wird referenziert (layout.css Z. 506, 512), existiert aber nicht in <code>tokens.css</code>. <code>#245C1A</code> hardcoded in Hero-Gradient (Z. 546) und section-green (Z. 648). 3 fast identische Hintergrundtöne.</p>
+            <p><strong>Wie:</strong></p>
+            <p>1. Neuen Token <code>--color-forest-mid: #245C1A</code> in tokens.css deklarieren. Hardcoded Werte ersetzen.</p>
+            <p>2. <code>var(--color-primary-green, #1B5E20)</code> → <code>var(--color-dark-green)</code> ersetzen (das Alias entfernen).</p>
+            <p>3. Hintergrundtöne von 3 auf 2 reduzieren: <code>--color-white: #FFFDF5</code> (Cards/Sections) und <code>--color-off-white: #FAFAF5</code> (Body). <code>--color-cream: #FDFBD4</code> beibehalten (nur für hervorgehobene Bereiche).</p>
+            <div class="files">
+              <span class="file">css/tokens.css</span>
+              <span class="file">css/layout.css (2 Stellen)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fix #8 -->
+        <div class="task">
+          <span class="task-num">#08</span>
+          <div class="task-content">
+            <h4><span class="ptag ptag-i">Important</span> Line-Height auf 2 Werte beschränken</h4>
+            <p><strong>Was:</strong> 4 verschiedene Line-Heights (1.55, 1.6, 1.65, 1.7) ohne gestalterisches Ziel.</p>
+            <p><strong>Wie:</strong> Alle Instanzen von <code>line-height: 1.55</code> (components.css Z. 329, pages.css Z. 170, 272, 319), <code>1.6</code> (layout.css Z. 795), <code>1.7</code> (layout.css Z. 620) → auf <code>var(--line-height-body)</code> (1.65) vereinheitlichen. Nur <code>1.25</code> für Headings und <code>1.65</code> für Body.</p>
+            <div class="files">
+              <span class="file">css/layout.css (2 Stellen)</span>
+              <span class="file">css/components.css (1 Stelle)</span>
+              <span class="file">css/pages.css (3 Stellen)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ SPRINT 3 ━━ -->
+<section class="section" id="sprint3">
+  <div class="phase-sep">Sprint 3 — Polish Fixes</div>
+
+  <div class="sprint">
+    <div class="sprint-header" tabindex="0" role="button" aria-expanded="false">
+      <div class="sprint-left">
+        <span class="sprint-id sprint-3-id">SPRINT 3</span>
+        <span class="sprint-name">Polish Fixes — Woche 4</span>
+      </div>
+      <div class="sprint-meta">
+        <span>5 Fixes</span>
+        <span>~10 Dateien</span>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="sprint-body">
+      <div class="task-list">
+
+        <!-- Fix #9 -->
+        <div class="task">
+          <span class="task-num">#09</span>
+          <div class="task-content">
+            <h4><span class="ptag ptag-p">Polish</span> Leaf-Divider auf 48–64px vergrößern</h4>
+            <p><strong>Was:</strong> Die SVG-Divider sind 28×28px bei <code>opacity: 0.7</code> — unter dem Wahrnehmungs-Minimum.</p>
+            <p><strong>Wie:</strong> In <code>components.css</code> (Z. 83–104): SVG-Größe auf <code>48px</code>, Linien-Breite auf <code>80px</code>, Opacity auf <code>0.85</code>. In <code>index.html</code>: SVG-<code>width</code>/<code>height</code>-Attribute auf 48 setzen. ViewBox beibehalten.</p>
+            <div class="files">
+              <span class="file">css/components.css (Z. 83–104)</span>
+              <span class="file">index.html (Divider-Instanzen)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fix #10 -->
+        <div class="task">
+          <span class="task-num">#10</span>
+          <div class="task-content">
+            <h4><span class="ptag ptag-p">Polish</span> Card-Elevation-System schärfen</h4>
+            <p><strong>Was:</strong> Workshop-Cards starten bei <code>--shadow-card</code> (mittlere Elevation). Hover hebt auf <code>--shadow-elevated</code> — der Sprung ist zu gering.</p>
+            <p><strong>Wie:</strong> In <code>components.css</code> Z. 131: <code>box-shadow: var(--shadow-soft)</code> statt <code>-card</code>. Z. 141 Hover: <code>var(--shadow-card)</code> statt <code>-elevated</code>. Gleiche Logik für <code>.involve-card</code>, <code>.news-card</code>, <code>.download-card</code>.</p>
+            <div class="files">
+              <span class="file">css/components.css (4 Komponenten)</span>
+              <span class="file">css/pages.css (news-card)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fix #11 -->
+        <div class="task">
+          <span class="task-num">#11</span>
+          <div class="task-content">
+            <h4><span class="ptag ptag-p">Polish</span> Newsletter-Label visuell an Input binden</h4>
+            <p><strong>Was:</strong> Bei Flex-Row (≥480px) steht das Label optisch zu weit vom Input.</p>
+            <p><strong>Wie:</strong> Newsletter-Form in <code>&lt;fieldset&gt;</code> wrappen. Label mit <code>for</code>-Attribut direkt über dem Input positionieren (stacked), auch bei Flex-Row. Alternative: Label als Floating-Label innerhalb des Inputs.</p>
+            <div class="files">
+              <span class="file">index.html (Newsletter-Section)</span>
+              <span class="file">css/components.css (Z. 392–459)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fix #12 -->
+        <div class="task">
+          <span class="task-num">#12</span>
+          <div class="task-content">
+            <h4><span class="ptag ptag-p">Polish</span> 404-Seite erstellen</h4>
+            <p><strong>Was:</strong> Keine 404.html vorhanden. Kein Eintrag in <code>vite.config.js</code>.</p>
+            <p><strong>Wie:</strong></p>
+            <p>1. <code>404.html</code> erstellen mit: Logo, Leaf-Divider-Illustration (groß!), Headline „Seite nicht gefunden", Telefonnummer als Kontakt-Fallback, „Zurück zur Startseite"-Button.</p>
+            <p>2. In <code>vite.config.js</code> als Entry-Point hinzufügen.</p>
+            <p>3. Falls Hostinger-Hosting: <code>.htaccess</code>-Redirect auf 404.html prüfen.</p>
+            <div class="files">
+              <span class="file">404.html (neu)</span>
+              <span class="file">vite.config.js</span>
+              <span class="file">.htaccess (prüfen)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fix #13 -->
+        <div class="task">
+          <span class="task-num">#13</span>
+          <div class="task-content">
+            <h4><span class="ptag ptag-p">Polish</span> Workshop-Filter um Datum/Verfügbarkeit erweitern</h4>
+            <p><strong>Was:</strong> Filter nur nach Standort. Die relevanteste Dimension — Datum/Verfügbarkeit — fehlt.</p>
+            <p><strong>Wie:</strong></p>
+            <p>1. In <code>js/filter.js</code>: Zweite Filter-Dimension <code>data-status</code> unterstützen. Werte: <code>kommend</code>, <code>vergangen</code>, <code>warteliste</code>.</p>
+            <p>2. In <code>workshops/index.html</code>: Filter-Chips „Kommende", „Vergangene", „Warteliste" vor dem Standort-Filter ergänzen.</p>
+            <p>3. Auf Workshop-Cards <code>data-status="vergangen"</code> etc. setzen.</p>
+            <p>4. Default-Filter: „Kommende" aktiv, damit vergangene Workshops nicht sofort sichtbar sind.</p>
+            <div class="dep"><strong>Abhängigkeit:</strong> Fix #02 (Card-States) muss zuerst umgesetzt sein — die Status-Klassen werden hier als Filter-Kriterium wiederverwendet.</div>
+            <div class="files">
+              <span class="file">js/filter.js</span>
+              <span class="file">workshops/index.html</span>
+              <span class="file">css/pages.css (Filter-Chips)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ SPRINT 4 ━━ -->
+<section class="section" id="sprint4">
+  <div class="phase-sep">Sprint 4 — Redesign-Entwurf</div>
+
+  <div class="sprint">
+    <div class="sprint-header" tabindex="0" role="button" aria-expanded="false">
+      <div class="sprint-left">
+        <span class="sprint-id sprint-4-id">SPRINT 4</span>
+        <span class="sprint-name">Redesign A „Kochbuch" — Entwurf (Woche 5)</span>
+      </div>
+      <div class="sprint-meta">
+        <span>Konzept-Only</span>
+        <span>Kein Code</span>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="sprint-body">
+      <div class="task-list">
+
+        <div class="task">
+          <span class="task-num">A1</span>
+          <div class="task-content">
+            <h4><span class="ptag" style="background:var(--purple-d);color:var(--purple)">Entwurf</span> Moodboard &amp; visuelle Referenzen</h4>
+            <p>Sammlung von 8–12 Referenzbildern: Community-Kochbücher, Editorial-Food-Photography, Handschrift-Typografie, warme Texturen. Als HTML-Moodboard mit Annotationen.</p>
+          </div>
+        </div>
+
+        <div class="task">
+          <span class="task-num">A2</span>
+          <div class="task-content">
+            <h4><span class="ptag" style="background:var(--purple-d);color:var(--purple)">Entwurf</span> Token-Überarbeitung „Kochbuch"</h4>
+            <p>Neues Token-Set: Cream-dominante Hintergründe, Green nur für Text/Akzente, Amber für alle CTAs. Reduzierte Schriftschnitte. Neue Spacing-Werte. Als <code>tokens-kochbuch.css</code>-Entwurf.</p>
+          </div>
+        </div>
+
+        <div class="task">
+          <span class="task-num">A3</span>
+          <div class="task-content">
+            <h4><span class="ptag" style="background:var(--purple-d);color:var(--purple)">Entwurf</span> Illustrationssystem-Konzept</h4>
+            <p>Dokumentation, wie die Hand-drawn Food-Illustrationen skaliert werden: als Section-Trenner (volle Breite), Card-Dekoration, Empty-States, Hero-Collage. SVG-Richtlinien für Strichstärke, Stil, Farbe.</p>
+          </div>
+        </div>
+
+        <div class="task">
+          <span class="task-num">A4</span>
+          <div class="task-content">
+            <h4><span class="ptag" style="background:var(--purple-d);color:var(--purple)">Entwurf</span> Startseiten-Mockup als statisches HTML</h4>
+            <p>Einzelne <code>redesign-a-mockup.html</code> — die Startseite im „Kochbuch"-Stil als visueller Prototyp. Nicht für Production, nur zur Entscheidungsfindung. Enthält: Hero mit Foto, horizontale Workshop-Cards, warme Sektionswechsel, große Illustrationen.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <p>Umsetzungsplan — Design-Critique 2026-04-14 — Gemeinsam Kochen – Gemeinsam Wachsen</p>
+</footer>
+
+<script>
+document.querySelectorAll('.sprint-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const sprint = header.closest('.sprint');
+    sprint.classList.toggle('open');
+    header.setAttribute('aria-expanded', sprint.classList.contains('open'));
+  });
+  header.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); header.click(); }
+  });
+});
+
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.topnav a[href^="#"]');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.topnav a[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-72px 0px -60% 0px', threshold: 0 });
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

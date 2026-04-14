@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Critique — Gemeinsam Kochen</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0F0F0F;
+    --bg-card: #1A1A1A;
+    --bg-card-hover: #1F1F1F;
+    --bg-inset: #141414;
+    --border: rgba(255,255,255,0.06);
+    --border-mid: rgba(255,255,255,0.1);
+    --text: rgba(255,255,255,0.88);
+    --text-dim: rgba(255,255,255,0.5);
+    --text-muted: rgba(255,255,255,0.35);
+    --accent: #FFBF00;
+    --accent-dim: rgba(255,191,0,0.12);
+    --green: #4ADE80;
+    --green-dim: rgba(74,222,128,0.1);
+    --red: #F87171;
+    --red-dim: rgba(248,113,113,0.1);
+    --orange: #FB923C;
+    --orange-dim: rgba(251,146,60,0.1);
+    --blue: #60A5FA;
+    --blue-dim: rgba(96,165,250,0.1);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-xs: 6px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── STICKY NAV ── */
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15,15,15,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .topnav-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    height: 56px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .topnav-inner::-webkit-scrollbar { display: none; }
+  .topnav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .topnav a:hover, .topnav a.active {
+    color: var(--text);
+    border-bottom-color: var(--accent);
+  }
+  .topnav .brand {
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+  }
+
+  /* ── LAYOUT ── */
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 80px 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ── SCORE RING ── */
+  .score-overview {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 40px;
+    align-items: center;
+    padding: 32px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  @media (max-width: 640px) {
+    .score-overview { grid-template-columns: 1fr; text-align: center; }
+  }
+  .ring-wrap {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+  }
+  .ring-wrap svg { transform: rotate(-90deg); }
+  .ring-bg { fill: none; stroke: var(--border-mid); stroke-width: 10; }
+  .ring-fill { fill: none; stroke: var(--accent); stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+  .ring-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .ring-score { font-size: 36px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+  .ring-max { font-size: 13px; color: var(--text-muted); }
+  .score-text h2 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .score-text p { color: var(--text-dim); font-size: 14px; line-height: 1.6; }
+
+  /* ── SECTION ── */
+  .section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .section h2 {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+
+  /* ── HEURISTIC CARDS ── */
+  .heuristic-grid {
+    display: grid;
+    gap: 12px;
+  }
+  .heuristic {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+  .heuristic:hover { background: var(--bg-card-hover); }
+  .heuristic-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .heuristic-header:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--radius); }
+  .heuristic-left { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; }
+  .h-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--bg-inset);
+    padding: 4px 8px;
+    border-radius: var(--radius-xs);
+    flex-shrink: 0;
+  }
+  .h-name { font-weight: 600; font-size: 14px; color: var(--text); }
+  .h-score-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: var(--radius-xs);
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+  .score-high { background: var(--green-dim); color: var(--green); }
+  .score-mid { background: var(--orange-dim); color: var(--orange); }
+  .score-low { background: var(--red-dim); color: var(--red); }
+  .chevron {
+    width: 20px; height: 20px; flex-shrink: 0; margin-left: 8px;
+    color: var(--text-muted);
+    transition: transform 0.25s ease;
+  }
+  .heuristic.open .chevron { transform: rotate(180deg); }
+  .heuristic-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .heuristic.open .heuristic-body { max-height: 2000px; }
+  .heuristic-content {
+    padding: 0 20px 20px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-dim);
+  }
+  .heuristic-content strong { color: var(--text); font-weight: 600; }
+  .heuristic-content p { margin-bottom: 12px; }
+  .heuristic-content p:last-child { margin-bottom: 0; }
+  .callout {
+    background: var(--bg-inset);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .callout.callout-red { border-left-color: var(--red); }
+  .callout.callout-green { border-left-color: var(--green); }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: var(--bg-inset);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--accent);
+  }
+
+  /* ── ANALYSIS CARDS ── */
+  .analysis-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .analysis-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .analysis-card h3 .h-score-badge { font-size: 12px; }
+  .analysis-card p { font-size: 14px; color: var(--text-dim); line-height: 1.7; margin-top: 12px; }
+  .analysis-card ul { margin: 12px 0 0 20px; font-size: 14px; color: var(--text-dim); line-height: 1.8; }
+  .analysis-card li { margin-bottom: 4px; }
+
+  /* ── FIX LIST ── */
+  .fix-list { display: grid; gap: 10px; }
+  .fix {
+    display: grid;
+    grid-template-columns: 40px 80px 1fr;
+    gap: 12px;
+    align-items: start;
+    padding: 16px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  @media (max-width: 560px) {
+    .fix { grid-template-columns: 1fr; }
+  }
+  .fix-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+  .fix-priority {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border-radius: var(--radius-xs);
+    text-align: center;
+    white-space: nowrap;
+  }
+  .priority-critical { background: var(--red-dim); color: var(--red); }
+  .priority-important { background: var(--orange-dim); color: var(--orange); }
+  .priority-polish { background: var(--blue-dim); color: var(--blue); }
+  .fix-text { color: var(--text-dim); }
+  .fix-text strong { color: var(--text); }
+
+  /* ── REDESIGN DIRECTIONS ── */
+  .directions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 768px) {
+    .directions-grid { grid-template-columns: 1fr; }
+  }
+  .direction {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    transition: border-color 0.2s;
+  }
+  .direction:hover { border-color: var(--border-mid); }
+  .direction-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .direction h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .direction .direction-sub {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+  .direction ul {
+    margin: 0 0 16px 18px;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+  .direction li { margin-bottom: 4px; }
+  .direction-meta {
+    display: flex;
+    gap: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .direction-meta > div { flex: 1; }
+  .direction-meta .meta-label { color: var(--text-muted); margin-bottom: 2px; font-weight: 500; }
+  .direction-meta .meta-value { color: var(--text); font-weight: 600; }
+
+  /* ── SCORE TABLE ── */
+  .score-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .score-table th {
+    text-align: left;
+    padding: 10px 16px;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border-mid);
+  }
+  .score-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+  .score-table td:first-child { color: var(--text); font-weight: 500; }
+  .score-table tr:last-child td { border-bottom: none; }
+  .score-bar-cell { width: 140px; }
+  .score-bar-wrap {
+    width: 100%;
+    height: 6px;
+    background: var(--bg-inset);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .score-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.8s ease;
+  }
+  .score-bar.bar-green { background: var(--green); }
+  .score-bar.bar-orange { background: var(--orange); }
+  .score-bar.bar-red { background: var(--red); }
+
+  .footer {
+    padding: 48px 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- ━━ NAVIGATION ━━ -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <span class="brand">Design Critique</span>
+    <a href="#heuristiken">Heuristiken</a>
+    <a href="#visuell">Visuell</a>
+    <a href="#ux">UX &amp; A11y</a>
+    <a href="#strategie">Strategie</a>
+    <a href="#fixes">Fixes</a>
+    <a href="#redesign">Redesign</a>
+    <a href="#scores">Scores</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ━━ HERO ━━ -->
+<header class="hero">
+  <div class="hero-eyebrow">Apple Design Director — Perspektive</div>
+  <h1>Design Critique:<br>„Gemeinsam Kochen –<br>Gemeinsam Wachsen"</h1>
+  <div class="hero-meta">
+    <span><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> 14. April 2026</span>
+    <span><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg> 14 Seiten, 6 CSS-Dateien, 2 JS-Module</span>
+    <span><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Nielsens Heuristiken + WCAG 2.1 AA</span>
+  </div>
+
+  <!-- SCORE RING -->
+  <div class="score-overview">
+    <div class="ring-wrap">
+      <svg width="140" height="140" viewBox="0 0 140 140">
+        <circle class="ring-bg" cx="70" cy="70" r="60"/>
+        <!-- 3.6/5 = 72% → circumference=377, dashoffset=377*(1-0.72)=105.6 -->
+        <circle class="ring-fill" cx="70" cy="70" r="60" stroke-dasharray="377" stroke-dashoffset="105.6"/>
+      </svg>
+      <div class="ring-label">
+        <span class="ring-score">3,6</span>
+        <span class="ring-max">von 5</span>
+      </div>
+    </div>
+    <div class="score-text">
+      <h2>Professionell, funktional — noch nicht unvergesslich</h2>
+      <p>Starkes technisches Fundament mit vorbildlicher Accessibility. Aber die visuelle Persönlichkeit fehlt: Die Seite leidet an „wohlmeinendem Template-Syndrom" — richtige Entscheidungen, die keine eigenständige Identität ergeben. Der emotionale Kern wird beschrieben, aber nicht fühlbar gemacht.</p>
+    </div>
+  </div>
+</header>
+
+<!-- ━━ TEIL 1: HEURISTIKEN ━━ -->
+<section class="section" id="heuristiken">
+  <div class="section-label">Teil 1</div>
+  <h2>Nielsens 10 Heuristiken</h2>
+
+  <div class="heuristic-grid">
+
+    <!-- H1 -->
+    <div class="heuristic">
+      <div class="heuristic-header" tabindex="0" role="button" aria-expanded="false">
+        <div class="heuristic-left">
+          <span class="h-id">H1</span>
+          <span class="h-name">Sichtbarkeit des Systemstatus</span>
+        </div>
+        <span class="h-score-badge score-high">4 / 5</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="heuristic-body"><div class="heuristic-content">
+        <div class="callout callout-green"><strong>Stark:</strong> Focus-Styles mit <code>outline: 3px solid var(--color-amber)</code> — konsistent, gut sichtbar. Toast-Notifications für Formular-Feedback. <code>aria-live="polite"</code> auf Filter-Status. Button-State „Wird gesendet…" während API-Calls.</div>
+        <div class="callout callout-red"><strong>Schwäche:</strong> Alle 6 Workshop-Cards zeigen „Ausgebucht" — kein visueller Unterschied zwischen „vorbei" und „Warteliste möglich". Der Opacity-Drop auf 0.75 ist zu subtil — das Auge findet keinen Anker.</div>
+        <p><strong>Beispiel:</strong> Ein 72-jähriger Senior scrollt durch 6 identisch wirkende Cards und versteht nicht, warum manche einen „Warteliste"-Button haben und andere nicht.</p>
+      </div></div>
+    </div>
+
+    <!-- H2 -->
+    <div class="heuristic">
+      <div class="heuristic-header" tabindex="0" role="button" aria-expanded="false">
+        <div class="heuristic-left">
+          <span class="h-id">H2</span>
+          <span class="h-name">Übereinstimmung mit der Realität</span>
+        </div>
+        <span class="h-score-badge score-high">4,5 / 5</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="heuristic-body"><div class="heuristic-content">
+        <div class="callout callout-green"><strong>Stark:</strong> Hervorragende Sprachwahl — „Nachbar*innen", „Begegnung beginnt am Kochtopf", Siez-Form. Leaf-Divider mit Hand-drawn SVGs (Brot, Kochtopf, Kräuter) sprechen die Food-Sprache.</div>
+        <div class="callout callout-red"><strong>Schwäche:</strong> Die <code>hero-bg-pattern</code> mit <code>morphBlob</code>-Animation spricht Tech-Startup-Sprache, keine Community-Küchen-Sprache. Organische CSS-Blobs sind ein 2022–2024-SaaS-Trend.</div>
+      </div></div>
+    </div>
+
+    <!-- H3 -->
+    <div class="heuristic">
+      <div class="heuristic-header" tabindex="0" role="button" aria-expanded="false">
+        <div class="heuristic-left">
+          <span class="h-id">H3</span>
+          <span class="h-name">Nutzerkontrolle und Freiheit</span>
+        </div>
+        <span class="h-score-badge score-high">4 / 5</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="heuristic-body"><div class="heuristic-content">
+        <div class="callout callout-green"><strong>Stark:</strong> Dialog-Close über ×-Button, Backdrop-Click und Escape-Key. Mobile-Nav schließt bei Link-Klick. Formular-Reset bei Dialog-Close. Font-Size-Switcher mit localStorage-Persistenz.</div>
+        <div class="callout callout-red"><strong>Schwäche:</strong> Kein „Zurück zu allen Workshops"-Link auf Detail-Seiten. Workshop-Detail-Templates nutzen Handlebars-Partials, die möglicherweise noch nicht vollständig gerendert vorliegen.</div>
+      </div></div>
+    </div>
+
+    <!-- H4 -->
+    <div class="heuristic">
+      <div class="heuristic-header" tabindex="0" role="button" aria-expanded="false">
+        <div class="heuristic-left">
+          <span class="h-id">H4</span>
+          <span class="h-name">Konsistenz und Standards</span>
+        </div>
+        <span class="h-score-badge score-mid">3,5 / 5</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="heuristic-body"><div class="heuristic-content">
+        <div class="callout callout-green"><strong>Stark:</strong> Token-System ist sauber. Spacing-Skala (xs→2xl) konsistent. Buttons folgen einheitlichem Schema.</div>
+        <p><strong>Schwächen:</strong></p>
+        <ul style="margin: 8px 0 0 20px; line-height: 1.8;">
+          <li>Inkonsistente Sektionierung: Workshops mit <code>role="group"</code>, Aktuelles ohne</li>
+          <li>3× <code>!important</code> in <code>.workshop-card-cta</code> — Spezifizitäts-Konflikte</li>
+          <li><code>var(--color-primary-green)</code> existiert nicht als Token, taucht aber als Fallback auf</li>
+          <li>Hardcoded <code>#245C1A</code> in Hero-Gradient ohne Token</li>
+          <li>5 verschiedene Breakpoints (640, 768, 900, 960, 1024px) ohne Systematik</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <!-- H5 -->
+    <div class="heuristic">
+      <div class="heuristic-header" tabindex="0" role="button" aria-expanded="false">
+        <div class="heuristic-left">
+          <span class="h-id">H5</span>
+          <span class="h-name">Fehlervermeidung</span>
+        </div>
+        <span class="h-score-badge score-high">4,5 / 5</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="heuristic-body"><div class="heuristic-content">
+        <div class="callout callout-green"><strong>Stark:</strong> Error-Summary (WCAG-Pattern), inline Validierung auf blur, Consent-Checkbox. XSS-Prevention durch <code>textContent</code>/<code>createElement</code>.</div>
+        <div class="callout callout-red"><strong>Schwäche:</strong> <code>innerHTML</code>-Nutzung in <code>injectMobileUtilitySwitches()</code> widerspricht dem eigenen Sicherheitsstandard.</div>
+      </div></div>
+    </div>
+
+    <!-- H6 -->
+    <div class="heuristic">
+      <div class="heuristic-header" tabindex="0" role="button" aria-expanded="false">
+        <div class="heuristic-left">
+          <span class="h-id">H6</span>
+          <span class="h-name">Wiedererkennung statt Erinnerung</span>
+        </div>
+        <span class="h-score-badge score-mid">3,5 / 5</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="heuristic-body"><div class="heuristic-content">
+        <div class="callout callout-green"><strong>Stark:</strong> Navigation mit 6 Items gut dimensioniert. Contact-Bar unter Hero wiederholt Telefon/E-Mail/Adresse.</div>
+        <div class="callout callout-red"><strong>Schwäche:</strong> Keine persistente CTA nach dem Hero. Auf Senioren-Geräten sind es 4–5 Scroll-Screens bis zur nächsten Handlungsaufforderung.</div>
+      </div></div>
+    </div>
+
+    <!-- H7 -->
+    <div class="heuristic">
+      <div class="heuristic-header" tabindex="0" role="button" aria-expanded="false">
+        <div class="heuristic-left">
+          <span class="h-id">H7</span>
+          <span class="h-name">Flexibilität und Effizienz</span>
+        </div>
+        <span class="h-score-badge score-mid">3,5 / 5</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="heuristic-body"><div class="heuristic-content">
+        <div class="callout callout-green"><strong>Stark:</strong> Font-Size-Switcher, Language-Switcher DE/EN, Keyboard-Navigation mit Focus-Trap.</div>
+        <div class="callout callout-red"><strong>Schwäche:</strong> Workshop-Filter nur nach Standort — kein Filter nach Datum oder Verfügbarkeit, der relevantesten Dimension.</div>
+      </div></div>
+    </div>
+
+    <!-- H8 -->
+    <div class="heuristic">
+      <div class="heuristic-header" tabindex="0" role="button" aria-expanded="false">
+        <div class="heuristic-left">
+          <span class="h-id">H8</span>
+          <span class="h-name">Ästhetik und minimalistisches Design</span>
+        </div>
+        <span class="h-score-badge score-low">3 / 5</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="heuristic-body"><div class="heuristic-content">
+        <p><strong>Das zentrale Problem.</strong> Zu viele gleichwertige Elemente pro Viewport:</p>
+        <ul style="margin: 8px 0 12px 20px; line-height: 1.8;">
+          <li><strong>Hero:</strong> Label-Pill + H1 + Description + 2 CTAs = 5 konkurrierende Elemente</li>
+          <li><strong>Workshop-Cards:</strong> 9 Informationseinheiten pro Card × 6 = 54 Datenpunkte in einer Section</li>
+          <li><strong>Value-Cards:</strong> 4 identische Karten — alles hervorgehoben = nichts hervorgehoben</li>
+        </ul>
+        <div class="callout callout-red"><strong>Faustregel verletzt:</strong> Wenn eine Workshop-Card auf 375px-Screen 1,5 Screens einnimmt, ist die Informationsdichte zu hoch.</div>
+      </div></div>
+    </div>
+
+    <!-- H9 -->
+    <div class="heuristic">
+      <div class="heuristic-header" tabindex="0" role="button" aria-expanded="false">
+        <div class="heuristic-left">
+          <span class="h-id">H9</span>
+          <span class="h-name">Hilfe bei Fehlern</span>
+        </div>
+        <span class="h-score-badge score-high">4,5 / 5</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="heuristic-body"><div class="heuristic-content">
+        <div class="callout callout-green"><strong>Stark:</strong> Error-Summary mit Links zu Feldern, individuelle Error-Messages, Toast mit Telefonnummer als Fallback, klare Sprache.</div>
+        <div class="callout callout-red"><strong>Schwäche:</strong> Kein expliziter 404-Handler erkennbar.</div>
+      </div></div>
+    </div>
+
+    <!-- H10 -->
+    <div class="heuristic">
+      <div class="heuristic-header" tabindex="0" role="button" aria-expanded="false">
+        <div class="heuristic-left">
+          <span class="h-id">H10</span>
+          <span class="h-name">Hilfe und Dokumentation</span>
+        </div>
+        <span class="h-score-badge score-low">3 / 5</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="heuristic-body"><div class="heuristic-content">
+        <div class="callout callout-red"><strong>Schwäche:</strong> Keine FAQ-Seite. Keine Erklärung, was bei einem Workshop passiert (Ablauf, was mitbringen, für wen geeignet). Card-Descriptions auf der Startseite zu knapp für Erstbesucher.</div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ━━ TEIL 2: VISUELL ━━ -->
+<section class="section" id="visuell">
+  <div class="section-label">Teil 2</div>
+  <h2>Visuelle Hierarchie, Typografie, Farbe</h2>
+
+  <div class="analysis-card">
+    <h3>Typografie <span class="h-score-badge score-high">4 / 5</span></h3>
+    <p><strong>Stark:</strong> Nunito (Display) + Atkinson Hyperlegible (Body) — kluge, zielgruppengerechte Wahl. Atkinson wurde für Sehbehinderungen entwickelt. Variable Font, Self-Hosted (DSGVO). Saubere <code>clamp()</code>-Fluid-Typography.</p>
+    <p><strong>Schwächen:</strong> 7 Größenstufen + 6 Large-Mode-Overrides — 4–5 mit klarem Verhältnis wären schärfer. Line-Height variiert minimal (1.55, 1.6, 1.65, 1.7) ohne erkennbares Ziel.</p>
+  </div>
+
+  <div class="analysis-card">
+    <h3>Farbe <span class="h-score-badge score-mid">3,5 / 5</span></h3>
+    <p><strong>Stark:</strong> Green-Palette mit guter Abstufung, AA-Kontrast bewusst justiert. Amber als kraftvoller Differenziator.</p>
+    <p><strong>Schwächen:</strong></p>
+    <ul>
+      <li><strong>Green-Dominanz:</strong> 7 Grün-Varianten — Abstufungen verschwimmen optisch</li>
+      <li><strong>Amber verschenkt:</strong> Die kraftvollste Farbe wird als Akzent versteckt statt als Handlungsfarbe eingesetzt</li>
+      <li><strong>3 Hintergrundtöne:</strong> #FDFBD4, #FAFAF5, #FFFDF5 — Unterschied auf Consumer-Displays nicht wahrnehmbar (ΔE &lt; 5)</li>
+    </ul>
+  </div>
+
+  <div class="analysis-card">
+    <h3>Visuelle Hierarchie <span class="h-score-badge score-low">3 / 5</span></h3>
+    <p><strong>Hauptproblem: Alles schwebt auf der gleichen Ebene.</strong> Cards starten bei <code>--shadow-card</code> (mittlere Elevation) — wohin bei Hover? Contact-Bar zwischen Hero und Content ohne visuelle Trennung. Leaf-Divider bei 28×28px und Opacity 0.7 fallen unter das Wahrnehmungs-Minimum.</p>
+  </div>
+</section>
+
+<!-- ━━ TEIL 3: UX ━━ -->
+<section class="section" id="ux">
+  <div class="section-label">Teil 3</div>
+  <h2>Kognitive Belastung, Accessibility, Interaktion</h2>
+
+  <div class="analysis-card">
+    <h3>Kognitive Belastung <span class="h-score-badge score-mid">3,5 / 5</span></h3>
+    <div class="callout callout-red" style="margin-top:12px"><strong>Spec-Verletzung:</strong> CLAUDE.md definiert „max 2 Scroll-Screens" für die Startseite. Aktuell: 13 Sektionen = 12–15 Scroll-Screens auf Mobile.</div>
+    <p><strong>Millers Gesetz:</strong> 6 Workshop-Cards, alle gleich gewichtet, alle ausgebucht — überlastet das Arbeitsgedächtnis. 3 Cards + „Alle anzeigen"-Link würden genügen.</p>
+  </div>
+
+  <div class="analysis-card">
+    <h3>WCAG 2.1 AA <span class="h-score-badge score-high">4 / 5</span></h3>
+    <p><strong>Bemerkenswert stark:</strong> Skip-Link, korrekte ARIA-Attribute, Focus-Trap, Error-Summary, <code>prefers-reduced-motion</code>, Touch-Targets ≥ 48px, Schema.org Microdata.</p>
+    <p><strong>Lücken:</strong></p>
+    <ul>
+      <li>Filter-Items: <code>display:none</code> ist technisch OK, aber fehlende ARIA-Kommunikation bricht das Muster</li>
+      <li>Inkonsistente <code>role</code>-Attribute zwischen Workshops und Aktuelles-Filtern</li>
+      <li>Newsletter-Input: visuelle Label-Zuordnung bei Flex-Row unklar</li>
+      <li>Hero-Description: <code>rgba(255,255,255,0.88)</code> auf Gradient — Edge-Case unter 4.5:1</li>
+    </ul>
+  </div>
+
+  <div class="analysis-card">
+    <h3>Interaktionsklarheit <span class="h-score-badge score-mid">3,5 / 5</span></h3>
+    <p><strong>Problem 1:</strong> Workshop-Cards haben <code>cursor: pointer</code> + klickbaren <code>&lt;a&gt;</code>-Wrapper, aber der CTA-Button darin ist <code>aria-hidden="true"</code> — sieht klickbar aus, ist dekorativ. Warum einen Button zeigen, der keiner ist?</p>
+    <p><strong>Problem 2:</strong> Sold-out-State mit Opacity 0.75 signalisiert „disabled", nicht „vergangen + Warteliste möglich". Graustufen oder Durchstreichen wären klarer.</p>
+  </div>
+</section>
+
+<!-- ━━ TEIL 4: STRATEGIE ━━ -->
+<section class="section" id="strategie">
+  <div class="section-label">Teil 4</div>
+  <h2>Strategische Passung &amp; Differenzierung</h2>
+
+  <div class="analysis-card">
+    <h3>Zielgruppen-Fit <span class="h-score-badge score-mid">3,5 / 5</span></h3>
+    <p>Das Design bedient Senioren <strong>technisch</strong> (große Buttons, Telefon-FAB, Font-Size-Switcher) aber nicht <strong>emotional</strong>. Hero-Gradients, Backdrop-Filters, Blob-Animationen — das ist Tech-Firma-Sprache, keine Nachbarschaftsküche.</p>
+    <p>Ein 72-jähriger Senior erwartet: Fotos von echten Menschen im Hero, warme Handschrift-Elemente, weniger „Interface" und mehr „Einladung".</p>
+  </div>
+
+  <div class="analysis-card">
+    <h3>Differenzierung <span class="h-score-badge score-low">2,5 / 5</span></h3>
+    <p><strong>Die Website sieht aus wie 80% aller NGO-Websites 2024–2026.</strong> Green-Palette + Card-Grid + Hero-Gradient + Pill-Buttons = Standard-Toolkit.</p>
+    <p>Die „Signature Design Elements" (Hand-drawn Food-Illustrationen) aus der Spec existieren nur als 28px-Divider. Sie müssten die gesamte Identität durchziehen: Card-Corners, Section-Backgrounds, Loading-States, Empty-States.</p>
+  </div>
+</section>
+
+<!-- ━━ TEIL 5: FIXES ━━ -->
+<section class="section" id="fixes">
+  <div class="section-label">Teil 5</div>
+  <h2>Priorisierte Fixes</h2>
+
+  <div class="fix-list">
+    <div class="fix">
+      <span class="fix-num">#01</span>
+      <span class="fix-priority priority-critical">Critical</span>
+      <div class="fix-text"><strong>Startseite auf 2 Scroll-Screens kürzen.</strong> Workshops auf 3 Cards + „Alle anzeigen"-Link. Values, Mitmachen, Aktuelles auf Subpages. Startseite = Hero → Workshops → Kurztext → Kontakt.</div>
+    </div>
+    <div class="fix">
+      <span class="fix-num">#02</span>
+      <span class="fix-priority priority-critical">Critical</span>
+      <div class="fix-text"><strong>Workshop-Card-States differenzieren.</strong> (a) Buchbar: volle Farbe + grüner CTA. (b) Warteliste: gelber Badge + funktionaler Button. (c) Vergangen: Graustufen, kein CTA, nur „Fotos ansehen".</div>
+    </div>
+    <div class="fix">
+      <span class="fix-num">#03</span>
+      <span class="fix-priority priority-critical">Critical</span>
+      <div class="fix-text"><strong><code>innerHTML</code> in <code>injectMobileUtilitySwitches</code> durch <code>createElement</code> ersetzen.</strong> Das eigene Sicherheitsmodell wird verletzt.</div>
+    </div>
+    <div class="fix">
+      <span class="fix-num">#04</span>
+      <span class="fix-priority priority-important">Important</span>
+      <div class="fix-text"><strong>Breakpoint-System bereinigen.</strong> 5 auf 3 reduzieren: 640px (mobile→tablet), 960px (tablet→desktop), 1024px (nav). Die 768px und 900px eliminieren.</div>
+    </div>
+    <div class="fix">
+      <span class="fix-num">#05</span>
+      <span class="fix-priority priority-important">Important</span>
+      <div class="fix-text"><strong>Amber als Handlungsfarbe.</strong> Primäre CTAs in Amber statt Green. Green für Navigation/informative Elemente. Sofort mehr visuelle Klarheit.</div>
+    </div>
+    <div class="fix">
+      <span class="fix-num">#06</span>
+      <span class="fix-priority priority-important">Important</span>
+      <div class="fix-text"><strong>Hero-Hintergrund überarbeiten.</strong> Gradient+Blob durch echtes Foto (Community-Kochen mit Overlay) oder illustrative Collage ersetzen.</div>
+    </div>
+    <div class="fix">
+      <span class="fix-num">#07</span>
+      <span class="fix-priority priority-important">Important</span>
+      <div class="fix-text"><strong>Token-Inkonsistenzen bereinigen.</strong> <code>--color-primary-green</code> deklarieren. Hardcoded Farben in Tokens. 3 Background-Töne auf 2 reduzieren.</div>
+    </div>
+    <div class="fix">
+      <span class="fix-num">#08</span>
+      <span class="fix-priority priority-important">Important</span>
+      <div class="fix-text"><strong>Line-Height auf 2 Werte.</strong> 1.65 (Body) und 1.25 (Headings). Alle Variationen (1.55, 1.6, 1.7) eliminieren.</div>
+    </div>
+    <div class="fix">
+      <span class="fix-num">#09</span>
+      <span class="fix-priority priority-polish">Polish</span>
+      <div class="fix-text"><strong>Leaf-Divider auf 48–64px vergrößern.</strong> Alternativ: ganzseitige illustrative Section-Trenner als SVG-Wellen mit Food-Motiven.</div>
+    </div>
+    <div class="fix">
+      <span class="fix-num">#10</span>
+      <span class="fix-priority priority-polish">Polish</span>
+      <div class="fix-text"><strong>Card-Elevation-System schärfen.</strong> Ruhe: <code>--shadow-soft</code>. Hover: <code>--shadow-card</code>. Fokus: <code>--shadow-elevated</code>.</div>
+    </div>
+    <div class="fix">
+      <span class="fix-num">#11</span>
+      <span class="fix-priority priority-polish">Polish</span>
+      <div class="fix-text"><strong>Newsletter-Label visuell an Input binden.</strong> Fieldset-Wrapper oder Stacked-Variante bei Flex-Row.</div>
+    </div>
+    <div class="fix">
+      <span class="fix-num">#12</span>
+      <span class="fix-priority priority-polish">Polish</span>
+      <div class="fix-text"><strong>404-Seite erstellen.</strong> Mit Illustration, Telefonnummer und „Zurück zur Startseite"-Button.</div>
+    </div>
+    <div class="fix">
+      <span class="fix-num">#13</span>
+      <span class="fix-priority priority-polish">Polish</span>
+      <div class="fix-text"><strong>Workshop-Filter um Datum/Verfügbarkeit erweitern.</strong> „Kommende" vs. „Vergangene" als primärer Filter.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ TEIL 6: REDESIGN ━━ -->
+<section class="section" id="redesign">
+  <div class="section-label">Teil 6</div>
+  <h2>Alternative Redesign-Richtungen</h2>
+
+  <div class="directions-grid">
+    <div class="direction">
+      <div class="direction-tag">Richtung A</div>
+      <h3>„Die Küche als Interface"</h3>
+      <p class="direction-sub">Warme Editorial-Sprache — wie ein aufgeschlagenes Community-Kochbuch</p>
+      <ul>
+        <li><strong>Hero:</strong> Vollflächiges Foto + Warm-Overlay. Kein Gradient, kein Blob.</li>
+        <li><strong>Cards:</strong> Horizontales Layout — Bild links, Text rechts. Rezept-Index-Feeling.</li>
+        <li><strong>Trenner:</strong> Ganzseitige Aquarell-Illustrationen aus dem Mavka-Logo-Stil.</li>
+        <li><strong>Farbe:</strong> Cream-dominant. Green nur Text. Amber für alle CTAs.</li>
+        <li><strong>Typo:</strong> Nunito nur H1/H2. Atkinson für alles andere inkl. Navigation.</li>
+      </ul>
+      <div class="direction-meta">
+        <div>
+          <div class="meta-label">Risiko</div>
+          <div class="meta-value">Braucht gute Fotos</div>
+        </div>
+        <div>
+          <div class="meta-label">Ideal für</div>
+          <div class="meta-value">Senioren, Familien</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="direction">
+      <div class="direction-tag">Richtung B</div>
+      <h3>„Klare Struktur, leise Eleganz"</h3>
+      <p class="direction-sub">Reduzierter Utility-Ansatz — wie ein gut gestalteter öffentlicher Aushang</p>
+      <ul>
+        <li><strong>Hero:</strong> Nur Typografie auf Off-White. Großer Titel + ein Amber-CTA. Nächste 2 Termine daneben.</li>
+        <li><strong>Cards:</strong> Tabellen-Layout. Datum | Name | Ort | Status | CTA. Keine Bilder.</li>
+        <li><strong>Farbe:</strong> Monochrom. Off-White + Dark Green + Amber. 3 Farben total.</li>
+        <li><strong>Navigation:</strong> Ohne Overlay — einfach eine Liste.</li>
+        <li><strong>Illustration:</strong> Ein einzelnes Brot-SVG als 400px-Wasserzeichen. Wenig, aber unvergesslich.</li>
+      </ul>
+      <div class="direction-meta">
+        <div>
+          <div class="meta-label">Risiko</div>
+          <div class="meta-value">Braucht starke Copy</div>
+        </div>
+        <div>
+          <div class="meta-label">Ideal für</div>
+          <div class="meta-value">Förderer, Partner</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ SCORES ━━ -->
+<section class="section" id="scores">
+  <div class="section-label">Zusammenfassung</div>
+  <h2>Alle Scores im Überblick</h2>
+
+  <div class="analysis-card" style="overflow-x:auto">
+    <table class="score-table">
+      <thead>
+        <tr><th>Heuristik</th><th>Score</th><th class="score-bar-cell">Visualisierung</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>H1 Systemstatus</td><td>4 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-green" style="width:80%"></div></div></td></tr>
+        <tr><td>H2 Realitätsnähe</td><td>4,5 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-green" style="width:90%"></div></div></td></tr>
+        <tr><td>H3 Nutzerkontrolle</td><td>4 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-green" style="width:80%"></div></div></td></tr>
+        <tr><td>H4 Konsistenz</td><td>3,5 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-orange" style="width:70%"></div></div></td></tr>
+        <tr><td>H5 Fehlervermeidung</td><td>4,5 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-green" style="width:90%"></div></div></td></tr>
+        <tr><td>H6 Wiedererkennung</td><td>3,5 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-orange" style="width:70%"></div></div></td></tr>
+        <tr><td>H7 Flexibilität</td><td>3,5 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-orange" style="width:70%"></div></div></td></tr>
+        <tr><td>H8 Ästhetik</td><td>3 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-red" style="width:60%"></div></div></td></tr>
+        <tr><td>H9 Fehlerhilfe</td><td>4,5 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-green" style="width:90%"></div></div></td></tr>
+        <tr><td>H10 Dokumentation</td><td>3 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-red" style="width:60%"></div></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="analysis-card" style="overflow-x:auto; margin-top: 16px;">
+    <table class="score-table">
+      <thead>
+        <tr><th>Weitere Dimension</th><th>Score</th><th class="score-bar-cell">Visualisierung</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Typografie</td><td>4 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-green" style="width:80%"></div></div></td></tr>
+        <tr><td>Farbe</td><td>3,5 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-orange" style="width:70%"></div></div></td></tr>
+        <tr><td>Visuelle Hierarchie</td><td>3 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-red" style="width:60%"></div></div></td></tr>
+        <tr><td>Kognitive Belastung</td><td>3,5 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-orange" style="width:70%"></div></div></td></tr>
+        <tr><td>WCAG 2.1 AA</td><td>4 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-green" style="width:80%"></div></div></td></tr>
+        <tr><td>Interaktionsklarheit</td><td>3,5 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-orange" style="width:70%"></div></div></td></tr>
+        <tr><td>Zielgruppen-Fit</td><td>3,5 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-orange" style="width:70%"></div></div></td></tr>
+        <tr><td>Differenzierung</td><td>2,5 / 5</td><td><div class="score-bar-wrap"><div class="score-bar bar-red" style="width:50%"></div></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <p>Design Critique — „Gemeinsam Kochen – Gemeinsam Wachsen" — 14. April 2026</p>
+</footer>
+
+<script>
+// Accordion toggle
+document.querySelectorAll('.heuristic-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const card = header.closest('.heuristic');
+    const isOpen = card.classList.contains('open');
+    // close all
+    document.querySelectorAll('.heuristic.open').forEach(h => {
+      h.classList.remove('open');
+      h.querySelector('.heuristic-header').setAttribute('aria-expanded', 'false');
+    });
+    // toggle this
+    if (!isOpen) {
+      card.classList.add('open');
+      header.setAttribute('aria-expanded', 'true');
+    }
+  });
+  header.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); header.click(); }
+  });
+});
+
+// Active nav on scroll
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.topnav a[href^="#"]');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.topnav a[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

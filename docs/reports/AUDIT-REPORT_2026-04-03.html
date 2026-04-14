@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit-Report — Gemeinsam Kochen – Gemeinsam Wachsen</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep-forest: #1B5E20;
+  --forest-green: #2E6F40;
+  --sage: #577842;
+  --mint: #D4E9E2;
+  --amber: #FFBF00;
+  --soft-gold: #D4AF37;
+  --dark-amber: #D79334;
+  --cream: #FDFBD4;
+  --sand: #F4E9D8;
+  --warm-charcoal: #4A4A4A;
+  --off-white: #FAFAF5;
+  --white: #FFFDF5;
+  --error: #C43333;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 100%; scroll-behavior: smooth; scroll-padding-top: 56px; }
+body { font-family: 'Atkinson Hyperlegible', sans-serif; color: var(--warm-charcoal); background: var(--off-white); line-height: 1.7; }
+h1,h2,h3,h4 { font-family: 'Nunito', sans-serif; color: var(--deep-forest); line-height: 1.25; }
+a { color: var(--forest-green); }
+.doc { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+/* Sticky TOC */
+.toc { position: sticky; top: 0; z-index: 100; background: rgba(250,250,245,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(27,94,32,0.1); padding: 10px 24px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.toc a { font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 700; text-decoration: none; color: var(--sage); padding: 4px 10px; border-radius: 6px; }
+.toc a:hover { background: var(--mint); color: var(--deep-forest); }
+.toc .brand { color: var(--deep-forest); font-size: 0.82rem; font-weight: 800; margin-right: auto; }
+
+/* Cover */
+.cover { padding: 64px 0 48px; text-align: center; background: linear-gradient(170deg, rgba(27,94,32,0.04) 0%, transparent 40%); }
+.cover .badge { display: inline-block; font-family: 'Nunito'; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; background: var(--deep-forest); color: var(--cream); padding: 5px 16px; border-radius: 50px; margin-bottom: 20px; }
+.cover h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; margin-bottom: 8px; }
+.cover h1 em { font-style: normal; color: var(--dark-amber); }
+.cover .subtitle { font-size: 1rem; color: var(--sage); max-width: 55ch; margin: 0 auto 24px; }
+.cover .meta { font-size: 0.78rem; color: var(--sage); display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* Sections */
+section { padding: 48px 0 40px; }
+section:nth-child(even) { background: var(--white); }
+.sec-num { font-family: 'Nunito'; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dark-amber); display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.sec-num::before { content: ''; width: 20px; height: 2px; background: var(--amber); }
+.sec-title { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 800; margin-bottom: 4px; }
+.sec-lead { font-size: 0.95rem; color: var(--sage); max-width: 55ch; margin-bottom: 32px; }
+
+/* Tables */
+table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; border: 1px solid rgba(27,94,32,0.1); margin: 20px 0; font-size: 0.85rem; }
+thead { background: var(--deep-forest); color: var(--cream); }
+th { font-family: 'Nunito'; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 10px 14px; text-align: left; }
+td { padding: 10px 14px; border-bottom: 1px solid rgba(27,94,32,0.06); vertical-align: top; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:nth-child(even) { background: rgba(212,233,226,0.08); }
+
+/* Priority badges */
+.p1 { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 10px; border-radius: 50px; background: #FEF2F2; color: var(--error); }
+.p2 { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 10px; border-radius: 50px; background: rgba(215,147,52,0.12); color: var(--dark-amber); }
+.p3 { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 10px; border-radius: 50px; background: rgba(46,111,64,0.08); color: var(--forest-green); }
+
+/* Status chips */
+.done { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 10px; border-radius: 50px; background: rgba(46,111,64,0.1); color: var(--forest-green); }
+.partial { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 10px; border-radius: 50px; background: rgba(215,147,52,0.12); color: var(--dark-amber); }
+.missing { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 10px; border-radius: 50px; background: #FEF2F2; color: var(--error); }
+
+/* Cards */
+.finding { background: var(--white); border: 1px solid rgba(27,94,32,0.08); border-radius: 16px; padding: 24px; margin: 16px 0; }
+.finding h4 { font-size: 1rem; margin-bottom: 6px; }
+.finding p { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+.finding--critical { border-left: 4px solid var(--error); }
+.finding--warn { border-left: 4px solid var(--dark-amber); }
+.finding--info { border-left: 4px solid var(--forest-green); }
+
+/* Roadmap */
+.timeline { position: relative; padding-left: 32px; margin: 24px 0; }
+.timeline::before { content: ''; position: absolute; left: 11px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--forest-green), var(--amber)); border-radius: 1px; }
+.timeline-item { position: relative; margin-bottom: 28px; }
+.timeline-item::before { content: ''; position: absolute; left: -27px; top: 6px; width: 12px; height: 12px; background: var(--forest-green); border-radius: 50%; border: 2px solid var(--off-white); }
+.timeline-item.amber::before { background: var(--amber); }
+.timeline-item.gold::before { background: var(--soft-gold); }
+.timeline-label { font-family: 'Nunito'; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--dark-amber); margin-bottom: 2px; }
+.timeline-title { font-family: 'Nunito'; font-size: 1.05rem; font-weight: 700; color: var(--deep-forest); margin-bottom: 4px; }
+.timeline-desc { font-size: 0.88rem; color: var(--sage); }
+
+/* Footer */
+.doc-footer { background: var(--deep-forest); color: var(--cream); padding: 40px 24px; text-align: center; margin-top: 48px; }
+.doc-footer strong { color: var(--amber); }
+.doc-footer p { font-size: 0.8rem; opacity: 0.7; }
+
+/* Summary box */
+.summary-box { background: linear-gradient(135deg, rgba(27,94,32,0.04), rgba(255,191,0,0.03)); border: 1px solid rgba(27,94,32,0.12); border-radius: 20px; padding: 28px; margin: 24px 0; }
+.summary-box h3 { margin-bottom: 12px; }
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 16px; }
+.summary-stat { text-align: center; }
+.summary-stat .num { font-family: 'Nunito'; font-size: 2rem; font-weight: 800; color: var(--deep-forest); }
+.summary-stat .label { font-size: 0.78rem; color: var(--sage); }
+
+@media (max-width: 700px) {
+  .toc { display: none; }
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media print { .toc { display: none; } body { font-size: 10pt; } section { break-inside: avoid; } }
+</style>
+</head>
+<body>
+
+<nav class="toc">
+  <span class="brand">Audit-Report</span>
+  <a href="#overview">Übersicht</a>
+  <a href="#navigation">Navigation</a>
+  <a href="#design">Design</a>
+  <a href="#components">Komponenten</a>
+  <a href="#a11y">Barrierefreiheit</a>
+  <a href="#content">Inhalte</a>
+  <a href="#issues">Issues</a>
+  <a href="#roadmap">Roadmap</a>
+</nav>
+
+<header class="cover">
+  <div class="doc">
+    <div class="badge">Konsolidierter Audit-Report · 3. April 2026</div>
+    <h1>Gemeinsam Kochen –<br>Gemeinsam <em>Wachsen</em></h1>
+    <p class="subtitle">Umfassende Analyse des aktuellen Projektstands: Design, Accessibility, UX Copy, Komponenten und Roadmap-Update.</p>
+    <div class="meta">
+      <span>Stefan Schweitzer</span>
+      <span>&middot;</span>
+      <span>Mavka.Berlin.Volunteers</span>
+      <span>&middot;</span>
+      <span>FEIN-Pilotprojekt Lichtenberg</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<section id="overview">
+<div class="doc">
+  <div class="sec-num">01 — Executive Summary</div>
+  <h2 class="sec-title">Projektstand auf einen Blick</h2>
+  <p class="sec-lead">Phase 1 (MVP) ist zu ca. 75% abgeschlossen. Die Grundstruktur steht, aber es gibt kritische Lücken bei Navigation, Brand-Elementen und Formular-Backend.</p>
+
+  <div class="summary-box">
+    <div class="summary-grid">
+      <div class="summary-stat">
+        <div class="num">3/8</div>
+        <div class="label">Screens implementiert</div>
+      </div>
+      <div class="summary-stat">
+        <div class="num">315</div>
+        <div class="label">Instagram-Bilder verfügbar</div>
+      </div>
+      <div class="summary-stat">
+        <div class="num">6</div>
+        <div class="label">Workshops (alle ausgebucht)</div>
+      </div>
+      <div class="summary-stat">
+        <div class="num">12</div>
+        <div class="label">P1-Issues (kritisch)</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:28px; margin-bottom:12px;">Was gut funktioniert</h3>
+  <p>Die Design-Tokens (Farben, Typografie, Spacing) sind sauber aus der Brand Identity übernommen. Die CSS-Architektur (tokens → base → layout → components → animations) ist modular und wartbar. Self-hosted Fonts (DSGVO-konform). Telefonnummer prominent überall. Senior-freundliche Grundstruktur ohne Auto-Play, Carousels oder komplexe Dropdowns. Workshop-Cards mit konkreten Daten. Anmelde-Dialog mit Formvalidierung. Mobile FAB (56×56px). Gute ARIA-Grundstruktur.</p>
+
+  <h3 style="margin-top:24px; margin-bottom:12px;">Was kritisch fehlt</h3>
+  <p>Navigationsreihenfolge stimmt nicht mit DOM-Reihenfolge überein. Tote Links. Formulare ohne Backend (nur Kontakt funktioniert). Handgezeichnete Signature-Illustrationen fehlen komplett. Workshop-Daten auf der Seite sind teilweise veraltet (die 6 Workshops aus dem Google-Formular sind alle ausgebucht). Fördererlogos fehlen im Footer. Partner-Logos zu klein. Sprachumschalter nicht funktional. 5 von 8 UI-Spec-Screens nicht als eigenständige Seiten implementiert.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="navigation">
+<div class="doc">
+  <div class="sec-num">02 — Navigation & Sektionsreihenfolge</div>
+  <h2 class="sec-title">Punkt 3 + 4: Inkonsistenz & tote Links</h2>
+  <p class="sec-lead">Die Navigationsreihenfolge stimmt nicht mit der DOM-Reihenfolge überein. Das führt zu verwirrendem Scroll-Verhalten.</p>
+
+  <div class="finding finding--critical">
+    <h4><span class="p1">P1</span> Nav-Reihenfolge ≠ Sektions-Reihenfolge</h4>
+    <p><strong>Navigation:</strong> Start → Über das Projekt → Workshops → Aktuelles → Teilnehmen → Kontakt</p>
+    <p><strong>DOM-Reihenfolge:</strong> Start → <em>Workshops</em> → Über das Projekt → Schwerpunkte → <em>Teilnehmen</em> → <em>Aktuelles</em> → Transparenz → Partner → Newsletter → Kontakt</p>
+    <p><strong>Auswirkung:</strong> Klickt man „Über das Projekt" (Nav-Punkt 2), scrollt die Seite nach unten. Klickt man dann „Workshops & Termine" (Nav-Punkt 3), scrollt sie nach <em>oben</em> — verwirrend für Senioren.</p>
+    <p><strong>Lösung:</strong> Entweder die Nav-Reihenfolge an die DOM-Reihenfolge anpassen (Start → Workshops → Über das Projekt → …) oder die Sektionsreihenfolge im HTML umstellen. Das strategische Konzept-Wireframe (Kap. 12) gibt vor: Hero → Termine → Projekt → Partner → Newsletter — die DOM-Reihenfolge ist also korrekt, die <strong>Nav muss angepasst werden</strong>.</p>
+  </div>
+
+  <div class="finding finding--critical">
+    <h4><span class="p1">P1</span> Toter Link: „Mehr über das Projekt"</h4>
+    <p>Der Button in der Projekt-Sektion verlinkt auf <code>#projekt</code> — also auf sich selbst. Laut Konzept soll er zu einer eigenständigen „Über das Projekt"-Seite führen (Phase 2). Kurzfristig: Link zu einer der folgenden Sektionen ändern (z.B. #schwerpunkte) oder als Anchor-Link zum ausklappbaren Detail-Bereich.</p>
+  </div>
+
+  <div class="finding finding--warn">
+    <h4><span class="p2">P2</span> „Alle Workshops & Termine anzeigen" verlinkt auf #workshops</h4>
+    <p>Verlinkt ebenfalls auf sich selbst. Sollte perspektivisch zur eigenständigen Workshop-Übersichtsseite führen.</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="design">
+<div class="doc">
+  <div class="sec-num">03 — Design Review</div>
+  <h2 class="sec-title">Punkt 1 + 2 + 5 + 6 + 11 + 12: Visuelle Analyse</h2>
+  <p class="sec-lead">Design-Token-Konsistenz, Partnerlogos, Fördererlogos, Sprachumschalter und Signature-Illustrationen.</p>
+
+  <h3 style="margin-top:24px;">Farb- & Token-Konsistenz</h3>
+  <table>
+    <thead><tr><th>Token</th><th>Brand Identity</th><th>tokens.css</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Deep Forest</td><td>#1B5E20</td><td>#1B5E20</td><td><span class="done">✓</span></td></tr>
+      <tr><td>Forest Green</td><td>#2E6F40</td><td>#2E6F40</td><td><span class="done">✓</span></td></tr>
+      <tr><td>Amber</td><td>#FFBF00</td><td>#FFBF00</td><td><span class="done">✓</span></td></tr>
+      <tr><td>Soft Gold</td><td>#D4AF37</td><td>#D4AF37</td><td><span class="done">✓</span></td></tr>
+      <tr><td>Brand White</td><td>#FFFDF5</td><td>#FFFDF5</td><td><span class="done">✓</span></td></tr>
+      <tr><td>Sage</td><td>#577842 (AA-korrigiert)</td><td>als --color-light-green</td><td><span class="partial">Naming</span></td></tr>
+      <tr><td>Fonts</td><td>Nunito + Atkinson Hyperlegible</td><td>Self-hosted WOFF2</td><td><span class="done">✓ DSGVO</span></td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.88rem; margin-top:8px;">Hardcoded rgba()-Werte in mehreren Stellen statt Token-Referenzen — Wartbarkeit leidet.</p>
+
+  <div class="finding finding--critical">
+    <h4><span class="p1">P1</span> Punkt 5: Partnerlogos viel zu klein</h4>
+    <p>Die Partner-Logos in der <code>.partners-marquee</code> sind in kleinen 80×80px Containern mit <code>object-fit: contain</code>. Auf Desktop kaum erkennbar, auf Mobile fast unsichtbar. Die UI-Spec definiert Partner-Cards mit Logo + Name + Kurzbeschreibung — aktuell ist es nur ein Logo-Streifen.</p>
+    <p><strong>Lösung:</strong> Partner-Logos mindestens 120×80px, besser als Grid-Cards mit Name und optional Beschreibung. Greyscale → Farbe bei Hover ist ein nettes Detail, aber die Basis-Größe muss stimmen.</p>
+  </div>
+
+  <div class="finding finding--critical">
+    <h4><span class="p1">P1</span> Punkt 6: Fördererlogos fehlen im Footer</h4>
+    <p>Das strategische Konzept und die Projektbeschreibung fordern Fördererlogos (FEIN, Bezirksamt Lichtenberg) im Footer. Der Footer zeigt nur den Text „Gefördert durch das Programm FEIN – Bezirk Lichtenberg" ohne Logo. In <code>docs/Logos/</code> liegen die nötigen Logos: <code>FEIN PILOT PROJEKT.jpg</code> und <code>Bezirksamt Version 2.jpg</code>.</p>
+    <p><strong>Lösung:</strong> Förderer-Logo-Leiste im Footer hinzufügen, direkt über der Legal-Zeile.</p>
+  </div>
+
+  <div class="finding finding--warn">
+    <h4><span class="p2">P2</span> Punkt 11: Sprachumschalter weicht von Spezifikation ab</h4>
+    <p>Der Sprachumschalter ist als zwei separate Buttons (DE | EN) in der Utility-Bar implementiert. Laut UI-Spec soll er als <code>aria-label="Sprache wechseln"</code> mit <code>aria-current</code> auf der aktiven Sprache funktionieren. Aktuell: <code>aria-pressed</code> wird verwendet, aber die Sprachänderung selbst ist nicht implementiert — die Buttons tun nichts. Außerdem fehlt die Aktualisierung von <code>&lt;html lang="..."&gt;</code>.</p>
+    <p>Das strategische Konzept listet den Sprachumschalter als <strong>Must-have</strong> (Kapitel 7.1). Die URL-Struktur <code>/de/</code>, <code>/en/</code> ist geplant, aber nicht umgesetzt.</p>
+    <p><strong>Lösung:</strong> Kurzfristig: i18n-System implementieren (z.B. JSON-basiertes Translation-File) oder Sprachumschalter als "Coming Soon" markieren. Langfristig: URL-basierte Mehrsprachigkeit.</p>
+  </div>
+
+  <div class="finding finding--critical">
+    <h4><span class="p1">P1</span> Punkt 12: Signature-Illustrationen fehlen komplett</h4>
+    <p>Die Brand Identity (Kapitel 05) und die UI-Spezifikation definieren handgezeichnete Lebensmittel-Illustrationen als <strong>Kern-Element der Markenidentität</strong>:</p>
+    <p>Spezifiziert: 12–20 Kern-Illustrationen · 2-Farb-System (Deep Forest #1B5E20 + Cream #FDFBD4) · SVG + PNG · Verwendung als: Sektions-Trenner, Card-Dekorationen, Empty States</p>
+    <p>Motive: Brot/Laib, Kräuter, Gemüse, Kochlöffel, Kochtopf — abgeleitet aus dem organischen Charakter des Mavka-Logos.</p>
+    <p>Aktuell ist nur ein CSS-basierter <code>.leaf-divider</code> vorhanden (Linie mit SVG-Blatt). Die Illustrationen sind das zentrale Element, das der Seite den „Community-Kochbuch-Charakter" geben soll.</p>
+    <p><strong>Lösung:</strong> Entwürfe über Canvas Design erstellen lassen (wie du vorgeschlagen hast). Alternativ: Illustrator beauftragen. SVG-Format für Web-Optimierung.</p>
+  </div>
+
+  <h3 style="margin-top:32px;">Weitere Design-Issues</h3>
+  <table>
+    <thead><tr><th>Issue</th><th>Priorität</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr><td>Footer-Text zu hell</td><td><span class="p2">P2</span></td><td>rgba(255,255,255,0.6) auf #2A2A2A = Kontrast 4.3:1 (borderline)</td></tr>
+      <tr><td>Hero-Label Kontrast</td><td><span class="p2">P2</span></td><td>Mint-Text auf hellem Hintergrund ≈ 3.2:1 (unter 4.5:1)</td></tr>
+      <tr><td>Logo-Subtext zu klein</td><td><span class="p2">P2</span></td><td>.logo-text span: 0.72rem ≈ 12px — unter 18px Minimum</td></tr>
+      <tr><td>Font-Size Switcher zu subtil</td><td><span class="p3">P3</span></td><td>A+ erhöht Body nur um 0.2rem, Button selbst zu klein</td></tr>
+      <tr><td>Contact Bar redundant auf Mobile</td><td><span class="p3">P3</span></td><td>Gleiche Info wie FAB + Header = Visual Clutter</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="components">
+<div class="doc">
+  <div class="sec-num">04 — Komponenten-Abgleich</div>
+  <h2 class="sec-title">Punkt 10: UI-Spezifikation vs. Implementierung</h2>
+  <p class="sec-lead">Die UI-Spec definiert 8 Kern-Screens und eine Komponentenbibliothek. Abgleich mit dem aktuellen Stand.</p>
+
+  <h3>8 Screens — Implementierungsstatus</h3>
+  <table>
+    <thead><tr><th>Screen</th><th>Status</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr><td>1. Startseite</td><td><span class="done">✓ Implementiert</span></td><td>Hero, Workshops, Projekt, Werte, Mitmachen, Aktuelles, Transparenz, Partner, Newsletter, Kontakt — alle als Anker-Sektionen</td></tr>
+      <tr><td>2. Workshops & Termine (Liste)</td><td><span class="missing">✗ Fehlt</span></td><td>Keine eigenständige Seite. Keine Filter-Chips, kein Kommend/Vergangen-Tab</td></tr>
+      <tr><td>3. Workshop-Detailseite</td><td><span class="missing">✗ Fehlt</span></td><td>Nur Modal-Dialog für Anmeldung. Keine Detailseite mit Galerie, Beschreibung, Anfahrt</td></tr>
+      <tr><td>4. Über das Projekt</td><td><span class="partial">Sektion</span></td><td>Als Sektion auf Startseite, keine eigenständige Seite</td></tr>
+      <tr><td>5. Mitmachen</td><td><span class="partial">Sektion</span></td><td>3 Engagement-Cards vorhanden</td></tr>
+      <tr><td>6. Aktuelles/Blog</td><td><span class="partial">Placeholder</span></td><td>3 Placeholder-Cards, keine echten Inhalte, keine Detailseiten</td></tr>
+      <tr><td>7. Kontakt</td><td><span class="done">✓ Implementiert</span></td><td>Formular, Karten, Social Media, Standorte mit OpenStreetMap</td></tr>
+      <tr><td>8. Bericht-Detail</td><td><span class="missing">✗ Fehlt</span></td><td>Transparenz-Sektion zeigt nur „In Vorbereitung"-Platzhalter</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:32px;">Komponenten-Bibliothek</h3>
+  <table>
+    <thead><tr><th>Komponente</th><th>Spezifiziert</th><th>Implementiert</th><th>Abweichung</th></tr></thead>
+    <tbody>
+      <tr><td>Primary Button</td><td>✓</td><td>✓ .btn-primary</td><td>52px statt 56px min-height</td></tr>
+      <tr><td>Accent Button (Amber)</td><td>✓</td><td><span class="missing">✗</span></td><td>Nicht implementiert</td></tr>
+      <tr><td>Workshop-Card</td><td>✓</td><td>✓</td><td>Vollständig, gute Struktur</td></tr>
+      <tr><td>News-Card</td><td>✓</td><td><span class="partial">Placeholder</span></td><td>Nur Dummy-Inhalte</td></tr>
+      <tr><td>Filter-Chips</td><td>✓</td><td><span class="missing">✗</span></td><td>Nicht implementiert</td></tr>
+      <tr><td>Empty States</td><td>✓</td><td><span class="missing">✗</span></td><td>Keine Illustration + Nachricht</td></tr>
+      <tr><td>Loading Skeletons</td><td>✓</td><td><span class="missing">✗</span></td><td>Nicht implementiert</td></tr>
+      <tr><td>Error Summary</td><td>✓</td><td><span class="missing">✗</span></td><td>Nur Inline-Fehler, keine Zusammenfassung</td></tr>
+      <tr><td>Breadcrumbs</td><td>✓</td><td><span class="partial">Teilweise</span></td><td>Nur auf Impressum/Datenschutz</td></tr>
+      <tr><td>Signature-Illustrationen</td><td>✓</td><td><span class="missing">✗</span></td><td>Nur CSS .leaf-divider</td></tr>
+      <tr><td>Pflichtfeld-Hinweis</td><td>✓</td><td><span class="missing">✗</span></td><td>Nur Asterisk, kein Text „* = Pflicht"</td></tr>
+      <tr><td>Newsletter-Label</td><td>✓ (sichtbar)</td><td><span class="missing">sr-only</span></td><td>Label ist versteckt, nur Placeholder</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="a11y">
+<div class="doc">
+  <div class="sec-num">05 — Barrierefreiheit</div>
+  <h2 class="sec-title">Punkt 15: WCAG 2.1 AA Review</h2>
+  <p class="sec-lead">Zielgruppe Senioren 72+ erfordert AA als Minimum. 4 kritische und 9 schwerwiegende Issues gefunden.</p>
+
+  <h3>Kritische Issues (WCAG-Verletzungen)</h3>
+  <table>
+    <thead><tr><th>Issue</th><th>WCAG</th><th>Schwere</th></tr></thead>
+    <tbody>
+      <tr><td>Focus-Ring: Grün statt Amber (Spec fordert 3px Amber Outline + 2px Offset)</td><td>2.4.7</td><td><span class="p1">Critical</span></td></tr>
+      <tr><td>Consent-Checkboxes ohne aria-label (Newsletter + Kontakt)</td><td>1.3.1</td><td><span class="p1">Critical</span></td></tr>
+      <tr><td>Fokus-Management: Dialog öffnet ohne Focus auf erstes Feld</td><td>2.4.3</td><td><span class="p1">Critical</span></td></tr>
+      <tr><td>Lang-Attribut wird bei Sprach-Wechsel nicht aktualisiert</td><td>3.1.1</td><td><span class="p1">Critical</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:24px;">Schwerwiegende Issues</h3>
+  <table>
+    <thead><tr><th>Issue</th><th>WCAG</th><th>Schwere</th></tr></thead>
+    <tbody>
+      <tr><td>Keine aria-describedby auf Formular-Fehlermeldungen</td><td>3.3.1</td><td><span class="p2">Major</span></td></tr>
+      <tr><td>Keine aria-invalid bei Validierungsfehlern</td><td>3.3.1</td><td><span class="p2">Major</span></td></tr>
+      <tr><td>Button min-height 52px statt 56px (primäre CTAs)</td><td>2.5.8</td><td><span class="p2">Major</span></td></tr>
+      <tr><td>Workshop-Card-CTA nur 44px min-height</td><td>2.5.8</td><td><span class="p2">Major</span></td></tr>
+      <tr><td>Newsletter-Label ist .sr-only statt sichtbar</td><td>1.3.1</td><td><span class="p2">Major</span></td></tr>
+      <tr><td>Gesamte Workshop-Card soll klickbar sein (Spec), nur Button ist es</td><td>Senior-Extra</td><td><span class="p2">Major</span></td></tr>
+      <tr><td>Breadcrumbs fehlen auf Impressum/Datenschutz</td><td>Senior-Extra</td><td><span class="p2">Major</span></td></tr>
+      <tr><td>Amber (#FFBF00) auf Weiß = 2.1:1 Kontrast (für Text zu niedrig)</td><td>1.4.3</td><td><span class="p2">Major</span></td></tr>
+      <tr><td>Fehlende Error-Summary über Formularen</td><td>3.3.3</td><td><span class="p2">Major</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:24px;">Was gut funktioniert</h3>
+  <p>Skip-Link vorhanden. ARIA-Landmarks korrekt (nav, main, footer, complementary). Alt-Texte auf Workshop-Bildern beschreibend und auf Deutsch. SVG-Icons korrekt mit aria-hidden="true". prefers-reduced-motion wird respektiert. Text #4A4A4A auf #FFFDF5 = 7:1 Kontrast (exzellent). Kein Auto-Play, keine Timeouts. Telefon überall prominent.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="content">
+<div class="doc">
+  <div class="sec-num">06 — Inhalte & Daten</div>
+  <h2 class="sec-title">Punkt 7 + 8 + 9 + 13: Workshops, Bilder, Formulare</h2>
+  <p class="sec-lead">Workshop-Daten, Instagram-Bilder, Formular-Backend und eigenständige Workshop-Seiten.</p>
+
+  <div class="finding finding--warn">
+    <h4><span class="p2">P2</span> Punkt 9: Workshop-Daten veraltet</h4>
+    <p>Das Google-Anmeldeformular zeigt 6 Workshops — <strong>alle ausgebucht</strong> (15.02. – 24.03.2026). Die aktuelle Seite zeigt 3 Workshops (12.04., 26.04., 10.05.) die so nicht im Formular stehen. Sind das neue Termine? Die Daten müssen synchronisiert werden.</p>
+  </div>
+
+  <div class="finding finding--info">
+    <h4><span class="p3">Info</span> Punkt 8: 315 Instagram-Bilder verfügbar</h4>
+    <p>Im Ordner <code>docs/Bilder/Instagram/</code> liegen 315 Bilder in 16 Monatsordnern (Oktober 2024 – März 2026). Diese Bilder könnten für die „Was bisher passiert ist"-Sektion, Workshop-Galerien und die Startseite genutzt werden. Formate: JPG + WebP.</p>
+  </div>
+
+  <div class="finding finding--critical">
+    <h4><span class="p1">P1</span> Punkt 13: Formulare ohne Backend</h4>
+    <p>Nur das Kontaktformular funktioniert (nicht verifiziert — JS sendet fetch-Request). Anmelde-Dialog und Newsletter-Formular gehen ins Leere.</p>
+    <p><strong>Ziel:</strong> Alle drei Formulare sollen über <code>mail.adomail.de</code> gesendet werden. Dafür braucht es entweder einen SMTP-Proxy-Endpoint (Serverless Function auf Hostinger) oder einen externen Formular-Service.</p>
+    <p><strong>Lösung:</strong> PHP-Script auf Hostinger Cloud, das als API-Endpoint fungiert und per SMTP an mail.adomail.de sendet. Oder: Hostinger hat eingebaute Mail-Forwarding.</p>
+  </div>
+
+  <div class="finding finding--warn">
+    <h4><span class="p2">P2</span> Punkt 7: Workshop-Detailseiten fehlen</h4>
+    <p>Die UI-Spec definiert Screen 3 als vollständige Workshop-Detailseite mit: Breadcrumb, Beschreibung, Datum/Ort/Sprache, Anmeldebox (Telefon prominent vor Online-Formular), Bildergalerie. Aktuell gibt es nur den Anmelde-Dialog. Veranstaltungsorte findet man nur ganz unten auf der Seite im Kontakt-Bereich.</p>
+    <p><strong>Lösung (kurzfristig):</strong> Veranstaltungsort + Adresse direkt in die Workshop-Cards aufnehmen. <strong>Mittelfristig:</strong> Eigenständige Workshop-Detailseiten als HTML-Dateien (z.B. <code>/workshops/soljanka-apfelkuchen.html</code>).</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="issues">
+<div class="doc">
+  <div class="sec-num">07 — Konsolidierte Issue-Liste</div>
+  <h2 class="sec-title">Alle 16 Punkte — Status & Empfehlung</h2>
+  <p class="sec-lead">Alle Punkte aus deiner Analyse mit Bewertung und empfohlener Maßnahme.</p>
+
+  <table>
+    <thead><tr><th>#</th><th>Punkt</th><th>Priorität</th><th>Empfohlene Maßnahme</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Design Director Review</td><td><span class="done">Erledigt</span></td><td>10 Issues identifiziert, Top 3: Kontrast-Fixes, Token-Naming, Button-Sizes</td></tr>
+      <tr><td>2</td><td>Brand Review</td><td><span class="done">Erledigt</span></td><td>Tokens korrekt, Signature-Illustrationen FEHLEN als Kern-Element</td></tr>
+      <tr><td>3</td><td>Navigation inkonsistent</td><td><span class="p1">P1</span></td><td>Nav-Reihenfolge an DOM anpassen: Start → Workshops → Projekt → …</td></tr>
+      <tr><td>4</td><td>Toter „Mehr über Projekt"-Link</td><td><span class="p1">P1</span></td><td>Link auf nachfolgende Sektion oder eigenständige Seite umleiten</td></tr>
+      <tr><td>5</td><td>Partnerlogos zu klein</td><td><span class="p1">P1</span></td><td>Logos auf 120×80px+ vergrößern, als Grid-Cards mit Namen</td></tr>
+      <tr><td>6</td><td>Fördererlogos fehlen im Footer</td><td><span class="p1">P1</span></td><td>FEIN + Bezirksamt-Logo aus docs/Logos/ in Footer einbinden</td></tr>
+      <tr><td>7</td><td>Workshop-Detailseiten fehlen</td><td><span class="p2">P2</span></td><td>Kurzfristig: Ort in Cards. Mittelfristig: eigene HTML-Seiten</td></tr>
+      <tr><td>8</td><td>315 Instagram-Bilder verfügbar</td><td><span class="p3">P3</span></td><td>Für Aktuelles-Sektion und Workshop-Galerien nutzen</td></tr>
+      <tr><td>9</td><td>Workshop-Daten aus Google Form</td><td><span class="p2">P2</span></td><td>Alle 6 Workshops sind ausgebucht — neue Termine eintragen</td></tr>
+      <tr><td>10</td><td>UI-Spec Komponenten-Check</td><td><span class="done">Erledigt</span></td><td>62% der Screens implementiert, 8 fehlende Komponenten</td></tr>
+      <tr><td>11</td><td>Sprachumschalter nicht funktional</td><td><span class="p2">P2</span></td><td>i18n-System implementieren oder als „Coming Soon" markieren</td></tr>
+      <tr><td>12</td><td>Signature-Illustrationen fehlen</td><td><span class="p1">P1</span></td><td>Canvas Design für 12-20 SVG-Illustrationen</td></tr>
+      <tr><td>13</td><td>Formulare ohne Backend</td><td><span class="p1">P1</span></td><td>PHP-Endpoint auf Hostinger → SMTP an mail.adomail.de</td></tr>
+      <tr><td>14</td><td>Design Critique</td><td><span class="done">Erledigt</span></td><td>Hierarchie gut, Spacing konsistent, Detail-Polish nötig</td></tr>
+      <tr><td>15</td><td>Accessibility Review</td><td><span class="done">Erledigt</span></td><td>4 Critical + 9 Major Issues, Top: Focus-Ring, aria-invalid, Button-Sizes</td></tr>
+      <tr><td>16</td><td>Roadmap-Update</td><td>→</td><td>Siehe nächste Sektion</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="roadmap">
+<div class="doc">
+  <div class="sec-num">08 — Roadmap-Update</div>
+  <h2 class="sec-title">Aktualisierte Umsetzungsplanung</h2>
+  <p class="sec-lead">Basierend auf dem Audit: 4 Sprint-Blöcke bis zum vollständigen MVP und darüber hinaus.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-label">Sprint 1 — Sofort (KW 15-16)</div>
+      <div class="timeline-title">Kritische Fixes & Formular-Backend</div>
+      <div class="timeline-desc">
+        Nav-Reihenfolge korrigieren · Tote Links fixen · Fördererlogos in Footer · Partnerlogos vergrößern · Formular-Backend (mail.adomail.de) für Anmeldung + Newsletter · Focus-Ring auf Amber · aria-invalid + aria-describedby · Consent-Checkboxes aria-label · Newsletter-Label sichtbar machen · Button min-height 56px · Workshop-Daten aktualisieren
+      </div>
+    </div>
+
+    <div class="timeline-item amber">
+      <div class="timeline-label">Sprint 2 — Phase 1 Abschluss (KW 17-19)</div>
+      <div class="timeline-title">Workshop-Detailseiten & Illustrationen</div>
+      <div class="timeline-desc">
+        Workshop-Detailseiten erstellen (je Workshop eine HTML-Seite) · Veranstaltungsorte direkt in Workshop-Cards · Signature-Illustrationen (Canvas Design: 12-20 SVGs) · Sektions-Trenner mit Illustrationen ersetzen · Empty States mit Illustrationen · Error-Summary über Formularen · Breadcrumbs auf allen Unterseiten · Sprachumschalter als i18n-JSON oder „Coming Soon"
+      </div>
+    </div>
+
+    <div class="timeline-item gold">
+      <div class="timeline-label">Sprint 3 — Phase 2 Start (KW 20-24)</div>
+      <div class="timeline-title">Eigenständige Seiten & Content</div>
+      <div class="timeline-desc">
+        „Workshops & Termine"-Übersichtsseite mit Filter-Chips · „Was bisher passiert ist" als Blog/News-Bereich mit Instagram-Bildern · „Über das Projekt"-Eigenständige Seite · Workshop-Galerien mit Lightbox · Loading Skeletons · 315 Instagram-Bilder kuratieren und einbinden · Hostinger Reach Newsletter-Integration
+      </div>
+    </div>
+
+    <div class="timeline-item gold">
+      <div class="timeline-label">Sprint 4 — Phase 2 Abschluss (KW 25-30)</div>
+      <div class="timeline-title">Mehrsprachigkeit & Skalierung</div>
+      <div class="timeline-desc">
+        i18n DE/EN mit URL-Struktur /de/ /en/ · Transparenz-Seite mit echten Förderberichten · Partner & Förderer als eigenständige Seite · Workshop-Zahler (Data-Viz) · Timeline-Komponente für Projektmeilensteine · SEO-Optimierung · Performance-Budget prüfen (LCP &lt; 2.5s) · CMS-Evaluierung (WordPress + Astra als Fallback)
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-box" style="margin-top:32px;">
+    <h3>Empfehlung: Nächste Schritte</h3>
+    <p style="margin-top:8px; font-size:0.92rem;">Sprint 1 (kritische Fixes) kann sofort beginnen — die meisten Änderungen sind CSS/HTML-Korrekturen und ein kleines PHP-Backend-Script. Sprint 2 (Illustrationen) braucht Design-Arbeit — Canvas Design kann die SVG-Entwürfe generieren, aber ggf. manuelle Nacharbeit. Für die Workshop-Detailseiten empfehle ich, mit den 3 kommenden Workshops (April/Mai) zu starten und das Template dann für weitere zu nutzen.</p>
+  </div>
+</div>
+</section>
+
+<footer class="doc-footer">
+  <p><strong>Audit-Report v1.0</strong></p>
+  <p>Gemeinsam Kochen – Gemeinsam Wachsen &middot; FEIN-Pilotprojekt &middot; Mavka.Berlin.Volunteers</p>
+  <p style="margin-top:8px; opacity:0.5;">Stand: 3. April 2026 — Erstellt als konsolidierter Review aller 16 Analyse-Punkte</p>
+</footer>
+
+</body>
+</html>
