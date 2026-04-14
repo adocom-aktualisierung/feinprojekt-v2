@@ -348,6 +348,9 @@
     "filterEmptyText": "There are currently no workshops scheduled for this location. Please select another location or view all workshops.",
     "filterReset": "Show all workshops",
     "filterStatusOne": "1 workshop found",
+    "filterMaggie": "Maggie",
+    "filterBenn": "BENN Lichtenberg",
+    "filterLichtenberg": "Lichtenberg",
     "filterStatusMany": "{count} workshops found",
     "newWorkshopsNote": "New workshops are being planned. Contact us for information about upcoming dates.",
     "workshopDetailPrefix": "Workshop details:"

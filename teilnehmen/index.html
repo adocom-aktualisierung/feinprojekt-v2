@@ -22,7 +22,7 @@
 
   <div class="above-header" role="complementary" aria-label="Service-Leiste" data-i18n-aria-label="common.aboveHeader.serviceBar">
     <div class="above-header-inner">
-      <a href="/#transparenz" class="foerderer-link" data-i18n="common.aboveHeader.foerderer">Für Förderer &amp; Partner</a>
+      <a href="/transparenz/" class="foerderer-link" data-i18n="common.aboveHeader.foerderer">Für Förderer &amp; Partner</a>
       <div class="above-header-right">
         <a href="tel:+491637038724" class="header-phone" aria-label="Anrufen: +49 163 7038724" data-i18n-aria-label="common.aboveHeader.callLabel">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
@@ -53,7 +53,7 @@
           <li><a href="/workshops/" data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
           <li><a href="/aktuelles/" data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
           <li><a href="/teilnehmen/" aria-current="page" data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
-          <li><a href="/#kontakt" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
+          <li><a href="/partner/" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
         </ul>
       </nav>
       <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav-teil" aria-label="Navigation öffnen" data-i18n-aria-label="common.nav.openLabel"><span></span><span></span><span></span></button>
@@ -67,7 +67,7 @@
       <li><a href="/workshops/" data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
       <li><a href="/aktuelles/" data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
       <li><a href="/teilnehmen/" aria-current="page" data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
-      <li><a href="/#kontakt" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
+      <li><a href="/partner/" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
     </ul>
     <div class="mobile-contact">
       <p><strong data-i18n="common.mobileContact.heading">Direkt erreichen:</strong></p>
@@ -117,7 +117,7 @@
             </div>
             <h3 data-i18n="home.mitmachen.volunteer.title">Ehrenamtlich helfen</h3>
             <p data-i18n="home.mitmachen.volunteer.text">Unterstützen Sie unsere Workshops als freiwillige*r Helfer*in – beim Kochen, Organisieren oder Übersetzen.</p>
-            <a href="/#kontakt" class="btn btn-outline" data-i18n="home.mitmachen.volunteer.cta">Kontakt aufnehmen</a>
+            <a href="#kontakt" class="btn btn-outline" data-i18n="home.mitmachen.volunteer.cta">Kontakt aufnehmen</a>
           </div>
 
           <div class="involve-card fade-up stagger-2">
@@ -126,7 +126,7 @@
             </div>
             <h3 data-i18n="home.mitmachen.cooperate.title">Kooperieren</h3>
             <p data-i18n="home.mitmachen.cooperate.text">Sie sind ein Verein, eine Initiative oder ein Unternehmen? Lassen Sie uns gemeinsam wirken.</p>
-            <a href="/#kontakt" class="btn btn-outline" data-i18n="home.mitmachen.cooperate.cta">Kooperation anfragen</a>
+            <a href="#kontakt" class="btn btn-outline" data-i18n="home.mitmachen.cooperate.cta">Kooperation anfragen</a>
           </div>
 
           <div class="involve-card fade-up stagger-3">
@@ -135,13 +135,13 @@
             </div>
             <h3 data-i18n="home.mitmachen.support.title">Fördern</h3>
             <p data-i18n="home.mitmachen.support.text">Mit Ihrer Unterstützung können wir noch mehr Menschen erreichen und Begegnungen schaffen.</p>
-            <a href="/#kontakt" class="btn btn-outline" data-i18n="home.mitmachen.support.cta">Förderung besprechen</a>
+            <a href="#kontakt" class="btn btn-outline" data-i18n="home.mitmachen.support.cta">Förderung besprechen</a>
           </div>
         </div>
       </section>
 
       <!-- DIREKTER KONTAKT -->
-      <section class="page-section" aria-label="Direkter Kontakt">
+      <section id="kontakt" class="page-section" aria-label="Direkter Kontakt">
         <h2 data-i18n="teilnehmen.contact.heading">Direkter Kontakt</h2>
         <p data-i18n="teilnehmen.contact.text">Am einfachsten erreichen Sie uns telefonisch oder per E-Mail. Wir antworten innerhalb von 2 Werktagen.</p>
         <p>
@@ -159,6 +159,47 @@
 
   <footer class="site-footer" role="contentinfo">
     <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text" data-i18n="common.logo.line1">
+            Gemeinsam Kochen
+            <span data-i18n="common.logo.line2">Gemeinsam Wachsen</span>
+          </div>
+          <p data-i18n="common.footer.brandText">Ein FEIN-Pilotprojekt von Mavka.Berlin.Volunteers im Bezirk Berlin-Lichtenberg. Offene Koch- und Backworkshops für die Nachbarschaft.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="common.footer.navHeading">Navigation</h4>
+          <ul>
+            <li><a href="/" data-i18n="common.nav.start">Start</a></li>
+            <li><a href="/workshops/" data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
+            <li><a href="/projekt/" data-i18n="common.nav.projekt">Über das Projekt</a></li>
+            <li><a href="/teilnehmen/" data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
+            <li><a href="/aktuelles/" data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
+            <li><a href="/partner/" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="common.footer.traegerHeading">Träger</h4>
+          <ul>
+            <li><a href="/partner/" data-i18n="common.footer.mavkaLink">Mavka.Berlin.Volunteers</a></li>
+            <li><a href="/partner/" data-i18n="common.footer.kontaktLink">Kontakt aufnehmen</a></li>
+          </ul>
+          <h4 style="margin-top:var(--spacing-md);" data-i18n="common.footer.socialHeading">Social Media</h4>
+          <ul>
+            <li><a href="https://www.instagram.com/mavka.berlin.volunteers" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://t.me/mavkavolunteer" target="_blank" rel="noopener">Telegram</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-funding-logos">
+        <span class="footer-funding-label" data-i18n="common.footer.fundedBy">Gefördert durch:</span>
+        <img class="footer-funding-logo" src="/images/logos/fein.jpg" alt="FEIN Pilotprojekt – Förderung durch den Bezirk Lichtenberg" loading="lazy">
+        <img class="footer-funding-logo" src="/images/logos/bezirksamt.jpg" alt="Bezirksamt Lichtenberg von Berlin" loading="lazy">
+      </div>
+
       <div class="footer-bottom">
         <div class="footer-legal">
           <a href="/impressum" data-i18n="common.footer.impressum">Impressum</a>

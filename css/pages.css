@@ -39,7 +39,7 @@
   color: var(--color-warm-gray);
   cursor: pointer;
   transition: all var(--transition-fast);
-  min-height: 44px;
+  min-height: 48px;
 }
 
 .filter-chip:hover {

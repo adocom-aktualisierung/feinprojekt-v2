@@ -53,7 +53,7 @@
           <li><a href="/workshops/" aria-current="page" data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
           <li><a href="/aktuelles/" data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
           <li><a href="/teilnehmen/" data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
-          <li><a href="/#kontakt" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
+          <li><a href="/partner/" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
         </ul>
       </nav>
       <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav-wso" aria-label="Navigation öffnen" data-i18n-aria-label="common.nav.openLabel"><span></span><span></span><span></span></button>
@@ -67,7 +67,7 @@
       <li><a href="/workshops/" aria-current="page" data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
       <li><a href="/aktuelles/" data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
       <li><a href="/teilnehmen/" data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
-      <li><a href="/#kontakt" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
+      <li><a href="/partner/" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
     </ul>
     <div class="mobile-contact">
       <p><strong data-i18n="common.mobileContact.heading">Direkt erreichen:</strong></p>
@@ -100,9 +100,9 @@
       <!-- FILTER -->
       <div class="filter-bar" role="group" aria-label="Workshops filtern nach Ort" data-i18n-aria-label="workshops.filterLabel" data-filter-group="workshops-list">
         <button class="filter-chip is-active" data-filter="all" aria-pressed="true" data-i18n="workshops.filterAll">Alle</button>
-        <button class="filter-chip" data-filter="maggie" aria-pressed="false">Maggie</button>
-        <button class="filter-chip" data-filter="benn" aria-pressed="false">BENN</button>
-        <button class="filter-chip" data-filter="lichtenberg" aria-pressed="false">Lichtenberg</button>
+        <button class="filter-chip" data-filter="maggie" aria-pressed="false" data-i18n="workshops.filterMaggie">Maggie</button>
+        <button class="filter-chip" data-filter="benn" aria-pressed="false" data-i18n="workshops.filterBenn">BENN Lichtenberg</button>
+        <button class="filter-chip" data-filter="lichtenberg" aria-pressed="false" data-i18n="workshops.filterLichtenberg">Lichtenberg</button>
       </div>
 
       <!-- Screen-reader-only live region for filter result count -->
@@ -259,7 +259,7 @@
       </div>
 
       <div style="text-align:center;margin-top:var(--spacing-xl);">
-        <p style="color:var(--color-warm-gray);" data-i18n="workshops.newWorkshopsNote">Neue Workshops sind in Planung. <a href="/#kontakt">Kontaktieren Sie uns</a> für Informationen zu kommenden Terminen.</p>
+        <p style="color:var(--color-warm-gray);" data-i18n="workshops.newWorkshopsNote">Neue Workshops sind in Planung. <a href="/partner/">Kontaktieren Sie uns</a> für Informationen zu kommenden Terminen.</p>
       </div>
 
     </div>
@@ -271,6 +271,47 @@
 
   <footer class="site-footer" role="contentinfo">
     <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text" data-i18n="common.logo.line1">
+            Gemeinsam Kochen
+            <span data-i18n="common.logo.line2">Gemeinsam Wachsen</span>
+          </div>
+          <p data-i18n="common.footer.brandText">Ein FEIN-Pilotprojekt von Mavka.Berlin.Volunteers im Bezirk Berlin-Lichtenberg. Offene Koch- und Backworkshops für die Nachbarschaft.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="common.footer.navHeading">Navigation</h4>
+          <ul>
+            <li><a href="/" data-i18n="common.nav.start">Start</a></li>
+            <li><a href="/workshops/" data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
+            <li><a href="/projekt/" data-i18n="common.nav.projekt">Über das Projekt</a></li>
+            <li><a href="/teilnehmen/" data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
+            <li><a href="/aktuelles/" data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
+            <li><a href="/partner/" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="common.footer.traegerHeading">Träger</h4>
+          <ul>
+            <li><a href="/partner/" data-i18n="common.footer.mavkaLink">Mavka.Berlin.Volunteers</a></li>
+            <li><a href="/partner/" data-i18n="common.footer.kontaktLink">Kontakt aufnehmen</a></li>
+          </ul>
+          <h4 style="margin-top:var(--spacing-md);" data-i18n="common.footer.socialHeading">Social Media</h4>
+          <ul>
+            <li><a href="https://www.instagram.com/mavka.berlin.volunteers" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://t.me/mavkavolunteer" target="_blank" rel="noopener">Telegram</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-funding-logos">
+        <span class="footer-funding-label" data-i18n="common.footer.fundedBy">Gefördert durch:</span>
+        <img class="footer-funding-logo" src="/images/logos/fein.jpg" alt="FEIN Pilotprojekt – Förderung durch den Bezirk Lichtenberg" loading="lazy">
+        <img class="footer-funding-logo" src="/images/logos/bezirksamt.jpg" alt="Bezirksamt Lichtenberg von Berlin" loading="lazy">
+      </div>
+
       <div class="footer-bottom">
         <div class="footer-legal">
           <a href="/impressum" data-i18n="common.footer.impressum">Impressum</a>
