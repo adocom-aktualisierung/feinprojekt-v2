@@ -9,6 +9,13 @@
   <link rel="icon" type="image/png" href="/images/logos/mavka.png">
   <link rel="apple-touch-icon" href="/images/logos/mavka.png">
   <link rel="canonical" href="https://mavka-berlin.de/workshops/soljanka-sharlotka/">
+  <meta property="og:title" content="Soljanka & Apfelkuchen Sharlotka – Workshop | Gemeinsam Kochen">
+  <meta property="og:description" content="Workshop: Gemeinsam kochen wir eine würzige Soljanka und backen eine klassische Sharlotka. 24. März 2026 in Lichtenberg.">
+  <meta property="og:image" content="https://mavka-berlin.de/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://mavka-berlin.de/workshops/soljanka-sharlotka/">
+  <meta property="og:type" content="website">
   <link rel="stylesheet" href="/css/tokens.css">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/layout.css">
@@ -20,72 +27,12 @@
   <a href="#main-content" class="skip-link" data-i18n="common.skipLink">Zum Inhalt springen</a>
 
   <!-- ABOVE-HEADER (Utility Bar) -->
-  <div class="above-header" role="complementary" aria-label="Service-Leiste" data-i18n-aria-label="common.aboveHeader.serviceBar">
-    <div class="above-header-inner">
-      <a href="/transparenz/" class="foerderer-link" data-i18n="common.aboveHeader.foerderer">Für Förderer &amp; Partner</a>
-      <div class="above-header-right">
-        <a href="tel:+491637038724" class="header-phone" aria-label="Anrufen: +49 163 7038724" data-i18n-aria-label="common.aboveHeader.callLabel">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-          +49 163 7038724
-        </a>
-        <div class="font-size-switch" role="group" aria-label="Schriftgröße wählen" data-i18n-aria-label="common.aboveHeader.fontSizeLabel">
-          <button class="font-btn" data-size="normal" aria-pressed="true" aria-label="Normale Schriftgröße" data-i18n-aria-label="common.aboveHeader.fontNormal">A</button>
-          <button class="font-btn" data-size="large" aria-pressed="false" aria-label="Große Schriftgröße" data-i18n-aria-label="common.aboveHeader.fontLarge">A+</button>
-        </div>
-        <div class="lang-switch" role="group" aria-label="Sprache wählen" data-i18n-aria-label="common.aboveHeader.langLabel">
-          <button class="lang-btn" data-lang="de" aria-pressed="true" aria-label="Deutsch">DE</button>
-          <button class="lang-btn" data-lang="en" aria-pressed="false" aria-label="English">EN</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  {{> above-header}}
 
   <!-- PRIMARY HEADER -->
-  <header class="site-header" role="banner">
-    <div class="header-inner">
-      <a href="/" class="logo" aria-label="Gemeinsam Kochen – Startseite" data-i18n-aria-label="common.logo.ariaLabel">
-        <div class="logo-icon">
-          <img src="/images/logos/mavka.png" alt="Gemeinsam Kochen – Gemeinsam Wachsen, zur Startseite" data-i18n-alt="common.logo.altText" width="40" height="40">
-        </div>
-        <div class="logo-text">
-          Gemeinsam Kochen
-          <span>Gemeinsam Wachsen</span>
-        </div>
-      </a>
-      <nav class="main-nav" aria-label="Hauptnavigation" data-i18n-aria-label="common.nav.mainLabel">
-        <ul>
-          <li><a href="/" data-i18n="common.nav.start">Start</a></li>
-          <li><a href="/projekt/" data-i18n="common.nav.projekt">Über das Projekt</a></li>
-          <li><a href="/workshops/" data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
-          <li><a href="/aktuelles/" data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
-          <li><a href="/teilnehmen/" data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
-          <li><a href="/partner/" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
-        </ul>
-      </nav>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav-ws1" aria-label="Navigation öffnen" data-i18n-aria-label="common.nav.openLabel">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+  {{> header}}
 
-  <nav id="mobile-nav-ws1" class="mobile-nav" aria-label="Mobile Navigation" data-i18n-aria-label="common.nav.mobileLabel" role="navigation">
-    <ul>
-      <li><a href="/" data-i18n="common.nav.start">Start</a></li>
-      <li><a href="/projekt/" data-i18n="common.nav.projekt">Über das Projekt</a></li>
-      <li><a href="/workshops/" data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
-      <li><a href="/aktuelles/" data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
-      <li><a href="/teilnehmen/" data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
-      <li><a href="/partner/" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
-    </ul>
-    <div class="mobile-secondary-nav">
-      <a href="/transparenz/" class="foerderer-link-mobile" data-i18n="common.aboveHeader.foerderer">Für Förderer &amp; Partner</a>
-    </div>
-    <div class="mobile-contact">
-      <p><strong data-i18n="common.mobileContact.heading">Direkt erreichen:</strong></p>
-      <p><a href="tel:+491637038724">+49 163 7038724</a></p>
-      <p><a href="mailto:info@mavka-berlin.de">info@mavka-berlin.de</a></p>
-    </div>
-  </nav>
+  {{> mobile-nav}}
 
   <!-- MAIN -->
   <main id="main-content">
@@ -203,117 +150,10 @@
   </a>
 
   <!-- REGISTRATION DIALOG -->
-  <dialog id="registration-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-workshop-info">
-    <div class="dialog-inner">
-      <button type="button" class="dialog-close" aria-label="Dialog schließen" data-i18n-aria-label="common.dialog.closeLabel">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-      </button>
-
-      <h2 id="dialog-title" data-i18n="common.dialog.title">Workshop anmelden</h2>
-      <div class="dialog-workshop-info" id="dialog-workshop-info" aria-live="polite"></div>
-
-      <p class="form-required-hint" aria-hidden="true" data-i18n="common.form.requiredHint"><small>* = Pflichtangabe</small></p>
-      <form class="contact-form" id="registration-form" aria-label="Anmeldeformular" novalidate>
-        <input type="hidden" name="workshop" id="reg-workshop">
-        <input type="hidden" name="date" id="reg-date">
-        <input type="hidden" name="time" id="reg-time">
-        <input type="hidden" name="location" id="reg-location">
-        <div class="form-group">
-          <label for="reg-name" data-i18n="common.form.name">Name *</label>
-          <input type="text" id="reg-name" name="name" required autocomplete="name" class="form-input" aria-describedby="reg-name-error">
-          <span id="reg-name-error" class="form-error-message" aria-live="polite" data-i18n="common.form.nameError">Bitte geben Sie Ihren Namen ein.</span>
-        </div>
-        <div class="form-group">
-          <label for="reg-email" data-i18n="common.form.email">E-Mail *</label>
-          <input type="email" id="reg-email" name="email" required autocomplete="email" class="form-input" aria-describedby="reg-email-error">
-          <span id="reg-email-error" class="form-error-message" aria-live="polite" data-i18n="common.form.emailError">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
-        </div>
-        <div class="form-group">
-          <label for="reg-phone">Telefon <span class="label-optional" data-i18n="common.form.phoneOptional">(optional)</span></label>
-          <input type="tel" id="reg-phone" name="phone" autocomplete="tel" class="form-input">
-        </div>
-        <div class="form-group">
-          <label for="reg-companion">Begleitperson <span class="label-optional" data-i18n="common.form.companionOptional">(optional)</span></label>
-          <input type="text" id="reg-companion" name="companion" class="form-input" placeholder="Name der Begleitperson" data-i18n-placeholder="common.form.companionPlaceholder">
-        </div>
-        <div>
-          <label class="form-consent">
-            <input type="checkbox" id="reg-consent" required>
-            Ich stimme der Verarbeitung meiner Daten gemäß der <a href="/datenschutz">Datenschutzerklärung</a> zu. *
-          </label>
-        </div>
-        <div>
-          <label class="form-consent">
-            <input type="checkbox" id="reg-photo-consent" name="photo_consent">
-            Ich bin damit einverstanden, dass während des Workshops Fotos zu Dokumentationszwecken gemacht und auf der Website sowie in sozialen Medien veröffentlicht werden dürfen. <span class="label-optional" data-i18n="common.form.photoOptional">(freiwillig)</span>
-          </label>
-        </div>
-        <div>
-          <button type="submit" class="btn btn-green" data-i18n="common.form.register">Verbindlich anmelden</button>
-        </div>
-      </form>
-
-      <p class="dialog-note" data-i18n="common.dialog.note">Nach der Anmeldung erhalten Sie eine Bestätigung per E-Mail.</p>
-    </div>
-  </dialog>
+  {{> dialog}}
 
   <!-- FOOTER -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo-text" data-i18n="common.logo.line1">
-            Gemeinsam Kochen
-            <span data-i18n="common.logo.line2">Gemeinsam Wachsen</span>
-          </div>
-          <p data-i18n="common.footer.brandText">Ein FEIN-Pilotprojekt von Mavka.Berlin.Volunteers im Bezirk Berlin-Lichtenberg. Offene Koch- und Backworkshops für die Nachbarschaft.</p>
-        </div>
-
-        <div class="footer-col">
-          <h4 data-i18n="common.footer.navHeading">Navigation</h4>
-          <ul>
-            <li><a href="/" data-i18n="common.nav.start">Start</a></li>
-            <li><a href="/workshops/" data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
-            <li><a href="/projekt/" data-i18n="common.nav.projekt">Über das Projekt</a></li>
-            <li><a href="/teilnehmen/" data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
-            <li><a href="/aktuelles/" data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
-            <li><a href="/partner/" data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4 data-i18n="common.footer.traegerHeading">Träger</h4>
-          <ul>
-            <li><a href="/partner/" data-i18n="common.footer.mavkaLink">Mavka.Berlin.Volunteers</a></li>
-            <li><a href="/partner/" data-i18n="common.footer.kontaktLink">Kontakt aufnehmen</a></li>
-          </ul>
-          <h4 style="margin-top:var(--spacing-md);" data-i18n="common.footer.socialHeading">Social Media</h4>
-          <ul>
-            <li><a href="https://www.instagram.com/mavka.berlin.volunteers" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="https://t.me/mavkavolunteer" target="_blank" rel="noopener">Telegram</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-funding-logos">
-        <span class="footer-funding-label" data-i18n="common.footer.fundedBy">Gefördert durch:</span>
-        <img class="footer-funding-logo" src="/images/logos/fein.jpg" alt="FEIN Pilotprojekt – Förderung durch den Bezirk Lichtenberg" loading="lazy">
-        <img class="footer-funding-logo" src="/images/logos/bezirksamt.jpg" alt="Bezirksamt Lichtenberg von Berlin" loading="lazy">
-      </div>
-
-      <div class="footer-bottom">
-        <div class="footer-legal">
-          <a href="/impressum" data-i18n="common.footer.impressum">Impressum</a>
-          <a href="/datenschutz" data-i18n="common.footer.datenschutz">Datenschutz</a>
-          <a href="/transparenz/" data-i18n="common.footer.transparenz">Transparenz</a>
-        </div>
-        <div class="footer-funding">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-          <span data-i18n="common.footer.fundingLine">Gefördert durch das Programm FEIN – Bezirk Lichtenberg</span>
-        </div>
-      </div>
-    </div>
-  </footer>
+  {{> footer}}
 
   <script type="module" src="/js/main.js"></script>
 </body>

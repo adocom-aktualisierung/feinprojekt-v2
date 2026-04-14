@@ -1,0 +1,20 @@
+<!-- PRIMARY HEADER -->
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <a href="/" class="logo" aria-label="Gemeinsam Kochen – Startseite" data-i18n-aria-label="common.logo.ariaLabel">
+      <div class="logo-icon"><img src="/images/logos/mavka.png" alt="Gemeinsam Kochen – Gemeinsam Wachsen, zur Startseite" data-i18n-alt="common.logo.altText" width="40" height="40"></div>
+      <div class="logo-text">Gemeinsam Kochen <span>Gemeinsam Wachsen</span></div>
+    </a>
+    <nav class="main-nav" aria-label="Hauptnavigation" data-i18n-aria-label="common.nav.mainLabel">
+      <ul>
+        <li><a href="/"{{#eq currentPage "start"}} aria-current="page"{{/eq}} data-i18n="common.nav.start">Start</a></li>
+        <li><a href="/projekt/"{{#eq currentPage "projekt"}} aria-current="page"{{/eq}} data-i18n="common.nav.projekt">Über das Projekt</a></li>
+        <li><a href="/workshops/"{{#eq currentPage "workshops"}} aria-current="page"{{/eq}} data-i18n="common.nav.workshops">Workshops &amp; Termine</a></li>
+        <li><a href="/aktuelles/"{{#eq currentPage "aktuelles"}} aria-current="page"{{/eq}} data-i18n="common.nav.aktuelles">Was bisher passiert ist</a></li>
+        <li><a href="/teilnehmen/"{{#eq currentPage "teilnehmen"}} aria-current="page"{{/eq}} data-i18n="common.nav.mitmachen">Teilnehmen</a></li>
+        <li><a href="/partner/"{{#eq currentPage "partner"}} aria-current="page"{{/eq}} data-i18n="common.nav.kontakt">Träger &amp; Kontakt</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav-{{mobileNavId}}" aria-label="Navigation öffnen" data-i18n-aria-label="common.nav.openLabel"><span></span><span></span><span></span></button>
+  </div>
+</header>

@@ -1,7 +1,40 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import handlebars from 'vite-plugin-handlebars'
+
+// Per-page context for Handlebars partials (currentPage drives aria-current, mobileNavId differentiates mobile-nav IDs)
+const pageContext = {
+  '/index.html':                                      { currentPage: 'start',      mobileNavId: 'main' },
+  '/projekt/index.html':                              { currentPage: 'projekt',    mobileNavId: 'prj' },
+  '/workshops/index.html':                            { currentPage: 'workshops',  mobileNavId: 'ws' },
+  '/workshops/soljanka-sharlotka/index.html':         { currentPage: 'workshops',  mobileNavId: 'ws-ss' },
+  '/workshops/pilzquiche-zimtschnecken/index.html':   { currentPage: 'workshops',  mobileNavId: 'ws-pz' },
+  '/workshops/khachapuri-brownies/index.html':        { currentPage: 'workshops',  mobileNavId: 'ws-kb' },
+  '/workshops/pilzkuchen-honigkuchen/index.html':     { currentPage: 'workshops',  mobileNavId: 'ws-ph' },
+  '/workshops/pfannkuchen-fuellungen/index.html':     { currentPage: 'workshops',  mobileNavId: 'ws-pf' },
+  '/workshops/sekerbura/index.html':                  { currentPage: 'workshops',  mobileNavId: 'ws-se' },
+  '/aktuelles/index.html':                            { currentPage: 'aktuelles',  mobileNavId: 'akt' },
+  '/partner/index.html':                              { currentPage: 'partner',    mobileNavId: 'prt' },
+  '/transparenz/index.html':                          { currentPage: '',           mobileNavId: 'trp' },
+  '/impressum/index.html':                            { currentPage: 'impressum',  mobileNavId: 'imp' },
+  '/datenschutz/index.html':                          { currentPage: 'datenschutz', mobileNavId: 'dsg' },
+  '/teilnehmen/index.html':                           { currentPage: 'teilnehmen', mobileNavId: 'tln' },
+}
 
 export default defineConfig({
+  plugins: [
+    handlebars({
+      partialDirectory: resolve(__dirname, 'partials'),
+      context(pagePath) {
+        return pageContext[pagePath] || {}
+      },
+      helpers: {
+        eq(a, b, options) {
+          return a === b ? options.fn(this) : options.inverse(this)
+        },
+      },
+    }),
+  ],
   build: {
     rollupOptions: {
       input: {
