@@ -285,7 +285,10 @@
       "heading": "Stay informed",
       "description": "New workshops, reports and news directly to your inbox – once a month.",
       "emailLabel": "Email address *",
-      "hint": "After submitting, you will receive a confirmation email."
+      "hint": "After submitting, you will receive a confirmation email with a verification link (double opt-in).",
+      "consentAriaLabel": "Consent to receive the newsletter",
+      "consentText": "I would like to receive the monthly newsletter by email. I can unsubscribe at any time (link in every email). Information on data processing in the",
+      "consentPrivacyLink": "privacy policy"
     },
     "contact": {
       "label": "Organization and Contact",
