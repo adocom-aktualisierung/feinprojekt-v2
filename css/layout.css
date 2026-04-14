@@ -404,6 +404,28 @@
   background: var(--color-cream);
 }
 
+.mobile-nav .mobile-secondary-nav {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.mobile-nav .foerderer-link-mobile {
+  display: block;
+  font-size: var(--font-size-small);
+  color: var(--color-medium-green);
+  font-weight: 600;
+  padding: var(--spacing-xs) 0;
+  text-decoration: none;
+  border: none;
+  min-height: 48px;
+  line-height: 48px;
+}
+
+.mobile-nav .foerderer-link-mobile:hover {
+  color: var(--color-dark-green);
+}
+
 .mobile-nav .mobile-contact {
   margin-top: var(--spacing-lg);
   padding: var(--spacing-md);

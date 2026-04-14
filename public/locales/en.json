@@ -78,7 +78,8 @@
       "impressum": "Legal Notice",
       "datenschutz": "Privacy Policy",
       "fundedBy": "Funded by:",
-      "fundingLine": "Funded by the FEIN program – Lichtenberg district"
+      "fundingLine": "Funded by the FEIN program – Lichtenberg district",
+      "transparenz": "Transparency"
     },
     "breadcrumb": {
       "label": "Breadcrumb",
@@ -352,6 +353,8 @@
     "filterBenn": "BENN Lichtenberg",
     "filterLichtenberg": "Lichtenberg",
     "filterStatusMany": "{count} workshops found",
+    "nextRoundNotice": "Our workshops are in high demand. New dates for the next round will be announced soon",
+    "nextRoundCta": "join the waitlist",
     "newWorkshopsNote": "New workshops are being planned. Contact us for information about upcoming dates.",
     "workshopDetailPrefix": "Workshop details:"
   },
@@ -375,6 +378,8 @@
     "pilzkuchenHonigkuchen": {
       "title": "Savory Mushroom Pie & Honey Cake",
       "description": "Savory mushroom pie with fresh champignons and herbs, plus a sweet, aromatic honey cake — opposites that go wonderfully together.",
+      "cardTime": "12:00 – 3:00 PM",
+      "cardLocation": "Maggie, Frankfurter Allee 205",
       "dateValue": "Sunday, February 15, 2026",
       "timeValue": "12:00 – 15:00",
       "locationValue": "Maggie, Frankfurter Allee 205",
@@ -386,6 +391,8 @@
     "pfannkuchenFuellungen": {
       "title": "Pancakes with Fillings & Salad",
       "description": "Fine pancakes with sweet and savory fillings, served with a fresh salad.",
+      "cardTime": "3:00 – 6:00 PM",
+      "cardLocation": "BENN, Wartenberger Str. 24",
       "dateValue": "Friday, February 27, 2026",
       "timeValue": "15:00 – 18:00",
       "locationValue": "BENN, Wartenberger Str. 24, 13053",
@@ -397,6 +404,8 @@
     "khachapuriBrownies": {
       "title": "Khachapuri & Brownies",
       "description": "Georgian cheese flatbreads from the pan and juicy brownies – a culinary journey to join in.",
+      "cardTime": "12:30 – 3:00 PM",
+      "cardLocation": "Maggie, Frankfurter Allee 205",
       "dateValue": "Saturday, March 7, 2026",
       "timeValue": "12:30 – 15:00",
       "locationValue": "Maggie, Frankfurter Allee 205",
@@ -408,6 +417,8 @@
     "sekerbura": {
       "title": "Azerbaijani Şekerbura",
       "description": "Traditional Azerbaijani pastry with nut filling – a sweet piece of the Caucasus to make yourself.",
+      "cardTime": "12:30 – 3:30 PM",
+      "cardLocation": "Lichtenberg",
       "dateValue": "Sunday, March 15, 2026",
       "timeValue": "12:30 – 15:30",
       "locationValue": "Lichtenberg",
@@ -419,6 +430,8 @@
     "pilzquicheZimtschnecken": {
       "title": "Mushroom Quiche & Cinnamon Rolls",
       "description": "Savory mushroom quiche meets fragrant cinnamon rolls – an afternoon full of aromas for the whole family.",
+      "cardTime": "12:00 – 3:00 PM",
+      "cardLocation": "Lichtenberg 13055",
       "dateValue": "Saturday, March 21, 2026",
       "timeValue": "12:00 – 15:00",
       "locationValue": "Lichtenberg 13055",
@@ -430,6 +443,8 @@
     "soljankaSharlotka": {
       "title": "Soljanka & Apple Cake Sharlotka",
       "description": "Savory meets sweet: Together we cook a spicy Soljanka and bake a classic Sharlotka.",
+      "cardTime": "2:30 – 5:30 PM",
+      "cardLocation": "Lichtenberg",
       "dateValue": "Tuesday, March 24, 2026",
       "timeValue": "14:30 – 17:30",
       "locationValue": "Lichtenberg",

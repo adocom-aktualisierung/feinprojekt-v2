@@ -20,6 +20,37 @@
   line-height: 1.65;
 }
 
+/* Workshops Notice Banner */
+.workshops-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--color-cream);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.workshops-notice svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--color-medium-green);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.workshops-notice p {
+  margin: 0;
+  font-size: var(--font-size-small);
+  color: var(--color-text);
+}
+
+.workshops-notice a {
+  color: var(--color-dark-green);
+  font-weight: 600;
+}
+
 /* Filter Chips */
 .filter-bar {
   display: flex;
