@@ -39,6 +39,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        notFound: resolve(__dirname, '404.html'),
         impressum: resolve(__dirname, 'impressum/index.html'),
         datenschutz: resolve(__dirname, 'datenschutz/index.html'),
         workshopSoljankaSharlotka: resolve(__dirname, 'workshops/soljanka-sharlotka/index.html'),

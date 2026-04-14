@@ -12,24 +12,85 @@ import { initI18n, t } from './i18n.js';
   const currentFontSize = localStorage.getItem('font-size') || 'normal';
   const currentLang = localStorage.getItem('lang') || document.documentElement.lang || 'de';
 
+  // Build DOM safely — no innerHTML (XSS prevention, Design-Critique Fix #03)
   const wrap = document.createElement('div');
   wrap.className = 'mobile-utility-switches';
-  wrap.innerHTML = `
-    <div class="mobile-switch-group">
-      <span class="mobile-switch-label" data-i18n="common.aboveHeader.fontSizeLabel">Schriftgröße wählen</span>
-      <div class="font-size-switch" role="group" aria-label="Schriftgröße wählen" data-i18n-aria-label="common.aboveHeader.fontSizeLabel">
-        <button type="button" class="font-btn" data-size="normal" aria-pressed="${currentFontSize === 'normal'}" aria-label="Normale Schriftgröße" data-i18n-aria-label="common.aboveHeader.fontNormal">A</button>
-        <button type="button" class="font-btn" data-size="large" aria-pressed="${currentFontSize === 'large'}" aria-label="Große Schriftgröße" data-i18n-aria-label="common.aboveHeader.fontLarge">A+</button>
-      </div>
-    </div>
-    <div class="mobile-switch-group">
-      <span class="mobile-switch-label" data-i18n="common.aboveHeader.langLabel">Sprache wählen</span>
-      <div class="lang-switch" role="group" aria-label="Sprache wählen" data-i18n-aria-label="common.aboveHeader.langLabel">
-        <button type="button" class="lang-btn" data-lang="de" aria-pressed="${currentLang === 'de'}" aria-label="Deutsch">DE</button>
-        <button type="button" class="lang-btn" data-lang="en" aria-pressed="${currentLang === 'en'}" aria-label="English">EN</button>
-      </div>
-    </div>
-  `;
+
+  // -- Font-size switch group --
+  const fontGroup = document.createElement('div');
+  fontGroup.className = 'mobile-switch-group';
+
+  const fontLabel = document.createElement('span');
+  fontLabel.className = 'mobile-switch-label';
+  fontLabel.dataset.i18n = 'common.aboveHeader.fontSizeLabel';
+  fontLabel.textContent = 'Schriftgröße wählen';
+  fontGroup.appendChild(fontLabel);
+
+  const fontSwitch = document.createElement('div');
+  fontSwitch.className = 'font-size-switch';
+  fontSwitch.setAttribute('role', 'group');
+  fontSwitch.setAttribute('aria-label', 'Schriftgröße wählen');
+  fontSwitch.dataset.i18nAriaLabel = 'common.aboveHeader.fontSizeLabel';
+
+  const fontBtnNormal = document.createElement('button');
+  fontBtnNormal.type = 'button';
+  fontBtnNormal.className = 'font-btn';
+  fontBtnNormal.dataset.size = 'normal';
+  fontBtnNormal.setAttribute('aria-pressed', String(currentFontSize === 'normal'));
+  fontBtnNormal.setAttribute('aria-label', 'Normale Schriftgröße');
+  fontBtnNormal.dataset.i18nAriaLabel = 'common.aboveHeader.fontNormal';
+  fontBtnNormal.textContent = 'A';
+
+  const fontBtnLarge = document.createElement('button');
+  fontBtnLarge.type = 'button';
+  fontBtnLarge.className = 'font-btn';
+  fontBtnLarge.dataset.size = 'large';
+  fontBtnLarge.setAttribute('aria-pressed', String(currentFontSize === 'large'));
+  fontBtnLarge.setAttribute('aria-label', 'Große Schriftgröße');
+  fontBtnLarge.dataset.i18nAriaLabel = 'common.aboveHeader.fontLarge';
+  fontBtnLarge.textContent = 'A+';
+
+  fontSwitch.appendChild(fontBtnNormal);
+  fontSwitch.appendChild(fontBtnLarge);
+  fontGroup.appendChild(fontSwitch);
+  wrap.appendChild(fontGroup);
+
+  // -- Language switch group --
+  const langGroup = document.createElement('div');
+  langGroup.className = 'mobile-switch-group';
+
+  const langLabel = document.createElement('span');
+  langLabel.className = 'mobile-switch-label';
+  langLabel.dataset.i18n = 'common.aboveHeader.langLabel';
+  langLabel.textContent = 'Sprache wählen';
+  langGroup.appendChild(langLabel);
+
+  const langSwitch = document.createElement('div');
+  langSwitch.className = 'lang-switch';
+  langSwitch.setAttribute('role', 'group');
+  langSwitch.setAttribute('aria-label', 'Sprache wählen');
+  langSwitch.dataset.i18nAriaLabel = 'common.aboveHeader.langLabel';
+
+  const langBtnDe = document.createElement('button');
+  langBtnDe.type = 'button';
+  langBtnDe.className = 'lang-btn';
+  langBtnDe.dataset.lang = 'de';
+  langBtnDe.setAttribute('aria-pressed', String(currentLang === 'de'));
+  langBtnDe.setAttribute('aria-label', 'Deutsch');
+  langBtnDe.textContent = 'DE';
+
+  const langBtnEn = document.createElement('button');
+  langBtnEn.type = 'button';
+  langBtnEn.className = 'lang-btn';
+  langBtnEn.dataset.lang = 'en';
+  langBtnEn.setAttribute('aria-pressed', String(currentLang === 'en'));
+  langBtnEn.setAttribute('aria-label', 'English');
+  langBtnEn.textContent = 'EN';
+
+  langSwitch.appendChild(langBtnDe);
+  langSwitch.appendChild(langBtnEn);
+  langGroup.appendChild(langSwitch);
+  wrap.appendChild(langGroup);
 
   const contactBlock = mobileNavEl.querySelector('.mobile-contact');
   if (contactBlock) {

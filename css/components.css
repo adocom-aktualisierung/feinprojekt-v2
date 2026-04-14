@@ -84,23 +84,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  padding: var(--spacing-sm) 0;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) 0;
 }
 
 .leaf-divider::before,
 .leaf-divider::after {
   content: '';
   height: 1px;
-  width: 60px;
+  flex: 0 1 100px;
   background: linear-gradient(90deg, transparent, var(--color-light-green), transparent);
+  opacity: 0.4;
 }
 
 .leaf-divider svg {
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
   fill: var(--color-light-green);
-  opacity: 0.7;
+  opacity: 0.55;
+  transition: opacity var(--transition-medium);
+}
+
+.leaf-divider:hover svg {
+  opacity: 0.8;
 }
 
 /* ========================================
@@ -112,13 +118,13 @@
   gap: var(--spacing-md);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 600px) {
   .workshops-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 960px) {
+@media (min-width: 1024px) {
   .workshops-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -128,8 +134,8 @@
   background: var(--color-white);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-card);
-  transition: all var(--transition-medium);
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
   display: flex;
   flex-direction: column;
   border: 1px solid var(--color-border);
@@ -138,7 +144,7 @@
 
 .workshop-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-elevated);
+  box-shadow: var(--shadow-card);
 }
 
 .workshop-card-image {
@@ -275,13 +281,13 @@
   gap: var(--spacing-md);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 600px) {
   .values-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 960px) {
+@media (min-width: 1024px) {
   .values-grid {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -326,7 +332,7 @@
 
 .value-card p {
   font-size: var(--font-size-small);
-  line-height: 1.55;
+  line-height: var(--line-height-tight);
   color: rgba(255, 255, 255, 0.72);
 }
 
@@ -408,9 +414,10 @@
 .newsletter-label {
   color: var(--color-white);
   font-family: var(--font-body);
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: calc(-1 * var(--spacing-xs));
+  font-size: var(--font-size-body);
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+  display: block;
 }
 
 .newsletter-form {
@@ -419,7 +426,7 @@
   gap: var(--spacing-sm);
 }
 
-@media (min-width: 480px) {
+@media (min-width: 600px) {
   .newsletter-form {
     flex-direction: row;
   }
@@ -772,7 +779,7 @@ textarea.form-input {
 }
 
 .form-error-summary {
-  background: #FEF2F2;
+  background: rgba(196, 51, 51, 0.04);
   border: 2px solid var(--color-error-dark);
   border-radius: var(--radius-md);
   padding: var(--spacing-md);
@@ -1023,7 +1030,7 @@ dialog::backdrop {
 }
 
 .workshop-detail-description {
-  line-height: 1.65;
+  line-height: var(--line-height-body);
   margin-bottom: var(--spacing-md);
 }
 
@@ -1098,7 +1105,7 @@ dialog::backdrop {
 
 .workshop-detail-content p {
   margin-bottom: var(--spacing-sm);
-  line-height: 1.65;
+  line-height: var(--line-height-body);
 }
 
 .workshop-detail-content ul {
@@ -1108,7 +1115,7 @@ dialog::backdrop {
 
 .workshop-detail-content li {
   margin-bottom: var(--spacing-xs);
-  line-height: 1.65;
+  line-height: var(--line-height-body);
 }
 
 /* Workshop Gallery */
@@ -1126,7 +1133,7 @@ dialog::backdrop {
   gap: var(--spacing-sm);
 }
 
-@media (min-width: 480px) {
+@media (min-width: 600px) {
   .workshop-gallery-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -1156,19 +1163,22 @@ dialog::backdrop {
   color: inherit;
 }
 
-/* Sold-out Workshop States */
+/* Workshop Card States */
+
+/* -- Sold Out: dimmed, non-interactive -- */
 .tag-sold-out {
   background: rgba(196, 51, 51, 0.12);
   color: #8B1F1F;
 }
 
 .workshop-card.is-sold-out .workshop-card-link {
-  opacity: 0.75;
+  opacity: 0.65;
+  filter: grayscale(0.2);
 }
 
 .workshop-card.is-sold-out:hover {
   transform: none;
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-soft);
 }
 
 .workshop-card.is-sold-out .workshop-card-cta {
@@ -1176,6 +1186,46 @@ dialog::backdrop {
   color: var(--color-warm-gray);
   border-color: var(--color-border);
   cursor: default;
+}
+
+.workshop-card.is-sold-out .card-date-badge {
+  background: var(--color-warm-gray);
+}
+
+/* -- Waitlist: active, inviting amber accent -- */
+.tag-waitlist {
+  background: rgba(255, 191, 0, 0.18);
+  color: var(--color-amber-dark);
+  font-weight: 700;
+}
+
+.workshop-card.is-waitlist .workshop-card-link {
+  opacity: 1;
+}
+
+.workshop-card.is-waitlist .card-date-badge {
+  background: var(--color-amber, #FFBF00);
+  color: var(--color-amber-text);
+}
+
+.workshop-card.is-waitlist .workshop-card-cta {
+  background: var(--color-amber, #FFBF00) !important;
+  color: #3D2E00 !important;
+  border-color: var(--color-amber, #FFBF00) !important;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.workshop-card.is-waitlist:hover .workshop-card-cta {
+  background: #E6AB00 !important;
+  border-color: #E6AB00 !important;
+}
+
+/* -- Upcoming / Available: full vibrancy -- */
+.tag-available {
+  background: rgba(27, 94, 32, 0.12);
+  color: var(--color-dark-green);
+  font-weight: 700;
 }
 
 /* Waitlist CTA on workshop cards (UX-Audit 2026-04-14 P0-1) */

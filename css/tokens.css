@@ -81,7 +81,9 @@
   --color-medium-green: #2E6F40;     /* Forest Green */
   --color-light-green: #577842;      /* Sage — darkened for AA contrast (4.6:1 on #FFFDF5) */
   --color-lime: #8EB69B;             /* Light Sage */
-  --color-amber: #FFBF00;            /* Amber */
+  --color-amber: #FFBF00;            /* Amber — nur als Hintergrund, nie als Text auf Weiß */
+  --color-amber-dark: #B38600;       /* Amber-Text — AA-konform auf Weiß (4.5:1) */
+  --color-amber-text: #3D2E00;       /* Text auf Amber-Hintergrund — AAA-konform */
   --color-soft-gold: #D4AF37;        /* Soft Gold */
 
   /* Colors — Neutral */
@@ -113,6 +115,7 @@
   --font-size-utility: 0.8125rem;
 
   --line-height-body: 1.65;
+  --line-height-tight: 1.5;
   --line-height-heading: 1.25;
 
   /* Spacing */
@@ -143,6 +146,12 @@
   --transition-fast: 0.2s ease;
   --transition-medium: 0.35s ease;
   --transition-slow: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Breakpoints (reference only — CSS custom properties can't be used in @media)
+     Mobile:  600px
+     Tablet:  768px
+     Desktop: 1024px
+  */
 }
 
 /* ========================================

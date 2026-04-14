@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redesign-Richtung A: Kochbuch — Konzeptdokument</title>
+  <style>
+    :root {
+      --bg: #FAFAF5;
+      --surface: #FFFDF5;
+      --text: #2A2A2A;
+      --text-muted: #6B6B6B;
+      --green-deep: #1B5E20;
+      --green-mid: #2E6F40;
+      --green-sage: #577842;
+      --amber: #FFBF00;
+      --cream: #FDFBD4;
+      --sand: #F4E9D8;
+      --mint: #D4E9E2;
+      --border: rgba(27, 94, 32, 0.1);
+      --radius: 16px;
+      --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 0;
+    }
+
+    /* === HEADER === */
+    .doc-header {
+      background: var(--green-deep);
+      color: white;
+      padding: 80px 40px 60px;
+      text-align: center;
+    }
+
+    .doc-header h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .doc-header h1 em {
+      font-style: italic;
+      color: var(--amber);
+    }
+
+    .doc-header .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.75;
+      font-style: italic;
+    }
+
+    .doc-header .meta {
+      margin-top: 24px;
+      font-size: 0.85rem;
+      opacity: 0.5;
+      font-family: -apple-system, sans-serif;
+    }
+
+    /* === CONTAINER === */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* === SECTION === */
+    .section {
+      padding: 64px 0;
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--green-sage);
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+      color: var(--green-deep);
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    p {
+      margin-bottom: 16px;
+      max-width: 65ch;
+    }
+
+    /* === MOODBOARD === */
+    .moodboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
+    }
+
+    .mood-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .mood-card .mood-visual {
+      height: 120px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .mood-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-family: -apple-system, sans-serif;
+    }
+
+    .mood-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* === TOKEN DRAFT === */
+    .token-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+
+    .token-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .token-card h4 {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--green-sage);
+      margin-bottom: 16px;
+    }
+
+    /* Color swatches */
+    .swatch-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      align-items: center;
+    }
+
+    .swatch {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.08);
+      flex-shrink: 0;
+    }
+
+    .swatch-info {
+      font-size: 0.82rem;
+      font-family: -apple-system, sans-serif;
+    }
+
+    .swatch-info .name { font-weight: 600; display: block; }
+    .swatch-info .hex { color: var(--text-muted); font-family: 'SF Mono', monospace; font-size: 0.78rem; }
+
+    /* Typography samples */
+    .type-sample {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .type-sample:last-child { border-bottom: none; }
+
+    .type-sample .preview {
+      font-size: 1.8rem;
+      margin-bottom: 4px;
+    }
+
+    .type-sample .spec {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-family: 'SF Mono', monospace;
+    }
+
+    /* === ILLUSTRATION SYSTEM === */
+    .illus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 32px 0;
+    }
+
+    .illus-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+    }
+
+    .illus-card svg {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 12px;
+      color: var(--green-sage);
+    }
+
+    .illus-card .label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      font-family: -apple-system, sans-serif;
+    }
+
+    /* === MOCKUP FRAME === */
+    .mockup-frame {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 32px 0;
+      box-shadow: var(--shadow);
+    }
+
+    .mockup-browser-bar {
+      background: #F5F5F0;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mockup-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #DDD;
+    }
+
+    .mockup-url {
+      flex: 1;
+      background: white;
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: -apple-system, sans-serif;
+    }
+
+    .mockup-content {
+      padding: 0;
+    }
+
+    /* Kochbuch Hero Mockup */
+    .kochbuch-hero {
+      background: var(--green-deep);
+      color: white;
+      padding: 60px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kochbuch-hero::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -20px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(255,191,0,0.08);
+    }
+
+    .kochbuch-hero .recipe-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-family: -apple-system, sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      margin-bottom: 20px;
+    }
+
+    .kochbuch-hero h2 {
+      color: white;
+      font-size: 2.4rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .kochbuch-hero h2 em {
+      font-style: italic;
+      color: var(--amber);
+    }
+
+    .kochbuch-hero .tagline {
+      font-size: 1.05rem;
+      opacity: 0.8;
+      font-style: italic;
+      max-width: 50ch;
+    }
+
+    /* Kochbuch Recipe Cards Mockup */
+    .kochbuch-recipes {
+      padding: 40px;
+      background: var(--bg);
+    }
+
+    .kochbuch-recipes h3 {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .recipe-card {
+      background: var(--surface);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .recipe-card-img {
+      height: 100px;
+      background: var(--mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      position: relative;
+    }
+
+    .recipe-card-img .date-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: var(--amber);
+      color: #3D2E00;
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      font-family: -apple-system, sans-serif;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .recipe-card-body {
+      padding: 14px;
+    }
+
+    .recipe-card-body h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-family: Georgia, serif;
+    }
+
+    .recipe-card-body .recipe-meta {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: -apple-system, sans-serif;
+    }
+
+    /* === COMPARISON === */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 32px 0;
+    }
+
+    .compare-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .compare-card h4 {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .compare-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .compare-card li {
+      padding: 6px 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .compare-card li::before {
+      content: '→';
+      color: var(--green-sage);
+      flex-shrink: 0;
+    }
+
+    /* === FOOTER === */
+    .doc-footer {
+      text-align: center;
+      padding: 40px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: -apple-system, sans-serif;
+    }
+
+    @media (max-width: 600px) {
+      .doc-header { padding: 48px 24px 40px; }
+      .illus-grid { grid-template-columns: 1fr; }
+      .recipe-grid { grid-template-columns: 1fr; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .moodboard { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="doc-header">
+    <h1>Redesign-Richtung A:<br><em>Das Kochbuch</em></h1>
+    <p class="subtitle">Konzeptdokument für die visuelle Neuausrichtung</p>
+    <p class="meta">Gemeinsam Kochen – Gemeinsam Wachsen · Mavka.Berlin.Volunteers · April 2026</p>
+  </header>
+
+  <div class="container">
+
+    <!-- VISION -->
+    <section class="section">
+      <p class="section-label">Vision</p>
+      <h2>Die Website wird zum Kochbuch</h2>
+      <p>
+        Statt einer generischen Community-Website verwandeln wir die Seite in ein
+        lebendiges, digitales Kochbuch. Jeder Workshop wird zu einem „Rezept" — mit
+        Zutaten, Geschichten und Fotos. Die Navigation folgt der Metapher eines Inhalts-
+        verzeichnisses. Typografie und Layout erinnern an handgemachte Kochbücher:
+        warme Serif-Schriften, großzügiger Weißraum, organische Illustrationen.
+      </p>
+      <p>
+        <strong>Ziel:</strong> Die Seite soll sich anfühlen wie ein persönliches Rezeptbuch
+        der Nachbarschaft — nicht wie eine Vereins-Website mit Formularen. Besucher*innen
+        sollen sofort Lust bekommen mitzumachen, weil sie die Wärme und Menschlichkeit
+        des Projekts spüren.
+      </p>
+    </section>
+
+    <!-- MOODBOARD -->
+    <section class="section">
+      <p class="section-label">Moodboard</p>
+      <h2>Visuelle Referenzen</h2>
+      <div class="moodboard">
+        <div class="mood-card">
+          <div class="mood-visual" style="background:var(--cream);">📖</div>
+          <h4>Handgemachtes Kochbuch</h4>
+          <p>Serif-Typografie, Rezeptformat, handschriftliche Akzente</p>
+        </div>
+        <div class="mood-card">
+          <div class="mood-visual" style="background:var(--mint);">🌿</div>
+          <h4>Organische Formen</h4>
+          <p>Weiche Radien, natürliche Farben, Illustration statt Stock-Foto</p>
+        </div>
+        <div class="mood-card">
+          <div class="mood-visual" style="background:var(--sand);">🍞</div>
+          <h4>Warme Materialität</h4>
+          <p>Papierstrukturen, Leinenoptik, subtile Texturen</p>
+        </div>
+        <div class="mood-card">
+          <div class="mood-visual" style="background:#f0e8d8;">✍️</div>
+          <h4>Persönliche Notizen</h4>
+          <p>Zitate, handgeschriebene Randbemerkungen, Testimonials als Marginalien</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKEN DRAFT -->
+    <section class="section">
+      <p class="section-label">Token-Entwurf</p>
+      <h2>Farbpalette &amp; Typografie</h2>
+      <p>
+        Die bestehende Farbpalette bleibt — sie ist bereits warm und organisch.
+        Die größte Änderung liegt in der Typografie: Georgia/Merriweather als
+        Serifenschrift für Fließtext, Nunito behält seine Rolle für UI-Elemente.
+      </p>
+
+      <div class="token-grid">
+        <div class="token-card">
+          <h4>Primärfarben (unverändert)</h4>
+          <div class="swatch-row">
+            <div class="swatch" style="background:#1B5E20;"></div>
+            <div class="swatch-info"><span class="name">Deep Forest</span><span class="hex">#1B5E20</span></div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch" style="background:#2E6F40;"></div>
+            <div class="swatch-info"><span class="name">Forest Green</span><span class="hex">#2E6F40</span></div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch" style="background:#FFBF00;"></div>
+            <div class="swatch-info"><span class="name">Amber</span><span class="hex">#FFBF00</span></div>
+          </div>
+        </div>
+
+        <div class="token-card">
+          <h4>Hintergründe (erweitert)</h4>
+          <div class="swatch-row">
+            <div class="swatch" style="background:#FFFDF5;"></div>
+            <div class="swatch-info"><span class="name">Brand White</span><span class="hex">#FFFDF5</span></div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch" style="background:#F7F1E8;"></div>
+            <div class="swatch-info"><span class="name">Parchment (neu)</span><span class="hex">#F7F1E8</span></div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch" style="background:#EDE4D4;"></div>
+            <div class="swatch-info"><span class="name">Linen (neu)</span><span class="hex">#EDE4D4</span></div>
+          </div>
+        </div>
+
+        <div class="token-card">
+          <h4>Display-Typografie</h4>
+          <div class="type-sample">
+            <div class="preview" style="font-family:Georgia,serif;font-weight:400;">Gemeinsam <em>Kochen</em></div>
+            <div class="spec">Georgia · 400 + Italic · Headlines</div>
+          </div>
+          <div class="type-sample">
+            <div class="preview" style="font-family:Georgia,serif;font-size:1.2rem;">Pilzkuchen &amp; Honigkuchen</div>
+            <div class="spec">Georgia · 400 · Rezepttitel</div>
+          </div>
+        </div>
+
+        <div class="token-card">
+          <h4>Body &amp; UI-Typografie</h4>
+          <div class="type-sample">
+            <div class="preview" style="font-family:'Atkinson Hyperlegible',sans-serif;font-size:1.1rem;">Offene Koch- und Backworkshops in Berlin-Lichtenberg.</div>
+            <div class="spec">Atkinson Hyperlegible · 18px · Body (unverändert)</div>
+          </div>
+          <div class="type-sample">
+            <div class="preview" style="font-family:-apple-system,sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">Nächster Termin</div>
+            <div class="spec">System Sans · 700 · Labels, Badges</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ILLUSTRATION SYSTEM -->
+    <section class="section">
+      <p class="section-label">Illustrationssystem</p>
+      <h2>Hand-drawn Food Illustrations</h2>
+      <p>
+        Aufbauend auf dem bestehenden Mavka-Logo-Charakter wird ein System aus
+        handgezeichneten Lebensmittel-Illustrationen entwickelt. Jeder Workshop
+        bekommt eine eigene Illustration als visuelle Identität — statt generischer
+        Fotos oder Icons.
+      </p>
+
+      <div class="illus-grid">
+        <div class="illus-card">
+          <svg viewBox="0 0 28 28"><path d="M5 18c0-2 1.5-3.5 3-4.5C9 12.5 10 11 10 9c0-1.5.8-3 2.5-3.8C13.5 4.5 14.5 4 16 4c2 0 3.5 1 4.2 2.5.5 1 .8 2.2.8 3.5 0 2.5-1 4-2.5 5.5-1 1-2 2.2-2.5 3.5-.3.8-.5 1.5-.5 2.2 0 1-.2 1.8-.8 2.3-.5.4-1.2.5-2.2.5H10c-1.5 0-2.8-.5-3.7-1.3C5.5 21.5 5 20 5 18z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="label">Brot &amp; Gebäck</div>
+        </div>
+        <div class="illus-card">
+          <svg viewBox="0 0 28 28"><path d="M7 12h14v8c0 2.2-1.8 4-4 4H11c-2.2 0-4-1.8-4-4v-8z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 12h18" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M11 6c.5-1 1-2 1-3M14 5.5c0-1 .3-2 .8-2.8M17 6c-.5-1-.8-1.8-.8-2.5" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/></svg>
+          <div class="label">Kochtopf &amp; Suppen</div>
+        </div>
+        <div class="illus-card">
+          <svg viewBox="0 0 28 28"><path d="M14 24V12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M14 12c-3-3-7-3-9-1 2.5.5 5 2 6.5 4.5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M14 12c3-3 7-3 9-1-2.5.5-5 2-6.5 4.5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <div class="label">Kräuter &amp; Gemüse</div>
+        </div>
+      </div>
+
+      <p>
+        <strong>Verwendung:</strong> Als Rezept-Header auf Workshop-Detail-Seiten, als
+        Card-Illustrationen statt Fotos bei vergangenen Workshops, als dekorative
+        Section-Divider, und als leere Zustände (z. B. „Noch keine Workshops in
+        diesem Monat — wir rühren schon!").
+      </p>
+    </section>
+
+    <!-- MOCKUP -->
+    <section class="section">
+      <p class="section-label">Statischer Mockup</p>
+      <h2>So könnte es aussehen</h2>
+      <p>
+        Ein vereinfachter Mockup der Startseite im Kochbuch-Stil. Beachte die
+        Serif-Headings, die Rezept-Metapher bei den Workshop-Cards, und die
+        warmen Hintergrundfarben.
+      </p>
+
+      <div class="mockup-frame">
+        <div class="mockup-browser-bar">
+          <div class="mockup-dot"></div>
+          <div class="mockup-dot"></div>
+          <div class="mockup-dot"></div>
+          <div class="mockup-url">mavka-berlin.de</div>
+        </div>
+        <div class="mockup-content">
+          <!-- Hero -->
+          <div class="kochbuch-hero">
+            <div class="recipe-badge">FEIN-Pilotprojekt Lichtenberg</div>
+            <h2>Gemeinsam Kochen –<br><em>Gemeinsam Wachsen.</em></h2>
+            <p class="tagline">
+              Offene Koch- und Backworkshops in Berlin-Lichtenberg.
+              Das Rezeptbuch unserer Nachbarschaft.
+            </p>
+          </div>
+
+          <!-- Recipe Cards -->
+          <div class="kochbuch-recipes">
+            <h3 style="font-family:Georgia,serif;"><em>Unsere Rezepte</em></h3>
+            <div class="recipe-grid">
+              <div class="recipe-card">
+                <div class="recipe-card-img" style="background:var(--mint);">
+                  🥘
+                  <div class="date-badge">15<br>Mär</div>
+                </div>
+                <div class="recipe-card-body">
+                  <h4>Aserbaidschanische Şekerbura</h4>
+                  <div class="recipe-meta">Backen · Maggie · Ausgebucht</div>
+                </div>
+              </div>
+              <div class="recipe-card">
+                <div class="recipe-card-img" style="background:var(--cream);">
+                  🥧
+                  <div class="date-badge">21<br>Mär</div>
+                </div>
+                <div class="recipe-card-body">
+                  <h4>Pilz-Quiche &amp; Zimtschnecken</h4>
+                  <div class="recipe-meta">Kochen &amp; Backen · Ausgebucht</div>
+                </div>
+              </div>
+              <div class="recipe-card">
+                <div class="recipe-card-img" style="background:var(--sand);">
+                  🍲
+                  <div class="date-badge" style="background:var(--amber);color:#3D2E00;">24<br>Mär</div>
+                </div>
+                <div class="recipe-card-body">
+                  <h4>Soljanka &amp; Sharlotka</h4>
+                  <div class="recipe-meta" style="color:var(--green-mid);font-weight:600;">Kochen · Warteliste offen!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VORHER/NACHHER -->
+    <section class="section">
+      <p class="section-label">Vergleich</p>
+      <h2>Was sich ändert — und was bleibt</h2>
+
+      <div class="compare-grid">
+        <div class="compare-card">
+          <h4 style="color:var(--green-deep);">Was sich ändert</h4>
+          <ul>
+            <li>Display-Schrift wechselt von Nunito (Sans) zu Georgia (Serif)</li>
+            <li>Workshops werden zu „Rezepten" mit kulinarischer Sprache</li>
+            <li>Hintergrundfarben werden wärmer (Parchment, Linen)</li>
+            <li>Illustrationen ersetzen Stock-Fotos bei vergangenen Workshops</li>
+            <li>Section-Übergänge bekommen organische, wellenförmige Kanten</li>
+            <li>Workshop-Detail-Seiten bekommen Rezept-Layout (Zutaten, Schritte)</li>
+            <li>Navigation als „Inhaltsverzeichnis"-Metapher</li>
+          </ul>
+        </div>
+        <div class="compare-card">
+          <h4 style="color:var(--green-sage);">Was bleibt</h4>
+          <ul>
+            <li>Farbpalette (Deep Forest, Amber, Cream)</li>
+            <li>Atkinson Hyperlegible als Body-Font (Barrierefreiheit)</li>
+            <li>Alle WCAG-AA-Konformitäten und Touch-Targets</li>
+            <li>Technische Architektur (Vite + Vanilla JS)</li>
+            <li>CSS-Token-System und Custom Properties</li>
+            <li>i18n-System (DE/EN)</li>
+            <li>Responsive Breakpoints (600/768/1024)</li>
+            <li>Phone-FAB, Font-Size-Switcher, Skip-Links</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- UMSETZUNGSHINWEISE -->
+    <section class="section">
+      <p class="section-label">Umsetzung</p>
+      <h2>Nächste Schritte</h2>
+      <p>
+        Dieses Konzept ist als Diskussionsgrundlage gedacht — nicht als finale Spezifikation.
+        Vor der Umsetzung empfehle ich folgende Schritte:
+      </p>
+      <p>
+        <strong>1. Illustration-Sprint:</strong> 8–10 handgezeichnete Food-Illustrationen
+        erstellen (SVG), die das bestehende Mavka-Logo ergänzen. Jeder Workshop bekommt
+        eine eigene. Stilvorgabe: einheitliche Strichstärke (1.2px), monochrom in
+        --color-light-green, organische Formen.
+      </p>
+      <p>
+        <strong>2. Typografie-Test:</strong> Georgia-Headings auf allen Seiten testen —
+        insbesondere auf Lesbarkeit für die Zielgruppe 72+. Falls Georgia zu dünn wirkt,
+        Alternative: Merriweather (ebenfalls Serif, aber mit höherer x-Höhe).
+      </p>
+      <p>
+        <strong>3. Prototyp:</strong> Eine Workshop-Detail-Seite (z. B. Soljanka & Sharlotka)
+        komplett im Kochbuch-Stil umsetzen — als Proof-of-Concept, bevor alle Seiten
+        migriert werden.
+      </p>
+      <p>
+        <strong>4. User-Test:</strong> Den Prototyp mit 3–5 Personen aus der Zielgruppe
+        testen (Senioren, Familien). Kernfrage: „Fühlt sich die Seite einladender an?"
+      </p>
+    </section>
+
+  </div>
+
+  <footer class="doc-footer">
+    <p>Konzeptdokument erstellt am 14. April 2026 · Redesign-Richtung A: Kochbuch</p>
+    <p>Gemeinsam Kochen – Gemeinsam Wachsen · Mavka.Berlin.Volunteers</p>
+  </footer>
+
+</body>
+</html>

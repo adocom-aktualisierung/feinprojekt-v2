@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seite nicht gefunden – Gemeinsam Kochen</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/images/logos/mavka.png">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <style>
+    .error-page {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    .error-content {
+      max-width: 520px;
+    }
+
+    .error-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--spacing-lg);
+      color: var(--color-light-green);
+      opacity: 0.6;
+    }
+
+    .error-title {
+      font-family: var(--font-display);
+      font-size: var(--font-size-h1);
+      font-weight: 800;
+      color: var(--color-dark-green);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .error-text {
+      font-size: var(--font-size-body);
+      color: var(--color-warm-gray);
+      line-height: var(--line-height-body);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .error-actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+      align-items: center;
+    }
+
+    @media (min-width: 600px) {
+      .error-actions {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
+
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="Gemeinsam Kochen – Startseite">
+        <div class="logo-icon">
+          <img src="/images/logos/mavka.png" alt="Gemeinsam Kochen – Gemeinsam Wachsen, zur Startseite" width="40" height="40">
+        </div>
+        <div class="logo-text">
+          <span>Gemeinsam Kochen</span>
+          <span>Gemeinsam Wachsen</span>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="error-page">
+      <div class="error-content">
+        <svg class="error-icon" viewBox="0 0 28 28" aria-hidden="true">
+          <path d="M5 18c0-2 1.5-3.5 3-4.5C9 12.5 10 11 10 9c0-1.5.8-3 2.5-3.8C13.5 4.5 14.5 4 16 4c2 0 3.5 1 4.2 2.5.5 1 .8 2.2.8 3.5 0 2.5-1 4-2.5 5.5-1 1-2 2.2-2.5 3.5-.3.8-.5 1.5-.5 2.2 0 1-.2 1.8-.8 2.3-.5.4-1.2.5-2.2.5H10c-1.5 0-2.8-.5-3.7-1.3C5.5 21.5 5 20 5 18z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10 13c1-1 2.5-1.5 4-1.5M9 17c1.5-.5 3-.5 4.5 0" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+        <h1 class="error-title">Seite nicht gefunden</h1>
+        <p class="error-text">
+          Die gewünschte Seite existiert leider nicht oder wurde verschoben.
+          Vielleicht finden Sie auf der Startseite, was Sie suchen — oder schauen
+          Sie direkt bei unseren Workshops vorbei.
+        </p>
+        <div class="error-actions">
+          <a href="/" class="btn btn-green">Zur Startseite</a>
+          <a href="/workshops/" class="btn btn-outline">Workshops entdecken</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <a href="/impressum">Impressum</a>
+          <a href="/datenschutz">Datenschutz</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

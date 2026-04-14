@@ -17,7 +17,7 @@
   font-size: var(--font-size-body);
   color: var(--color-warm-gray);
   max-width: 640px;
-  line-height: 1.65;
+  line-height: var(--line-height-body);
 }
 
 /* Workshops Notice Banner */
@@ -120,7 +120,7 @@
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   .partner-detail-grid {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -167,7 +167,7 @@
 .partner-detail-card p {
   font-size: var(--font-size-small);
   color: var(--color-warm-gray);
-  line-height: 1.55;
+  line-height: var(--line-height-tight);
   margin: 0;
 }
 
@@ -214,7 +214,7 @@
   font-size: var(--font-size-small);
   color: var(--color-warm-gray);
   margin: 0;
-  line-height: 1.5;
+  line-height: var(--line-height-tight);
 }
 
 /* News Card (for Aktuelles page) */
@@ -229,7 +229,7 @@
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   .news-grid {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -269,7 +269,7 @@
 .news-card p {
   font-size: var(--font-size-small);
   color: var(--color-warm-gray);
-  line-height: 1.55;
+  line-height: var(--line-height-tight);
   flex: 1;
 }
 
@@ -316,7 +316,7 @@
   margin: 4px 0 0;
   font-size: var(--font-size-small);
   color: var(--color-warm-gray);
-  line-height: 1.55;
+  line-height: var(--line-height-tight);
 }
 
 /* Testimonial/Blockquote */
@@ -331,7 +331,7 @@
 .testimonial p {
   font-size: 1.15rem;
   font-style: italic;
-  line-height: 1.65;
+  line-height: var(--line-height-body);
   margin-bottom: var(--spacing-xs);
 }
 
@@ -358,11 +358,27 @@
 
 .page-section > p {
   max-width: 720px;
-  line-height: 1.65;
+  line-height: var(--line-height-body);
   margin-bottom: var(--spacing-md);
 }
 
-/* Filterable cards: hide when filtered out */
+/* Filterable cards: animate on filter toggle */
+[data-filter-target] {
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
 [data-filter-target].is-hidden {
   display: none;
+}
+
+/* Empty state shown when no filter results */
+#filter-empty {
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-md);
+  color: var(--color-warm-gray);
+  font-size: var(--font-size-body);
+}
+
+#filter-empty .btn {
+  margin-top: var(--spacing-md);
 }
