@@ -16,9 +16,9 @@ No test framework, linter, or formatter configured.
 
 ## Architecture
 
-Static multi-page site: Vite 8 + vanilla JS (ES modules) + custom CSS. No framework.
+Static multi-page site: Vite 8 + vite-plugin-handlebars + vanilla JS (ES modules) + custom CSS. No framework.
 
-**Pages** (14 entry points in `vite.config.js`):
+**Pages** (16 entry points in `vite.config.js`):
 
 - `index.html` — Main landing page (single-page with anchor sections)
 - `projekt/index.html` — Über das Projekt (standalone page)
@@ -30,14 +30,20 @@ Static multi-page site: Vite 8 + vanilla JS (ES modules) + custom CSS. No framew
 - `workshops/pfannkuchen-fuellungen/index.html` — Workshop detail page
 - `workshops/sekerbura/index.html` — Workshop detail page
 - `aktuelles/index.html` — Was bisher passiert ist (with category filter)
+- `teilnehmen/index.html` — Teilnehmen (registration & contact)
 - `partner/index.html` — Träger & Partner
 - `transparenz/index.html` — Für Förderer & Partner
 - `impressum/index.html` — Legal notice
 - `datenschutz/index.html` — Privacy policy
+- `404.html` — Custom error page
+
+**Handlebars Partials** (`partials/`): Header, footer, mobile-nav, dialog, and above-header are shared via `vite-plugin-handlebars`. `pageContext` in `vite.config.js` passes `currentPage` (for `aria-current`) and `mobileNavId` (unique mobile-nav IDs) per page. Helper: `{{#eq}}` for conditional rendering.
 
 **CSS** (loaded in order): `tokens.css` → `base.css` → `layout.css` → `components.css` → `animations.css`. Standalone pages additionally load `pages.css`.
 
-**JS**: `js/main.js` — mobile nav, font-size switcher (localStorage), registration dialog, form validation, toast notifications, IntersectionObserver animations. Uses `textContent`/`createElement` (no innerHTML) for XSS safety. `js/filter.js` — filter chips on workshops overview and aktuelles pages.
+**JS** (3 modules): `js/main.js` — mobile nav, font-size switcher (localStorage), registration dialog, form validation, toast notifications, IntersectionObserver animations. Uses `textContent`/`createElement` (no innerHTML) for XSS safety. `js/filter.js` — filter chips on workshops overview and aktuelles pages. `js/i18n.js` — client-side DE/EN translation (see Language / i18n section below).
+
+**PHP API** (`api/`): Server-side form handling — `contact.php`, `register.php`, `newsletter.php` (Double-Opt-in, DSGVO-konform), `verify-newsletter.php`, `waitlist.php`. Config via `config.php` / `config.local.example.php`. SMTP via mail.adomail.de. Protected by `.htaccess`.
 
 ## Document Authority Hierarchy
 

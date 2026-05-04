@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" role="img" aria-label="Möhre">
+  <title>Möhre / Karotte</title>
+
+  <!-- BLÄTTER (gezeichnet zuerst, Körper überlappt die Basen) — helles Lime wie im Mavka-Logo -->
+  <!-- Linkes Blatt -->
+  <path d="M 78 22
+           C 88 32, 90 50, 88 62
+           L 82 62
+           C 72 50, 70 32, 78 22 Z"
+        fill="#9BBF3F" stroke="#1B5E20" stroke-width="3.5"
+        stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Rechtes Blatt -->
+  <path d="M 122 22
+           C 112 32, 110 50, 112 62
+           L 118 62
+           C 128 50, 130 32, 122 22 Z"
+        fill="#9BBF3F" stroke="#1B5E20" stroke-width="3.5"
+        stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Zentrales Blatt (am höchsten) -->
+  <path d="M 100 16
+           C 108 26, 108 48, 104 62
+           L 96 62
+           C 92 48, 92 26, 100 16 Z"
+        fill="#9BBF3F" stroke="#1B5E20" stroke-width="3.5"
+        stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- KAROTTEN-KÖRPER — tapered Orange, leicht asymmetrisch (hand-gezogen) -->
+  <path d="M 76 60
+           L 124 60
+           C 126 62, 120 112, 108 164
+           Q 106 170, 100 170
+           Q 94 170, 92 164
+           C 80 112, 74 62, 76 60 Z"
+        fill="#E88A3C" stroke="#1B5E20" stroke-width="5"
+        stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- WACHSTUMS-RINGE — drei horizontale Marks, werden nach unten enger (wie im Logo die Blatt-Adern) -->
+  <path d="M 82 82 Q 100 86 118 82"
+        stroke="#1B5E20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M 86 108 Q 100 112 114 108"
+        stroke="#1B5E20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M 92 136 Q 100 139 108 136"
+        stroke="#1B5E20" stroke-width="2" fill="none" stroke-linecap="round"/>
+</svg>

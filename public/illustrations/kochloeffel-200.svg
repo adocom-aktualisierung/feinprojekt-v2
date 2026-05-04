@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" role="img" aria-label="Kochlöffel">
+  <title>Kochlöffel</title>
+
+  <!-- LÖFFEL — Kopf + Stiel als durchgängige Silhouette, warmer Holzton -->
+  <path d="M 100 22
+           C 76 22, 62 38, 62 58
+           C 62 76, 74 88, 90 90
+           L 90 168
+           Q 90 180, 100 180
+           Q 110 180, 110 170
+           L 110 90
+           C 126 88, 138 76, 138 58
+           C 138 38, 124 22, 100 22 Z"
+        fill="#B99463" stroke="#1B5E20" stroke-width="5"
+        stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- MULDE — inneres Oval, deutet die Vertiefung der Kelle an -->
+  <ellipse cx="100" cy="56" rx="20" ry="14"
+           fill="none" stroke="#1B5E20" stroke-width="2.5"/>
+
+  <!-- HOLZFASER — subtile Linie am Stiel (wie die Blatt-Adern im Logo) -->
+  <path d="M 100 108 Q 98 140 100 162"
+        stroke="#1B5E20" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+</svg>

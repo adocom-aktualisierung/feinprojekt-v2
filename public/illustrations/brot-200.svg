@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" role="img" aria-label="Brotscheibe">
+  <title>Brotscheibe</title>
+
+  <!-- SCHEIBE — rustikale Sauerteig-Scheibe, asymmetrische Kuppel (hand-geschnitten) -->
+  <path d="M 42 156
+           L 44 92
+           C 46 62, 70 36, 100 34
+           C 132 36, 158 62, 156 94
+           L 158 156
+           Z"
+        fill="#F5DDA5"
+        stroke="#1B5E20"
+        stroke-width="5"
+        stroke-linejoin="round"
+        stroke-linecap="round"/>
+
+  <!-- KRUSTEN-LINIE am Boden — deutet Schnitt/härtere Kruste an -->
+  <path d="M 54 144 Q 100 140 148 144"
+        stroke="#1B5E20" stroke-width="2" fill="none"
+        stroke-linecap="round"/>
+
+  <!-- LUFTPOREN — vier größere Löcher, outlined (Sauerteig-Krume) -->
+  <ellipse cx="78" cy="82" rx="7" ry="5"
+           stroke="#1B5E20" stroke-width="2" fill="none"/>
+  <ellipse cx="115" cy="72" rx="6" ry="4"
+           stroke="#1B5E20" stroke-width="2" fill="none"/>
+  <ellipse cx="125" cy="108" rx="6" ry="4"
+           stroke="#1B5E20" stroke-width="2" fill="none"/>
+  <ellipse cx="82" cy="118" rx="5" ry="4"
+           stroke="#1B5E20" stroke-width="2" fill="none"/>
+
+  <!-- KRUMEN-DETAILS — kleine solide Punkte (wie die Blatt-Adern im Logo) -->
+  <circle cx="96" cy="92" r="1.8" fill="#1B5E20"/>
+  <circle cx="104" cy="76" r="1.5" fill="#1B5E20"/>
+  <circle cx="66" cy="100" r="1.5" fill="#1B5E20"/>
+  <circle cx="140" cy="90" r="1.5" fill="#1B5E20"/>
+  <circle cx="102" cy="126" r="1.5" fill="#1B5E20"/>
+</svg>
