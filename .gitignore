@@ -10,6 +10,7 @@ docs/Bilder/
 .env
 .env.*
 *.local
+config.local.php
 *.tmp
 *.plugin
 ~$*
