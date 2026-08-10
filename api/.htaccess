@@ -1,11 +1,11 @@
-# Allow POST + OPTIONS (CORS preflight) to PHP endpoints
-<FilesMatch "\.php$">
-    <LimitExcept POST OPTIONS>
-        Deny from all
-    </LimitExcept>
-</FilesMatch>
+# LiteSpeed-kompatibel via mod_rewrite (LimitExcept wird von LiteSpeed
+# in .htaccess nicht methodenspezifisch ausgewertet und sperrte alles).
 
-# Block direct access to config files
-<FilesMatch "config\.">
-    Deny from all
-</FilesMatch>
+RewriteEngine On
+
+# Config-Dateien nie ausliefern (alle Methoden)
+RewriteRule ^config\. - [F,L]
+
+# PHP-Endpunkte nur per POST + OPTIONS (CORS-Preflight)
+RewriteCond %{REQUEST_METHOD} !^(POST|OPTIONS)$
+RewriteRule \.php$ - [F,L]
