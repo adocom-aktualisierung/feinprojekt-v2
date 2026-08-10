@@ -384,7 +384,7 @@ if (regForm) {
         showToast(result.error || t('common.toast.genericError', 'Ein Fehler ist aufgetreten.'), 'error');
       }
     } catch {
-      showToast(t('common.toast.networkError', 'Verbindungsfehler. Bitte melden Sie sich telefonisch unter +49 163 7038724.'), 'error');
+      showToast(t('common.toast.networkError', 'Verbindungsfehler. Bitte melden Sie sich telefonisch unter +49 157 81512146.'), 'error');
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
@@ -626,7 +626,7 @@ if (contactForm) {
         showToast(result.error || t('common.toast.contactError', 'Die Nachricht konnte nicht gesendet werden.'), 'error');
       }
     } catch {
-      showToast(t('common.toast.contactNetworkError', 'Verbindungsfehler – bitte versuchen Sie es telefonisch unter +49 163 7038724.'), 'error');
+      showToast(t('common.toast.contactNetworkError', 'Verbindungsfehler – bitte versuchen Sie es telefonisch unter +49 157 81512146.'), 'error');
     } finally {
       if (submitBtn.parentElement) {
         submitBtn.disabled = false;
@@ -732,7 +732,7 @@ if (waitlistDialog && waitlistForm) {
         showToast(result.error || t('common.toast.genericError', 'Ein Fehler ist aufgetreten.'), 'error');
       }
     } catch {
-      showToast(t('common.toast.networkError', 'Verbindungsfehler. Bitte melden Sie sich telefonisch unter +49 163 7038724.'), 'error');
+      showToast(t('common.toast.networkError', 'Verbindungsfehler. Bitte melden Sie sich telefonisch unter +49 157 81512146.'), 'error');
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;

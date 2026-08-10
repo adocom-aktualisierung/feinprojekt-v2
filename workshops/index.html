@@ -51,146 +51,392 @@
 
       <div class="page-hero">
         <h1 data-i18n="workshops.heading">Workshops &amp; Termine</h1>
-        <p data-i18n="workshops.description">Alle bisherigen Koch- und Backworkshops im Überblick. Neue Termine folgen bald!</p>
-      </div>
-
-      <!-- NOTICE: Nächste Runde -->
-      <div class="workshops-notice" role="status">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
-        <p><span data-i18n="workshops.nextRoundNotice">Unsere Workshops sind stark nachgefragt. Neue Termine f&uuml;r die n&auml;chste Runde werden in K&uuml;rze bekannt gegeben</span> &mdash; <a href="/teilnehmen/" data-i18n="workshops.nextRoundCta">melden Sie sich f&uuml;r die Warteliste an</a>.</p>
+        <p data-i18n="workshops.description">Alle Koch- und Backworkshops im Überblick — kommende Termine und Rückblicke auf vergangene Veranstaltungen.</p>
       </div>
 
       <!-- FILTER -->
       <div class="filter-bar" role="group" aria-label="Workshops filtern nach Ort" data-i18n-aria-label="workshops.filterLabel" data-filter-group="workshops-list">
         <button class="filter-chip is-active" data-filter="all" aria-pressed="true" data-i18n="workshops.filterAll">Alle</button>
         <button class="filter-chip" data-filter="maggie" aria-pressed="false" data-i18n="workshops.filterMaggie">Maggie</button>
-        <button class="filter-chip" data-filter="benn" aria-pressed="false" data-i18n="workshops.filterBenn">BENN Lichtenberg</button>
+        <button class="filter-chip" data-filter="kieztreff" aria-pressed="false" data-i18n="workshops.filterKieztreff">Kieztreff Lebensnetz</button>
+        <button class="filter-chip" data-filter="buergertreff" aria-pressed="false" data-i18n="workshops.filterBuergertreff">Bürgertreff</button>
+        <button class="filter-chip" data-filter="seefelder" aria-pressed="false" data-i18n="workshops.filterSeefelder">NachbarschaftsTreff Seefelder</button>
+        <button class="filter-chip" data-filter="benn" aria-pressed="false" data-i18n="workshops.filterBenn">BENN</button>
         <button class="filter-chip" data-filter="lichtenberg" aria-pressed="false" data-i18n="workshops.filterLichtenberg">Lichtenberg</button>
       </div>
 
       <!-- Screen-reader-only live region for filter result count -->
       <p class="sr-only" id="filter-status" role="status" aria-live="polite"></p>
 
-      <!-- WORKSHOP CARDS -->
-      <div class="workshops-grid" id="workshops-list">
+      <div id="workshops-list">
 
-        <article class="workshop-card is-sold-out" data-filter-target data-category="maggie">
-          <a class="workshop-card-link" href="/workshops/pilzkuchen-honigkuchen/" aria-label="Workshop-Details: Herzhafter Pilzkuchen &amp; Honigkuchen, 15. Februar 2026">
-            <div class="workshop-card-image">
-              <img class="card-illustration" src="/images/workshops/IMG_7512.jpg" alt="Nachbar*innen kochen gemeinsam" loading="lazy">
-              <div class="card-date-badge"><span class="date-day">15</span><span class="date-month" data-i18n="common.months.short.feb">Feb</span></div>
-            </div>
-            <div class="workshop-card-body">
-              <div class="workshop-card-tags">
-                <span class="tag tag-green" data-i18n="common.tags.kochenBacken">Kochen &amp; Backen</span>
-                <span class="tag tag-sold-out" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
-              </div>
-              <h3 data-i18n="workshop.pilzkuchenHonigkuchen.title">Herzhafter Pilzkuchen &amp; Honigkuchen</h3>
-              <p data-i18n="workshop.pilzkuchenHonigkuchen.description">Würziger Pilzkuchen mit frischen Champignons und dazu ein süßer, aromatischer Honigkuchen.</p>
-              <div class="workshop-card-meta">
-                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.pilzkuchenHonigkuchen.cardTime">12:00 – 15:00 Uhr</span></div>
-                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.pilzkuchenHonigkuchen.cardLocation">Maggie, Frankfurter Allee 205</span></div>
-              </div>
-              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
-            </div>
-          </a>
-          <button type="button" class="btn btn-green workshop-card-waitlist waitlist-btn" data-workshop="pilzkuchen-honigkuchen" data-workshop-title="Herzhafter Pilzkuchen & Honigkuchen" data-i18n="common.waitlist.cta">Auf Warteliste</button>
-        </article>
+        <!-- KOMMENDE TERMINE -->
+        <section class="page-section" aria-labelledby="kommende-termine">
+          <h2 id="kommende-termine" data-i18n="workshops.upcomingHeading">Kommende Termine</h2>
+          <div class="workshops-grid">
 
-        <article class="workshop-card is-sold-out" data-filter-target data-category="benn">
-          <a class="workshop-card-link" href="/workshops/pfannkuchen-fuellungen/" aria-label="Workshop-Details: Pfannkuchen mit Füllungen &amp; Salat, 27. Februar 2026">
+        <article class="workshop-card" data-filter-target data-category="kieztreff">
+          <a class="workshop-card-link" href="/workshops/borschtsch-limonade/" aria-label="Workshop-Details: Borschtsch &amp; hausgemachte Limonade, Dienstag, 8. September 2026">
             <div class="workshop-card-image">
-              <img class="card-illustration" src="/images/workshops/IMG_8737.jpg" alt="Kinder kneten begeistert Teig" loading="lazy">
-              <div class="card-date-badge"><span class="date-day">27</span><span class="date-month" data-i18n="common.months.short.feb">Feb</span></div>
+              <img class="card-illustration" src="/images/workshops/IMG_7519.jpg" alt="Gemeinsames Kochen am Tisch" data-i18n-alt="workshop.borschtschLimonade.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">08</span><span class="date-month" data-i18n="common.months.short.sep">Sep</span></div>
             </div>
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
                 <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
-                <span class="tag tag-sold-out" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
+                <span class="tag tag-available" data-i18n="common.tags.plaetzeFrei">Plätze frei</span>
               </div>
-              <h3 data-i18n="workshop.pfannkuchenFuellungen.title">Pfannkuchen mit Füllungen &amp; Salat</h3>
-              <p data-i18n="workshop.pfannkuchenFuellungen.description">Feine Pfannkuchen mit süßen und herzhaften Füllungen, dazu ein frischer Salat.</p>
+              <h3 data-i18n="workshop.borschtschLimonade.title">Borschtsch &amp; hausgemachte Limonade</h3>
+              <p data-i18n="workshop.borschtschLimonade.description">Wir kochen gemeinsam Borschtsch und bereiten erfrischende hausgemachte Limonade zu.</p>
               <div class="workshop-card-meta">
-                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.pfannkuchenFuellungen.cardTime">15:00 – 18:00 Uhr</span></div>
-                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.pfannkuchenFuellungen.cardLocation">BENN, Wartenberger Str. 24</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.borschtschLimonade.cardTime">14:00 – 17:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.borschtschLimonade.cardLocation">Kieztreff Lebensnetz</span></div>
               </div>
-              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaDetails">Details &amp; Anmeldung</span>
             </div>
           </a>
-          <button type="button" class="btn btn-green workshop-card-waitlist waitlist-btn" data-workshop="pfannkuchen-fuellungen" data-workshop-title="Pfannkuchen mit Füllungen & Salat" data-i18n="common.waitlist.cta">Auf Warteliste</button>
         </article>
 
-        <article class="workshop-card is-sold-out" data-filter-target data-category="maggie">
-          <a class="workshop-card-link" href="/workshops/khachapuri-brownies/" aria-label="Workshop-Details: Khachapuri &amp; Brownies, 7. März 2026">
+        <article class="workshop-card" data-filter-target data-category="maggie">
+          <a class="workshop-card-link" href="/workshops/termin-2026-09-12/" aria-label="Workshop-Details: Kochworkshop am 12. September, Samstag, 12. September 2026">
             <div class="workshop-card-image">
-              <img class="card-illustration" src="/images/workshops/IMG_7563.jpg" alt="Frisch zubereitete Teigtaschen" loading="lazy">
-              <div class="card-date-badge"><span class="date-day">07</span><span class="date-month" data-i18n="common.months.short.mar">Mär</span></div>
+              <img class="card-illustration" src="/images/workshops/IMG_7512.jpg" alt="Nachbar*innen kochen gemeinsam" data-i18n-alt="workshop.termin20260912.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">12</span><span class="date-month" data-i18n="common.months.short.sep">Sep</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-available" data-i18n="common.tags.plaetzeFrei">Plätze frei</span>
+              </div>
+              <h3 data-i18n="workshop.termin20260912.title">Kochworkshop am 12. September</h3>
+              <p data-i18n="workshop.termin20260912.description">Das Menü wird noch bekannt gegeben. Thema des Nachmittags: Politische Bildung.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshops.timeTba">Uhrzeit folgt</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.termin20260912.cardLocation">Maggie</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaDetails">Details &amp; Anmeldung</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card" data-filter-target data-category="buergertreff">
+          <a class="workshop-card-link" href="/workshops/termin-2026-09-27/" aria-label="Workshop-Details: Kochworkshop am 27. September, Sonntag, 27. September 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/IMG_8723.jpg" alt="Kinder und Erwachsene beim Backen" data-i18n-alt="workshop.termin20260927.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">27</span><span class="date-month" data-i18n="common.months.short.sep">Sep</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-available" data-i18n="common.tags.plaetzeFrei">Plätze frei</span>
+              </div>
+              <h3 data-i18n="workshop.termin20260927.title">Kochworkshop am 27. September</h3>
+              <p data-i18n="workshop.termin20260927.description">Das Menü wird noch bekannt gegeben — gemeinsames Kochen im Bürgertreff „Gemeinsam im Kiez leben“.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.termin20260927.cardTime">12:00 – 15:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.termin20260927.cardLocation">Bürgertreff</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaDetails">Details &amp; Anmeldung</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card" data-filter-target data-category="kieztreff">
+          <a class="workshop-card-link" href="/workshops/termin-2026-10-02/" aria-label="Workshop-Details: Kochworkshop am 2. Oktober, Freitag, 2. Oktober 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/IMG_7554.jpg" alt="Zubereitung von Teig in der Gruppe" data-i18n-alt="workshop.termin20261002.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">02</span><span class="date-month" data-i18n="common.months.short.oct">Okt</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-available" data-i18n="common.tags.plaetzeFrei">Plätze frei</span>
+              </div>
+              <h3 data-i18n="workshop.termin20261002.title">Kochworkshop am 2. Oktober</h3>
+              <p data-i18n="workshop.termin20261002.description">Das Menü wird noch bekannt gegeben — gemeinsames Kochen im Kieztreff Lebensnetz.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.termin20261002.cardTime">14:00 – 17:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.termin20261002.cardLocation">Kieztreff Lebensnetz</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaDetails">Details &amp; Anmeldung</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card" data-filter-target data-category="maggie">
+          <a class="workshop-card-link" href="/workshops/termin-2026-10-10/" aria-label="Workshop-Details: Kochworkshop am 10. Oktober, Samstag, 10. Oktober 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/IMG_7519.jpg" alt="Gemeinsames Kochen am Tisch" data-i18n-alt="workshop.termin20261010.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">10</span><span class="date-month" data-i18n="common.months.short.oct">Okt</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-available" data-i18n="common.tags.plaetzeFrei">Plätze frei</span>
+              </div>
+              <h3 data-i18n="workshop.termin20261010.title">Kochworkshop am 10. Oktober</h3>
+              <p data-i18n="workshop.termin20261010.description">Das Menü wird noch bekannt gegeben — gemeinsames Kochen im Maggie.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshops.timeTba">Uhrzeit folgt</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.termin20261010.cardLocation">Maggie</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaDetails">Details &amp; Anmeldung</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card" data-filter-target data-category="maggie">
+          <a class="workshop-card-link" href="/workshops/termin-2026-11-07/" aria-label="Workshop-Details: Kochworkshop am 7. November, Samstag, 7. November 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/IMG_7528.jpg" alt="Frisch gebackene Spezialitäten" data-i18n-alt="workshop.termin20261107.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">07</span><span class="date-month" data-i18n="common.months.short.nov">Nov</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-available" data-i18n="common.tags.plaetzeFrei">Plätze frei</span>
+              </div>
+              <h3 data-i18n="workshop.termin20261107.title">Kochworkshop am 7. November</h3>
+              <p data-i18n="workshop.termin20261107.description">Das Menü wird noch bekannt gegeben — gemeinsames Kochen im Maggie.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshops.timeTba">Uhrzeit folgt</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.termin20261107.cardLocation">Maggie</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaDetails">Details &amp; Anmeldung</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card" data-filter-target data-category="seefelder">
+          <a class="workshop-card-link" href="/workshops/termin-2026-11-19/" aria-label="Workshop-Details: Kochworkshop am 19. November, Donnerstag, 19. November 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/IMG_8737.jpg" alt="Kinder kneten begeistert Teig" data-i18n-alt="workshop.termin20261119.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">19</span><span class="date-month" data-i18n="common.months.short.nov">Nov</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-available" data-i18n="common.tags.plaetzeFrei">Plätze frei</span>
+              </div>
+              <h3 data-i18n="workshop.termin20261119.title">Kochworkshop am 19. November</h3>
+              <p data-i18n="workshop.termin20261119.description">Das Menü wird noch bekannt gegeben — gemeinsames Kochen im NachbarschaftsTreff an der Seefelder.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshops.timeTba">Uhrzeit folgt</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.termin20261119.cardLocation">NachbarschaftsTreff Seefelder</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaDetails">Details &amp; Anmeldung</span>
+            </div>
+          </a>
+        </article>
+
+          </div>
+        </section>
+
+        <!-- VERGANGENE WORKSHOPS -->
+        <section class="page-section" aria-labelledby="vergangene-workshops">
+          <h2 id="vergangene-workshops" data-i18n="workshops.pastHeading">Vergangene Workshops</h2>
+          <div class="workshops-grid">
+
+        <article class="workshop-card is-sold-out" data-filter-target data-category="maggie">
+          <a class="workshop-card-link" href="/workshops/pizza-couscous/" aria-label="Rückblick: Pizza &amp; Couscous-Salat, Samstag, 8. August 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/IMG_7563.jpg" alt="Frisch zubereitete Teigtaschen" data-i18n-alt="workshop.pizzaCouscous.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">08</span><span class="date-month" data-i18n="common.months.short.aug">Aug</span></div>
             </div>
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
                 <span class="tag tag-green" data-i18n="common.tags.kochenBacken">Kochen &amp; Backen</span>
-                <span class="tag tag-sold-out" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
               </div>
-              <h3 data-i18n="workshop.khachapuriBrownies.title">Khachapuri &amp; Brownies</h3>
-              <p data-i18n="workshop.khachapuriBrownies.description">Georgische Käsefladen aus der Pfanne und saftige Brownies.</p>
+              <h3 data-i18n="workshop.pizzaCouscous.title">Pizza &amp; Couscous-Salat</h3>
+              <p data-i18n="workshop.pizzaCouscous.description">Selbstgemachte Pizza und frischer Couscous-Salat — dazu Gespräche über persönliche Entwicklung und Motivation.</p>
               <div class="workshop-card-meta">
-                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.khachapuriBrownies.cardTime">12:30 – 15:00 Uhr</span></div>
-                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.khachapuriBrownies.cardLocation">Maggie, Frankfurter Allee 205</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.pizzaCouscous.cardTime">12:00 – 15:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.pizzaCouscous.cardLocation">Maggie</span></div>
               </div>
-              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
             </div>
           </a>
-          <button type="button" class="btn btn-green workshop-card-waitlist waitlist-btn" data-workshop="khachapuri-brownies" data-workshop-title="Khachapuri & Brownies" data-i18n="common.waitlist.cta">Auf Warteliste</button>
         </article>
 
-        <article class="workshop-card is-sold-out" data-filter-target data-category="lichtenberg">
-          <a class="workshop-card-link" href="/workshops/sekerbura/" aria-label="Workshop-Details: Aserbaidschanische Şekerbura, 15. März 2026">
+        <article class="workshop-card is-sold-out" data-filter-target data-category="maggie">
+          <a class="workshop-card-link" href="/workshops/gesundes-fruehstueck/" aria-label="Rückblick: Gesundes Essen: Frühstücksideen, Samstag, 11. Juli 2026">
             <div class="workshop-card-image">
-              <img class="card-illustration" src="/images/workshops/IMG_7525.jpg" alt="Mehrere Personen formen Teigtaschen" loading="lazy">
-              <div class="card-date-badge"><span class="date-day">15</span><span class="date-month" data-i18n="common.months.short.mar">Mär</span></div>
+              <img class="card-illustration" src="/images/workshops/2026/gesundes-fruehstueck.jpg" alt="Teilnehmer*innen bereiten gemeinsam ein gesundes Frühstück zu (11. Juli 2026)" data-i18n-alt="workshop.gesundesFruehstueck.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">11</span><span class="date-month" data-i18n="common.months.short.jul">Jul</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
+              </div>
+              <h3 data-i18n="workshop.gesundesFruehstueck.title">Gesundes Essen: Frühstücksideen</h3>
+              <p data-i18n="workshop.gesundesFruehstueck.description">Ausgewogene Ernährung und einfache, gesunde Frühstücksrezepte für den Alltag.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.gesundesFruehstueck.cardTime">12:00 – 15:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.gesundesFruehstueck.cardLocation">Maggie</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card is-sold-out" data-filter-target data-category="seefelder">
+          <a class="workshop-card-link" href="/workshops/wareniki-seefelder/" aria-label="Rückblick: Wareniki, Donnerstag, 11. Juni 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/2026/wareniki-seefelder.jpg" alt="Nachbar*innen rollen gemeinsam Teig für Wareniki aus (11. Juni 2026)" data-i18n-alt="workshop.warenikiSeefelder.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">11</span><span class="date-month" data-i18n="common.months.short.jun">Jun</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
+              </div>
+              <h3 data-i18n="workshop.warenikiSeefelder.title">Wareniki</h3>
+              <p data-i18n="workshop.warenikiSeefelder.description">Gefüllte Teigtaschen nach osteuropäischer Art — gemeinsam zubereitet im NachbarschaftsTreff an der Seefelder.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.warenikiSeefelder.cardTime">12:00 – 15:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.warenikiSeefelder.cardLocation">NachbarschaftsTreff Seefelder</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card is-sold-out" data-filter-target data-category="maggie">
+          <a class="workshop-card-link" href="/workshops/gymnasium-lichtenberg/" aria-label="Rückblick: Kochworkshop mit dem 12. Gymnasium Lichtenberg, Donnerstag, 28. Mai 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/2026/gymnasium-lichtenberg.jpg" alt="Gruppenfoto vom Kochworkshop mit dem 12. Gymnasium Lichtenberg (28. Mai 2026)" data-i18n-alt="workshop.gymnasiumLichtenberg.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">28</span><span class="date-month" data-i18n="common.months.short.may">Mai</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
+              </div>
+              <h3 data-i18n="workshop.gymnasiumLichtenberg.title">Kochworkshop mit dem 12. Gymnasium Lichtenberg</h3>
+              <p data-i18n="workshop.gymnasiumLichtenberg.description">Schüler*innen des 12. Gymnasiums Lichtenberg kochten gemeinsam mit Kindern aus einer Gemeinschaftsunterkunft.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.gymnasiumLichtenberg.cardTime">11:00 – 16:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.gymnasiumLichtenberg.cardLocation">Maggie</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card is-sold-out" data-filter-target data-category="maggie">
+          <a class="workshop-card-link" href="/workshops/nicaraguanische-kueche/" aria-label="Rückblick: Nicaraguanische Küche, Samstag, 23. Mai 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/2026/nicaraguanische-kueche.jpg" alt="Zubereitung traditioneller Gerichte beim Workshop zur nicaraguanischen Küche (23. Mai 2026)" data-i18n-alt="workshop.nicaraguanischeKueche.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">23</span><span class="date-month" data-i18n="common.months.short.may">Mai</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
+              </div>
+              <h3 data-i18n="workshop.nicaraguanischeKueche.title">Nicaraguanische Küche</h3>
+              <p data-i18n="workshop.nicaraguanischeKueche.description">Traditionelle Gerichte aus Nicaragua und kultureller Austausch über Geschichte, Kultur und Essgewohnheiten des Landes.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.nicaraguanischeKueche.cardTime">12:00 – 15:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.nicaraguanischeKueche.cardLocation">Maggie</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card is-sold-out" data-filter-target data-category="buergertreff">
+          <a class="workshop-card-link" href="/workshops/wareniki-buergertreff/" aria-label="Rückblick: Wareniki, Samstag, 9. Mai 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/2026/wareniki-buergertreff.jpg" alt="Junge Teilnehmer*innen kochen Wareniki im Bürgertreff (9. Mai 2026)" data-i18n-alt="workshop.warenikiBuergertreff.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">09</span><span class="date-month" data-i18n="common.months.short.may">Mai</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
+              </div>
+              <h3 data-i18n="workshop.warenikiBuergertreff.title">Wareniki</h3>
+              <p data-i18n="workshop.warenikiBuergertreff.description">Gefüllte Teigtaschen nach osteuropäischer Art — gemeinsam zubereitet im Bürgertreff „Gemeinsam im Kiez leben“.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.warenikiBuergertreff.cardTime">12:00 – 15:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.warenikiBuergertreff.cardLocation">Bürgertreff</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card is-sold-out" data-filter-target data-category="benn">
+          <a class="workshop-card-link" href="/workshops/gesundes-essen-benn/" aria-label="Rückblick: Gesundes Essen, Samstag, 2. Mai 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/2026/gesundes-essen-benn.jpg" alt="Gruppenfoto der Teilnehmerinnen beim Workshop zu gesundem Essen (2. Mai 2026)" data-i18n-alt="workshop.gesundesEssenBenn.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">02</span><span class="date-month" data-i18n="common.months.short.may">Mai</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
+              </div>
+              <h3 data-i18n="workshop.gesundesEssenBenn.title">Gesundes Essen</h3>
+              <p data-i18n="workshop.gesundesEssenBenn.description">Ausgewogene Ernährung und alltagstaugliche Rezepte — ein Workshop rund um gesunde Gewohnheiten.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.gesundesEssenBenn.cardTime">12:00 – 15:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.gesundesEssenBenn.cardLocation">BENN Alt-Hohenschönhausen</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card is-sold-out" data-filter-target data-category="kieztreff">
+          <a class="workshop-card-link" href="/workshops/wareniki-kieztreff/" aria-label="Rückblick: Wareniki, Dienstag, 28. April 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/2026/wareniki-kieztreff.jpg" alt="Seniorinnen formen gemeinsam Wareniki am Tisch (28. April 2026)" data-i18n-alt="workshop.warenikiKieztreff.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">28</span><span class="date-month" data-i18n="common.months.short.apr">Apr</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
+              </div>
+              <h3 data-i18n="workshop.warenikiKieztreff.title">Wareniki</h3>
+              <p data-i18n="workshop.warenikiKieztreff.description">Gefüllte Teigtaschen nach osteuropäischer Art — gemeinsam zubereitet im Kieztreff Lebensnetz.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.warenikiKieztreff.cardTime">14:00 – 17:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.warenikiKieztreff.cardLocation">Kieztreff Lebensnetz</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card is-sold-out" data-filter-target data-category="maggie">
+          <a class="workshop-card-link" href="/workshops/osterkuchen/" aria-label="Rückblick: Osterkuchen, Samstag, 11. April 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/2026/osterkuchen.jpg" alt="Teilnehmerinnen backen gemeinsam Osterkuchen (11. April 2026)" data-i18n-alt="workshop.osterkuchen.heroAlt" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">11</span><span class="date-month" data-i18n="common.months.short.apr">Apr</span></div>
             </div>
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
                 <span class="tag tag-green" data-i18n="common.tags.backen">Backen</span>
-                <span class="tag tag-sold-out" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
               </div>
-              <h3 data-i18n="workshop.sekerbura.title">Aserbaidschanische Şekerbura</h3>
-              <p data-i18n="workshop.sekerbura.description">Traditionelles aserbaidschanisches Gebäck mit Nussfüllung.</p>
+              <h3 data-i18n="workshop.osterkuchen.title">Osterkuchen</h3>
+              <p data-i18n="workshop.osterkuchen.description">Gemeinsam backen wir traditionelle Osterkuchen — festliches Gebäck zum Osterfest, wie es in vielen Familien und Kulturen Tradition hat.</p>
               <div class="workshop-card-meta">
-                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.sekerbura.cardTime">12:30 – 15:30 Uhr</span></div>
-                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.sekerbura.cardLocation">Lichtenberg</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.osterkuchen.cardTime">12:00 – 15:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.osterkuchen.cardLocation">Maggie</span></div>
               </div>
-              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
             </div>
           </a>
-          <button type="button" class="btn btn-green workshop-card-waitlist waitlist-btn" data-workshop="sekerbura" data-workshop-title="Aserbaidschanische Şekerbura" data-i18n="common.waitlist.cta">Auf Warteliste</button>
         </article>
 
         <article class="workshop-card is-sold-out" data-filter-target data-category="lichtenberg">
-          <a class="workshop-card-link" href="/workshops/pilzquiche-zimtschnecken/" aria-label="Workshop-Details: Pilz-Quiche &amp; Zimtschnecken, 21. März 2026">
-            <div class="workshop-card-image">
-              <img class="card-illustration" src="/images/workshops/IMG_7554.jpg" alt="Zubereitung von Teig in der Gruppe" loading="lazy">
-              <div class="card-date-badge"><span class="date-day">21</span><span class="date-month" data-i18n="common.months.short.mar">Mär</span></div>
-            </div>
-            <div class="workshop-card-body">
-              <div class="workshop-card-tags">
-                <span class="tag tag-green" data-i18n="common.tags.kochenBacken">Kochen &amp; Backen</span>
-                <span class="tag tag-sold-out" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
-              </div>
-              <h3 data-i18n="workshop.pilzquicheZimtschnecken.title">Pilz-Quiche &amp; Zimtschnecken</h3>
-              <p data-i18n="workshop.pilzquicheZimtschnecken.description">Herzhafte Pilzquiche trifft auf duftende Zimtschnecken.</p>
-              <div class="workshop-card-meta">
-                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.pilzquicheZimtschnecken.cardTime">12:00 – 15:00 Uhr</span></div>
-                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.pilzquicheZimtschnecken.cardLocation">Lichtenberg 13055</span></div>
-              </div>
-              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
-            </div>
-          </a>
-          <button type="button" class="btn btn-green workshop-card-waitlist waitlist-btn" data-workshop="pilzquiche-zimtschnecken" data-workshop-title="Pilz-Quiche & Zimtschnecken" data-i18n="common.waitlist.cta">Auf Warteliste</button>
-        </article>
-
-        <article class="workshop-card is-sold-out" data-filter-target data-category="lichtenberg">
-          <a class="workshop-card-link" href="/workshops/soljanka-sharlotka/" aria-label="Workshop-Details: Soljanka &amp; Apfelkuchen Sharlotka, 24. März 2026">
+          <a class="workshop-card-link" href="/workshops/soljanka-sharlotka/" aria-label="Rückblick: Soljanka &amp; Apfelkuchen Sharlotka, 24. März 2026">
             <div class="workshop-card-image">
               <img class="card-illustration" src="/images/workshops/IMG_8723.jpg" alt="Kinder und Erwachsene beim Backen" loading="lazy">
               <div class="card-date-badge"><span class="date-day">24</span><span class="date-month" data-i18n="common.months.short.mar">Mär</span></div>
@@ -198,7 +444,7 @@
             <div class="workshop-card-body">
               <div class="workshop-card-tags">
                 <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
-                <span class="tag tag-sold-out" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
               </div>
               <h3 data-i18n="workshop.soljankaSharlotka.title">Soljanka &amp; Apfelkuchen Sharlotka</h3>
               <p data-i18n="workshop.soljankaSharlotka.description">Herzhaft trifft süß: Soljanka und klassische Sharlotka.</p>
@@ -206,11 +452,123 @@
                 <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.soljankaSharlotka.cardTime">14:30 – 17:30 Uhr</span></div>
                 <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.soljankaSharlotka.cardLocation">Lichtenberg</span></div>
               </div>
-              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="common.tags.ausgebucht">Ausgebucht</span>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
             </div>
           </a>
-          <button type="button" class="btn btn-green workshop-card-waitlist waitlist-btn" data-workshop="soljanka-sharlotka" data-workshop-title="Soljanka & Apfelkuchen Sharlotka" data-i18n="common.waitlist.cta">Auf Warteliste</button>
         </article>
+
+        <article class="workshop-card is-sold-out" data-filter-target data-category="lichtenberg">
+          <a class="workshop-card-link" href="/workshops/pilzquiche-zimtschnecken/" aria-label="Rückblick: Pilz-Quiche &amp; Zimtschnecken, 21. März 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/IMG_7554.jpg" alt="Zubereitung von Teig in der Gruppe" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">21</span><span class="date-month" data-i18n="common.months.short.mar">Mär</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochenBacken">Kochen &amp; Backen</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
+              </div>
+              <h3 data-i18n="workshop.pilzquicheZimtschnecken.title">Pilz-Quiche &amp; Zimtschnecken</h3>
+              <p data-i18n="workshop.pilzquicheZimtschnecken.description">Herzhafte Pilzquiche trifft auf duftende Zimtschnecken.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.pilzquicheZimtschnecken.cardTime">12:00 – 15:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.pilzquicheZimtschnecken.cardLocation">Lichtenberg 13055</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card is-sold-out" data-filter-target data-category="lichtenberg">
+          <a class="workshop-card-link" href="/workshops/sekerbura/" aria-label="Rückblick: Aserbaidschanische Şekerbura, 15. März 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/IMG_7525.jpg" alt="Mehrere Personen formen Teigtaschen" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">15</span><span class="date-month" data-i18n="common.months.short.mar">Mär</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.backen">Backen</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
+              </div>
+              <h3 data-i18n="workshop.sekerbura.title">Aserbaidschanische Şekerbura</h3>
+              <p data-i18n="workshop.sekerbura.description">Traditionelles aserbaidschanisches Gebäck mit Nussfüllung.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.sekerbura.cardTime">12:30 – 15:30 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.sekerbura.cardLocation">Lichtenberg</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card is-sold-out" data-filter-target data-category="maggie">
+          <a class="workshop-card-link" href="/workshops/khachapuri-brownies/" aria-label="Rückblick: Khachapuri &amp; Brownies, 7. März 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/IMG_7563.jpg" alt="Frisch zubereitete Teigtaschen" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">07</span><span class="date-month" data-i18n="common.months.short.mar">Mär</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochenBacken">Kochen &amp; Backen</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
+              </div>
+              <h3 data-i18n="workshop.khachapuriBrownies.title">Khachapuri &amp; Brownies</h3>
+              <p data-i18n="workshop.khachapuriBrownies.description">Georgische Käsefladen aus der Pfanne und saftige Brownies.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.khachapuriBrownies.cardTime">12:30 – 15:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.khachapuriBrownies.cardLocation">Maggie, Frankfurter Allee 205</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card is-sold-out" data-filter-target data-category="benn">
+          <a class="workshop-card-link" href="/workshops/pfannkuchen-fuellungen/" aria-label="Rückblick: Pfannkuchen mit Füllungen &amp; Salat, 27. Februar 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/IMG_8737.jpg" alt="Kinder kneten begeistert Teig" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">27</span><span class="date-month" data-i18n="common.months.short.feb">Feb</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochen">Kochen</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
+              </div>
+              <h3 data-i18n="workshop.pfannkuchenFuellungen.title">Pfannkuchen mit Füllungen &amp; Salat</h3>
+              <p data-i18n="workshop.pfannkuchenFuellungen.description">Feine Pfannkuchen mit süßen und herzhaften Füllungen, dazu ein frischer Salat.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.pfannkuchenFuellungen.cardTime">15:00 – 18:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.pfannkuchenFuellungen.cardLocation">BENN, Wartenberger Str. 24</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="workshop-card is-sold-out" data-filter-target data-category="maggie">
+          <a class="workshop-card-link" href="/workshops/pilzkuchen-honigkuchen/" aria-label="Rückblick: Herzhafter Pilzkuchen &amp; Honigkuchen, 15. Februar 2026">
+            <div class="workshop-card-image">
+              <img class="card-illustration" src="/images/workshops/IMG_7512.jpg" alt="Nachbar*innen kochen gemeinsam" loading="lazy">
+              <div class="card-date-badge"><span class="date-day">15</span><span class="date-month" data-i18n="common.months.short.feb">Feb</span></div>
+            </div>
+            <div class="workshop-card-body">
+              <div class="workshop-card-tags">
+                <span class="tag tag-green" data-i18n="common.tags.kochenBacken">Kochen &amp; Backen</span>
+                <span class="tag tag-sold-out" data-i18n="common.tags.rueckblick">Rückblick</span>
+              </div>
+              <h3 data-i18n="workshop.pilzkuchenHonigkuchen.title">Herzhafter Pilzkuchen &amp; Honigkuchen</h3>
+              <p data-i18n="workshop.pilzkuchenHonigkuchen.description">Würziger Pilzkuchen mit frischen Champignons und dazu ein süßer, aromatischer Honigkuchen.</p>
+              <div class="workshop-card-meta">
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> <span data-i18n="workshop.pilzkuchenHonigkuchen.cardTime">12:00 – 15:00 Uhr</span></div>
+                <div class="meta-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> <span data-i18n="workshop.pilzkuchenHonigkuchen.cardLocation">Maggie, Frankfurter Allee 205</span></div>
+              </div>
+              <span class="btn btn-outline workshop-card-cta" aria-hidden="true" data-i18n="workshops.cardCtaPast">Rückblick ansehen</span>
+            </div>
+          </a>
+        </article>
+
+          </div>
+        </section>
 
       </div>
 
@@ -222,13 +580,13 @@
       </div>
 
       <div style="text-align:center;margin-top:var(--spacing-xl);">
-        <p style="color:var(--color-warm-gray);" data-i18n="workshops.newWorkshopsNote">Neue Workshops sind in Planung. <a href="/partner/">Kontaktieren Sie uns</a> für Informationen zu kommenden Terminen.</p>
+        <p style="color:var(--color-warm-gray);" data-i18n="workshops.newWorkshopsNote">Weitere Termine kommen laufend hinzu. <a href="/partner/">Kontaktieren Sie uns</a> bei Fragen zu den Workshops.</p>
       </div>
 
     </div>
   </main>
 
-  <a href="tel:+491637038724" class="phone-fab" aria-label="Jetzt anrufen: +49 163 7038724" data-i18n-aria-label="common.fab.ariaLabel">
+  <a href="tel:+4915781512146" class="phone-fab" aria-label="Jetzt anrufen: +49 157 81512146" data-i18n-aria-label="common.fab.ariaLabel">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
   </a>
 

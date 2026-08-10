@@ -123,7 +123,7 @@ if ($mailSent) {
     http_response_code(500);
     echo json_encode([
         'ok' => false,
-        'error' => 'Die Nachricht konnte leider nicht gesendet werden. Bitte versuchen Sie es telefonisch unter +49 163 7038724.'
+        'error' => 'Die Nachricht konnte leider nicht gesendet werden. Bitte versuchen Sie es telefonisch unter +49 157 81512146.'
     ]);
 }
 

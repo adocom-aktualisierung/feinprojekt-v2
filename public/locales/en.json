@@ -37,7 +37,7 @@
     "aboveHeader": {
       "serviceBar": "Service bar",
       "foerderer": "For Supporters & Partners",
-      "callLabel": "Call: +49 163 7038724",
+      "callLabel": "Call: +49 157 81512146",
       "fontSizeLabel": "Choose font size",
       "fontNormal": "Normal font size",
       "fontLarge": "Large font size",
@@ -62,11 +62,11 @@
     },
     "mobileContact": {
       "heading": "Contact us directly:",
-      "phone": "+49 163 7038724",
+      "phone": "+49 157 81512146",
       "email": "info@mavka-berlin.de"
     },
     "fab": {
-      "ariaLabel": "Call now: +49 163 7038724"
+      "ariaLabel": "Call now: +49 157 81512146"
     },
     "footer": {
       "brandText": "A FEIN pilot project by Mavka.Berlin.Volunteers in the Berlin-Lichtenberg district. Open cooking and baking workshops for the neighborhood.",
@@ -98,13 +98,25 @@
       "ausgebucht": "Fully Booked",
       "bericht": "Report",
       "neuigkeit": "News",
-      "extern": "External"
+      "extern": "External",
+      "rueckblick": "Recap",
+      "plaetzeFrei": "Spots available",
+      "extra": "Extra"
     },
     "months": {
       "short": {
-        "jan": "Jan", "feb": "Feb", "mar": "Mar", "apr": "Apr",
-        "may": "May", "jun": "Jun", "jul": "Jul", "aug": "Aug",
-        "sep": "Sep", "oct": "Oct", "nov": "Nov", "dec": "Dec"
+        "jan": "Jan",
+        "feb": "Feb",
+        "mar": "Mar",
+        "apr": "Apr",
+        "may": "May",
+        "jun": "Jun",
+        "jul": "Jul",
+        "aug": "Aug",
+        "sep": "Sep",
+        "oct": "Oct",
+        "nov": "Nov",
+        "dec": "Dec"
       }
     },
     "form": {
@@ -136,17 +148,17 @@
     "toast": {
       "consentRequired": "Please agree to the privacy policy.",
       "fixFields": "Please correct the highlighted fields.",
-      "sending": "Sending\u2026",
+      "sending": "Sending…",
       "regSuccess": "Registration successful! We will contact you soon.",
       "genericError": "An error occurred.",
-      "networkError": "Connection error. Please call us at +49 163 7038724.",
+      "networkError": "Connection error. Please call us at +49 157 81512146.",
       "newsletterSuccess": "Please check your inbox – we have sent you a confirmation email.",
       "newsletterAlreadySent": "We have already sent you a confirmation email. Please check your inbox (including spam).",
       "newsletterError": "Registration could not be completed.",
       "newsletterNetworkError": "Connection error – please try again later.",
       "contactSuccess": "Message sent successfully!",
       "contactError": "The message could not be sent.",
-      "contactNetworkError": "Connection error – please call us at +49 163 7038724.",
+      "contactNetworkError": "Connection error – please call us at +49 157 81512146.",
       "errorSummary1": "There is 1 error in the form:",
       "errorSummaryN": "There are {count} errors in the form:"
     },
@@ -183,7 +195,7 @@
     "workshops": {
       "label": "Upcoming Workshops",
       "heading": "Our Workshops",
-      "description": "Cooking connects. Here you can see our previous workshops — new dates coming soon!",
+      "description": "Cooking connects. Here you can find our next dates — participation is free.",
       "allWorkshopsCta": "Inquire about all workshops & dates"
     },
     "about": {
@@ -342,7 +354,7 @@
   },
   "workshops": {
     "heading": "Workshops & Dates",
-    "description": "All previous cooking and baking workshops at a glance. New dates coming soon!",
+    "description": "All cooking and baking workshops at a glance — upcoming dates and recaps of past events.",
     "filterLabel": "Filter workshops by location",
     "filterAll": "All",
     "filterEmptyHeading": "No workshops for this location",
@@ -350,13 +362,21 @@
     "filterReset": "Show all workshops",
     "filterStatusOne": "1 workshop found",
     "filterMaggie": "Maggie",
-    "filterBenn": "BENN Lichtenberg",
+    "filterBenn": "BENN",
     "filterLichtenberg": "Lichtenberg",
     "filterStatusMany": "{count} workshops found",
     "nextRoundNotice": "Our workshops are in high demand. New dates for the next round will be announced soon",
     "nextRoundCta": "join the waitlist",
-    "newWorkshopsNote": "New workshops are being planned. Contact us for information about upcoming dates.",
-    "workshopDetailPrefix": "Workshop details:"
+    "newWorkshopsNote": "More dates are added regularly. Contact us if you have questions about the workshops.",
+    "workshopDetailPrefix": "Workshop details:",
+    "upcomingHeading": "Upcoming dates",
+    "pastHeading": "Past workshops",
+    "cardCtaDetails": "Details & registration",
+    "cardCtaPast": "View recap",
+    "timeTba": "Time to be announced",
+    "filterKieztreff": "Kieztreff Lebensnetz",
+    "filterBuergertreff": "Bürgertreff",
+    "filterSeefelder": "NachbarschaftsTreff Seefelder"
   },
   "workshopDetail": {
     "meta": {
@@ -372,7 +392,12 @@
     "commonBring1": "Good mood and curiosity",
     "commonBring2": "An apron (if you have one)",
     "commonBring3": "Your own containers if you want to take leftovers home",
-    "commonNotes": "All ingredients are provided. If you have food allergies or special dietary needs, please contact us in advance. Children are welcome when accompanied."
+    "commonNotes": "All ingredients are provided. If you have food allergies or special dietary needs, please contact us in advance. Children are welcome when accompanied.",
+    "pastAbout": "What was it about?",
+    "pastHint": "This workshop has already taken place. You can find all upcoming dates in our overview.",
+    "pastCta": "See upcoming dates",
+    "registerHint": "Participation is free. Register now — places are limited.",
+    "registerCta": "Register now"
   },
   "workshop": {
     "pilzkuchenHonigkuchen": {
@@ -452,6 +477,201 @@
       "participationValue": "Free · 30 places · Fully booked",
       "whatToExpect1": "In this workshop, we prepare two beloved classics together: a hearty Soljanka — a rich stew with sausage, pickles and peppers — and a Sharlotka, the famous Russian apple cake that uses few ingredients and is wonderfully moist.",
       "whatToExpect2": "A culinary journey through Eastern European cuisine. Whether you know these dishes or are trying them for the first time — here everyone cooks together."
+    },
+    "osterkuchen": {
+      "title": "Easter Cakes",
+      "description": "Festive Easter pastries — baked together, as is tradition in many families and cultures.",
+      "cardTime": "12:00 – 15:00",
+      "cardLocation": "Maggie",
+      "dateValue": "Saturday, April 11, 2026",
+      "timeValue": "12:00 – 15:00",
+      "locationValue": "Maggie, Frankfurter Allee 205",
+      "heroAlt": "Participants baking Easter cakes together (11 April 2026)",
+      "participationValue": "Free · Already took place",
+      "about1": "Shortly before Easter we baked traditional Easter cakes together. With dough, icing and lots of exchange about Easter customs from different countries, the kitchen at Maggie once again became a neighbourhood meeting place."
+    },
+    "warenikiKieztreff": {
+      "title": "Varenyky",
+      "description": "Filled dumplings in the Eastern European style — prepared together at Kieztreff Lebensnetz.",
+      "cardTime": "14:00 – 17:00",
+      "cardLocation": "Kieztreff Lebensnetz",
+      "dateValue": "Tuesday, April 28, 2026",
+      "timeValue": "14:00 – 17:00",
+      "locationValue": "Kieztreff Lebensnetz (albatros gGmbH)",
+      "heroAlt": "Seniors shaping varenyky together at the table (28 April 2026)",
+      "participationValue": "Free · Already took place",
+      "about1": "Varenyky are filled dumplings at home in many Eastern European countries. Together we kneaded dough, prepared fillings and shaped the dumplings by hand — sharing stories and recipes from different kitchens along the way."
+    },
+    "gesundesEssenBenn": {
+      "title": "Healthy Eating",
+      "description": "Balanced nutrition and everyday recipes — a workshop about healthy habits.",
+      "cardTime": "12:00 – 15:00",
+      "cardLocation": "BENN Alt-Hohenschönhausen",
+      "dateValue": "Saturday, May 2, 2026",
+      "timeValue": "12:00 – 15:00",
+      "locationValue": "BENN Alt-Hohenschönhausen",
+      "heroAlt": "Group photo of participants at the healthy eating workshop (2 May 2026)",
+      "participationValue": "Free · Already took place",
+      "about1": "The workshop topic: healthy eating and everyday nutrition. Together we talked about balanced diets, healthy everyday habits, smoothies as a healthy alternative and simple ideas for a nutritious breakfast."
+    },
+    "warenikiBuergertreff": {
+      "title": "Varenyky",
+      "description": "Filled dumplings in the Eastern European style — prepared together at the Bürgertreff community centre.",
+      "cardTime": "12:00 – 15:00",
+      "cardLocation": "Bürgertreff",
+      "dateValue": "Saturday, May 9, 2026",
+      "timeValue": "12:00 – 15:00",
+      "locationValue": "Bürgertreff „Gemeinsam im Kiez leben“",
+      "heroAlt": "Young participants cooking varenyky at the Bürgertreff (9 May 2026)",
+      "participationValue": "Free · Already took place",
+      "about1": "Varenyky were on the menu for the second time — this time at the Bürgertreff community centre. Everyone helped out, from the dough to the finished dumpling, and at the end we all ate together at the big table."
+    },
+    "nicaraguanischeKueche": {
+      "title": "Nicaraguan Cuisine",
+      "description": "Traditional dishes from Nicaragua and cultural exchange about the country's history, culture and food traditions.",
+      "cardTime": "12:00 – 15:00",
+      "cardLocation": "Maggie",
+      "dateValue": "Saturday, May 23, 2026",
+      "timeValue": "12:00 – 15:00",
+      "locationValue": "Maggie, Frankfurter Allee 205",
+      "heroAlt": "Preparing traditional dishes at the Nicaraguan cuisine workshop (23 May 2026)",
+      "participationValue": "Free · Already took place",
+      "about1": "The workshop topic: Nicaraguan cuisine and cultural exchange. Together we learned more about the country's history, culture and migration as well as traditional dishes and eating habits."
+    },
+    "gymnasiumLichtenberg": {
+      "title": "Cooking Workshop with the 12th Gymnasium Lichtenberg",
+      "description": "Students of the 12th Gymnasium Lichtenberg cooked together with children from a shared refugee accommodation.",
+      "cardTime": "11:00 – 16:00",
+      "cardLocation": "Maggie",
+      "dateValue": "Thursday, May 28, 2026",
+      "timeValue": "11:00 – 16:00",
+      "locationValue": "Maggie, Frankfurter Allee 205",
+      "heroAlt": "Group photo from the cooking workshop with the 12th Gymnasium Lichtenberg (28 May 2026)",
+      "participationValue": "Free · Already took place",
+      "about1": "The workshop topic: cooking together, encounter and intercultural exchange. Students of the 12th Gymnasium Lichtenberg cooked together with children from a shared refugee accommodation. The workshop encouraged getting to know each other, exchange and togetherness."
+    },
+    "warenikiSeefelder": {
+      "title": "Varenyky",
+      "description": "Filled dumplings in the Eastern European style — prepared together at the NachbarschaftsTreff an der Seefelder.",
+      "cardTime": "12:00 – 15:00",
+      "cardLocation": "NachbarschaftsTreff Seefelder",
+      "dateValue": "Thursday, June 11, 2026",
+      "timeValue": "12:00 – 15:00",
+      "locationValue": "NachbarschaftsTreff an der Seefelder",
+      "heroAlt": "Neighbours rolling out dough for varenyky together (11 June 2026)",
+      "participationValue": "Free · Already took place",
+      "about1": "Our varenyky recipe travelled again — this time to the NachbarschaftsTreff an der Seefelder. Together with neighbours we filled, shaped and cooked dumplings, making new acquaintances in the neighbourhood."
+    },
+    "gesundesFruehstueck": {
+      "title": "Healthy Eating: Breakfast Ideas",
+      "description": "Balanced nutrition and simple, healthy breakfast recipes for everyday life.",
+      "cardTime": "12:00 – 15:00",
+      "cardLocation": "Maggie",
+      "dateValue": "Saturday, July 11, 2026",
+      "timeValue": "12:00 – 15:00",
+      "locationValue": "Maggie, Frankfurter Allee 205",
+      "heroAlt": "Participants preparing a healthy breakfast together (11 July 2026)",
+      "participationValue": "Free · Already took place",
+      "about1": "The workshop topic: healthy breakfast ideas. The focus was on balanced nutrition and simple, healthy breakfast recipes for everyday life."
+    },
+    "pizzaCouscous": {
+      "title": "Pizza & Couscous Salad",
+      "description": "Homemade pizza and fresh couscous salad — with conversations about personal development and motivation.",
+      "cardTime": "12:00 – 15:00",
+      "cardLocation": "Maggie",
+      "dateValue": "Saturday, August 8, 2026",
+      "timeValue": "12:00 – 15:00",
+      "locationValue": "Maggie, Frankfurter Allee 205",
+      "heroAlt": "Freshly prepared dumplings",
+      "participationValue": "Free · Already took place",
+      "about1": "The workshop topic: personal development and coaching. Together we prepared pizza and couscous salad and, in a relaxed atmosphere, talked about personal development, motivation and further education."
+    },
+    "borschtschLimonade": {
+      "title": "Borscht & Homemade Lemonade",
+      "description": "Together we cook borscht and prepare refreshing homemade lemonade.",
+      "cardTime": "14:00 – 17:00",
+      "cardLocation": "Kieztreff Lebensnetz",
+      "dateValue": "Tuesday, September 8, 2026",
+      "timeValue": "14:00 – 17:00",
+      "locationValue": "Kieztreff Lebensnetz (albatros gGmbH)",
+      "heroAlt": "Cooking together at the table",
+      "participationValue": "Free · 30 places · Spots available",
+      "about1": "The workshop topic: intercultural exchange. Together we cook borscht and talk about the cultures of Azerbaijan and Armenia, migration experiences in Germany and personal insights into peacebuilding work.",
+      "about2": "There will also be refreshing homemade lemonade — and, as always, plenty of room for encounters and conversations at the shared table."
+    },
+    "termin20260912": {
+      "title": "Cooking Workshop on 12 September",
+      "description": "The menu will be announced soon. Topic of the afternoon: civic education.",
+      "cardLocation": "Maggie",
+      "dateValue": "Saturday, September 12, 2026",
+      "timeValue": "To be announced",
+      "locationValue": "Maggie, Frankfurter Allee 205",
+      "heroAlt": "Neighbours cooking together",
+      "participationValue": "Free · 30 places · Spots available",
+      "about1": "The workshop topic: civic education. An introduction to the German electoral system, democratic participation and the importance of elections — while cooking and eating together.",
+      "about2": "We will announce the menu shortly. Feel free to register now — places are limited."
+    },
+    "termin20260927": {
+      "title": "Cooking Workshop on 27 September",
+      "description": "The menu will be announced soon — cooking together at the Bürgertreff community centre.",
+      "cardTime": "12:00 – 15:00",
+      "cardLocation": "Bürgertreff",
+      "dateValue": "Sunday, September 27, 2026",
+      "timeValue": "12:00 – 15:00",
+      "locationValue": "Bürgertreff „Gemeinsam im Kiez leben“",
+      "heroAlt": "Children and adults baking",
+      "participationValue": "Free · 30 places · Spots available",
+      "about1": "We are cooking together again at the Bürgertreff community centre. We will announce the menu shortly.",
+      "about2": "Feel free to register now — places are limited."
+    },
+    "termin20261002": {
+      "title": "Cooking Workshop on 2 October",
+      "description": "The menu will be announced soon — cooking together at Kieztreff Lebensnetz.",
+      "cardTime": "14:00 – 17:00",
+      "cardLocation": "Kieztreff Lebensnetz",
+      "dateValue": "Friday, October 2, 2026",
+      "timeValue": "14:00 – 17:00",
+      "locationValue": "Kieztreff Lebensnetz (albatros gGmbH)",
+      "heroAlt": "Preparing dough in the group",
+      "participationValue": "Free · 30 places · Spots available",
+      "about1": "We are cooking together again at Kieztreff Lebensnetz. We will announce the menu shortly.",
+      "about2": "Feel free to register now — places are limited."
+    },
+    "termin20261010": {
+      "title": "Cooking Workshop on 10 October",
+      "description": "The menu will be announced soon — cooking together at Maggie.",
+      "cardLocation": "Maggie",
+      "dateValue": "Saturday, October 10, 2026",
+      "timeValue": "To be announced",
+      "locationValue": "Maggie, Frankfurter Allee 205",
+      "heroAlt": "Cooking together at the table",
+      "participationValue": "Free · 30 places · Spots available",
+      "about1": "We are cooking together again at the Maggie neighbourhood centre on Frankfurter Allee. We will announce the menu shortly.",
+      "about2": "Feel free to register now — places are limited."
+    },
+    "termin20261107": {
+      "title": "Cooking Workshop on 7 November",
+      "description": "The menu will be announced soon — cooking together at Maggie.",
+      "cardLocation": "Maggie",
+      "dateValue": "Saturday, November 7, 2026",
+      "timeValue": "To be announced",
+      "locationValue": "Maggie, Frankfurter Allee 205",
+      "heroAlt": "Freshly baked specialities",
+      "participationValue": "Free · 30 places · Spots available",
+      "about1": "We are cooking together again at the Maggie neighbourhood centre on Frankfurter Allee. We will announce the menu shortly.",
+      "about2": "Feel free to register now — places are limited."
+    },
+    "termin20261119": {
+      "title": "Cooking Workshop on 19 November",
+      "description": "The menu will be announced soon — cooking together at the NachbarschaftsTreff an der Seefelder.",
+      "cardLocation": "NachbarschaftsTreff Seefelder",
+      "dateValue": "Thursday, November 19, 2026",
+      "timeValue": "To be announced",
+      "locationValue": "NachbarschaftsTreff an der Seefelder",
+      "heroAlt": "Children enthusiastically kneading dough",
+      "participationValue": "Free · 30 places · Spots available",
+      "about1": "We are cooking together again at the NachbarschaftsTreff an der Seefelder. We will announce the menu shortly.",
+      "about2": "Feel free to register now — places are limited."
     }
   },
   "aktuelles": {
@@ -481,6 +701,22 @@
     "card5": {
       "title": "Food Action Week",
       "text": "The Federal Ministry invites to the nationwide action week — we're joining with an open cooking evening."
+    },
+    "filterExtra": "Extra",
+    "extra1": {
+      "title": "Clean Up in Neukölln",
+      "text": "On 30 May we cleaned up litter in Neukölln together — a sign for cleanliness, sustainability and solidarity.",
+      "alt": "Group photo of volunteers in safety vests at the clean-up in Neukölln"
+    },
+    "extra2": {
+      "title": "Award for Our Commitment",
+      "text": "On 16 June, the district mayor of Lichtenberg awarded Mavka a medal — recognising our commitment to community and intercultural cohesion.",
+      "alt": "The Mavka team with flowers at the award ceremony with the district mayor"
+    },
+    "extra3": {
+      "title": "Cooking Borscht at the Refugee Shelter",
+      "text": "On 8 July we cooked borscht together with residents of the shared accommodation on Landsberger Allee, talked and spent time together.",
+      "alt": "Cooking borscht together at the shared accommodation"
     }
   },
   "partner": {

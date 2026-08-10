@@ -150,7 +150,7 @@ if ($mailSent) {
     $confirmBody .= "Mavka.Berlin.Volunteers e.V. (i. Gr.)\n\n";
     $confirmBody .= "───────────────────────────────────\n";
     $confirmBody .= "Bei Fragen erreichen Sie uns unter:\n";
-    $confirmBody .= "Telefon: +49 163 7038724\n";
+    $confirmBody .= "Telefon: +49 157 81512146\n";
     $confirmBody .= "E-Mail:  info@mavka-berlin.de\n";
 
     $confirmSent = sendMail($email, $confirmSubject, $confirmBody);
@@ -172,7 +172,7 @@ if ($mailSent) {
     http_response_code(500);
     echo json_encode([
         'ok' => false,
-        'error' => 'Die Anmeldung konnte leider nicht versendet werden. Bitte versuchen Sie es telefonisch unter +49 163 7038724.'
+        'error' => 'Die Anmeldung konnte leider nicht versendet werden. Bitte versuchen Sie es telefonisch unter +49 157 81512146.'
     ]);
 }
 

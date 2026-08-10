@@ -115,7 +115,7 @@ if ($mailSent) {
     $confirmBody .= "Ihr Team von Gemeinsam Kochen – Gemeinsam Wachsen\n";
     $confirmBody .= "Mavka.Berlin.Volunteers e.V. (i. Gr.)\n\n";
     $confirmBody .= "───────────────────────────────────\n";
-    $confirmBody .= "Kontakt: +49 163 7038724 · info@mavka-berlin.de\n";
+    $confirmBody .= "Kontakt: +49 157 81512146 · info@mavka-berlin.de\n";
     $confirmSent = wlSendMail($email, $confirmSubject, $confirmBody);
 }
 
@@ -130,7 +130,7 @@ if ($mailSent) {
     http_response_code(500);
     echo json_encode([
         'ok' => false,
-        'error' => 'Ihre Anfrage konnte leider nicht übermittelt werden. Bitte versuchen Sie es telefonisch unter +49 163 7038724.',
+        'error' => 'Ihre Anfrage konnte leider nicht übermittelt werden. Bitte versuchen Sie es telefonisch unter +49 157 81512146.',
     ]);
 }
 

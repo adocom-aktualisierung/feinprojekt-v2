@@ -273,6 +273,15 @@
   flex: 1;
 }
 
+.news-card-photo {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  display: block;
+  margin-bottom: var(--spacing-xs);
+}
+
 /* Timeline */
 .timeline {
   position: relative;
